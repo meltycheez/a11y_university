@@ -113,3 +113,12 @@
 @media (max-width: 40rem) { .footer-brand { grid-column: auto; } }
 
 .site { min-height: 100vh; display: flex; flex-direction: column; }
+
+/* Hover-only mega menu (scenario nav-megamenu-hover-001). Panels exist in the DOM but only show on :hover. */
+.mega-nav--hover .mega-trigger { text-decoration: none; }
+.mega-nav--hover .mega-panel { display: none; }
+.mega-nav--hover .mega-item:hover > .mega-panel { display: block; }
+.mega-nav--hover .mega-item:hover > .mega-trigger { border-bottom-color: var(--brand-redwood); color: var(--brand-redwood); }
+@media (max-width: 60rem) {
+  .mega-nav--hover .mega-item:hover > .mega-panel { display: none; }
+}

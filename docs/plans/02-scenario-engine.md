@@ -144,3 +144,13 @@ return fixed ? <DisclosureMegaMenu items={items}/> : <HoverMegaMenu items={items
 - Client-side navigation keeps toggle state. A hard reload returns everything to OFF.
 - Counts update live and are correct per page.
 - Neither axe nor WAVE reports issues on the control itself.
+
+## Implementation notes (2026-09-24)
+
+- Engine: `src/a11y/state.ts`, `rules.ts`, `registry/` (`global.ts`, `home.ts`, `index.ts`), `useScenario.ts`, `DocumentScenarios.tsx` (`HtmlLang`, `ScenarioTitle`), `A11yControl.tsx`.
+- Ten seed scenarios: 4 errors, 3 alerts, 3 manual, covering all four mechanisms. Eight are on the new `pages/HomePage.tsx`; `global-html-lang-001` and `nav-megamenu-hover-001` are on every university page.
+- The mega menu defaults to hover-only. The disclosure version (with Esc and Left/Right arrows) appears when Fix Manual is ON.
+- Tests: `npm test` runs Vitest over `src/**/*.test.tsx` (6 tests in `src/a11y/engine.test.tsx`). The React Router Vite plugin is disabled under Vitest.
+- Verified in Chromium against `build/client`: all 10 defects flip and restore; state survives client navigation; the lab keeps `lang="en"`; reload resets; Alt+Shift+A focuses the control; no hydration warnings.
+- Not yet verified: axe/WAVE on the control itself. `@axe-core/playwright` arrives with plan 09.
+- Decisions: ADR-004 to ADR-010 in [DECISIONS.md](../DECISIONS.md).

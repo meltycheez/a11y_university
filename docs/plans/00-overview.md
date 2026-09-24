@@ -4,18 +4,20 @@ Source requirements: [`docs/PRD.md`](../PRD.md)
 
 This folder breaks the PRD into ten phased plans. Each plan lists its goal, the files it creates, ordered tasks, and acceptance criteria. Work through them in order; the dependency graph below shows which phases can overlap.
 
-| # | Plan | Summary |
-|---|------|---------|
-| 01 | [Foundation](01-foundation.md) | Scaffold, static prerendered routing, layouts, section themes, navigation shell |
-| 02 | [Accessibility Scenario Engine](02-scenario-engine.md) | Toggle state, scenario registry, `useScenario` primitives, floating control, counts |
-| 03 | [Content & Data](03-content-data.md) | Brand, seeded deterministic datasets, copy, local search index |
-| 04 | [Image Assets via Google Flow](04-image-assets-flow.md) | Asset manifest, Nano Banana generation in Google Flow, optimization pipeline |
-| 05 | [Site Sections](05-site-sections.md) | Every public route, templates, and the route inventory |
-| 06 | [Interactive Features](06-interactive-features.md) | Course search, registration, portal, forms, application, map, carousel |
-| 07 | [Scenario Coverage](07-scenario-coverage.md) | Full defect catalog, per-page distribution, legacy "terrible" pages |
-| 08 | [Accessibility Lab](08-accessibility-lab.md) | `/accessibility-lab` and its seven controlled test pages |
-| 09 | [Testing](09-testing.md) | Unit, component, and Playwright + axe tests that prove the toggles work |
-| 10 | [Docs & Deployment](10-docs-deploy.md) | README, ACCESSIBILITY_TESTING.md, SITE_MAP.md, static hosting |
+| # | Plan | Summary | Status |
+|---|------|---------|--------|
+| 01 | [Foundation](01-foundation.md) | Scaffold, static prerendered routing, layouts, section themes, navigation shell | ✅ Done (2026-09-24) |
+| 02 | [Accessibility Scenario Engine](02-scenario-engine.md) | Toggle state, scenario registry, `useScenario` primitives, floating control, counts | ✅ Done (2026-09-24) |
+| 03 | [Content & Data](03-content-data.md) | Brand, seeded deterministic datasets, copy, local search index | Not started |
+| 04 | [Image Assets via Google Flow](04-image-assets-flow.md) | Asset manifest, Nano Banana generation in Google Flow, optimization pipeline | 🟡 Partial: optimizer + 11 trial images (pulled into 01) |
+| 05 | [Site Sections](05-site-sections.md) | Every public route, templates, and the route inventory | Not started |
+| 06 | [Interactive Features](06-interactive-features.md) | Course search, registration, portal, forms, application, map, carousel | Not started |
+| 07 | [Scenario Coverage](07-scenario-coverage.md) | Full defect catalog, per-page distribution, legacy "terrible" pages | Not started |
+| 08 | [Accessibility Lab](08-accessibility-lab.md) | `/accessibility-lab` and its seven controlled test pages | Not started |
+| 09 | [Testing](09-testing.md) | Unit, component, and Playwright + axe tests that prove the toggles work | Not started |
+| 10 | [Docs & Deployment](10-docs-deploy.md) | README, ACCESSIBILITY_TESTING.md, SITE_MAP.md, static hosting | Not started |
+
+Decisions made while building are logged in the [ADR register](../DECISIONS.md).
 
 ## Key decisions
 

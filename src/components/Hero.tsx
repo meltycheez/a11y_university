@@ -6,16 +6,18 @@ interface HeroProps {
   lede?: string;
   image?: string;
   imageAlt?: string;
+  imageScenario?: string;
+  imageFixedAlt?: string;
   children?: React.ReactNode;
   variant?: "overlay" | "split" | "banner";
 }
 
-export function Hero({ title, kicker, lede, image, imageAlt = "", children, variant = "overlay" }: HeroProps) {
+export function Hero({ title, kicker, lede, image, imageAlt, imageScenario, imageFixedAlt, children, variant = "overlay" }: HeroProps) {
   return (
     <section className={`hero hero--${variant}${image ? " hero--has-image" : ""}`} aria-labelledby="page-title">
       {image && (
         <div className="hero-media">
-          <Img image={image} alt={imageAlt} loading="eager" fetchPriority="high" />
+          <Img image={image} alt={imageAlt ?? (imageScenario ? undefined : "")} scenario={imageScenario} fixedAlt={imageFixedAlt} loading="eager" fetchPriority="high" />
         </div>
       )}
       <div className="hero-body">

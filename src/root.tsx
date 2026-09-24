@@ -1,6 +1,8 @@
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import type { Route } from "./+types/root";
 import { A11yControl } from "./a11y/A11yControl";
+import { HtmlLang } from "./a11y/DocumentScenarios";
+import { usePathname } from "./routes/usePathname";
 
 import "@fontsource-variable/source-sans-3";
 import "@fontsource-variable/source-serif-4";
@@ -11,9 +13,11 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  // University pages ship without `lang` (scenario global-html-lang-001, handled by HtmlLang).
+  // The Accessibility Lab is infrastructure and always declares it.
+  const lab = usePathname().startsWith("/accessibility-lab");
   return (
-    // Intentionally no `lang` attribute: it is a registered document-level scenario (plan 02).
-    <html>
+    <html lang={lab ? "en" : undefined}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,6 +26,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        {!lab && <HtmlLang />}
         {children}
         <A11yControl />
         <ScrollRestoration />

@@ -1,1 +1,2 @@
-/* CSS fixes applied under .a11y-fix-alerts on body (plan 02). */
+/* CSS fixes applied under .a11y-fix-alerts on body. */
+.a11y-fix-alerts .home-intro { text-align: start; } /* home-intro-justified-001 */

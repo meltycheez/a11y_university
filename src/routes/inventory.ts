@@ -53,7 +53,7 @@ function pattern<T extends { slug: string }>(
 }
 
 // University
-page("/", "Redwood State University", "home", "H");
+page("/", "Redwood State University", "home", "H", { module: "pages/HomePage.tsx" });
 page("/about", "About Redwood State", "about", "L", { summary: "A public research university rooted in Northern California's redwood coast since 1911." });
 page("/about/leadership", "University Leadership", "about", "M", { parent: "/about" });
 page("/about/mission", "Mission, Vision & Values", "about", "L", { parent: "/about" });

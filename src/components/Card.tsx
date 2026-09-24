@@ -7,15 +7,17 @@ interface CardProps {
   text?: string;
   image?: string;
   imageAlt?: string;
+  imageScenario?: string;
+  imageFixedAlt?: string;
   meta?: string;
   headingLevel?: 2 | 3 | 4;
 }
 
-export function Card({ title, href, text, image, imageAlt = "", meta, headingLevel = 3 }: CardProps) {
+export function Card({ title, href, text, image, imageAlt, imageScenario, imageFixedAlt, meta, headingLevel = 3 }: CardProps) {
   const H = `h${headingLevel}` as const;
   return (
     <article className="card">
-      {image && <Img image={image} alt={imageAlt} className="card-image" sizes="(min-width: 60rem) 30vw, 100vw" aspect="4 / 3" />}
+      {image && <Img image={image} alt={imageAlt ?? (imageScenario ? undefined : "")} scenario={imageScenario} fixedAlt={imageFixedAlt} className="card-image" sizes="(min-width: 60rem) 30vw, 100vw" aspect="4 / 3" />}
       <div className="card-body">
         {meta && <p className="card-meta">{meta}</p>}
         <H className="card-title">
