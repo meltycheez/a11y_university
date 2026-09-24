@@ -1,46 +1,57 @@
 {
   "admissions-hero-tour": {
     "width": 1376,
-    "height": 768
+    "height": 768,
+    "alt": "A student tour guide walks backwards leading prospective students and parents past the welcome center"
   },
   "athletics-soccer-action": {
     "width": 1376,
-    "height": 768
+    "height": 768,
+    "alt": "A women's soccer player in maroon strikes the ball under stadium lights"
   },
   "campus-dining-hall": {
     "width": 1200,
-    "height": 896
+    "height": 896,
+    "alt": "Students carry trays past food stations in the bright dining commons"
   },
   "campus-library-interior": {
     "width": 1200,
-    "height": 896
+    "height": 896,
+    "alt": "Students study at long wooden tables in the timber-beamed library reading room"
   },
   "college-engineering": {
     "width": 1376,
-    "height": 768
+    "height": 768,
+    "alt": "Engineering students adjust a robotic arm in the Sequoia robotics lab"
   },
   "college-health-sciences": {
     "width": 1376,
-    "height": 768
+    "height": 768,
+    "alt": "Nursing students practice on a patient simulator while an instructor observes"
   },
   "faculty-anjali-raman": {
     "width": 1024,
-    "height": 1024
+    "height": 1024,
+    "alt": "Portrait of Anjali Raman"
   },
   "faculty-harold-mensah": {
     "width": 1024,
-    "height": 1024
+    "height": 1024,
+    "alt": "Portrait of Harold Mensah"
   },
   "flyer-fall-festival": {
     "width": 896,
-    "height": 1200
+    "height": 1200,
+    "alt": "Redwood State Fall Fest. Friday, October 16, 4 to 9 PM, Canopy Green. Live music, food trucks, pumpkin carving."
   },
   "home-hero-quad": {
     "width": 1376,
-    "height": 768
+    "height": 768,
+    "alt": "Students cross the central quad beneath redwood trees on an autumn afternoon"
   },
   "news-tide-pool-study-coastal-warming": {
     "width": 1376,
-    "height": 768
+    "height": 768,
+    "alt": "A biology professor and two graduate students collect water samples in a rocky tide pool"
   }
 }

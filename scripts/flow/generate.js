@@ -24,7 +24,7 @@ async (page) => {
     const before = await topSrc();
     const box = page.locator('[contenteditable="true"]').last();
     await box.click();
-    await page.keyboard.type(`Generate one ${item.aspect} image: ${item.prompt}${item.text ? '' : STYLE}`);
+    await page.keyboard.type(`Generate one ${item.aspect} image: ${item.prompt}${item.text || item.plain ? '' : STYLE}`);
     await page.getByRole('button', { name: 'Start generation' }).click();
 
     let src = null;

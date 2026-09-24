@@ -24,7 +24,6 @@ export default function HomePage() {
         lede="A public research university on California's redwood coast, where 18,000 students learn, discover, and grow."
         image="home-hero-quad"
         imageScenario="home-hero-img-alt-001"
-        imageFixedAlt="Students walking and talking on the main quad beneath tall redwood trees"
       >
         <ButtonLink to="/admissions">Apply to Redwood State</ButtonLink>
         <ButtonLink to="/admissions/visit" variant="secondary">Plan a visit</ButtonLink>

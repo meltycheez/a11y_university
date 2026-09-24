@@ -13,16 +13,16 @@ type ImgProps = Omit<React.ImgHTMLAttributes<HTMLImageElement>, "src" | "srcSet"
   aspect?: string;
   /** Alt-text scenario id. While defective, `alt` is used as-is (undefined = no alt attribute). */
   scenario?: string;
-  /** Alt text used once the scenario is fixed. */
+  /** Alt text used once the scenario is fixed; defaults to the manifest alt (src/data/images.json). */
   fixedAlt?: string;
 };
 
 /** Responsive image from public/images, or a tinted placeholder until the asset exists. */
 export function Img({ image, sizes: sizesAttr = "100vw", aspect = "16 / 9", className, alt: defectAlt, scenario, fixedAlt, ...rest }: ImgProps) {
   const fixed = useScenario(scenario);
-  const alt = scenario && fixed ? fixedAlt : defectAlt;
+  const dims = (sizes as Record<string, { width: number; height: number; alt: string }>)[image];
+  const alt = scenario && fixed ? fixedAlt ?? dims?.alt : defectAlt;
   const marker = scenario ? { "data-a11y-scenario": scenario } : {};
-  const dims = (sizes as Record<string, { width: number; height: number }>)[image];
   if (!dims) {
     return <span className={["img-placeholder", className].filter(Boolean).join(" ")} style={{ aspectRatio: aspect }} role={alt ? "img" : undefined} aria-label={alt || undefined} {...marker} />;
   }

@@ -62,7 +62,7 @@ page("/about/accreditation", "Accreditation", "about", "M", { parent: "/about" }
 page("/about/strategic-plan", "Strategic Plan 2030: Deep Roots, Wide Branches", "about", "M", { parent: "/about" });
 page("/campus-map", "Campus Map", "about", "T");
 page("/contact", "Contact Us", "about", "M");
-page("/search", "Search", "utility", "M");
+page("/search", "Search", "utility", "M", { module: "pages/SearchPage.tsx" });
 
 // Admissions & financial aid
 page("/admissions", "Admissions", "admissions", "M", { summary: "Find your place among the redwoods." });

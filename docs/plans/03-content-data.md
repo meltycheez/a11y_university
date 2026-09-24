@@ -84,3 +84,14 @@ Before content is written, check the name, city, and domain against real institu
 - Nothing in the UI shows Lorem Ipsum, and every page has believable copy.
 - Searching "computer science" returns the six result groups the PRD lists.
 - Two builds produce identical HTML for the same route.
+
+## Implementation notes (2026-09-24)
+
+- Built by three parallel agents with split file ownership after the shared slugs were fixed in `catalog.ts` (ADR-011).
+- Hand-written copy (`src/data/content/`): 91 static pages (`pages*.ts`), 6 colleges / 10 departments / 12 programs (`academics.ts`), 15 news articles of 540–694 words (`news.ts`), 10 events (`events.ts`), 30 faculty profiles and 6 leadership bios (`people.ts`).
+- Generated (`src/data/generated/`, `npm run gen:data`, byte-identical on rerun): 304 courses / 662 sections, 149-person directory, 40 orgs, 21 jobs, 41 databases, athletics for 6 teams plus 8 athlete profiles, and the portal student.
+- 16 fake PDFs in `public/documents/` (`npm run gen:docs`). Every `/documents/*.pdf` link in the content resolves.
+- Search: `public/search-index.json` (about 505 entries) is rebuilt by `npm run build`; "computer science" returns department, program, faculty, course, news and page groups (`src/search/search.test.ts`).
+- Verified: two consecutive builds produce identical `build/client`; no Lorem Ipsum anywhere.
+- Thin pages (summary plus one section, real content comes with their interactive feature): portal, news/events/library search, athletics schedule/scores, apply, request-info, donate, directory, jobs.
+- Open brand question: see the plan 03 summary in chat (Cal Poly Humboldt resemblance, ZIP 95561, real place names like Trinidad).

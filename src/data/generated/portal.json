@@ -1,0 +1,903 @@
+{
+  "id": "R00482913",
+  "name": "Jordan Alvarez",
+  "preferredName": "Jordan",
+  "email": "jordan.alvarez@student.redwoodstate.example.edu",
+  "phone": "(707) 555-0187",
+  "address": {
+    "street": "Madrone Hall, Room 312",
+    "city": "Arcadia Falls",
+    "state": "CA",
+    "zip": "95561"
+  },
+  "program": "bs-computer-science",
+  "major": "Computer Science, B.S.",
+  "catalogYear": "2024–2025",
+  "classStanding": "Junior",
+  "expectedGraduation": "Spring 2028",
+  "advisor": "Marcus Bell, Ph.D.",
+  "advisorSlug": "marcus-bell",
+  "currentTerm": "Fall 2026",
+  "schedule": [
+    {
+      "courseId": "cs-313",
+      "code": "CS 313",
+      "title": "Software Engineering",
+      "credits": 3,
+      "section": {
+        "crn": "40626",
+        "section": "01",
+        "term": "Fall 2026",
+        "instructor": "Sofia Kowalski",
+        "instructorSlug": "sofia-kowalski",
+        "mode": "In person",
+        "days": "TR",
+        "start": "09:30",
+        "end": "10:45",
+        "room": "SEH 121",
+        "building": "Sequoia Engineering Hall",
+        "capacity": 35,
+        "enrolled": 35,
+        "waitlist": 10
+      }
+    },
+    {
+      "courseId": "cs-315",
+      "code": "CS 315",
+      "title": "Theory of Computation",
+      "credits": 3,
+      "section": {
+        "crn": "40658",
+        "section": "01",
+        "term": "Fall 2026",
+        "instructor": "Farah Anand",
+        "instructorSlug": "farah-anand",
+        "mode": "In person",
+        "days": "W",
+        "start": "18:00",
+        "end": "20:45",
+        "room": "SEH 210",
+        "building": "Sequoia Engineering Hall",
+        "capacity": 20,
+        "enrolled": 16,
+        "waitlist": 0
+      }
+    },
+    {
+      "courseId": "cs-401",
+      "code": "CS 401",
+      "title": "Machine Learning",
+      "credits": 3,
+      "section": {
+        "crn": "40793",
+        "section": "01",
+        "term": "Fall 2026",
+        "instructor": "Sofia Kowalski",
+        "instructorSlug": "sofia-kowalski",
+        "mode": "In person",
+        "days": "TR",
+        "start": "18:00",
+        "end": "19:15",
+        "room": "SEH 306",
+        "building": "Sequoia Engineering Hall",
+        "capacity": 24,
+        "enrolled": 24,
+        "waitlist": 0
+      }
+    },
+    {
+      "courseId": "envs-101",
+      "code": "ENVS 101",
+      "title": "Introduction to Environmental Studies",
+      "credits": 3,
+      "section": {
+        "crn": "49599",
+        "section": "01",
+        "term": "Fall 2026",
+        "instructor": "Chiara Chen",
+        "instructorSlug": "chiara-chen",
+        "mode": "In person",
+        "days": "TR",
+        "start": "15:30",
+        "end": "16:45",
+        "room": "MAD 300",
+        "building": "Madrone Hall",
+        "capacity": 40,
+        "enrolled": 32,
+        "waitlist": 0
+      }
+    }
+  ],
+  "grades": [
+    {
+      "term": "Fall 2024",
+      "courses": [
+        {
+          "courseId": "cs-101",
+          "code": "CS 101",
+          "title": "Introduction to Programming",
+          "credits": 4,
+          "grade": "B-"
+        },
+        {
+          "courseId": "cs-105",
+          "code": "CS 105",
+          "title": "Data Structures",
+          "credits": 4,
+          "grade": "B+"
+        },
+        {
+          "courseId": "math-101",
+          "code": "MATH 101",
+          "title": "Calculus I",
+          "credits": 4,
+          "grade": "C+"
+        },
+        {
+          "courseId": "engl-101",
+          "code": "ENGL 101",
+          "title": "College Composition",
+          "credits": 3,
+          "grade": "B-"
+        },
+        {
+          "courseId": "hist-101",
+          "code": "HIST 101",
+          "title": "World History to 1500",
+          "credits": 3,
+          "grade": "A"
+        }
+      ],
+      "termGpa": 2.96
+    },
+    {
+      "term": "Spring 2025",
+      "courses": [
+        {
+          "courseId": "cs-108",
+          "code": "CS 108",
+          "title": "Discrete Structures for Computing",
+          "credits": 3,
+          "grade": "B+"
+        },
+        {
+          "courseId": "math-105",
+          "code": "MATH 105",
+          "title": "Calculus II",
+          "credits": 4,
+          "grade": "B+"
+        },
+        {
+          "courseId": "phys-101",
+          "code": "PHYS 101",
+          "title": "General Physics I",
+          "credits": 4,
+          "grade": "A-"
+        },
+        {
+          "courseId": "psyc-101",
+          "code": "PSYC 101",
+          "title": "Introduction to Psychology",
+          "credits": 3,
+          "grade": "A"
+        }
+      ],
+      "termGpa": 3.56
+    },
+    {
+      "term": "Fall 2025",
+      "courses": [
+        {
+          "courseId": "cs-201",
+          "code": "CS 201",
+          "title": "Computer Organization",
+          "credits": 3,
+          "grade": "A"
+        },
+        {
+          "courseId": "cs-209",
+          "code": "CS 209",
+          "title": "Object-Oriented Design",
+          "credits": 3,
+          "grade": "A"
+        },
+        {
+          "courseId": "math-201",
+          "code": "MATH 201",
+          "title": "Linear Algebra",
+          "credits": 3,
+          "grade": "C+"
+        },
+        {
+          "courseId": "art-101",
+          "code": "ART 101",
+          "title": "Drawing I",
+          "credits": 3,
+          "grade": "B+"
+        }
+      ],
+      "termGpa": 3.4
+    },
+    {
+      "term": "Spring 2026",
+      "courses": [
+        {
+          "courseId": "cs-301",
+          "code": "CS 301",
+          "title": "Algorithms",
+          "credits": 3,
+          "grade": "C+"
+        },
+        {
+          "courseId": "cs-304",
+          "code": "CS 304",
+          "title": "Operating Systems",
+          "credits": 3,
+          "grade": "A-"
+        },
+        {
+          "courseId": "mus-101",
+          "code": "MUS 101",
+          "title": "Music Appreciation",
+          "credits": 3,
+          "grade": "B+"
+        },
+        {
+          "courseId": "geog-101",
+          "code": "GEOG 101",
+          "title": "Physical Geography",
+          "credits": 3,
+          "grade": "B-"
+        }
+      ],
+      "termGpa": 3
+    }
+  ],
+  "cumulativeGpa": 3.21,
+  "creditsEarned": 56,
+  "degreeAudit": {
+    "program": "bs-computer-science",
+    "totalRequired": 120,
+    "completed": 56,
+    "inProgress": 12,
+    "groups": [
+      {
+        "name": "Lower-Division Core",
+        "requiredCredits": 17,
+        "courses": [
+          {
+            "courseId": "cs-101",
+            "code": "CS 101",
+            "title": "Introduction to Programming",
+            "credits": 4,
+            "status": "complete",
+            "grade": "B-",
+            "term": "Fall 2024"
+          },
+          {
+            "courseId": "cs-105",
+            "code": "CS 105",
+            "title": "Data Structures",
+            "credits": 4,
+            "status": "complete",
+            "grade": "B+",
+            "term": "Fall 2024"
+          },
+          {
+            "courseId": "cs-108",
+            "code": "CS 108",
+            "title": "Discrete Structures for Computing",
+            "credits": 3,
+            "status": "complete",
+            "grade": "B+",
+            "term": "Spring 2025"
+          },
+          {
+            "courseId": "cs-201",
+            "code": "CS 201",
+            "title": "Computer Organization",
+            "credits": 3,
+            "status": "complete",
+            "grade": "A",
+            "term": "Fall 2025"
+          },
+          {
+            "courseId": "cs-209",
+            "code": "CS 209",
+            "title": "Object-Oriented Design",
+            "credits": 3,
+            "status": "complete",
+            "grade": "A",
+            "term": "Fall 2025"
+          }
+        ]
+      },
+      {
+        "name": "Mathematics",
+        "requiredCredits": 11,
+        "courses": [
+          {
+            "courseId": "math-101",
+            "code": "MATH 101",
+            "title": "Calculus I",
+            "credits": 4,
+            "status": "complete",
+            "grade": "C+",
+            "term": "Fall 2024"
+          },
+          {
+            "courseId": "math-105",
+            "code": "MATH 105",
+            "title": "Calculus II",
+            "credits": 4,
+            "status": "complete",
+            "grade": "B+",
+            "term": "Spring 2025"
+          },
+          {
+            "courseId": "math-201",
+            "code": "MATH 201",
+            "title": "Linear Algebra",
+            "credits": 3,
+            "status": "complete",
+            "grade": "C+",
+            "term": "Fall 2025"
+          }
+        ]
+      },
+      {
+        "name": "Upper-Division Core",
+        "requiredCredits": 12,
+        "courses": [
+          {
+            "courseId": "cs-301",
+            "code": "CS 301",
+            "title": "Algorithms",
+            "credits": 3,
+            "status": "complete",
+            "grade": "C+",
+            "term": "Spring 2026"
+          },
+          {
+            "courseId": "cs-304",
+            "code": "CS 304",
+            "title": "Operating Systems",
+            "credits": 3,
+            "status": "complete",
+            "grade": "A-",
+            "term": "Spring 2026"
+          },
+          {
+            "courseId": "cs-313",
+            "code": "CS 313",
+            "title": "Software Engineering",
+            "credits": 3,
+            "status": "in-progress",
+            "term": "Fall 2026"
+          },
+          {
+            "courseId": "cs-315",
+            "code": "CS 315",
+            "title": "Theory of Computation",
+            "credits": 3,
+            "status": "in-progress",
+            "term": "Fall 2026"
+          }
+        ]
+      },
+      {
+        "name": "Upper-Division Electives (choose 3)",
+        "requiredCredits": 9,
+        "courses": [
+          {
+            "courseId": "cs-401",
+            "code": "CS 401",
+            "title": "Machine Learning",
+            "credits": 3,
+            "status": "in-progress",
+            "term": "Fall 2026"
+          },
+          {
+            "courseId": "cs-409",
+            "code": "CS 409",
+            "title": "Computer Security",
+            "credits": 3,
+            "status": "not-started"
+          },
+          {
+            "courseId": "cs-416",
+            "code": "CS 416",
+            "title": "Distributed Systems",
+            "credits": 3,
+            "status": "not-started"
+          },
+          {
+            "courseId": "cs-425",
+            "code": "CS 425",
+            "title": "Compilers",
+            "credits": 3,
+            "status": "not-started"
+          },
+          {
+            "courseId": "cs-427",
+            "code": "CS 427",
+            "title": "Computer Graphics",
+            "credits": 3,
+            "status": "not-started"
+          },
+          {
+            "courseId": "cs-435",
+            "code": "CS 435",
+            "title": "Mobile Application Development",
+            "credits": 3,
+            "status": "not-started"
+          },
+          {
+            "courseId": "cs-438",
+            "code": "CS 438",
+            "title": "Senior Project",
+            "credits": 4,
+            "status": "not-started"
+          },
+          {
+            "courseId": "cs-445",
+            "code": "CS 445",
+            "title": "Natural Language Processing",
+            "credits": 3,
+            "status": "not-started"
+          }
+        ]
+      },
+      {
+        "name": "Capstone",
+        "requiredCredits": 3,
+        "courses": [
+          {
+            "courseId": "cs-452",
+            "code": "CS 452",
+            "title": "Quantum Computing Concepts",
+            "credits": 3,
+            "status": "not-started"
+          }
+        ]
+      },
+      {
+        "name": "General Education",
+        "requiredCredits": 24,
+        "courses": [
+          {
+            "courseId": "engl-101",
+            "code": "ENGL 101",
+            "title": "College Composition",
+            "credits": 3,
+            "status": "complete",
+            "grade": "B-",
+            "term": "Fall 2024"
+          },
+          {
+            "courseId": "hist-101",
+            "code": "HIST 101",
+            "title": "World History to 1500",
+            "credits": 3,
+            "status": "complete",
+            "grade": "A",
+            "term": "Fall 2024"
+          },
+          {
+            "courseId": "psyc-101",
+            "code": "PSYC 101",
+            "title": "Introduction to Psychology",
+            "credits": 3,
+            "status": "complete",
+            "grade": "A",
+            "term": "Spring 2025"
+          },
+          {
+            "courseId": "phys-101",
+            "code": "PHYS 101",
+            "title": "General Physics I",
+            "credits": 4,
+            "status": "complete",
+            "grade": "A-",
+            "term": "Spring 2025"
+          },
+          {
+            "courseId": "art-101",
+            "code": "ART 101",
+            "title": "Drawing I",
+            "credits": 3,
+            "status": "complete",
+            "grade": "B+",
+            "term": "Fall 2025"
+          },
+          {
+            "courseId": "mus-101",
+            "code": "MUS 101",
+            "title": "Music Appreciation",
+            "credits": 3,
+            "status": "complete",
+            "grade": "B+",
+            "term": "Spring 2026"
+          },
+          {
+            "courseId": "envs-101",
+            "code": "ENVS 101",
+            "title": "Introduction to Environmental Studies",
+            "credits": 3,
+            "status": "in-progress",
+            "term": "Fall 2026"
+          }
+        ]
+      }
+    ]
+  },
+  "account": {
+    "ledger": [
+      {
+        "date": "2026-01-05",
+        "term": "Spring 2026",
+        "description": "Balance forward from Fall 2025",
+        "type": "charge",
+        "amount": 0,
+        "balance": 0
+      },
+      {
+        "date": "2026-01-08",
+        "term": "Spring 2026",
+        "description": "Tuition – Undergraduate Resident",
+        "type": "charge",
+        "amount": 3871,
+        "balance": 3871
+      },
+      {
+        "date": "2026-01-08",
+        "term": "Spring 2026",
+        "description": "Campus Fees (Student Union, Health, Instructionally Related Activities)",
+        "type": "charge",
+        "amount": 1016,
+        "balance": 4887
+      },
+      {
+        "date": "2026-01-08",
+        "term": "Spring 2026",
+        "description": "Housing – Madrone Hall, Double",
+        "type": "charge",
+        "amount": 6245,
+        "balance": 11132
+      },
+      {
+        "date": "2026-01-08",
+        "term": "Spring 2026",
+        "description": "Meal Plan – Owl 14",
+        "type": "charge",
+        "amount": 2180,
+        "balance": 13312
+      },
+      {
+        "date": "2026-01-12",
+        "term": "Spring 2026",
+        "description": "Federal Pell Grant",
+        "type": "aid",
+        "amount": -3697.5,
+        "balance": 9614.5
+      },
+      {
+        "date": "2026-01-12",
+        "term": "Spring 2026",
+        "description": "Redwood Promise Grant",
+        "type": "aid",
+        "amount": -3871,
+        "balance": 5743.5
+      },
+      {
+        "date": "2026-01-12",
+        "term": "Spring 2026",
+        "description": "Federal Direct Subsidized Loan (net of origination fee)",
+        "type": "aid",
+        "amount": -2721.5,
+        "balance": 3022
+      },
+      {
+        "date": "2026-01-20",
+        "term": "Spring 2026",
+        "description": "Online Payment – Thank you",
+        "type": "payment",
+        "amount": -1500,
+        "balance": 1522
+      },
+      {
+        "date": "2026-02-15",
+        "term": "Spring 2026",
+        "description": "Online Payment – Thank you",
+        "type": "payment",
+        "amount": -1522,
+        "balance": 0
+      },
+      {
+        "date": "2026-07-20",
+        "term": "Fall 2026",
+        "description": "Tuition – Undergraduate Resident",
+        "type": "charge",
+        "amount": 3871,
+        "balance": 3871
+      },
+      {
+        "date": "2026-07-20",
+        "term": "Fall 2026",
+        "description": "Campus Fees (Student Union, Health, Instructionally Related Activities)",
+        "type": "charge",
+        "amount": 1042,
+        "balance": 4913
+      },
+      {
+        "date": "2026-07-20",
+        "term": "Fall 2026",
+        "description": "Housing – Madrone Hall, Double",
+        "type": "charge",
+        "amount": 6420,
+        "balance": 11333
+      },
+      {
+        "date": "2026-07-20",
+        "term": "Fall 2026",
+        "description": "Meal Plan – Owl 14",
+        "type": "charge",
+        "amount": 2240,
+        "balance": 13573
+      },
+      {
+        "date": "2026-08-17",
+        "term": "Fall 2026",
+        "description": "Federal Pell Grant",
+        "type": "aid",
+        "amount": -3697.5,
+        "balance": 9875.5
+      },
+      {
+        "date": "2026-08-17",
+        "term": "Fall 2026",
+        "description": "Redwood Promise Grant",
+        "type": "aid",
+        "amount": -3871,
+        "balance": 6004.5
+      },
+      {
+        "date": "2026-08-17",
+        "term": "Fall 2026",
+        "description": "Federal Direct Subsidized Loan (net of origination fee)",
+        "type": "aid",
+        "amount": -2721.5,
+        "balance": 3283
+      },
+      {
+        "date": "2026-08-24",
+        "term": "Fall 2026",
+        "description": "Online Payment – Thank you",
+        "type": "payment",
+        "amount": -1500,
+        "balance": 1783
+      },
+      {
+        "date": "2026-08-31",
+        "term": "Fall 2026",
+        "description": "Parking Permit – Semester General (G)",
+        "type": "charge",
+        "amount": 238,
+        "balance": 2021
+      },
+      {
+        "date": "2026-09-15",
+        "term": "Fall 2026",
+        "description": "Online Payment – Thank you",
+        "type": "payment",
+        "amount": -1200,
+        "balance": 821
+      },
+      {
+        "date": "2026-09-28",
+        "term": "Fall 2026",
+        "description": "Library Fine – Overdue Item",
+        "type": "charge",
+        "amount": 15,
+        "balance": 836
+      }
+    ],
+    "balance": 836,
+    "nextDue": {
+      "date": "2026-10-15",
+      "amount": 836
+    }
+  },
+  "registration": {
+    "term": "Spring 2027",
+    "timeTicket": "2026-11-09T08:00",
+    "maxCredits": 18
+  },
+  "holds": [
+    {
+      "code": "HLTH",
+      "name": "Immunization Compliance",
+      "office": "Student Health Center",
+      "reason": "Your measles, mumps, and rubella (MMR) second-dose record is missing. Upload documentation through the Patient Portal.",
+      "added": "2026-09-02",
+      "blocks": [
+        "Registration"
+      ],
+      "url": "/students/health"
+    },
+    {
+      "code": "ADV1",
+      "name": "Advising Required",
+      "office": "Academic Advising Center",
+      "reason": "Meet with your major advisor before registering for Spring 2027. Your advisor will release this hold after your appointment.",
+      "added": "2026-09-21",
+      "blocks": [
+        "Registration"
+      ],
+      "url": "/students/advising"
+    }
+  ],
+  "todos": [
+    {
+      "id": "todo-mmr",
+      "title": "Upload MMR immunization record",
+      "office": "Student Health Center",
+      "due": "2026-10-16",
+      "status": "open",
+      "url": "/students/health"
+    },
+    {
+      "id": "todo-advising",
+      "title": "Schedule a Spring 2027 advising appointment",
+      "office": "Academic Advising Center",
+      "due": "2026-10-23",
+      "status": "open",
+      "url": "/students/advising"
+    },
+    {
+      "id": "todo-payment",
+      "title": "Make installment payment",
+      "office": "Student Financial Services",
+      "due": "2026-10-15",
+      "status": "open",
+      "url": "/portal/account"
+    },
+    {
+      "id": "todo-fafsa",
+      "title": "Submit your 2027–28 FAFSA",
+      "office": "Financial Aid & Scholarships",
+      "due": "2027-03-02",
+      "status": "open",
+      "url": "/financial-aid"
+    },
+    {
+      "id": "todo-title-ix",
+      "title": "Complete Title IX and Sexual Misconduct Prevention training",
+      "office": "Office of Equity & Compliance",
+      "due": "2026-10-30",
+      "status": "open",
+      "url": "/policies/privacy"
+    },
+    {
+      "id": "todo-housing",
+      "title": "Sign 2026–27 housing contract",
+      "office": "Housing & Residential Life",
+      "due": "2026-06-01",
+      "status": "complete",
+      "url": "/students/housing"
+    },
+    {
+      "id": "todo-aid",
+      "title": "Accept Fall 2026 financial aid offer",
+      "office": "Financial Aid & Scholarships",
+      "due": "2026-07-15",
+      "status": "complete",
+      "url": "/financial-aid"
+    },
+    {
+      "id": "todo-ferpa",
+      "title": "Review FERPA release and emergency contacts",
+      "office": "Office of the Registrar",
+      "due": null,
+      "status": "complete",
+      "url": "/portal/profile"
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg-1",
+      "from": "Marcus Bell, Ph.D.",
+      "office": "Department of Computer Science",
+      "subject": "Spring 2027 advising appointments are open",
+      "date": "2026-10-04",
+      "read": false,
+      "body": [
+        "Hi Jordan,",
+        "I've opened advising slots for Spring 2027 registration. Please book a 20-minute appointment before your registration time ticket on November 9. Bring a draft plan that includes your remaining upper-division core courses.",
+        "Best,\nProf. Bell"
+      ]
+    },
+    {
+      "id": "msg-2",
+      "from": "Student Health Center",
+      "office": "Student Health Center",
+      "subject": "Action required: immunization record missing",
+      "date": "2026-09-02",
+      "read": false,
+      "body": [
+        "Our records show your second MMR dose has not been documented. A registration hold has been placed on your account.",
+        "Upload your record in the Patient Portal or bring it to the Wellness Center, Room 110. Holds are usually released within two business days."
+      ]
+    },
+    {
+      "id": "msg-3",
+      "from": "Sequoia Library",
+      "office": "Access Services",
+      "subject": "Overdue item: Introduction to Algorithms (4th ed.)",
+      "date": "2026-09-28",
+      "read": true,
+      "body": [
+        "The item below is overdue and a $15.00 fine has been added to your student account.",
+        "Call number QA76.6 .C662 2022. Return it to any Sequoia Library book drop to stop further fines."
+      ]
+    },
+    {
+      "id": "msg-4",
+      "from": "Student Financial Services",
+      "office": "Student Financial Services (Bursar)",
+      "subject": "Your October installment is due October 15",
+      "date": "2026-09-30",
+      "read": true,
+      "body": [
+        "This is a reminder that your next installment payment is due on October 15, 2026.",
+        "Payments after the due date are subject to a $25 late fee. View your account and pay online in RedwoodConnect."
+      ]
+    },
+    {
+      "id": "msg-5",
+      "from": "Office of the Registrar",
+      "office": "Office of the Registrar",
+      "subject": "Spring 2027 registration time tickets posted",
+      "date": "2026-09-28",
+      "read": true,
+      "body": [
+        "Registration time tickets for Spring 2027 are now available on the Registration page.",
+        "Resolve any holds before your appointment time. Holds prevent registration."
+      ]
+    },
+    {
+      "id": "msg-6",
+      "from": "Career Center",
+      "office": "Career Center",
+      "subject": "Fall Career & Internship Fair – employers announced",
+      "date": "2026-09-26",
+      "read": true,
+      "body": [
+        "More than 60 employers will attend the Fall Career & Internship Fair in the Student Union, including several software and engineering firms hiring interns for summer 2027.",
+        "Stop by the Career Center for a resume review before the fair."
+      ]
+    },
+    {
+      "id": "msg-7",
+      "from": "Housing & Residential Life",
+      "office": "Housing & Residential Life",
+      "subject": "Madrone Hall fire alarm testing",
+      "date": "2026-09-21",
+      "read": true,
+      "body": [
+        "Fire alarm testing will take place in Madrone Hall between 9:00 a.m. and noon. Alarms may sound several times. You do not need to evacuate during testing."
+      ]
+    },
+    {
+      "id": "msg-8",
+      "from": "Financial Aid & Scholarships",
+      "office": "Financial Aid & Scholarships",
+      "subject": "Fall 2026 aid disbursed",
+      "date": "2026-08-17",
+      "read": true,
+      "body": [
+        "Your Fall 2026 financial aid has been applied to your student account. Any credit balance will be refunded by direct deposit within 14 days."
+      ]
+    }
+  ]
+}

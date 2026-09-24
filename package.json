@@ -4,16 +4,21 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "react-router build && node scripts/postbuild.mjs",
+    "build": "node scripts/build-search-index.ts && react-router build && node scripts/postbuild.mjs",
     "preview": "serve build/client -l 4173",
     "typecheck": "react-router typegen && tsc",
+    "gen:data": "node scripts/generate-data.ts",
+    "gen:docs": "node scripts/make-documents.ts",
+    "build:search": "node scripts/build-search-index.ts",
     "images:optimize": "node scripts/optimize-images.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "images:contact": "node scripts/contact-sheet.mjs"
   },
   "dependencies": {
     "@fontsource-variable/source-sans-3": "^5.3.0",
     "@fontsource-variable/source-serif-4": "^5.3.0",
     "isbot": "^5",
+    "minisearch": "^7.2.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-router": "^8.4.0"

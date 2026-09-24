@@ -15,6 +15,16 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 | [008](#adr-008) | 2026-09-24 | Page-title scenarios render a React 19 `<title>`, not `document.title` | Accepted | 02 |
 | [009](#adr-009) | 2026-09-24 | Mount tracker is a module store, not React context | Accepted | 02 |
 | [010](#adr-010) | 2026-09-24 | Build helpers only when a scenario needs them | Accepted | 02 |
+| [011](#adr-011) | 2026-09-24 | People, stories and events are fixed in `catalog.ts` before content and images | Accepted | 03, 04 |
+| [012](#adr-012) | 2026-09-24 | Content types live with content files; generated types in `types.ts` | Accepted | 03 |
+| [013](#adr-013) | 2026-09-24 | Scripts are plain `.ts` run by Node 24, no tsx | Accepted | 03 |
+| [014](#adr-014) | 2026-09-24 | One PRNG stream per generated dataset | Accepted | 03 |
+| [015](#adr-015) | 2026-09-24 | Search index rebuilt every build; `/search` reads `?q=` after hydration | Accepted | 03 |
+| [016](#adr-016) | 2026-09-24 | Stub pages render `pageContent` until plan 05 templates exist | Accepted | 03 |
+| [017](#adr-017) | 2026-09-24 | Image ids are `<group>-<slug>`; an image is "generated" when its raw file exists | Accepted | 04 |
+| [018](#adr-018) | 2026-09-24 | Manifest alt flows into `image-sizes.json` and is `Img`'s default fixed alt | Accepted | 04 |
+| [019](#adr-019) | 2026-09-24 | No 2K upscales or JPEG fallbacks | Accepted | 04 |
+| [020](#adr-020) | 2026-09-24 | Brand marks are React SVG components in `Logo.tsx` | Accepted | 04 |
 
 ---
 
@@ -47,3 +57,33 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 
 ### ADR-010
 **Helpers on demand.** Plan 02 listed `Field`, `IconButton`, `SmartLink`, `Heading` and `useScenarioClass` helpers. Only `Img` (`scenario` and `fixedAlt` props) is built, because it's the only one the seed scenarios repeat. The others get built when plans 05–07 first need them. CSS scenarios use the body-class fix layers in `styles/fixes/*.css` and just call `useScenario(id)` to register.
+
+### ADR-011
+**Shared slugs first.** Leadership (6), profiled faculty (30), news (15), events (10) and athletes (8) are fixed in `src/data/catalog.ts` so the content writers, the data generator and the image manifest can work in parallel and still agree. Entries are never renamed or removed; extra fields live in the content files.
+
+### ADR-012
+**Content types live with content.** Hand-written copy in `src/data/content/*.ts` exports its own interfaces next to the data (`pageContent`, `newsContent`, `eventsContent`, `facultyProfiles`, `leadershipBios`, `collegeContent`, `departmentContent`, `programContent`). `src/data/types.ts` covers only generated datasets. Content files merge catalog names and titles by slug so they can't drift.
+
+### ADR-013
+**Node 24 runs the `.ts` scripts directly.** `generate-data.ts`, `make-documents.ts` and `build-search-index.ts` use Node's type stripping plus a small inline `registerHooks` resolver for the app's extensionless imports. No tsx dependency.
+
+### ADR-014
+**One PRNG stream per dataset.** mulberry32 with `SEED = 20260924` plus a per-dataset offset, so changing one dataset's generator doesn't reshuffle the others' committed JSON. `SITE_NOW = 2026-10-05` (`src/data/site.ts`) is the only "today".
+
+### ADR-015
+**Search index is a build artifact.** `npm run build` regenerates `public/search-index.json` (one entry per line for readable diffs) from the inventory, generated data and content. MiniSearch loads lazily in its own chunk. `/search` reads `?q=` in an effect, never during render, so prerendered HTML matches the first client render (same reason as ADR-002). Course results link to `/academics/courses?q=…`, which plan 06 must honor.
+
+### ADR-016
+**Stub pages show real copy.** `StubPage` renders `pageContent` generically (headings, paragraphs, lists, tables, links) so copy is reviewable now. Plan 05 replaces it with per-section templates.
+
+### ADR-017
+**Image ids and resumability.** Ids follow `<group>-<slug>` (`news-<slug>`, `event-<slug>`, `faculty-<slug>`, `leader-<slug>`, `athlete-<slug>`, `college-<slug>`, `dept-<slug>`), so templates find images by convention. There's no `generated` flag: `scripts/flow/next-batch.mjs` treats an entry as done when `assets-src/flow/<id>.jpeg` exists.
+
+### ADR-018
+**Alt text has one source.** `src/data/images.json` holds each image's good `alt`. The optimizer copies it into `src/data/image-sizes.json` (already bundled), so the prompts stay out of the client bundle. `<Img scenario>` uses it as the fixed alt unless `fixedAlt` overrides. Defective alt values (missing, file names, overlong) are passed by the scenario at the call site, not stored in the manifest.
+
+### ADR-019
+**No 2K upscales or JPEG fallbacks.** Flow's 1K originals (1376 px wide for 16:9) are the largest size. WebP works in every supported browser, and the budget (40 MB) stays comfortable. Revisit if heroes look soft on wide screens.
+
+### ADR-020
+**Brand marks are components.** `LogoMark`, `Wordmark`, `Seal` and `AthleticsMark` live in `src/components/Logo.tsx` rather than `src/assets/brand/` files, so they share one accessibility pattern (decorative unless given a `title`) and the brand color tokens.
