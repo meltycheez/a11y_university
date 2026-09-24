@@ -28,7 +28,7 @@ const universityPages: Record<string, PageContent> = {
       {
         paragraphs: [
           "Redwood State University is a public comprehensive university on the far north coast of California, where the old-growth forest meets the Pacific. Founded in 1911 as Arcadia Falls Normal School to train teachers for the timber towns of the region, RSU today enrolls about 18,000 students in six colleges and more than 90 undergraduate and graduate programs.",
-          "Our 310-acre campus sits on a terrace above the Mad Fork River, a ten-minute walk from downtown Arcadia Falls. Students study marine biology in the tide pools at Trinidad Point, test engineering prototypes in Sequoia Engineering Hall, and cross Canopy Green under second-growth redwoods on the way to class.",
+          "Our 310-acre campus sits on a terrace above the Silverfin River, a ten-minute walk from downtown Arcadia Falls. Students study marine biology in the tide pools at Gull Rock Point, test engineering prototypes in Sequoia Engineering Hall, and cross Canopy Green under second-growth redwoods on the way to class.",
         ],
       },
       {
@@ -45,8 +45,8 @@ const universityPages: Record<string, PageContent> = {
             ["Full-time faculty", "702"],
             ["Undergraduate majors", "64"],
             ["Graduate programs", "29"],
-            ["Campus size", "310 acres, plus the 1,200-acre Kellerman Research Forest"],
-            ["Athletics", "14 NCAA Division II teams, the Redwood Owls"],
+            ["Campus size", "310 acres, plus the 1,200-acre Tanoak Creek Research Forest"],
+            ["Athletics", "14 IAA Division II teams, the Redwood Owls"],
             ["Living alumni", "112,000+"],
           ],
         },
@@ -54,7 +54,7 @@ const universityPages: Record<string, PageContent> = {
       {
         heading: "A university of place",
         paragraphs: [
-          "RSU's research and teaching grow out of the landscape around it. Faculty and students study redwood canopy ecology, coastal fisheries, wildfire smoke, and the economies of rural communities. The university partners with the Wiyot, Yurok, and other tribal nations of the region on stewardship, language revitalization, and student support.",
+          "RSU's research and teaching grow out of the landscape around it. Faculty and students study redwood canopy ecology, coastal fisheries, wildfire smoke, and the economies of rural communities. The university partners with the Indigenous peoples whose homelands include this coast on stewardship, language revitalization, and student support.",
           "We are also a university of opportunity. Nearly half of our students are the first in their families to attend college, and RSU is designated a Hispanic-Serving Institution by the U.S. Department of Education.",
         ],
       },
@@ -109,7 +109,7 @@ const universityPages: Record<string, PageContent> = {
       {
         heading: "Land acknowledgment",
         paragraphs: [
-          "Redwood State University sits on the unceded ancestral lands of the Wiyot people, who have stewarded this place since time immemorial. We acknowledge the ongoing relationship of Wiyot, Yurok, Hupa, Karuk, and Tolowa Dee-ni' peoples with these lands and waters, and we commit to supporting tribal sovereignty and Native student success.",
+          "Redwood State University sits on the unceded ancestral lands of the Indigenous peoples whose homelands include this coast, who have stewarded this place since time immemorial. We acknowledge their ongoing relationship with these lands and waters, and we commit to supporting tribal sovereignty and Native student success.",
         ],
       },
     ],
@@ -134,16 +134,16 @@ const universityPages: Record<string, PageContent> = {
             ["1914", "The school moves to the Canopy Drive terrace; Founders Hall, the first permanent building, is completed."],
             ["1921", "Renamed Arcadia Falls State Teachers College and authorized to grant the bachelor's degree."],
             ["1927", "First intercollegiate athletics; the teams are nicknamed the Timbermen."],
-            ["1935", "Enrollment passes 500. The college library moves into the new Carnegie wing of Founders Hall."],
-            ["1946", "Veterans returning under the G.I. Bill double enrollment in two years."],
+            ["1935", "Enrollment passes 500. The college library moves into the new Whitcomb wing of Founders Hall."],
+            ["1946", "Veterans returning from World War II double enrollment in two years."],
             ["1961", "Becomes Redwood State College and joins the state college system; the motto Radices altae, rami lati is adopted."],
             ["1968", "Sequoia Library opens on Canopy Green."],
             ["1972", "Redwood State becomes Redwood State University. Athletics teams become the Redwood Owls."],
-            ["1978", "Kellerman Research Forest, 1,200 acres of second-growth redwood, is donated by the Kellerman family."],
+            ["1978", "Tanoak Creek Research Forest, 1,200 acres of second-growth redwood, is donated by the Kellerman family."],
             ["1989", "The College of Engineering is established; Sequoia Engineering Hall opens in 1994."],
             ["2003", "Owl Arena opens, replacing the 1951 Men's Gymnasium."],
             ["2011", "Centennial year. Enrollment reaches 15,000 and the Centennial Campaign raises $112 million."],
-            ["2016", "The Canopy Science Center opens, the university's first LEED Platinum building."],
+            ["2016", "The Canopy Science Center opens, the university's first net-zero energy building."],
             ["2020", "Classes move online in March; the campus reopens fully in fall 2021."],
             ["2022", "RSU is designated a Hispanic-Serving Institution."],
             ["2024", "Strategic Plan 2030: Deep Roots, Wide Branches is adopted."],
@@ -184,7 +184,7 @@ const universityPages: Record<string, PageContent> = {
       {
         heading: "Contact the Office of the President",
         list: [
-          "Founders Hall 300, 1400 Canopy Drive, Arcadia Falls, CA 95561",
+          "Founders Hall 300, 1400 Canopy Drive, Arcadia Falls, CA 95579",
           "Phone: (707) 555-0101",
           "Email: president@redwoodstate.example.edu",
         ],
@@ -194,17 +194,17 @@ const universityPages: Record<string, PageContent> = {
   },
 
   "/about/accreditation": {
-    summary: "Redwood State University is accredited by the WASC Senior College and University Commission.",
+    summary: "Redwood State University is accredited by the Pacific Accrediting Commission for Colleges and Universities.",
     updated: "Updated Fall 2023",
     sections: [
       {
         heading: "Institutional accreditation",
         paragraphs: [
-          "Redwood State University is accredited by the WASC Senior College and University Commission (WSCUC), 1080 Marina Village Parkway, Suite 500, Alameda, CA 94501. The university was first accredited in 1949 and most recently received reaffirmation of accreditation for ten years in 2021. The next reaffirmation review is scheduled for 2030–31, with a Mid-Cycle Review completed in spring 2025.",
+          "Redwood State University is accredited by the Pacific Accrediting Commission for Colleges and Universities (PACCU), 400 Harbor Plaza, Suite 900, Westmere, CA. The university was first accredited in 1949 and most recently received reaffirmation of accreditation for ten years in 2021. The next reaffirmation review is scheduled for 2030–31, with a Mid-Cycle Review completed in spring 2025.",
           "Accreditation documents, including the Institutional Report, the Commission action letter, and the Mid-Cycle Review, are available below. Questions may be directed to the Office of Academic Planning and Assessment at (707) 555-0112.",
         ],
         links: [
-          { label: "2021 WSCUC Commission Action Letter (PDF)", href: "/documents/catalog-addendum-2025-26.pdf" },
+          { label: "2021 PACCU Commission Action Letter (PDF)", href: "/documents/catalog-addendum-2025-26.pdf" },
           { label: "Read more", href: "/documents/catalog-addendum-2025-26.pdf" },
         ],
       },
@@ -214,20 +214,20 @@ const universityPages: Record<string, PageContent> = {
           caption: "Programs holding specialized accreditation",
           columns: ["Program", "Accrediting body", "Next review"],
           rows: [
-            ["B.S. Computer Science", "Computing Accreditation Commission of ABET", "2028–29"],
-            ["B.S. Mechanical Engineering", "Engineering Accreditation Commission of ABET", "2028–29"],
-            ["B.B.A. and M.B.A.", "AACSB International", "2027–28"],
-            ["B.S.N. Nursing", "Commission on Collegiate Nursing Education (CCNE)", "2031"],
-            ["B.S. Chemistry (ACS track)", "American Chemical Society Committee on Professional Training", "2027"],
-            ["Teacher Credential Programs", "California Commission on Teacher Credentialing", "2029"],
-            ["Counseling & Psychological Services", "International Accreditation of Counseling Services", "2028"],
+            ["B.S. Computer Science", "Engineering Programs Accreditation Board (EPAB), Computing Commission", "2028–29"],
+            ["B.S. Mechanical Engineering", "Engineering Programs Accreditation Board (EPAB)", "2028–29"],
+            ["B.B.A. and M.B.A.", "Association for Business School Accreditation (ABSA)", "2027–28"],
+            ["B.S.N. Nursing", "National Council for Nursing Program Accreditation (NCNPA)", "2031"],
+            ["B.S. Chemistry (CESC track)", "Chemical Education Standards Council (CESC)", "2027"],
+            ["Teacher Credential Programs", "State Teacher Credentialing Board", "2029"],
+            ["Counseling & Psychological Services", "Council for Counseling Center Accreditation (CCCA)", "2028"],
           ],
         },
       },
       {
         heading: "Student complaints",
         paragraphs: [
-          "Students who believe the university has not complied with accreditation standards may file a complaint with WSCUC after first exhausting the university's internal grievance procedures, described in the Student Conduct Code.",
+          "Students who believe the university has not complied with accreditation standards may file a complaint with PACCU after first exhausting the university's internal grievance procedures, described in the Student Conduct Code.",
         ],
         links: [{ label: "Student Conduct Code (PDF)", href: "/documents/student-conduct-code.pdf" }],
       },
@@ -274,7 +274,7 @@ const universityPages: Record<string, PageContent> = {
         list: [
           "Add 1,000 beds of student housing, beginning with Madrone Hall (opened 2026).",
           "Guarantee first- and second-year students access to on-campus housing.",
-          "Deepen partnerships with the Wiyot Tribe and other regional tribal nations.",
+          "Deepen partnerships with the Indigenous peoples whose homelands include this coast.",
           "Improve faculty and staff retention through competitive pay and professional development.",
         ],
       },
@@ -333,7 +333,7 @@ const universityPages: Record<string, PageContent> = {
             ["Madrone Hall", "MAD", "Residence hall (opened 2026)"],
             ["Owl Arena", "ARENA", "Basketball, volleyball, Commencement"],
             ["Redwood Field", "FIELD", "Soccer and track"],
-            ["Tanoak Student Union", "TSU", "Dining, bookstore, student organizations"],
+            ["Rowan Student Union", "TSU", "Dining, bookstore, student organizations"],
             ["Huckleberry Hall", "HH", "College of Health Sciences, Student Health Center"],
             ["Spruce Hall", "SPR", "College of Business"],
             ["Alder Hall", "ALD", "College of Arts & Humanities"],
@@ -350,7 +350,7 @@ const universityPages: Record<string, PageContent> = {
       {
         heading: "Main switchboard",
         list: [
-          "Redwood State University, 1400 Canopy Drive, Arcadia Falls, CA 95561",
+          "Redwood State University, 1400 Canopy Drive, Arcadia Falls, CA 95579",
           "Phone: (707) 555-0100, Monday through Friday, 8 a.m. to 5 p.m.",
           "Email: info@redwoodstate.example.edu",
         ],
@@ -394,7 +394,7 @@ const universityPages: Record<string, PageContent> = {
         ],
         list: [
           "Update your contact information to receive Redwood Rings, the alumni magazine.",
-          "Join a chapter in the Bay Area, Sacramento, Portland, Seattle, or Southern California.",
+          "Join a chapter in Westmere, Kestrel Bay, San Aurelio, the state capital, or the Pacific Northwest.",
           "Mentor a current student through the Owl-to-Owl program.",
           "Order transcripts or verify your degree through the Registrar.",
         ],
@@ -435,7 +435,7 @@ const universityPages: Record<string, PageContent> = {
     sections: [
       {
         paragraphs: [
-          "Arcadia Falls is about five hours north of San Francisco on U.S. Highway 101, and 15 minutes from the Arcadia–North Coast Regional Airport. Visitor parking is available in Lot A off Canopy Drive; permits can be purchased from pay stations or the ParkRSU app.",
+          "Arcadia Falls is about five hours north of Westmere on the coast highway, and 15 minutes from the Arcadia–North Coast Regional Airport. Visitor parking is available in Lot A off Canopy Drive; permits can be purchased from pay stations or the ParkRSU app.",
         ],
         links: [
           { label: "Campus Map", href: "/campus-map" },
@@ -448,8 +448,8 @@ const universityPages: Record<string, PageContent> = {
         heading: "Places to stay",
         list: [
           "The Canopy Inn, 0.4 miles from campus, offers an RSU rate.",
-          "Mad Fork River Lodge, downtown Arcadia Falls.",
-          "Trinidad Point Campground (seasonal), 12 miles north.",
+          "Silverfin River Lodge, downtown Arcadia Falls.",
+          "Gull Rock Point Campground (seasonal), 12 miles north.",
         ],
       },
     ],

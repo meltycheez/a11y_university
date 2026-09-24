@@ -1,16 +1,5 @@
 [
   {
-    "slug": "academic-search-commons",
-    "name": "Academic Search Commons",
-    "subjects": [
-      "Multidisciplinary"
-    ],
-    "description": "A broad starting point with scholarly journals, magazines, and newspapers across nearly every discipline.",
-    "coverage": "1975–present",
-    "fullText": true,
-    "access": "Campus & off-campus (RSU login)"
-  },
-  {
     "slug": "american-history-primary-sources",
     "name": "American History Primary Sources",
     "subjects": [
@@ -36,14 +25,16 @@
     "access": "Campus & off-campus (RSU login)"
   },
   {
-    "slug": "art-architecture-source",
-    "name": "Art & Architecture Source",
+    "slug": "behavioral-sciences-index",
+    "name": "Behavioral Sciences Index",
     "subjects": [
-      "Art"
+      "Psychology",
+      "Education",
+      "Nursing"
     ],
-    "description": "Full-text art journals and a large collection of images of artworks and buildings.",
-    "coverage": "1937–present",
-    "fullText": true,
+    "description": "The core index for psychology and the behavioral sciences, including dissertations and book chapters.",
+    "coverage": "1887–present",
+    "fullText": false,
     "access": "Campus & off-campus (RSU login)"
   },
   {
@@ -60,20 +51,8 @@
     "access": "Open access"
   },
   {
-    "slug": "biosource-index",
-    "name": "BioSource Index",
-    "subjects": [
-      "Biology",
-      "Environmental Science"
-    ],
-    "description": "Indexing of life sciences journals, from molecular biology to ecology and marine science.",
-    "coverage": "1926–present",
-    "fullText": false,
-    "access": "Campus & off-campus (RSU login)"
-  },
-  {
-    "slug": "business-source-complete",
-    "name": "Business Source Complete",
+    "slug": "business-research-collection",
+    "name": "Business Research Collection",
     "subjects": [
       "Business",
       "Economics"
@@ -96,15 +75,15 @@
     "access": "Campus & off-campus (RSU login)"
   },
   {
-    "slug": "chemical-abstracts-explorer",
-    "name": "Chemical Abstracts Explorer",
+    "slug": "chemical-literature-substances-search",
+    "name": "Chemical Literature & Substances Search",
     "subjects": [
       "Chemistry",
       "Biology"
     ],
     "description": "Search chemical literature and substances by name, structure, or reaction. Requires individual registration.",
     "coverage": "1907–present",
-    "fullText": false,
+    "fullText": true,
     "access": "On campus only"
   },
   {
@@ -119,8 +98,8 @@
     "access": "Campus & off-campus (RSU login)"
   },
   {
-    "slug": "citation-manager-reftrack",
-    "name": "Citation Manager (RefTrack)",
+    "slug": "citation-manager-rsu-cite",
+    "name": "Citation Manager (RSU Cite)",
     "subjects": [
       "Multidisciplinary"
     ],
@@ -130,14 +109,14 @@
     "access": "Campus & off-campus (RSU login)"
   },
   {
-    "slug": "clinical-evidence-summaries",
-    "name": "Clinical Evidence Summaries",
+    "slug": "clinical-nursing-collection",
+    "name": "Clinical Nursing Collection",
     "subjects": [
       "Nursing",
       "Health Sciences"
     ],
-    "description": "Point-of-care summaries of clinical evidence with graded recommendations.",
-    "coverage": "Continuously updated",
+    "description": "Full-text nursing and allied health journals, care sheets, evidence-based summaries, and continuing education modules.",
+    "coverage": "1937–present",
     "fullText": true,
     "access": "Campus & off-campus (RSU login)"
   },
@@ -165,26 +144,13 @@
     "access": "Campus & off-campus (RSU login)"
   },
   {
-    "slug": "dissertations-theses-global",
-    "name": "Dissertations & Theses Global",
+    "slug": "dissertations-theses-collection",
+    "name": "Dissertations & Theses Collection",
     "subjects": [
       "Multidisciplinary"
     ],
     "description": "Full text of doctoral dissertations and master's theses from around the world.",
     "coverage": "1743–present",
-    "fullText": true,
-    "access": "Campus & off-campus (RSU login)"
-  },
-  {
-    "slug": "drug-information-handbook-online",
-    "name": "Drug Information Handbook Online",
-    "subjects": [
-      "Nursing",
-      "Health Sciences",
-      "Chemistry"
-    ],
-    "description": "Drug monographs, interactions, and patient education handouts.",
-    "coverage": "Continuously updated",
     "fullText": true,
     "access": "Campus & off-campus (RSU login)"
   },
@@ -210,6 +176,18 @@
     "description": "Journal articles and reports in education research, policy, and practice.",
     "coverage": "1966–present",
     "fullText": false,
+    "access": "Campus & off-campus (RSU login)"
+  },
+  {
+    "slug": "educational-video-collection",
+    "name": "Educational Video Collection",
+    "subjects": [
+      "Multidisciplinary",
+      "Education"
+    ],
+    "description": "Streaming educational documentaries and instructional videos, most with captions and transcripts.",
+    "coverage": "Varies",
+    "fullText": true,
     "access": "Campus & off-campus (RSU login)"
   },
   {
@@ -251,18 +229,6 @@
     "access": "Campus & off-campus (RSU login)"
   },
   {
-    "slug": "films-on-demand-for-education",
-    "name": "Films on Demand for Education",
-    "subjects": [
-      "Multidisciplinary",
-      "Education"
-    ],
-    "description": "Streaming educational documentaries and instructional videos, most with captions and transcripts.",
-    "coverage": "Varies",
-    "fullText": true,
-    "access": "Campus & off-campus (RSU login)"
-  },
-  {
     "slug": "geodata-portal",
     "name": "GeoData Portal",
     "subjects": [
@@ -271,17 +237,6 @@
     ],
     "description": "GIS data layers, aerial imagery, and topographic maps for California.",
     "coverage": "Varies by layer",
-    "fullText": true,
-    "access": "Campus & off-campus (RSU login)"
-  },
-  {
-    "slug": "historical-abstracts-primary-sources",
-    "name": "Historical Abstracts & Primary Sources",
-    "subjects": [
-      "History"
-    ],
-    "description": "Scholarship on world history since 1450, with linked primary source collections.",
-    "coverage": "1955–present",
     "fullText": true,
     "access": "Campus & off-campus (RSU login)"
   },
@@ -298,6 +253,30 @@
     "access": "Campus & off-campus (RSU login)"
   },
   {
+    "slug": "k-12-teaching-resources",
+    "name": "K–12 Teaching Resources",
+    "subjects": [
+      "Education"
+    ],
+    "description": "Practitioner journals and lesson resources for K–12 teachers.",
+    "coverage": "1990–present",
+    "fullText": true,
+    "access": "Campus & off-campus (RSU login)"
+  },
+  {
+    "slug": "language-literature-bibliography",
+    "name": "Language & Literature Bibliography",
+    "subjects": [
+      "Literature",
+      "English",
+      "Linguistics"
+    ],
+    "description": "Indexing of scholarship on literature, language, linguistics, and folklore.",
+    "coverage": "1926–present",
+    "fullText": false,
+    "access": "Campus & off-campus (RSU login)"
+  },
+  {
     "slug": "legal-research-collection",
     "name": "Legal Research Collection",
     "subjects": [
@@ -311,8 +290,20 @@
     "access": "Campus & off-campus (RSU login)"
   },
   {
-    "slug": "literature-criticism-online",
-    "name": "Literature Criticism Online",
+    "slug": "life-sciences-index",
+    "name": "Life Sciences Index",
+    "subjects": [
+      "Biology",
+      "Environmental Science"
+    ],
+    "description": "Indexing of life sciences journals, from molecular biology to ecology and marine science.",
+    "coverage": "1926–present",
+    "fullText": false,
+    "access": "Campus & off-campus (RSU login)"
+  },
+  {
+    "slug": "literary-criticism-collection",
+    "name": "Literary Criticism Collection",
     "subjects": [
       "Literature",
       "English"
@@ -335,27 +326,27 @@
     "access": "Campus & off-campus (RSU login)"
   },
   {
-    "slug": "modern-language-bibliography",
-    "name": "Modern Language Bibliography",
+    "slug": "medication-reference-online",
+    "name": "Medication Reference Online",
     "subjects": [
-      "Literature",
-      "English",
-      "Linguistics"
+      "Nursing",
+      "Health Sciences",
+      "Chemistry"
     ],
-    "description": "Indexing of scholarship on literature, language, linguistics, and folklore.",
-    "coverage": "1926–present",
-    "fullText": false,
+    "description": "Drug monographs, interactions, and patient education handouts.",
+    "coverage": "Continuously updated",
+    "fullText": true,
     "access": "Campus & off-campus (RSU login)"
   },
   {
-    "slug": "music-index-scores",
-    "name": "Music Index & Scores",
+    "slug": "music-periodicals-scores",
+    "name": "Music Periodicals & Scores",
     "subjects": [
       "Music"
     ],
     "description": "Indexing of music periodicals plus streaming scores for study.",
     "coverage": "1970–present",
-    "fullText": false,
+    "fullText": true,
     "access": "Campus & off-campus (RSU login)"
   },
   {
@@ -378,20 +369,19 @@
       "History",
       "Local History"
     ],
-    "description": "Digitized regional newspapers from Humboldt, Del Norte, and Mendocino counties, including the Arcadia Falls Courier.",
+    "description": "Digitized regional newspapers from Fernhaven County and neighboring coastal counties, including the Arcadia Falls Courier and the Port Alder Tide.",
     "coverage": "1889–1998",
     "fullText": true,
     "access": "Campus & off-campus (RSU login)"
   },
   {
-    "slug": "nursing-allied-health-complete",
-    "name": "Nursing & Allied Health Complete",
+    "slug": "omnibus-article-search",
+    "name": "Omnibus Article Search",
     "subjects": [
-      "Nursing",
-      "Health Sciences"
+      "Multidisciplinary"
     ],
-    "description": "Full-text nursing and allied health journals, care sheets, evidence-based summaries, and continuing education modules.",
-    "coverage": "1937–present",
+    "description": "A broad starting point with scholarly journals, magazines, and newspapers across nearly every discipline.",
+    "coverage": "1975–present",
     "fullText": true,
     "access": "Campus & off-campus (RSU login)"
   },
@@ -420,6 +410,18 @@
     "access": "Campus & off-campus (RSU login)"
   },
   {
+    "slug": "point-of-care-evidence-summaries",
+    "name": "Point-of-Care Evidence Summaries",
+    "subjects": [
+      "Nursing",
+      "Health Sciences"
+    ],
+    "description": "Point-of-care summaries of clinical evidence with graded recommendations.",
+    "coverage": "Continuously updated",
+    "fullText": true,
+    "access": "Campus & off-campus (RSU login)"
+  },
+  {
     "slug": "psychology-tests-measures",
     "name": "Psychology Tests & Measures",
     "subjects": [
@@ -428,19 +430,6 @@
     ],
     "description": "Descriptions and full text of psychological tests and measurement instruments.",
     "coverage": "1920–present",
-    "fullText": true,
-    "access": "Campus & off-campus (RSU login)"
-  },
-  {
-    "slug": "psycsource",
-    "name": "PsycSource",
-    "subjects": [
-      "Psychology",
-      "Education",
-      "Nursing"
-    ],
-    "description": "The core index for psychology and the behavioral sciences, including dissertations and book chapters.",
-    "coverage": "1887–present",
     "fullText": true,
     "access": "Campus & off-campus (RSU login)"
   },
@@ -458,15 +447,15 @@
     "access": "Campus & off-campus (RSU login)"
   },
   {
-    "slug": "statistical-abstracts-online",
-    "name": "Statistical Abstracts Online",
+    "slug": "statistical-tables-online",
+    "name": "Statistical Tables Online",
     "subjects": [
       "Statistics",
       "Multidisciplinary"
     ],
     "description": "Tables and datasets from government and industry sources.",
     "coverage": "1878–present",
-    "fullText": false,
+    "fullText": true,
     "access": "Campus & off-campus (RSU login)"
   },
   {
@@ -481,13 +470,24 @@
     "access": "Campus & off-campus (RSU login)"
   },
   {
-    "slug": "teacher-reference-center",
-    "name": "Teacher Reference Center",
+    "slug": "visual-arts-architecture-collection",
+    "name": "Visual Arts & Architecture Collection",
     "subjects": [
-      "Education"
+      "Art"
     ],
-    "description": "Practitioner journals and lesson resources for K–12 teachers.",
-    "coverage": "1990–present",
+    "description": "Full-text art journals and a large collection of images of artworks and buildings.",
+    "coverage": "1937–present",
+    "fullText": true,
+    "access": "Campus & off-campus (RSU login)"
+  },
+  {
+    "slug": "world-history-index-primary-sources",
+    "name": "World History Index & Primary Sources",
+    "subjects": [
+      "History"
+    ],
+    "description": "Scholarship on world history since 1450, with linked primary source collections.",
+    "coverage": "1955–present",
     "fullText": true,
     "access": "Campus & off-campus (RSU login)"
   }

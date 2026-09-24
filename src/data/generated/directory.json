@@ -7,8 +7,8 @@
     "department": "Office of the President",
     "email": "mei.linchao@redwoodstate.example.edu",
     "phone": "(707) 555-0269",
-    "building": "Arcadia Hall",
-    "room": "ARC 405",
+    "building": "Founders Hall",
+    "room": "FDR 405",
     "hasProfile": false
   },
   {
@@ -19,8 +19,20 @@
     "department": "Office of the President",
     "email": "robert.haines@redwoodstate.example.edu",
     "phone": "(707) 555-0215",
-    "building": "Arcadia Hall",
-    "room": "ARC 308",
+    "building": "Founders Hall",
+    "room": "FDR 308",
+    "hasProfile": false
+  },
+  {
+    "slug": "thomas-harlan",
+    "name": "Thomas Harlan, J.D.",
+    "title": "Vice President for University Advancement",
+    "kind": "leadership",
+    "department": "Office of the President",
+    "email": "thomas.harlan@redwoodstate.example.edu",
+    "phone": "(707) 555-0209",
+    "building": "Founders Hall",
+    "room": "FDR 416",
     "hasProfile": false
   },
   {
@@ -31,8 +43,8 @@
     "department": "Office of the President",
     "email": "priya.natarajan@redwoodstate.example.edu",
     "phone": "(707) 555-0158",
-    "building": "Arcadia Hall",
-    "room": "ARC 404",
+    "building": "Founders Hall",
+    "room": "FDR 404",
     "hasProfile": false
   },
   {
@@ -43,20 +55,8 @@
     "department": "Office of the President",
     "email": "david.okafor@redwoodstate.example.edu",
     "phone": "(707) 555-0102",
-    "building": "Arcadia Hall",
-    "room": "ARC 309",
-    "hasProfile": false
-  },
-  {
-    "slug": "thomas-redcloud",
-    "name": "Thomas Redcloud, J.D.",
-    "title": "Vice President for University Advancement",
-    "kind": "leadership",
-    "department": "Office of the President",
-    "email": "thomas.redcloud@redwoodstate.example.edu",
-    "phone": "(707) 555-0209",
-    "building": "Arcadia Hall",
-    "room": "ARC 416",
+    "building": "Founders Hall",
+    "room": "FDR 309",
     "hasProfile": false
   },
   {
@@ -67,8 +67,8 @@
     "department": "Office of the President",
     "email": "elena.vasquezhart@redwoodstate.example.edu",
     "phone": "(707) 555-0268",
-    "building": "Arcadia Hall",
-    "room": "ARC 415",
+    "building": "Founders Hall",
+    "room": "FDR 415",
     "hasProfile": false
   },
   {
@@ -80,8 +80,8 @@
     "departmentSlug": "mathematics",
     "email": "samuel.adeyemi@redwoodstate.example.edu",
     "phone": "(707) 555-0265",
-    "building": "Canopy Science Center",
-    "room": "CSC 247",
+    "building": "Tanoak Hall",
+    "room": "TNK 247",
     "officeHours": "MWF 11:00 a.m.–noon",
     "hasProfile": true
   },
@@ -105,7 +105,7 @@
     "department": "Athletics",
     "email": "andre.aguilar@redwoodstate.example.edu",
     "phone": "(707) 555-0136",
-    "building": "Owl Athletic Center",
+    "building": "Owl Arena",
     "room": "OAC 123",
     "hasProfile": false
   },
@@ -117,8 +117,8 @@
     "department": "Student Financial Services (Bursar)",
     "email": "chinedu.aguilar@redwoodstate.example.edu",
     "phone": "(707) 555-0197",
-    "building": "Arcadia Hall",
-    "room": "ARC 150",
+    "building": "Founders Hall",
+    "room": "FDR 150",
     "hasProfile": false
   },
   {
@@ -129,8 +129,8 @@
     "department": "Financial Aid & Scholarships",
     "email": "paloma.aguilar@redwoodstate.example.edu",
     "phone": "(707) 555-0210",
-    "building": "Arcadia Hall",
-    "room": "ARC 233",
+    "building": "Founders Hall",
+    "room": "FDR 233",
     "hasProfile": false
   },
   {
@@ -153,7 +153,7 @@
     "department": "Athletics",
     "email": "emeka.anand@redwoodstate.example.edu",
     "phone": "(707) 555-0291",
-    "building": "Owl Athletic Center",
+    "building": "Owl Arena",
     "room": "OAC 207",
     "hasProfile": false
   },
@@ -180,8 +180,8 @@
     "departmentSlug": "psychology",
     "email": "kwame.asante@redwoodstate.example.edu",
     "phone": "(707) 555-0143",
-    "building": "Fernwood Hall",
-    "room": "FRN 206",
+    "building": "Huckleberry Hall",
+    "room": "HUC 206",
     "officeHours": "TR 1:00–2:30 p.m.",
     "hasProfile": true
   },
@@ -193,7 +193,7 @@
     "department": "Career Center",
     "email": "elif.bautista@redwoodstate.example.edu",
     "phone": "(707) 555-0182",
-    "building": "Student Union",
+    "building": "Rowan Student Union",
     "room": "SU 105",
     "hasProfile": false
   },
@@ -233,8 +233,8 @@
     "department": "Financial Aid & Scholarships",
     "email": "nina.bergstrom@redwoodstate.example.edu",
     "phone": "(707) 555-0253",
-    "building": "Arcadia Hall",
-    "room": "ARC 109",
+    "building": "Founders Hall",
+    "room": "FDR 109",
     "hasProfile": false
   },
   {
@@ -260,8 +260,8 @@
     "departmentSlug": "business-administration",
     "email": "denise.carter@redwoodstate.example.edu",
     "phone": "(707) 555-0259",
-    "building": "Coastline Business Building",
-    "room": "CBB 215",
+    "building": "Alder Hall",
+    "room": "ALD 215",
     "officeHours": "M 2:00–4:00 p.m. and by appointment",
     "hasProfile": true
   },
@@ -274,8 +274,8 @@
     "departmentSlug": "history",
     "email": "simone.castellanos@redwoodstate.example.edu",
     "phone": "(707) 555-0111",
-    "building": "Alder Hall",
-    "room": "ALD 207",
+    "building": "Spruce Hall",
+    "room": "SPR 207",
     "hasProfile": false
   },
   {
@@ -287,8 +287,8 @@
     "departmentSlug": "nursing",
     "email": "alejandro.chen@redwoodstate.example.edu",
     "phone": "(707) 555-0201",
-    "building": "Tanoak Health Sciences Building",
-    "room": "TNH 105",
+    "building": "Salal Hall",
+    "room": "SAL 105",
     "hasProfile": false
   },
   {
@@ -324,8 +324,8 @@
     "department": "Undergraduate Admissions",
     "email": "deepa.chen@redwoodstate.example.edu",
     "phone": "(707) 555-0109",
-    "building": "Arcadia Hall",
-    "room": "ARC 236",
+    "building": "Founders Hall",
+    "room": "FDR 236",
     "hasProfile": false
   },
   {
@@ -348,8 +348,8 @@
     "department": "Music",
     "email": "paloma.costa@redwoodstate.example.edu",
     "phone": "(707) 555-0219",
-    "building": "Manzanita Arts Center",
-    "room": "MAC 226",
+    "building": "Hartwell Fine Arts Center",
+    "room": "HFA 226",
     "officeHours": "M 2:00–4:00 p.m. and by appointment",
     "hasProfile": false
   },
@@ -361,8 +361,8 @@
     "department": "Office of the Registrar",
     "email": "keisha.desai@redwoodstate.example.edu",
     "phone": "(707) 555-0247",
-    "building": "Arcadia Hall",
-    "room": "ARC 150",
+    "building": "Founders Hall",
+    "room": "FDR 150",
     "hasProfile": false
   },
   {
@@ -385,8 +385,8 @@
     "department": "Education",
     "email": "uma.duarte@redwoodstate.example.edu",
     "phone": "(707) 555-0236",
-    "building": "Spruce Education Hall",
-    "room": "SPE 345",
+    "building": "Laurel Hall",
+    "room": "LAU 345",
     "officeHours": "MW 10:00–11:30 a.m.",
     "hasProfile": false
   },
@@ -399,8 +399,8 @@
     "departmentSlug": "psychology",
     "email": "hamid.eriksen@redwoodstate.example.edu",
     "phone": "(707) 555-0153",
-    "building": "Fernwood Hall",
-    "room": "FRN 220",
+    "building": "Huckleberry Hall",
+    "room": "HUC 220",
     "officeHours": "TR 1:00–2:30 p.m.",
     "hasProfile": false
   },
@@ -413,8 +413,8 @@
     "departmentSlug": "mathematics",
     "email": "adrian.espinoza@redwoodstate.example.edu",
     "phone": "(707) 555-0211",
-    "building": "Canopy Science Center",
-    "room": "CSC 107",
+    "building": "Tanoak Hall",
+    "room": "TNK 107",
     "hasProfile": false
   },
   {
@@ -425,8 +425,8 @@
     "department": "Human Resources",
     "email": "zoe.espinoza@redwoodstate.example.edu",
     "phone": "(707) 555-0297",
-    "building": "Arcadia Hall",
-    "room": "ARC 110",
+    "building": "Founders Hall",
+    "room": "FDR 110",
     "hasProfile": false
   },
   {
@@ -450,8 +450,8 @@
     "departmentSlug": "mathematics",
     "email": "lauren.fischer@redwoodstate.example.edu",
     "phone": "(707) 555-0181",
-    "building": "Canopy Science Center",
-    "room": "CSC 329",
+    "building": "Tanoak Hall",
+    "room": "TNK 329",
     "officeHours": "TR 1:00–2:30 p.m.",
     "hasProfile": true
   },
@@ -540,8 +540,8 @@
     "department": "Education",
     "email": "mateo.friedman@redwoodstate.example.edu",
     "phone": "(707) 555-0193",
-    "building": "Spruce Education Hall",
-    "room": "SPE 342",
+    "building": "Laurel Hall",
+    "room": "LAU 342",
     "officeHours": "W 9:00–11:00 a.m.",
     "hasProfile": false
   },
@@ -567,7 +567,7 @@
     "department": "Athletics",
     "email": "elif.gonzales@redwoodstate.example.edu",
     "phone": "(707) 555-0119",
-    "building": "Owl Athletic Center",
+    "building": "Owl Arena",
     "room": "OAC 110",
     "hasProfile": false
   },
@@ -607,8 +607,8 @@
     "departmentSlug": "nursing",
     "email": "michael.harjo@redwoodstate.example.edu",
     "phone": "(707) 555-0238",
-    "building": "Tanoak Health Sciences Building",
-    "room": "TNH 202",
+    "building": "Salal Hall",
+    "room": "SAL 202",
     "officeHours": "MWF 11:00 a.m.–noon",
     "hasProfile": true
   },
@@ -620,7 +620,7 @@
     "department": "Dining Services",
     "email": "nadia.harper@redwoodstate.example.edu",
     "phone": "(707) 555-0213",
-    "building": "Student Union",
+    "building": "Rowan Student Union",
     "room": "SU 114",
     "hasProfile": false
   },
@@ -633,8 +633,8 @@
     "departmentSlug": "english",
     "email": "kiran.hashemi@redwoodstate.example.edu",
     "phone": "(707) 555-0125",
-    "building": "Alder Hall",
-    "room": "ALD 343",
+    "building": "Spruce Hall",
+    "room": "SPR 343",
     "officeHours": "MW 10:00–11:30 a.m.",
     "hasProfile": false
   },
@@ -658,8 +658,8 @@
     "department": "Music",
     "email": "camila.ibarra@redwoodstate.example.edu",
     "phone": "(707) 555-0270",
-    "building": "Manzanita Arts Center",
-    "room": "MAC 322",
+    "building": "Hartwell Fine Arts Center",
+    "room": "HFA 322",
     "officeHours": "M 2:00–4:00 p.m. and by appointment",
     "hasProfile": false
   },
@@ -672,8 +672,8 @@
     "departmentSlug": "history",
     "email": "nina.ibarra@redwoodstate.example.edu",
     "phone": "(707) 555-0288",
-    "building": "Alder Hall",
-    "room": "ALD 200",
+    "building": "Spruce Hall",
+    "room": "SPR 200",
     "officeHours": "TR 10:00–11:00 a.m.",
     "hasProfile": false
   },
@@ -685,8 +685,8 @@
     "department": "Music",
     "email": "tomas.ibarra@redwoodstate.example.edu",
     "phone": "(707) 555-0299",
-    "building": "Manzanita Arts Center",
-    "room": "MAC 144",
+    "building": "Hartwell Fine Arts Center",
+    "room": "HFA 144",
     "officeHours": "MW 10:00–11:30 a.m.",
     "hasProfile": false
   },
@@ -710,7 +710,7 @@
     "department": "Career Center",
     "email": "farah.jaramillo@redwoodstate.example.edu",
     "phone": "(707) 555-0130",
-    "building": "Student Union",
+    "building": "Rowan Student Union",
     "room": "SU 102",
     "hasProfile": false
   },
@@ -722,7 +722,7 @@
     "department": "Athletics",
     "email": "theo.jensen@redwoodstate.example.edu",
     "phone": "(707) 555-0178",
-    "building": "Owl Athletic Center",
+    "building": "Owl Arena",
     "room": "OAC 130",
     "hasProfile": false
   },
@@ -758,8 +758,8 @@
     "department": "Human Resources",
     "email": "nadia.kealoha@redwoodstate.example.edu",
     "phone": "(707) 555-0276",
-    "building": "Arcadia Hall",
-    "room": "ARC 129",
+    "building": "Founders Hall",
+    "room": "FDR 129",
     "hasProfile": false
   },
   {
@@ -784,8 +784,8 @@
     "departmentSlug": "business-administration",
     "email": "chiara.kowalczyk@redwoodstate.example.edu",
     "phone": "(707) 555-0263",
-    "building": "Coastline Business Building",
-    "room": "CBB 103",
+    "building": "Alder Hall",
+    "room": "ALD 103",
     "hasProfile": false
   },
   {
@@ -808,7 +808,7 @@
     "department": "Career Center",
     "email": "hector.kowalczyk@redwoodstate.example.edu",
     "phone": "(707) 555-0252",
-    "building": "Student Union",
+    "building": "Rowan Student Union",
     "room": "SU 120",
     "hasProfile": false
   },
@@ -847,8 +847,8 @@
     "departmentSlug": "business-administration",
     "email": "hannah.lindqvist@redwoodstate.example.edu",
     "phone": "(707) 555-0289",
-    "building": "Coastline Business Building",
-    "room": "CBB 345",
+    "building": "Alder Hall",
+    "room": "ALD 345",
     "officeHours": "M 2:00–4:00 p.m. and by appointment",
     "hasProfile": true
   },
@@ -860,8 +860,8 @@
     "department": "Undergraduate Admissions",
     "email": "graham.mahoney@redwoodstate.example.edu",
     "phone": "(707) 555-0293",
-    "building": "Arcadia Hall",
-    "room": "ARC 242",
+    "building": "Founders Hall",
+    "room": "FDR 242",
     "hasProfile": false
   },
   {
@@ -896,8 +896,8 @@
     "department": "Student Financial Services (Bursar)",
     "email": "lars.mcallister@redwoodstate.example.edu",
     "phone": "(707) 555-0167",
-    "building": "Arcadia Hall",
-    "room": "ARC 135",
+    "building": "Founders Hall",
+    "room": "FDR 135",
     "hasProfile": false
   },
   {
@@ -909,8 +909,8 @@
     "departmentSlug": "business-administration",
     "email": "arjun.mehta@redwoodstate.example.edu",
     "phone": "(707) 555-0105",
-    "building": "Coastline Business Building",
-    "room": "CBB 238",
+    "building": "Alder Hall",
+    "room": "ALD 238",
     "officeHours": "TR 1:00–2:30 p.m.",
     "hasProfile": true
   },
@@ -923,8 +923,8 @@
     "departmentSlug": "history",
     "email": "harold.mensah@redwoodstate.example.edu",
     "phone": "(707) 555-0284",
-    "building": "Alder Hall",
-    "room": "ALD 245",
+    "building": "Spruce Hall",
+    "room": "SPR 245",
     "officeHours": "W 9:00–11:00 a.m.",
     "hasProfile": true
   },
@@ -936,8 +936,8 @@
     "department": "Office of the Registrar",
     "email": "bianca.morales@redwoodstate.example.edu",
     "phone": "(707) 555-0292",
-    "building": "Arcadia Hall",
-    "room": "ARC 223",
+    "building": "Founders Hall",
+    "room": "FDR 223",
     "hasProfile": false
   },
   {
@@ -949,8 +949,8 @@
     "departmentSlug": "mathematics",
     "email": "farah.morales@redwoodstate.example.edu",
     "phone": "(707) 555-0279",
-    "building": "Canopy Science Center",
-    "room": "CSC 128",
+    "building": "Tanoak Hall",
+    "room": "TNK 128",
     "officeHours": "TR 1:00–2:30 p.m.",
     "hasProfile": false
   },
@@ -975,8 +975,8 @@
     "departmentSlug": "psychology",
     "email": "isabel.moreno@redwoodstate.example.edu",
     "phone": "(707) 555-0126",
-    "building": "Fernwood Hall",
-    "room": "FRN 303",
+    "building": "Huckleberry Hall",
+    "room": "HUC 303",
     "officeHours": "TR 10:00–11:00 a.m.",
     "hasProfile": true
   },
@@ -988,8 +988,8 @@
     "department": "Art",
     "email": "seth.nakamura@redwoodstate.example.edu",
     "phone": "(707) 555-0275",
-    "building": "Manzanita Arts Center",
-    "room": "MAC 233",
+    "building": "Hartwell Fine Arts Center",
+    "room": "HFA 233",
     "officeHours": "TR 10:00–11:00 a.m.",
     "hasProfile": false
   },
@@ -1002,8 +1002,8 @@
     "departmentSlug": "nursing",
     "email": "patricia.nguyen@redwoodstate.example.edu",
     "phone": "(707) 555-0242",
-    "building": "Tanoak Health Sciences Building",
-    "room": "TNH 237",
+    "building": "Salal Hall",
+    "room": "SAL 237",
     "officeHours": "MWF 11:00 a.m.–noon",
     "hasProfile": true
   },
@@ -1015,8 +1015,8 @@
     "department": "Office of the Registrar",
     "email": "uma.novak@redwoodstate.example.edu",
     "phone": "(707) 555-0203",
-    "building": "Arcadia Hall",
-    "room": "ARC 225",
+    "building": "Founders Hall",
+    "room": "FDR 225",
     "hasProfile": false
   },
   {
@@ -1028,8 +1028,8 @@
     "departmentSlug": "english",
     "email": "amara.nwosu@redwoodstate.example.edu",
     "phone": "(707) 555-0202",
-    "building": "Alder Hall",
-    "room": "ALD 347",
+    "building": "Spruce Hall",
+    "room": "SPR 347",
     "officeHours": "MW 10:00–11:30 a.m.",
     "hasProfile": true
   },
@@ -1042,8 +1042,8 @@
     "departmentSlug": "english",
     "email": "james.oconnell@redwoodstate.example.edu",
     "phone": "(707) 555-0224",
-    "building": "Alder Hall",
-    "room": "ALD 305",
+    "building": "Spruce Hall",
+    "room": "SPR 305",
     "officeHours": "MWF 11:00 a.m.–noon",
     "hasProfile": true
   },
@@ -1055,8 +1055,8 @@
     "department": "Geography",
     "email": "caleb.obi@redwoodstate.example.edu",
     "phone": "(707) 555-0221",
-    "building": "Alder Hall",
-    "room": "ALD 247",
+    "building": "Spruce Hall",
+    "room": "SPR 247",
     "officeHours": "MWF 11:00 a.m.–noon",
     "hasProfile": false
   },
@@ -1080,8 +1080,8 @@
     "department": "Undergraduate Admissions",
     "email": "julian.obi@redwoodstate.example.edu",
     "phone": "(707) 555-0296",
-    "building": "Arcadia Hall",
-    "room": "ARC 249",
+    "building": "Founders Hall",
+    "room": "FDR 249",
     "hasProfile": false
   },
   {
@@ -1092,8 +1092,8 @@
     "department": "Payroll Services",
     "email": "lucia.obi@redwoodstate.example.edu",
     "phone": "(707) 555-0159",
-    "building": "Arcadia Hall",
-    "room": "ARC 249",
+    "building": "Founders Hall",
+    "room": "FDR 249",
     "hasProfile": false
   },
   {
@@ -1156,8 +1156,8 @@
     "department": "Human Resources",
     "email": "hector.pacheco@redwoodstate.example.edu",
     "phone": "(707) 555-0174",
-    "building": "Arcadia Hall",
-    "room": "ARC 205",
+    "building": "Founders Hall",
+    "room": "FDR 205",
     "hasProfile": false
   },
   {
@@ -1168,8 +1168,8 @@
     "department": "Payroll Services",
     "email": "lucia.pacheco@redwoodstate.example.edu",
     "phone": "(707) 555-0287",
-    "building": "Arcadia Hall",
-    "room": "ARC 116",
+    "building": "Founders Hall",
+    "room": "FDR 116",
     "hasProfile": false
   },
   {
@@ -1193,7 +1193,7 @@
     "department": "Dining Services",
     "email": "tomas.pacheco@redwoodstate.example.edu",
     "phone": "(707) 555-0223",
-    "building": "Student Union",
+    "building": "Rowan Student Union",
     "room": "SU 216",
     "hasProfile": false
   },
@@ -1220,9 +1220,9 @@
     "departmentSlug": "business-administration",
     "email": "ruth.park@redwoodstate.example.edu",
     "phone": "(707) 555-0205",
-    "building": "Coastline Business Building",
-    "room": "CBB 246",
-    "officeHours": "By appointment (Zoom or in person)",
+    "building": "Alder Hall",
+    "room": "ALD 246",
+    "officeHours": "By appointment (CanopyMeet or in person)",
     "hasProfile": false
   },
   {
@@ -1234,8 +1234,8 @@
     "departmentSlug": "mathematics",
     "email": "olga.petrova@redwoodstate.example.edu",
     "phone": "(707) 555-0180",
-    "building": "Canopy Science Center",
-    "room": "CSC 201",
+    "building": "Tanoak Hall",
+    "room": "TNK 201",
     "officeHours": "MW 10:00–11:30 a.m.",
     "hasProfile": true
   },
@@ -1248,8 +1248,8 @@
     "departmentSlug": "business-administration",
     "email": "julian.pham@redwoodstate.example.edu",
     "phone": "(707) 555-0191",
-    "building": "Coastline Business Building",
-    "room": "CBB 228",
+    "building": "Alder Hall",
+    "room": "ALD 228",
     "officeHours": "W 9:00–11:00 a.m.",
     "hasProfile": false
   },
@@ -1276,8 +1276,8 @@
     "departmentSlug": "nursing",
     "email": "aisha.rahman@redwoodstate.example.edu",
     "phone": "(707) 555-0114",
-    "building": "Tanoak Health Sciences Building",
-    "room": "TNH 333",
+    "building": "Salal Hall",
+    "room": "SAL 333",
     "officeHours": "TR 10:00–11:00 a.m.",
     "hasProfile": true
   },
@@ -1316,8 +1316,8 @@
     "departmentSlug": "nursing",
     "email": "quinn.reyes@redwoodstate.example.edu",
     "phone": "(707) 555-0274",
-    "building": "Tanoak Health Sciences Building",
-    "room": "TNH 229",
+    "building": "Salal Hall",
+    "room": "SAL 229",
     "officeHours": "MW 10:00–11:30 a.m.",
     "hasProfile": false
   },
@@ -1330,8 +1330,8 @@
     "departmentSlug": "english",
     "email": "shira.reyes@redwoodstate.example.edu",
     "phone": "(707) 555-0110",
-    "building": "Alder Hall",
-    "room": "ALD 206",
+    "building": "Spruce Hall",
+    "room": "SPR 206",
     "hasProfile": false
   },
   {
@@ -1342,8 +1342,8 @@
     "department": "Art",
     "email": "teresa.reyes@redwoodstate.example.edu",
     "phone": "(707) 555-0231",
-    "building": "Manzanita Arts Center",
-    "room": "MAC 301",
+    "building": "Hartwell Fine Arts Center",
+    "room": "HFA 301",
     "officeHours": "TR 1:00–2:30 p.m.",
     "hasProfile": false
   },
@@ -1368,8 +1368,8 @@
     "departmentSlug": "history",
     "email": "carmen.ruiz@redwoodstate.example.edu",
     "phone": "(707) 555-0149",
-    "building": "Alder Hall",
-    "room": "ALD 309",
+    "building": "Spruce Hall",
+    "room": "SPR 309",
     "officeHours": "W 9:00–11:00 a.m.",
     "hasProfile": true
   },
@@ -1424,7 +1424,7 @@
     "phone": "(707) 555-0208",
     "building": "Canopy Science Center",
     "room": "CSC 331",
-    "officeHours": "By appointment (Zoom or in person)",
+    "officeHours": "By appointment (CanopyMeet or in person)",
     "hasProfile": false
   },
   {
@@ -1447,8 +1447,8 @@
     "department": "Undergraduate Admissions",
     "email": "malik.shah@redwoodstate.example.edu",
     "phone": "(707) 555-0184",
-    "building": "Arcadia Hall",
-    "room": "ARC 131",
+    "building": "Founders Hall",
+    "room": "FDR 131",
     "hasProfile": false
   },
   {
@@ -1459,8 +1459,8 @@
     "department": "Financial Aid & Scholarships",
     "email": "aaliyah.silva@redwoodstate.example.edu",
     "phone": "(707) 555-0245",
-    "building": "Arcadia Hall",
-    "room": "ARC 254",
+    "building": "Founders Hall",
+    "room": "FDR 254",
     "hasProfile": false
   },
   {
@@ -1471,8 +1471,8 @@
     "department": "Office of the Registrar",
     "email": "shira.soto@redwoodstate.example.edu",
     "phone": "(707) 555-0280",
-    "building": "Arcadia Hall",
-    "room": "ARC 151",
+    "building": "Founders Hall",
+    "room": "FDR 151",
     "hasProfile": false
   },
   {
@@ -1484,8 +1484,8 @@
     "departmentSlug": "psychology",
     "email": "rebecca.stein@redwoodstate.example.edu",
     "phone": "(707) 555-0282",
-    "building": "Fernwood Hall",
-    "room": "FRN 246",
+    "building": "Huckleberry Hall",
+    "room": "HUC 246",
     "officeHours": "TR 1:00–2:30 p.m.",
     "hasProfile": true
   },
@@ -1497,8 +1497,8 @@
     "department": "Office of the Registrar",
     "email": "adrian.sullivan@redwoodstate.example.edu",
     "phone": "(707) 555-0261",
-    "building": "Arcadia Hall",
-    "room": "ARC 137",
+    "building": "Founders Hall",
+    "room": "FDR 137",
     "hasProfile": false
   },
   {
@@ -1509,8 +1509,8 @@
     "department": "Education",
     "email": "francesca.sullivan@redwoodstate.example.edu",
     "phone": "(707) 555-0237",
-    "building": "Spruce Education Hall",
-    "room": "SPE 303",
+    "building": "Laurel Hall",
+    "room": "LAU 303",
     "officeHours": "MW 10:00–11:30 a.m.",
     "hasProfile": false
   },
@@ -1537,7 +1537,7 @@
     "phone": "(707) 555-0175",
     "building": "Canopy Science Center",
     "room": "CSC 248",
-    "officeHours": "By appointment (Zoom or in person)",
+    "officeHours": "By appointment (CanopyMeet or in person)",
     "hasProfile": false
   },
   {
@@ -1560,8 +1560,8 @@
     "department": "Art",
     "email": "gemma.tanaka@redwoodstate.example.edu",
     "phone": "(707) 555-0200",
-    "building": "Manzanita Arts Center",
-    "room": "MAC 219",
+    "building": "Hartwell Fine Arts Center",
+    "room": "HFA 219",
     "officeHours": "M 2:00–4:00 p.m. and by appointment",
     "hasProfile": false
   },
@@ -1586,8 +1586,8 @@
     "departmentSlug": "history",
     "email": "william.tran@redwoodstate.example.edu",
     "phone": "(707) 555-0256",
-    "building": "Alder Hall",
-    "room": "ALD 232",
+    "building": "Spruce Hall",
+    "room": "SPR 232",
     "officeHours": "MW 10:00–11:30 a.m.",
     "hasProfile": true
   },
@@ -1599,8 +1599,8 @@
     "department": "Financial Aid & Scholarships",
     "email": "kofi.tsosie@redwoodstate.example.edu",
     "phone": "(707) 555-0135",
-    "building": "Arcadia Hall",
-    "room": "ARC 114",
+    "building": "Founders Hall",
+    "room": "FDR 114",
     "hasProfile": false
   },
   {
@@ -1611,8 +1611,8 @@
     "department": "Student Financial Services (Bursar)",
     "email": "teresa.tsosie@redwoodstate.example.edu",
     "phone": "(707) 555-0151",
-    "building": "Arcadia Hall",
-    "room": "ARC 228",
+    "building": "Founders Hall",
+    "room": "FDR 228",
     "hasProfile": false
   },
   {
@@ -1623,8 +1623,8 @@
     "department": "Geography",
     "email": "uma.underwood@redwoodstate.example.edu",
     "phone": "(707) 555-0192",
-    "building": "Alder Hall",
-    "room": "ALD 115",
+    "building": "Spruce Hall",
+    "room": "SPR 115",
     "officeHours": "TR 10:00–11:00 a.m.",
     "hasProfile": false
   },
@@ -1637,8 +1637,8 @@
     "departmentSlug": "history",
     "email": "valentina.underwood@redwoodstate.example.edu",
     "phone": "(707) 555-0248",
-    "building": "Alder Hall",
-    "room": "ALD 126",
+    "building": "Spruce Hall",
+    "room": "SPR 126",
     "officeHours": "W 9:00–11:00 a.m.",
     "hasProfile": false
   },
@@ -1652,7 +1652,7 @@
     "phone": "(707) 555-0152",
     "building": "Canopy Science Center",
     "room": "CSC 147",
-    "officeHours": "By appointment (Zoom or in person)",
+    "officeHours": "By appointment (CanopyMeet or in person)",
     "hasProfile": false
   },
   {
@@ -1677,8 +1677,8 @@
     "departmentSlug": "psychology",
     "email": "maya.vance@redwoodstate.example.edu",
     "phone": "(707) 555-0229",
-    "building": "Fernwood Hall",
-    "room": "FRN 105",
+    "building": "Huckleberry Hall",
+    "room": "HUC 105",
     "hasProfile": false
   },
   {
@@ -1689,8 +1689,8 @@
     "department": "University Advancement",
     "email": "mohammed.vance@redwoodstate.example.edu",
     "phone": "(707) 555-0267",
-    "building": "Arcadia Hall",
-    "room": "ARC 152",
+    "building": "Founders Hall",
+    "room": "FDR 152",
     "hasProfile": false
   },
   {
@@ -1702,8 +1702,8 @@
     "departmentSlug": "nursing",
     "email": "maya.walker@redwoodstate.example.edu",
     "phone": "(707) 555-0104",
-    "building": "Tanoak Health Sciences Building",
-    "room": "TNH 237",
+    "building": "Salal Hall",
+    "room": "SAL 237",
     "officeHours": "M 2:00–4:00 p.m. and by appointment",
     "hasProfile": false
   },
@@ -1715,8 +1715,8 @@
     "department": "University Advancement",
     "email": "zainab.walker@redwoodstate.example.edu",
     "phone": "(707) 555-0139",
-    "building": "Arcadia Hall",
-    "room": "ARC 218",
+    "building": "Founders Hall",
+    "room": "FDR 218",
     "hasProfile": false
   },
   {
@@ -1727,8 +1727,8 @@
     "department": "University Advancement",
     "email": "chloe.washington@redwoodstate.example.edu",
     "phone": "(707) 555-0264",
-    "building": "Arcadia Hall",
-    "room": "ARC 132",
+    "building": "Founders Hall",
+    "room": "FDR 132",
     "hasProfile": false
   },
   {
@@ -1742,7 +1742,7 @@
     "phone": "(707) 555-0146",
     "building": "Sequoia Engineering Hall",
     "room": "SEH 302",
-    "officeHours": "By appointment (Zoom or in person)",
+    "officeHours": "By appointment (CanopyMeet or in person)",
     "hasProfile": false
   },
   {
@@ -1768,8 +1768,8 @@
     "departmentSlug": "mathematics",
     "email": "lars.weiss@redwoodstate.example.edu",
     "phone": "(707) 555-0115",
-    "building": "Canopy Science Center",
-    "room": "CSC 304",
+    "building": "Tanoak Hall",
+    "room": "TNK 304",
     "officeHours": "M 2:00–4:00 p.m. and by appointment",
     "hasProfile": false
   },
@@ -1808,8 +1808,8 @@
     "departmentSlug": "english",
     "email": "grace.yamamoto@redwoodstate.example.edu",
     "phone": "(707) 555-0257",
-    "building": "Alder Hall",
-    "room": "ALD 337",
+    "building": "Spruce Hall",
+    "room": "SPR 337",
     "officeHours": "MW 10:00–11:30 a.m.",
     "hasProfile": true
   },
@@ -1821,8 +1821,8 @@
     "department": "Human Resources",
     "email": "aaliyah.yazzie@redwoodstate.example.edu",
     "phone": "(707) 555-0260",
-    "building": "Arcadia Hall",
-    "room": "ARC 240",
+    "building": "Founders Hall",
+    "room": "FDR 240",
     "hasProfile": false
   },
   {
@@ -1859,9 +1859,9 @@
     "departmentSlug": "psychology",
     "email": "ben.young@redwoodstate.example.edu",
     "phone": "(707) 555-0121",
-    "building": "Fernwood Hall",
-    "room": "FRN 247",
-    "officeHours": "By appointment (Zoom or in person)",
+    "building": "Huckleberry Hall",
+    "room": "HUC 247",
+    "officeHours": "By appointment (CanopyMeet or in person)",
     "hasProfile": false
   },
   {
@@ -1872,8 +1872,8 @@
     "department": "Undergraduate Admissions",
     "email": "colin.zamora@redwoodstate.example.edu",
     "phone": "(707) 555-0235",
-    "building": "Arcadia Hall",
-    "room": "ARC 136",
+    "building": "Founders Hall",
+    "room": "FDR 136",
     "hasProfile": false
   },
   {
@@ -1884,8 +1884,8 @@
     "department": "Geography",
     "email": "darius.zhang@redwoodstate.example.edu",
     "phone": "(707) 555-0133",
-    "building": "Alder Hall",
-    "room": "ALD 231",
+    "building": "Spruce Hall",
+    "room": "SPR 231",
     "officeHours": "W 9:00–11:00 a.m.",
     "hasProfile": false
   },
@@ -1910,8 +1910,8 @@
     "departmentSlug": "english",
     "email": "teresa.zhang@redwoodstate.example.edu",
     "phone": "(707) 555-0266",
-    "building": "Alder Hall",
-    "room": "ALD 219",
+    "building": "Spruce Hall",
+    "room": "SPR 219",
     "officeHours": "TR 10:00–11:00 a.m.",
     "hasProfile": false
   }

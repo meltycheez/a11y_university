@@ -96,7 +96,7 @@ export const sectionPages: Record<string, PageContent> = {
     sections: [
       {
         paragraphs: [
-          "The General Catalog is the official statement of academic policies, degree requirements, and course descriptions. Students follow the requirements of the catalog in effect when they begin continuous enrollment (catalog rights, per EO 1071 and University Policy AP-14-03). Changes to the catalog after publication appear in the Catalog Addendum.",
+          "The General Catalog is the official statement of academic policies, degree requirements, and course descriptions. Students follow the requirements of the catalog in effect when they begin continuous enrollment (catalog rights, per University Policy AP-14-03). Changes to the catalog after publication appear in the Catalog Addendum.",
         ],
         links: [
           { label: "Catalog Addendum 2026 (PDF)", href: "/documents/catalog-addendum-2025-26.pdf" },
@@ -218,11 +218,11 @@ export const sectionPages: Record<string, PageContent> = {
 
   // Athletics
   "/athletics": {
-    summary: "Home of the Redwood Owls: 14 NCAA Division II teams.",
+    summary: "Home of the Redwood Owls: 14 IAA Division II teams.",
     sections: [
       {
         paragraphs: [
-          "The Redwood Owls compete in NCAA Division II in the Pacific Coast Athletic Conference. Home games are played in Owl Arena and on Redwood Field. Students get in free with their ID. Look for Rowan the Redwood Owl on the sideline.",
+          "The Redwood Owls compete in Intercollegiate Athletic Association (IAA) Division II in the Pacific North Conference. Home games are played in Owl Arena and on Redwood Field. Students get in free with their ID. Look for Rowan the Redwood Owl on the sideline.",
         ],
         links: [
           { label: "Teams", href: "/athletics/teams" },
@@ -275,7 +275,7 @@ export const sectionPages: Record<string, PageContent> = {
       {
         heading: "Ways to give",
         list: [
-          "Online by credit card or PayPal",
+          "Online by credit card or bank transfer through RedwoodConnect ePay",
           "Monthly recurring gifts through the Evergreen Society",
           "Payroll deduction for faculty and staff",
           "Gifts of stock or appreciated securities",
@@ -470,7 +470,7 @@ export const sectionPages: Record<string, PageContent> = {
             ["Canopy HMO", "HMO", "$0", "$62", "$118", "$15", "$0"],
             ["North Coast PPO", "PPO", "$84", "$236", "$392", "$25 (in network)", "$500 / $1,000"],
             ["Redwood Health Savings Plan", "HDHP + HSA", "$0", "$0", "$38", "Deductible, then 10%", "$1,650 / $3,300"],
-            ["Kaiser Permanente (Sacramento area only)", "HMO", "$0", "$48", "$96", "$15", "$0"],
+            ["Redwood Health Plan (Port Alder Medical Center network)", "HMO", "$0", "$48", "$96", "$15", "$0"],
           ],
         },
       },
@@ -479,16 +479,16 @@ export const sectionPages: Record<string, PageContent> = {
         table: {
           columns: ["Plan", "Employee cost", "Coverage highlights"],
           rows: [
-            ["Delta Dental PPO", "$0", "100% preventive, 80% basic, 50% major; $2,000 annual maximum"],
-            ["DeltaCare HMO", "$0", "Copay schedule, no annual maximum"],
-            ["VSP Vision", "$0", "Exam every 12 months, $10 copay; $150 frames allowance"],
+            ["Coastal Dental Plan PPO", "$0", "100% preventive, 80% basic, 50% major; $2,000 annual maximum"],
+            ["Coastal Dental Plan HMO", "$0", "Copay schedule, no annual maximum"],
+            ["ClearView Vision Plan", "$0", "Exam every 12 months, $10 copay; $150 frames allowance"],
           ],
         },
       },
       {
         heading: "Retirement",
         paragraphs: [
-          "Most employees are members of the California Public Employees' Retirement System (CalPERS), a defined benefit plan. Employees hired after January 1, 2013 contribute 8% of salary (PEPRA 2% at 62 formula). Voluntary 403(b) and 457(b) plans are available.",
+          "Most employees are members of the State Public Employees' Retirement System, a defined benefit plan. Employees hired after January 1, 2013 contribute 8% of salary (2% at 62 formula). Voluntary 403(b) and 457(b) plans are available.",
         ],
       },
       {

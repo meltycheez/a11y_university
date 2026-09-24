@@ -10,7 +10,7 @@ Create a believable, deterministic body of fictional university content with no 
 |---|---|
 | Name | Redwood State University (RSU) |
 | Founded | 1911, as Arcadia Falls Normal School |
-| Location | 1400 Canopy Drive, Arcadia Falls, CA 95561 (fictional city) |
+| Location | 1400 Canopy Drive, Arcadia Falls, CA 95579 (fictional city) |
 | Colors | Redwood `#7A2E1F`, Fern `#2F5D3A`, Mist `#E8EEF0`, Gold accent `#C9A227` |
 | Typefaces | Source Serif 4 for headings, Source Sans 3 for body (self-hosted, no CDN) |
 | Mascot | Rowan the Redwood Owl (teams: Redwood Owls) |
@@ -94,4 +94,4 @@ Before content is written, check the name, city, and domain against real institu
 - Search: `public/search-index.json` (about 505 entries) is rebuilt by `npm run build`; "computer science" returns department, program, faculty, course, news and page groups (`src/search/search.test.ts`).
 - Verified: two consecutive builds produce identical `build/client`; no Lorem Ipsum anywhere.
 - Thin pages (summary plus one section, real content comes with their interactive feature): portal, news/events/library search, athletics schedule/scores, apply, request-info, donate, directory, jobs.
-- Open brand question: see the plan 03 summary in chat (Cal Poly Humboldt resemblance, ZIP 95561, real place names like Trinidad).
+- All names fictionalized per ADR-021 and `docs/WORLD.md` (ZIP 95579).

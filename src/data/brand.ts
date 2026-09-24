@@ -7,7 +7,7 @@ export const brand = {
   motto: "Radices altae, rami lati",
   mottoTranslation: "Deep roots, wide branches",
   mascot: "Redwood Owls",
-  address: { street: "1400 Canopy Drive", city: "Arcadia Falls", state: "CA", zip: "95561" },
+  address: { street: "1400 Canopy Drive", city: "Arcadia Falls", state: "CA", zip: "95579" },
   phone: "(707) 555-0100",
   email: "info@redwoodstate.example.edu",
   portalName: "RedwoodConnect",

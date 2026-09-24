@@ -41,10 +41,10 @@ export const collegeContent: Record<string, CollegeContent> = {
       "The College of Engineering prepares engineers and computer scientists to design technology for a changing world, from autonomous forest-monitoring drones to low-cost water sensors for rural communities. Students learn by building: every major includes a two-semester senior capstone with an industry, tribal, or public agency partner. The college is home to the Departments of Computer Science and Mechanical Engineering and to the new Robotics Lab in Sequoia Engineering Hall.",
     dean: "Dr. Victor Almeida",
     highlights: [
-      "ABET-accredited B.S. programs in Computer Science and Mechanical Engineering",
+      "EPAB-accredited B.S. programs in Computer Science and Mechanical Engineering",
       "New 6,000-square-foot Robotics Lab opened in Sequoia Engineering Hall in 2026",
       "Senior capstone projects with more than 40 industry and agency partners",
-      "Student chapters of SHPE, SWE, NSBE, and ACM",
+      "Student clubs including the Latinx Engineering Society, Women in Engineering, and the Owl Computing Club",
       "92% of graduates employed or in graduate school within six months",
     ],
     contacts: contacts("Sequoia Engineering Hall 200", "0210", "engineering", [{ label: "Hours", value: "Monday–Friday, 8 a.m. to 5 p.m." }]),
@@ -52,13 +52,13 @@ export const collegeContent: Record<string, CollegeContent> = {
   },
   business: {
     overview:
-      "The College of Business educates ethical, analytical leaders for the businesses, nonprofits, and public agencies of the north coast and beyond. AACSB-accredited since 1998, the college offers the B.B.A. with seven concentrations and a hybrid M.B.A. designed for working professionals. Through the Small Business Development Center, students consult with more than 200 regional businesses every year.",
+      "The College of Business educates ethical, analytical leaders for the businesses, nonprofits, and public agencies of the north coast and beyond. ABSA-accredited since 1998, the college offers the B.B.A. with seven concentrations and a hybrid M.B.A. designed for working professionals. Through the North Coast Small Business Center, students consult with more than 200 regional businesses every year.",
     dean: "Dr. Lorraine Whitaker",
     highlights: [
-      "AACSB International accreditation, held by fewer than 6% of business schools worldwide",
+      "ABSA accreditation, held by fewer than 6% of business schools worldwide",
       "Hybrid M.B.A. with evening and weekend residencies",
       "Student-managed Redwood Investment Fund with $1.2 million in assets",
-      "North Coast Small Business Development Center, housed in Spruce Hall",
+      "North Coast Small Business Center, housed in Spruce Hall",
       "Concentrations in sustainable business, analytics, and hospitality and tourism",
     ],
     contacts: contacts("Spruce Hall 300", "0220", "business"),
@@ -66,14 +66,14 @@ export const collegeContent: Record<string, CollegeContent> = {
   },
   "arts-humanities": {
     overview:
-      "The College of Arts & Humanities is the university's oldest college, tracing its roots to the normal school's English and history faculty. Today it offers programs in English, history, languages, art, music, theatre, philosophy, and Native American studies. Students write for the award-winning Toyon literary journal, perform with the Redwood Chorale, and work with the region's archives and museums.",
+      "The College of Arts & Humanities is the university's oldest college, tracing its roots to the normal school's English and history faculty. Today it offers programs in English, history, languages, art, music, theatre, philosophy, and Native American studies. Students write for the award-winning Fernleaf literary journal, perform with the Redwood Chorale, and work with the region's archives and museums.",
     dean: "Dr. Helena Marchetti",
     highlights: [
-      "Toyon, the student literary journal, published continuously since 1954",
-      "Redwood Chorale and the North Coast Repertory Theatre partnership",
+      "Fernleaf, the student literary journal, published continuously since 1954",
+      "Redwood Chorale and the Arcadia Falls Repertory Theatre partnership",
       "Public history internships with the Arcadia Falls Historical Society",
       "Native American Studies program developed with regional tribal nations",
-      "Reese Bullen Gallery exhibitions featuring students and faculty",
+      "Alder Hall Gallery exhibitions featuring students and faculty",
     ],
     contacts: contacts("Alder Hall 110", "0230", "cah"),
     image: "college-arts-humanities",
@@ -84,8 +84,8 @@ export const collegeContent: Record<string, CollegeContent> = {
     dean: "Dr. Raymond Kessler",
     highlights: [
       "$22 million in external research funding in 2025–26",
-      "Kellerman Research Forest and the Trinidad Point Marine Lab for field research",
-      "Canopy Science Center, a LEED Platinum research and teaching building",
+      "Tanoak Creek Research Forest and the Gull Rock Point Marine Lab for field research",
+      "Canopy Science Center, a net-zero energy research and teaching building",
       "Paid undergraduate research through the Canopy Summer Research Program",
       "Pre-health advising for medicine, dentistry, pharmacy, and veterinary medicine",
     ],
@@ -94,13 +94,13 @@ export const collegeContent: Record<string, CollegeContent> = {
   },
   education: {
     overview:
-      "The College of Education continues the university's founding mission: preparing teachers for the schools of rural Northern California. The college offers Multiple Subject, Single Subject, and Education Specialist credentials, the M.A. in Education, and the undergraduate Child Development major. Credential candidates complete a full year of clinical practice in partner districts from Crescent City to Ukiah.",
+      "The College of Education continues the university's founding mission: preparing teachers for the schools of rural Northern California. The college offers Multiple Subject, Single Subject, and Education Specialist credentials, the M.A. in Education, and the undergraduate Child Development major. Credential candidates complete a full year of clinical practice in partner districts from Hollis Landing to Brightwater.",
     dean: "Dr. Gloria Etsitty",
     highlights: [
-      "Commission on Teacher Credentialing accredited programs",
+      "Programs accredited by the State Teacher Credentialing Board",
       "Paid teacher residency with 14 partner school districts",
       "Rural Teacher Pathway scholarships for students who commit to teaching in the region",
-      "Graduates include the 2026 California Teacher of the Year",
+      "Graduates include the 2026 State Teacher of the Year",
       "Children's Center lab school on campus",
     ],
     contacts: contacts("Fir Hall 200", "0250", "education"),
@@ -111,7 +111,7 @@ export const collegeContent: Record<string, CollegeContent> = {
       "The College of Health Sciences prepares nurses, public health professionals, and kinesiologists to care for rural and underserved communities. The college includes the School of Nursing, the Department of Public Health, and the Department of Kinesiology and Recreation. Students train in the Huckleberry Hall Simulation Center, which earned national accreditation in 2026, and complete clinical placements across six counties.",
     dean: "Dr. Samuel Whitehorse",
     highlights: [
-      "CCNE-accredited B.S.N. with a 94% first-time NCLEX pass rate",
+      "NCNPA-accredited B.S.N. with a 94% first-time licensure exam pass rate",
       "Nationally accredited Nursing Simulation Center in Huckleberry Hall",
       "Rural Health Scholars program with regional hospitals and tribal clinics",
       "B.S. in Public Health with community health and environmental health tracks",
@@ -128,7 +128,7 @@ export const departmentContent: Record<string, DepartmentContent> = {
       "The Department of Computer Science offers the B.S. and M.S. in Computer Science and a minor in data science. The curriculum balances theory and practice, with small lab sections, a required software engineering sequence, and a senior capstone. Faculty research spans machine learning for environmental sensing, human-computer interaction and accessibility, and distributed systems. The B.S. is an impacted program.",
     chair: "Anjali Raman, Ph.D.",
     highlights: [
-      "ABET-accredited B.S. in Computer Science",
+      "EPAB-accredited B.S. in Computer Science",
       "Student-built wildfire smoke sensor network covering four counties",
       "Accessible Computing Lab, focused on inclusive software design",
       "Annual Owl Hacks hackathon",
@@ -139,20 +139,20 @@ export const departmentContent: Record<string, DepartmentContent> = {
   },
   "mechanical-engineering": {
     overview:
-      "The Department of Mechanical Engineering educates engineers in thermal-fluid systems, mechanics, design, and manufacturing, with an emphasis on renewable energy and robotics. Students use the Robotics Lab, the Machine Shop, and the Wave Energy Test Flume, and many compete on the Formula SAE and Human Powered Vehicle teams.",
+      "The Department of Mechanical Engineering educates engineers in thermal-fluid systems, mechanics, design, and manufacturing, with an emphasis on renewable energy and robotics. Students use the Robotics Lab, the Machine Shop, and the Wave Energy Test Flume, and many compete on the student formula racing and human-powered vehicle teams.",
     chair: "Kenji Watanabe, Ph.D.",
     highlights: [
-      "ABET-accredited B.S. in Mechanical Engineering",
+      "EPAB-accredited B.S. in Mechanical Engineering",
       "Wave Energy Test Flume, one of three at a West Coast public university",
-      "Formula SAE and Human Powered Vehicle competition teams",
-      "Fundamentals of Engineering (FE) exam pass rate above the national average",
+      "Student formula racing and human-powered vehicle competition teams",
+      "Engineering licensure exam pass rate above the national average",
     ],
     contacts: contacts("Sequoia Engineering Hall 220", "0212", "me"),
     image: "dept-mechanical-engineering",
   },
   "business-administration": {
     overview:
-      "The Department of Business Administration administers the B.B.A. and M.B.A. degrees and the minors in business and business analytics. Concentrations include accounting, finance, management, marketing, analytics, sustainable business, and hospitality and tourism. Pursuant to AACSB Standard 4, curricula are reviewed through the department's Assurance of Learning process each academic year.",
+      "The Department of Business Administration administers the B.B.A. and M.B.A. degrees and the minors in business and business analytics. Concentrations include accounting, finance, management, marketing, analytics, sustainable business, and hospitality and tourism. Pursuant to ABSA Standard 4, curricula are reviewed through the department's Assurance of Learning process each academic year.",
     chair: "Denise Carter, Ph.D.",
     highlights: [
       "Seven B.B.A. concentrations",
@@ -165,10 +165,10 @@ export const departmentContent: Record<string, DepartmentContent> = {
   },
   english: {
     overview:
-      "The Department of English offers the B.A. in English with concentrations in literature, creative writing, and English education, the M.A. in English, and the TESOL certificate. Majors study literature from Chaucer to contemporary Indigenous writers, take workshops with published poets and novelists, and edit the Toyon literary journal.",
+      "The Department of English offers the B.A. in English with concentrations in literature, creative writing, and English education, the M.A. in English, and the TESOL certificate. Majors study literature from medieval romances to contemporary Indigenous writers, take workshops with published poets and novelists, and edit the Fernleaf literary journal.",
     chair: "James O'Connell, Ph.D.",
     highlights: [
-      "Toyon literary journal, published since 1954",
+      "Fernleaf literary journal, published since 1954",
       "Visiting Writers Series, bringing six authors to campus each year",
       "Writing Studio tutoring staffed by English majors",
       "English Single Subject credential pathway",
@@ -183,7 +183,7 @@ export const departmentContent: Record<string, DepartmentContent> = {
     highlights: [
       "Public history concentration with museum and archive internships",
       "Student digitization of the Arcadia Falls logging archives",
-      "Phi Alpha Theta honor society chapter",
+      "History honor society chapter",
       "History-Social Science Single Subject credential pathway",
     ],
     contacts: contacts("Alder Hall 310", "0232", "history"),
@@ -197,17 +197,17 @@ export const departmentContent: Record<string, DepartmentContent> = {
       "Concentrations in pure, applied, statistics, and teaching",
       "Math Learning Center with free drop-in tutoring",
       "Undergraduate research in mathematical ecology and data science",
-      "Putnam Competition team and Math Circle for local high schoolers",
+      "Collegiate math competition team and Math Circle for local high schoolers",
     ],
     contacts: contacts("Canopy Science Center 410", "0241", "math"),
     image: "dept-mathematics",
   },
   biology: {
     overview:
-      "The Department of Biology is one of the largest on campus, offering the B.S. in Biology with concentrations in cellular and molecular biology, ecology, marine biology, botany, and zoology. Faculty and students study tide pools, redwood canopies, salmon, and the microbial world, using the Kellerman Research Forest and the Trinidad Point Marine Lab as outdoor laboratories.",
+      "The Department of Biology is one of the largest on campus, offering the B.S. in Biology with concentrations in cellular and molecular biology, ecology, marine biology, botany, and zoology. Faculty and students study tide pools, redwood canopies, salmon, and the microbial world, using the Tanoak Creek Research Forest and the Gull Rock Point Marine Lab as outdoor laboratories.",
     chair: "Miguel Santos, Ph.D.",
     highlights: [
-      "Trinidad Point Marine Lab and the Kellerman Research Forest",
+      "Gull Rock Point Marine Lab and the Tanoak Creek Research Forest",
       "Redwood canopy research using rope-access climbing",
       "Five concentrations, including marine biology",
       "Vertebrate Museum and Herbarium with 90,000 specimens",
@@ -218,10 +218,10 @@ export const departmentContent: Record<string, DepartmentContent> = {
   },
   chemistry: {
     overview:
-      "The Department of Chemistry offers the B.S. in Chemistry, including an American Chemical Society certified track and a biochemistry concentration, and a minor in chemistry. Research groups focus on green solvents, environmental analytical chemistry, and marine natural products, supported by a $2.4 million federal grant awarded in 2026.",
+      "The Department of Chemistry offers the B.S. in Chemistry, including a Chemical Education Standards Council (CESC) certified track and a biochemistry concentration, and a minor in chemistry. Research groups focus on green solvents, environmental analytical chemistry, and marine natural products, supported by a $2.4 million federal grant awarded in 2026.",
     chair: "Fatima Haddad, Ph.D.",
     highlights: [
-      "ACS-certified degree track",
+      "CESC-certified degree track",
       "$2.4 million grant for green solvent research",
       "NMR, mass spectrometry, and X-ray facilities available to undergraduates",
       "Chemistry Club outreach to 30 regional schools",
@@ -235,7 +235,7 @@ export const departmentContent: Record<string, DepartmentContent> = {
     chair: "Rebecca Stein, Ph.D.",
     highlights: [
       "Research labs in sleep, cognition, and rural mental health",
-      "Psi Chi honor society chapter",
+      "Psychology honor society chapter",
       "Field placements with counseling and social service agencies",
       "Preparation for graduate study in psychology, counseling, and social work",
     ],
@@ -247,8 +247,8 @@ export const departmentContent: Record<string, DepartmentContent> = {
       "The School of Nursing offers the pre-licensure B.S.N. and an RN-to-B.S.N. pathway for registered nurses. Students train in the nationally accredited Simulation Center in Huckleberry Hall and complete clinical rotations at hospitals, clinics, and tribal health centers across the north coast. The B.S.N. is an impacted program with a separate application.",
     chair: "Patricia Nguyen, D.N.P., R.N.",
     highlights: [
-      "CCNE-accredited B.S.N.",
-      "94% first-time NCLEX-RN pass rate (2025)",
+      "NCNPA-accredited B.S.N.",
+      "94% first-time RN licensure exam pass rate (2025)",
       "Nationally accredited Nursing Simulation Center",
       "Clinical partnerships with 22 regional health care sites",
       "Online RN-to-B.S.N. pathway",
@@ -307,7 +307,7 @@ export const programContent: Record<string, ProgramContent> = {
   },
   "bs-biology": {
     overview:
-      "The B.S. in Biology combines a broad foundation in the life sciences with a concentration in cellular and molecular biology, ecology, marine biology, botany, or zoology. Field courses take students into the redwood forest, the Mad Fork River, and the tide pools at Trinidad Point.",
+      "The B.S. in Biology combines a broad foundation in the life sciences with a concentration in cellular and molecular biology, ecology, marine biology, botany, or zoology. Field courses take students into the redwood forest, the Silverfin River, and the tide pools at Gull Rock Point.",
     requirements: [ge(), { label: "Biology core", units: 20 }, { label: "Chemistry, physics, and math support", units: 22 }, { label: "Concentration", units: 21 }, { label: "Free electives", units: 9 }],
     outcomes: [
       "Explain the core concepts of evolution, structure and function, and ecology.",
@@ -321,7 +321,7 @@ export const programContent: Record<string, ProgramContent> = {
   },
   "bs-chemistry": {
     overview:
-      "The B.S. in Chemistry offers a rigorous, laboratory-intensive education, with an ACS-certified track and a biochemistry concentration. Students gain hands-on experience with modern instrumentation and can join research groups working on green chemistry and environmental analysis.",
+      "The B.S. in Chemistry offers a rigorous, laboratory-intensive education, with an CESC-certified track and a biochemistry concentration. Students gain hands-on experience with modern instrumentation and can join research groups working on green chemistry and environmental analysis.",
     requirements: [ge(), { label: "General and organic chemistry", units: 20 }, { label: "Physics and calculus", units: 16 }, { label: "Upper-division chemistry core", units: 20 }, { label: "Advanced electives and research", units: 12 }, { label: "Free electives", units: 4 }],
     outcomes: [
       "Apply principles of analytical, inorganic, organic, physical, and biochemistry.",
@@ -343,7 +343,7 @@ export const programContent: Record<string, ProgramContent> = {
       "Apply critical and theoretical approaches to texts.",
       "Revise and edit writing for a range of audiences.",
     ],
-    sampleCourses: ["ENGL 105 Introduction to Literary Study", "ENGL 220 Creative Writing", "ENGL 334 Shakespeare", "ENGL 345 Literature of the American West", "ENGL 363 Native American Literatures", "ENGL 490 Senior Seminar"],
+    sampleCourses: ["ENGL 105 Introduction to Literary Study", "ENGL 220 Creative Writing", "ENGL 334 Early Modern Drama", "ENGL 345 Literature of the American West", "ENGL 363 Native American Literatures", "ENGL 490 Senior Seminar"],
     careers: ["Teacher", "Editor or publisher", "Technical writer", "Communications specialist", "Law school", "Nonprofit program manager"],
     totalUnits: 120,
   },
@@ -377,7 +377,7 @@ export const programContent: Record<string, ProgramContent> = {
   },
   "bsn-nursing": {
     overview:
-      "The pre-licensure B.S.N. prepares students to take the NCLEX-RN and practice as registered nurses. After completing prerequisites, students are admitted to a six-semester nursing sequence combining classroom, simulation, and clinical learning, with an emphasis on rural and community health.",
+      "The pre-licensure B.S.N. prepares students to take the national RN licensure exam and practice as registered nurses. After completing prerequisites, students are admitted to a six-semester nursing sequence combining classroom, simulation, and clinical learning, with an emphasis on rural and community health.",
     requirements: [ge(39), { label: "Science prerequisites", units: 20 }, { label: "Nursing theory", units: 30 }, { label: "Clinical practicum", units: 27 }, { label: "Statistics and elective", units: 4 }],
     outcomes: [
       "Provide safe, evidence-based, patient-centered nursing care.",

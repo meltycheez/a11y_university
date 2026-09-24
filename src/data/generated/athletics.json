@@ -4,7 +4,7 @@
       "slug": "mens-basketball",
       "season": "2026–27",
       "headCoach": "Graham Wu",
-      "conference": "Pacific Redwood Athletic Conference (PRAC)",
+      "conference": "Pacific North Conference",
       "record": "0-0",
       "schedule": [
         {
@@ -12,39 +12,39 @@
           "time": "5:30 p.m.",
           "opponent": "Cascade State",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2026-11-09",
           "time": "5:30 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2026-11-12",
           "time": "7:00 p.m.",
-          "opponent": "Rogue River University",
+          "opponent": "Granite Bluff University",
           "site": "Away",
-          "location": "Rogue River University",
+          "location": "Granite Bluff University",
           "conference": false
         },
         {
           "date": "2026-11-15",
           "time": "7:00 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2026-11-18",
           "time": "7:00 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Away",
-          "location": "Pacific Crest University",
+          "location": "Harbor Point University",
           "conference": true
         },
         {
@@ -58,121 +58,121 @@
         {
           "date": "2026-11-25",
           "time": "2:00 p.m.",
-          "opponent": "Coastal Oregon State",
+          "opponent": "Westmere University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2026-12-02",
           "time": "2:00 p.m.",
-          "opponent": "Sierra Pacific University",
+          "opponent": "Summit State",
           "site": "Away",
-          "location": "Sierra Pacific University",
+          "location": "Summit State",
           "conference": true
         },
         {
           "date": "2026-12-05",
           "time": "2:00 p.m.",
-          "opponent": "Tahoe Ridge College",
+          "opponent": "Timberline College",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2026-12-12",
           "time": "2:00 p.m.",
-          "opponent": "Shasta Tech",
+          "opponent": "Stonebridge Tech",
           "site": "Away",
-          "location": "Shasta Tech",
+          "location": "Stonebridge Tech",
           "conference": true
         },
         {
           "date": "2026-12-16",
           "time": "2:00 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Away",
-          "location": "Mendocino Coast University",
+          "location": "North Shore University",
           "conference": true
         },
         {
           "date": "2026-12-19",
           "time": "5:30 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Away",
-          "location": "Pacific Crest University",
+          "location": "Harbor Point University",
           "conference": true
         },
         {
           "date": "2026-12-26",
           "time": "2:00 p.m.",
-          "opponent": "Bay Harbor State",
+          "opponent": "Kestrel Bay State",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2026-12-29",
           "time": "5:30 p.m.",
-          "opponent": "Tahoe Ridge College",
+          "opponent": "Timberline College",
           "site": "Away",
-          "location": "Tahoe Ridge College",
+          "location": "Timberline College",
           "conference": true
         },
         {
           "date": "2027-01-01",
           "time": "2:00 p.m.",
-          "opponent": "Tahoe Ridge College",
+          "opponent": "Timberline College",
           "site": "Neutral",
-          "location": "Portland, Ore.",
+          "location": "Harlow Springs, Ore.",
           "conference": true
         },
         {
           "date": "2027-01-04",
           "time": "5:30 p.m.",
-          "opponent": "Golden Plains University",
+          "opponent": "Amberfield University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2027-01-08",
           "time": "5:30 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Away",
-          "location": "Pacific Crest University",
+          "location": "Harbor Point University",
           "conference": true
         },
         {
           "date": "2027-01-15",
           "time": "2:00 p.m.",
-          "opponent": "Eel River State",
+          "opponent": "Copper Creek State",
           "site": "Away",
-          "location": "Eel River State",
+          "location": "Copper Creek State",
           "conference": false
         },
         {
           "date": "2027-01-18",
           "time": "7:00 p.m.",
-          "opponent": "Lassen Valley College",
+          "opponent": "Juniper Valley College",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2027-01-22",
           "time": "2:00 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Away",
-          "location": "Mendocino Coast University",
+          "location": "North Shore University",
           "conference": true
         },
         {
           "date": "2027-01-25",
           "time": "5:30 p.m.",
-          "opponent": "Rogue River University",
+          "opponent": "Granite Bluff University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
@@ -180,39 +180,39 @@
           "time": "2:00 p.m.",
           "opponent": "Cascade State",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2027-01-31",
           "time": "7:00 p.m.",
-          "opponent": "Tahoe Ridge College",
+          "opponent": "Timberline College",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2027-02-03",
           "time": "5:30 p.m.",
-          "opponent": "Golden Plains University",
+          "opponent": "Amberfield University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2027-02-06",
           "time": "5:30 p.m.",
-          "opponent": "Tahoe Ridge College",
+          "opponent": "Timberline College",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2027-02-13",
           "time": "7:00 p.m.",
-          "opponent": "Bay Harbor State",
+          "opponent": "Kestrel Bay State",
           "site": "Away",
-          "location": "Bay Harbor State",
+          "location": "Kestrel Bay State",
           "conference": true
         }
       ],
@@ -222,7 +222,7 @@
           "name": "Joy Chen",
           "position": "G",
           "classYear": "Fr.",
-          "hometown": "Phoenix, Ariz.",
+          "hometown": "Saguaro Mesa, Ariz.",
           "height": "5-10"
         },
         {
@@ -230,7 +230,7 @@
           "name": "Nikhil Fitzgerald",
           "position": "G",
           "classYear": "Jr.",
-          "hometown": "Reno, Nev.",
+          "hometown": "Larkspur Flats, Nev.",
           "height": "6-2"
         },
         {
@@ -238,7 +238,7 @@
           "name": "Joy Torres",
           "position": "G",
           "classYear": "Jr.",
-          "hometown": "Reno, Nev.",
+          "hometown": "Larkspur Flats, Nev.",
           "height": "7-0"
         },
         {
@@ -246,7 +246,7 @@
           "name": "Mohammed Flores",
           "position": "C",
           "classYear": "Gr.",
-          "hometown": "Tacoma, Wash.",
+          "hometown": "Wrenfield, Wash.",
           "height": "6-11"
         },
         {
@@ -254,7 +254,7 @@
           "name": "Gabriel Ramirez",
           "position": "C",
           "classYear": "Fr.",
-          "hometown": "Los Angeles, Calif.",
+          "hometown": "Ridgeport, Calif.",
           "height": "6-5"
         },
         {
@@ -262,7 +262,7 @@
           "name": "Julian Vance",
           "position": "G",
           "classYear": "Gr.",
-          "hometown": "Ukiah, Calif.",
+          "hometown": "Hollis Landing, Calif.",
           "height": "6-11"
         },
         {
@@ -270,7 +270,7 @@
           "name": "Victor Silva",
           "position": "G",
           "classYear": "Jr.",
-          "hometown": "Phoenix, Ariz.",
+          "hometown": "Saguaro Mesa, Ariz.",
           "height": "7-0"
         },
         {
@@ -278,7 +278,7 @@
           "name": "Noah Lindgren",
           "position": "C",
           "classYear": "So.",
-          "hometown": "Los Angeles, Calif.",
+          "hometown": "Ridgeport, Calif.",
           "height": "5-11",
           "athleteSlug": "noah-lindgren"
         },
@@ -287,7 +287,7 @@
           "name": "Iris Jaramillo",
           "position": "F",
           "classYear": "Gr.",
-          "hometown": "Los Angeles, Calif.",
+          "hometown": "Ridgeport, Calif.",
           "height": "5-11"
         },
         {
@@ -295,7 +295,7 @@
           "name": "Aaliyah Malhotra",
           "position": "G/F",
           "classYear": "Fr.",
-          "hometown": "Ukiah, Calif.",
+          "hometown": "Hollis Landing, Calif.",
           "height": "5-10"
         },
         {
@@ -303,7 +303,7 @@
           "name": "Paloma Anand",
           "position": "G",
           "classYear": "Sr.",
-          "hometown": "Phoenix, Ariz.",
+          "hometown": "Saguaro Mesa, Ariz.",
           "height": "5-10"
         },
         {
@@ -311,7 +311,7 @@
           "name": "Kalani Holloway",
           "position": "F",
           "classYear": "So.",
-          "hometown": "Crescent City, Calif.",
+          "hometown": "Alder Cove, Calif.",
           "height": "6-10"
         },
         {
@@ -319,7 +319,7 @@
           "name": "Jordan Whitfield",
           "position": "G/F",
           "classYear": "Gr.",
-          "hometown": "Crescent City, Calif.",
+          "hometown": "Alder Cove, Calif.",
           "height": "6-2",
           "athleteSlug": "jordan-whitfield"
         },
@@ -328,7 +328,7 @@
           "name": "Kai Eriksen",
           "position": "F",
           "classYear": "Gr.",
-          "hometown": "Boise, Idaho",
+          "hometown": "Tamsin Ridge, Idaho",
           "height": "7-0"
         },
         {
@@ -336,7 +336,7 @@
           "name": "Chloe Ibarra",
           "position": "G",
           "classYear": "Gr.",
-          "hometown": "Bakersfield, Calif.",
+          "hometown": "Brightwater, Calif.",
           "height": "6-9"
         }
       ]
@@ -345,215 +345,215 @@
       "slug": "womens-basketball",
       "season": "2026–27",
       "headCoach": "Eli Ahmadi",
-      "conference": "Pacific Redwood Athletic Conference (PRAC)",
+      "conference": "Pacific North Conference",
       "record": "0-0",
       "schedule": [
         {
           "date": "2026-11-07",
           "time": "5:00 p.m.",
-          "opponent": "Shasta Tech",
+          "opponent": "Stonebridge Tech",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2026-11-14",
           "time": "7:30 p.m.",
-          "opponent": "Shasta Tech",
+          "opponent": "Stonebridge Tech",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2026-11-18",
           "time": "1:00 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Away",
-          "location": "Pacific Crest University",
+          "location": "Harbor Point University",
           "conference": false
         },
         {
           "date": "2026-11-22",
           "time": "7:30 p.m.",
-          "opponent": "Golden Plains University",
+          "opponent": "Amberfield University",
           "site": "Away",
-          "location": "Golden Plains University",
+          "location": "Amberfield University",
           "conference": false
         },
         {
           "date": "2026-11-29",
           "time": "7:30 p.m.",
-          "opponent": "Tahoe Ridge College",
+          "opponent": "Timberline College",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2026-12-03",
           "time": "1:00 p.m.",
-          "opponent": "Golden Plains University",
+          "opponent": "Amberfield University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2026-12-06",
           "time": "5:00 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2026-12-13",
           "time": "5:00 p.m.",
-          "opponent": "Bay Harbor State",
+          "opponent": "Kestrel Bay State",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2026-12-17",
           "time": "1:00 p.m.",
-          "opponent": "Siskiyou College",
+          "opponent": "Foxglove College",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2026-12-24",
           "time": "5:00 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Away",
-          "location": "Mendocino Coast University",
+          "location": "North Shore University",
           "conference": true
         },
         {
           "date": "2026-12-31",
           "time": "7:30 p.m.",
-          "opponent": "Tahoe Ridge College",
+          "opponent": "Timberline College",
           "site": "Away",
-          "location": "Tahoe Ridge College",
+          "location": "Timberline College",
           "conference": true
         },
         {
           "date": "2027-01-03",
           "time": "7:30 p.m.",
-          "opponent": "Eel River State",
+          "opponent": "Copper Creek State",
           "site": "Away",
-          "location": "Eel River State",
+          "location": "Copper Creek State",
           "conference": false
         },
         {
           "date": "2027-01-10",
           "time": "5:00 p.m.",
-          "opponent": "Golden Plains University",
+          "opponent": "Amberfield University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2027-01-17",
           "time": "7:30 p.m.",
-          "opponent": "Siskiyou College",
+          "opponent": "Foxglove College",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2027-01-24",
           "time": "7:30 p.m.",
-          "opponent": "Eel River State",
+          "opponent": "Copper Creek State",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2027-01-31",
           "time": "1:00 p.m.",
-          "opponent": "Eel River State",
+          "opponent": "Copper Creek State",
           "site": "Away",
-          "location": "Eel River State",
+          "location": "Copper Creek State",
           "conference": false
         },
         {
           "date": "2027-02-07",
           "time": "5:00 p.m.",
-          "opponent": "Eel River State",
+          "opponent": "Copper Creek State",
           "site": "Away",
-          "location": "Eel River State",
+          "location": "Copper Creek State",
           "conference": false
         },
         {
           "date": "2027-02-11",
           "time": "5:00 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Neutral",
-          "location": "Reno, Nev.",
+          "location": "Mirage Valley, Nev.",
           "conference": true
         },
         {
           "date": "2027-02-14",
           "time": "5:00 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2027-02-17",
           "time": "5:00 p.m.",
-          "opponent": "Tahoe Ridge College",
+          "opponent": "Timberline College",
           "site": "Away",
-          "location": "Tahoe Ridge College",
+          "location": "Timberline College",
           "conference": true
         },
         {
           "date": "2027-02-21",
           "time": "7:30 p.m.",
-          "opponent": "Bay Harbor State",
+          "opponent": "Kestrel Bay State",
           "site": "Away",
-          "location": "Bay Harbor State",
+          "location": "Kestrel Bay State",
           "conference": true
         },
         {
           "date": "2027-02-25",
           "time": "7:30 p.m.",
-          "opponent": "Siskiyou College",
+          "opponent": "Foxglove College",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2027-02-28",
           "time": "7:30 p.m.",
-          "opponent": "Bay Harbor State",
+          "opponent": "Kestrel Bay State",
           "site": "Away",
-          "location": "Bay Harbor State",
+          "location": "Kestrel Bay State",
           "conference": true
         },
         {
           "date": "2027-03-07",
           "time": "1:00 p.m.",
-          "opponent": "Rogue River University",
+          "opponent": "Granite Bluff University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2027-03-10",
           "time": "5:00 p.m.",
-          "opponent": "Sierra Pacific University",
+          "opponent": "Summit State",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2027-03-13",
           "time": "7:30 p.m.",
-          "opponent": "Bay Harbor State",
+          "opponent": "Kestrel Bay State",
           "site": "Away",
-          "location": "Bay Harbor State",
+          "location": "Kestrel Bay State",
           "conference": true
         }
       ],
@@ -563,7 +563,7 @@
           "name": "Kiran Medina",
           "position": "F",
           "classYear": "Gr.",
-          "hometown": "Fresno, Calif.",
+          "hometown": "San Aurelio, Calif.",
           "height": "5-5"
         },
         {
@@ -571,7 +571,7 @@
           "name": "Jamal Vance",
           "position": "G",
           "classYear": "So.",
-          "hometown": "Bakersfield, Calif.",
+          "hometown": "Brightwater, Calif.",
           "height": "5-6"
         },
         {
@@ -579,7 +579,7 @@
           "name": "Nikhil Becker",
           "position": "F",
           "classYear": "Jr.",
-          "hometown": "Reno, Nev.",
+          "hometown": "Larkspur Flats, Nev.",
           "height": "5-5"
         },
         {
@@ -587,7 +587,7 @@
           "name": "Sanjay Eriksen",
           "position": "F",
           "classYear": "Fr.",
-          "hometown": "Honolulu, Hawaii",
+          "hometown": "Kalehua, Hawaii",
           "height": "5-9"
         },
         {
@@ -595,7 +595,7 @@
           "name": "Hana Delacroix",
           "position": "F",
           "classYear": "So.",
-          "hometown": "Bakersfield, Calif.",
+          "hometown": "Brightwater, Calif.",
           "height": "5-8"
         },
         {
@@ -603,7 +603,7 @@
           "name": "Ivan Soto",
           "position": "F",
           "classYear": "Jr.",
-          "hometown": "Fresno, Calif.",
+          "hometown": "San Aurelio, Calif.",
           "height": "5-6"
         },
         {
@@ -611,7 +611,7 @@
           "name": "Colin Ahmadi",
           "position": "G/F",
           "classYear": "Jr.",
-          "hometown": "Crescent City, Calif.",
+          "hometown": "Alder Cove, Calif.",
           "height": "5-8"
         },
         {
@@ -619,7 +619,7 @@
           "name": "Victor Reyes",
           "position": "F",
           "classYear": "So.",
-          "hometown": "Los Angeles, Calif.",
+          "hometown": "Ridgeport, Calif.",
           "height": "6-1"
         },
         {
@@ -627,7 +627,7 @@
           "name": "Andre Gonzales",
           "position": "F",
           "classYear": "Jr.",
-          "hometown": "San Jose, Calif.",
+          "hometown": "Mirador Heights, Calif.",
           "height": "6-2"
         },
         {
@@ -635,7 +635,7 @@
           "name": "Soren Kapoor",
           "position": "F",
           "classYear": "Sr.",
-          "hometown": "Santa Rosa, Calif.",
+          "hometown": "Santa Lucerna, Calif.",
           "height": "5-6"
         },
         {
@@ -643,7 +643,7 @@
           "name": "Colin Hashemi",
           "position": "G",
           "classYear": "Sr.",
-          "hometown": "Ukiah, Calif.",
+          "hometown": "Hollis Landing, Calif.",
           "height": "5-8"
         },
         {
@@ -651,7 +651,7 @@
           "name": "Dalia Kapoor",
           "position": "F",
           "classYear": "Jr.",
-          "hometown": "Sacramento, Calif.",
+          "hometown": "Westmere, Calif.",
           "height": "5-11"
         },
         {
@@ -659,7 +659,7 @@
           "name": "Farah Abernathy",
           "position": "G",
           "classYear": "Gr.",
-          "hometown": "Medford, Ore.",
+          "hometown": "Harlow Springs, Ore.",
           "height": "5-10"
         },
         {
@@ -667,7 +667,7 @@
           "name": "Rafael Olsen",
           "position": "G",
           "classYear": "Fr.",
-          "hometown": "Santa Rosa, Calif.",
+          "hometown": "Santa Lucerna, Calif.",
           "height": "6-4"
         },
         {
@@ -675,7 +675,7 @@
           "name": "Tasha Greene",
           "position": "G/F",
           "classYear": "Sr.",
-          "hometown": "Reno, Nev.",
+          "hometown": "Larkspur Flats, Nev.",
           "height": "5-9",
           "athleteSlug": "tasha-greene"
         }
@@ -685,7 +685,7 @@
       "slug": "womens-soccer",
       "season": "2026",
       "headCoach": "Ben Mahoney",
-      "conference": "Pacific Redwood Athletic Conference (PRAC)",
+      "conference": "Pacific North Conference",
       "record": "5-5",
       "schedule": [
         {
@@ -693,7 +693,7 @@
           "time": "4:00 p.m.",
           "opponent": "Cascade State",
           "site": "Home",
-          "location": "Fern Canyon Stadium",
+          "location": "Redwood Field",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -703,9 +703,9 @@
         {
           "date": "2026-08-25",
           "time": "1:00 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Away",
-          "location": "Pacific Crest University",
+          "location": "Harbor Point University",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -715,9 +715,9 @@
         {
           "date": "2026-08-28",
           "time": "7:00 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Home",
-          "location": "Fern Canyon Stadium",
+          "location": "Redwood Field",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -727,9 +727,9 @@
         {
           "date": "2026-09-01",
           "time": "4:00 p.m.",
-          "opponent": "Golden Plains University",
+          "opponent": "Amberfield University",
           "site": "Home",
-          "location": "Fern Canyon Stadium",
+          "location": "Redwood Field",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -739,9 +739,9 @@
         {
           "date": "2026-09-05",
           "time": "4:00 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Home",
-          "location": "Fern Canyon Stadium",
+          "location": "Redwood Field",
           "conference": true,
           "result": {
             "outcome": "W",
@@ -751,9 +751,9 @@
         {
           "date": "2026-09-12",
           "time": "1:00 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Away",
-          "location": "Mendocino Coast University",
+          "location": "North Shore University",
           "conference": true,
           "result": {
             "outcome": "L",
@@ -763,9 +763,9 @@
         {
           "date": "2026-09-15",
           "time": "1:00 p.m.",
-          "opponent": "Lassen Valley College",
+          "opponent": "Juniper Valley College",
           "site": "Home",
-          "location": "Fern Canyon Stadium",
+          "location": "Redwood Field",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -777,7 +777,7 @@
           "time": "4:00 p.m.",
           "opponent": "Cascade State",
           "site": "Neutral",
-          "location": "Reno, Nev.",
+          "location": "Mirage Valley, Nev.",
           "conference": true,
           "result": {
             "outcome": "L",
@@ -787,9 +787,9 @@
         {
           "date": "2026-09-25",
           "time": "1:00 p.m.",
-          "opponent": "Sierra Pacific University",
+          "opponent": "Summit State",
           "site": "Neutral",
-          "location": "Reno, Nev.",
+          "location": "Mirage Valley, Nev.",
           "conference": true,
           "result": {
             "outcome": "W",
@@ -799,9 +799,9 @@
         {
           "date": "2026-10-02",
           "time": "4:00 p.m.",
-          "opponent": "Eel River State",
+          "opponent": "Copper Creek State",
           "site": "Away",
-          "location": "Eel River State",
+          "location": "Copper Creek State",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -811,57 +811,57 @@
         {
           "date": "2026-10-09",
           "time": "4:00 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Home",
-          "location": "Fern Canyon Stadium",
+          "location": "Redwood Field",
           "conference": true
         },
         {
           "date": "2026-10-13",
           "time": "4:00 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Away",
-          "location": "Pacific Crest University",
+          "location": "Harbor Point University",
           "conference": true
         },
         {
           "date": "2026-10-17",
           "time": "7:00 p.m.",
-          "opponent": "Siskiyou College",
+          "opponent": "Foxglove College",
           "site": "Home",
-          "location": "Fern Canyon Stadium",
+          "location": "Redwood Field",
           "conference": false
         },
         {
           "date": "2026-10-24",
           "time": "4:00 p.m.",
-          "opponent": "Klamath Valley College",
+          "opponent": "Cedar Valley University",
           "site": "Neutral",
-          "location": "Reno, Nev.",
+          "location": "Mirage Valley, Nev.",
           "conference": true
         },
         {
           "date": "2026-10-27",
           "time": "4:00 p.m.",
-          "opponent": "Eel River State",
+          "opponent": "Copper Creek State",
           "site": "Home",
-          "location": "Fern Canyon Stadium",
+          "location": "Redwood Field",
           "conference": false
         },
         {
           "date": "2026-10-31",
           "time": "4:00 p.m.",
-          "opponent": "Klamath Valley College",
+          "opponent": "Cedar Valley University",
           "site": "Away",
-          "location": "Klamath Valley College",
+          "location": "Cedar Valley University",
           "conference": true
         },
         {
           "date": "2026-11-07",
           "time": "4:00 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Home",
-          "location": "Fern Canyon Stadium",
+          "location": "Redwood Field",
           "conference": true
         }
       ],
@@ -871,28 +871,28 @@
           "name": "Quinn Okonkwo",
           "position": "M",
           "classYear": "Jr.",
-          "hometown": "Vancouver, B.C."
+          "hometown": "Port Tallis, B.C."
         },
         {
           "number": "3",
           "name": "Gabriel Chen",
           "position": "M",
           "classYear": "Gr.",
-          "hometown": "Ukiah, Calif."
+          "hometown": "Hollis Landing, Calif."
         },
         {
           "number": "4",
           "name": "Lars Becker",
           "position": "M",
           "classYear": "Jr.",
-          "hometown": "Fresno, Calif."
+          "hometown": "San Aurelio, Calif."
         },
         {
           "number": "13",
           "name": "Maya Delgado",
           "position": "M",
           "classYear": "Gr.",
-          "hometown": "Crescent City, Calif.",
+          "hometown": "Alder Cove, Calif.",
           "athleteSlug": "maya-delgado"
         },
         {
@@ -900,28 +900,28 @@
           "name": "Seth Jaramillo",
           "position": "GK",
           "classYear": "Fr.",
-          "hometown": "Reno, Nev."
+          "hometown": "Larkspur Flats, Nev."
         },
         {
           "number": "18",
           "name": "Rosa Quintero",
           "position": "D",
           "classYear": "Gr.",
-          "hometown": "Oakland, Calif."
+          "hometown": "Kestrel Bay, Calif."
         },
         {
           "number": "19",
           "name": "Leah Dominguez",
           "position": "GK",
           "classYear": "Sr.",
-          "hometown": "Stockholm, Sweden"
+          "hometown": "Eskerby, Sweden"
         },
         {
           "number": "21",
           "name": "Sierra Blackwood",
           "position": "D",
           "classYear": "So.",
-          "hometown": "Hilo, Hawaii",
+          "hometown": "Makani Point, Hawaii",
           "athleteSlug": "sierra-blackwood"
         },
         {
@@ -929,49 +929,49 @@
           "name": "Gabriel Zhang",
           "position": "GK",
           "classYear": "Jr.",
-          "hometown": "Stockholm, Sweden"
+          "hometown": "Eskerby, Sweden"
         },
         {
           "number": "27",
           "name": "Javier Lam",
           "position": "GK",
           "classYear": "So.",
-          "hometown": "Honolulu, Hawaii"
+          "hometown": "Kalehua, Hawaii"
         },
         {
           "number": "33",
           "name": "Zoe Morales",
           "position": "F",
           "classYear": "Jr.",
-          "hometown": "Los Angeles, Calif."
+          "hometown": "Ridgeport, Calif."
         },
         {
           "number": "35",
           "name": "Malik Espinoza",
           "position": "D",
           "classYear": "So.",
-          "hometown": "Ukiah, Calif."
+          "hometown": "Hollis Landing, Calif."
         },
         {
           "number": "39",
           "name": "Kai Jaramillo",
           "position": "D",
           "classYear": "Sr.",
-          "hometown": "Crescent City, Calif."
+          "hometown": "Alder Cove, Calif."
         },
         {
           "number": "41",
           "name": "Valentina Malhotra",
           "position": "F",
           "classYear": "So.",
-          "hometown": "Tacoma, Wash."
+          "hometown": "Wrenfield, Wash."
         },
         {
           "number": "45",
           "name": "Chiara Espinoza",
           "position": "M",
           "classYear": "Sr.",
-          "hometown": "Redding, Calif."
+          "hometown": "Pine Hollow, Calif."
         }
       ]
     },
@@ -979,15 +979,15 @@
       "slug": "baseball",
       "season": "2026",
       "headCoach": "Xavier Wu",
-      "conference": "Pacific Redwood Athletic Conference (PRAC)",
+      "conference": "Pacific North Conference",
       "record": "17-13",
       "schedule": [
         {
           "date": "2026-02-06",
           "time": "2:00 p.m.",
-          "opponent": "Siskiyou College",
+          "opponent": "Foxglove College",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -997,9 +997,9 @@
         {
           "date": "2026-02-12",
           "time": "2:00 p.m.",
-          "opponent": "Bay Harbor State",
+          "opponent": "Kestrel Bay State",
           "site": "Away",
-          "location": "Bay Harbor State",
+          "location": "Kestrel Bay State",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -1009,9 +1009,9 @@
         {
           "date": "2026-02-18",
           "time": "12:00 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -1021,9 +1021,9 @@
         {
           "date": "2026-02-24",
           "time": "2:00 p.m.",
-          "opponent": "Klamath Valley College",
+          "opponent": "Cedar Valley University",
           "site": "Away",
-          "location": "Klamath Valley College",
+          "location": "Cedar Valley University",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -1033,9 +1033,9 @@
         {
           "date": "2026-02-25",
           "time": "6:00 p.m.",
-          "opponent": "Lassen Valley College",
+          "opponent": "Juniper Valley College",
           "site": "Away",
-          "location": "Lassen Valley College",
+          "location": "Juniper Valley College",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -1045,9 +1045,9 @@
         {
           "date": "2026-02-26",
           "time": "12:00 p.m.",
-          "opponent": "Coastal Oregon State",
+          "opponent": "Westmere University",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -1057,9 +1057,9 @@
         {
           "date": "2026-02-27",
           "time": "2:00 p.m.",
-          "opponent": "Siskiyou College",
+          "opponent": "Foxglove College",
           "site": "Away",
-          "location": "Siskiyou College",
+          "location": "Foxglove College",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -1069,9 +1069,9 @@
         {
           "date": "2026-02-28",
           "time": "12:00 p.m.",
-          "opponent": "Rogue River University",
+          "opponent": "Granite Bluff University",
           "site": "Away",
-          "location": "Rogue River University",
+          "location": "Granite Bluff University",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -1081,9 +1081,9 @@
         {
           "date": "2026-03-01",
           "time": "2:00 p.m.",
-          "opponent": "Bay Harbor State",
+          "opponent": "Kestrel Bay State",
           "site": "Away",
-          "location": "Bay Harbor State",
+          "location": "Kestrel Bay State",
           "conference": true,
           "result": {
             "outcome": "L",
@@ -1093,9 +1093,9 @@
         {
           "date": "2026-03-07",
           "time": "12:00 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Away",
-          "location": "Pacific Crest University",
+          "location": "Harbor Point University",
           "conference": true,
           "result": {
             "outcome": "W",
@@ -1105,9 +1105,9 @@
         {
           "date": "2026-03-08",
           "time": "6:00 p.m.",
-          "opponent": "Klamath Valley College",
+          "opponent": "Cedar Valley University",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": true,
           "result": {
             "outcome": "L",
@@ -1117,9 +1117,9 @@
         {
           "date": "2026-03-14",
           "time": "12:00 p.m.",
-          "opponent": "Bay Harbor State",
+          "opponent": "Kestrel Bay State",
           "site": "Away",
-          "location": "Bay Harbor State",
+          "location": "Kestrel Bay State",
           "conference": true,
           "result": {
             "outcome": "W",
@@ -1129,9 +1129,9 @@
         {
           "date": "2026-03-15",
           "time": "6:00 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": true,
           "result": {
             "outcome": "W",
@@ -1141,9 +1141,9 @@
         {
           "date": "2026-03-16",
           "time": "12:00 p.m.",
-          "opponent": "Eel River State",
+          "opponent": "Copper Creek State",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -1153,9 +1153,9 @@
         {
           "date": "2026-03-22",
           "time": "2:00 p.m.",
-          "opponent": "Lassen Valley College",
+          "opponent": "Juniper Valley College",
           "site": "Away",
-          "location": "Lassen Valley College",
+          "location": "Juniper Valley College",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -1165,9 +1165,9 @@
         {
           "date": "2026-03-23",
           "time": "2:00 p.m.",
-          "opponent": "Klamath Valley College",
+          "opponent": "Cedar Valley University",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": true,
           "result": {
             "outcome": "L",
@@ -1177,9 +1177,9 @@
         {
           "date": "2026-03-24",
           "time": "12:00 p.m.",
-          "opponent": "Coastal Oregon State",
+          "opponent": "Westmere University",
           "site": "Away",
-          "location": "Coastal Oregon State",
+          "location": "Westmere University",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -1189,9 +1189,9 @@
         {
           "date": "2026-03-25",
           "time": "6:00 p.m.",
-          "opponent": "Siskiyou College",
+          "opponent": "Foxglove College",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -1201,9 +1201,9 @@
         {
           "date": "2026-03-26",
           "time": "2:00 p.m.",
-          "opponent": "Shasta Tech",
+          "opponent": "Stonebridge Tech",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": true,
           "result": {
             "outcome": "W",
@@ -1213,9 +1213,9 @@
         {
           "date": "2026-03-27",
           "time": "2:00 p.m.",
-          "opponent": "Sierra Pacific University",
+          "opponent": "Summit State",
           "site": "Neutral",
-          "location": "Sacramento, Calif.",
+          "location": "Westmere, Calif.",
           "conference": true,
           "result": {
             "outcome": "L",
@@ -1225,9 +1225,9 @@
         {
           "date": "2026-03-28",
           "time": "12:00 p.m.",
-          "opponent": "Sierra Pacific University",
+          "opponent": "Summit State",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": true,
           "result": {
             "outcome": "W",
@@ -1237,9 +1237,9 @@
         {
           "date": "2026-03-29",
           "time": "12:00 p.m.",
-          "opponent": "Lassen Valley College",
+          "opponent": "Juniper Valley College",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -1249,9 +1249,9 @@
         {
           "date": "2026-03-30",
           "time": "2:00 p.m.",
-          "opponent": "Sierra Pacific University",
+          "opponent": "Summit State",
           "site": "Away",
-          "location": "Sierra Pacific University",
+          "location": "Summit State",
           "conference": true,
           "result": {
             "outcome": "W",
@@ -1261,9 +1261,9 @@
         {
           "date": "2026-04-05",
           "time": "12:00 p.m.",
-          "opponent": "Sierra Pacific University",
+          "opponent": "Summit State",
           "site": "Away",
-          "location": "Sierra Pacific University",
+          "location": "Summit State",
           "conference": true,
           "result": {
             "outcome": "W",
@@ -1273,9 +1273,9 @@
         {
           "date": "2026-04-11",
           "time": "6:00 p.m.",
-          "opponent": "Klamath Valley College",
+          "opponent": "Cedar Valley University",
           "site": "Away",
-          "location": "Klamath Valley College",
+          "location": "Cedar Valley University",
           "conference": true,
           "result": {
             "outcome": "L",
@@ -1285,9 +1285,9 @@
         {
           "date": "2026-04-12",
           "time": "12:00 p.m.",
-          "opponent": "Lassen Valley College",
+          "opponent": "Juniper Valley College",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -1297,9 +1297,9 @@
         {
           "date": "2026-04-13",
           "time": "2:00 p.m.",
-          "opponent": "Eel River State",
+          "opponent": "Copper Creek State",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -1309,9 +1309,9 @@
         {
           "date": "2026-04-14",
           "time": "6:00 p.m.",
-          "opponent": "Klamath Valley College",
+          "opponent": "Cedar Valley University",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": true,
           "result": {
             "outcome": "L",
@@ -1321,9 +1321,9 @@
         {
           "date": "2026-04-15",
           "time": "2:00 p.m.",
-          "opponent": "Eel River State",
+          "opponent": "Copper Creek State",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -1333,9 +1333,9 @@
         {
           "date": "2026-04-21",
           "time": "2:00 p.m.",
-          "opponent": "Rogue River University",
+          "opponent": "Granite Bluff University",
           "site": "Home",
-          "location": "Redcloud Field",
+          "location": "Harlan Field",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -1349,7 +1349,7 @@
           "name": "Helena Dominguez",
           "position": "LHP",
           "classYear": "So.",
-          "hometown": "Vancouver, B.C.",
+          "hometown": "Port Tallis, B.C.",
           "height": "7-0"
         },
         {
@@ -1357,7 +1357,7 @@
           "name": "Valentina Soto",
           "position": "LHP",
           "classYear": "So.",
-          "hometown": "Santa Rosa, Calif.",
+          "hometown": "Santa Lucerna, Calif.",
           "height": "5-10"
         },
         {
@@ -1365,7 +1365,7 @@
           "name": "Diego Alvarez",
           "position": "OF",
           "classYear": "Fr.",
-          "hometown": "Vancouver, B.C.",
+          "hometown": "Port Tallis, B.C.",
           "height": "6-3",
           "athleteSlug": "diego-alvarez"
         },
@@ -1374,7 +1374,7 @@
           "name": "Maya Park",
           "position": "OF",
           "classYear": "Gr.",
-          "hometown": "Eureka, Calif.",
+          "hometown": "Port Alder, Calif.",
           "height": "6-9"
         },
         {
@@ -1382,7 +1382,7 @@
           "name": "Soren Olsen",
           "position": "RHP",
           "classYear": "Sr.",
-          "hometown": "Oakland, Calif.",
+          "hometown": "Kestrel Bay, Calif.",
           "height": "6-0"
         },
         {
@@ -1390,7 +1390,7 @@
           "name": "Selena Flores",
           "position": "RHP",
           "classYear": "Jr.",
-          "hometown": "Eureka, Calif.",
+          "hometown": "Port Alder, Calif.",
           "height": "6-11"
         },
         {
@@ -1398,7 +1398,7 @@
           "name": "Victor Mbeki",
           "position": "OF",
           "classYear": "So.",
-          "hometown": "Los Angeles, Calif.",
+          "hometown": "Ridgeport, Calif.",
           "height": "6-11"
         },
         {
@@ -1406,7 +1406,7 @@
           "name": "Graham Anand",
           "position": "INF",
           "classYear": "Gr.",
-          "hometown": "Oakland, Calif.",
+          "hometown": "Kestrel Bay, Calif.",
           "height": "6-2"
         },
         {
@@ -1414,7 +1414,7 @@
           "name": "Alejandro Okonkwo",
           "position": "RHP",
           "classYear": "Gr.",
-          "hometown": "Chico, Calif.",
+          "hometown": "Calloway, Calif.",
           "height": "7-0"
         },
         {
@@ -1422,7 +1422,7 @@
           "name": "Lucia Kealoha",
           "position": "OF",
           "classYear": "Gr.",
-          "hometown": "Phoenix, Ariz.",
+          "hometown": "Saguaro Mesa, Ariz.",
           "height": "7-0"
         },
         {
@@ -1430,7 +1430,7 @@
           "name": "Rosa Gonzales",
           "position": "INF",
           "classYear": "So.",
-          "hometown": "Boise, Idaho",
+          "hometown": "Tamsin Ridge, Idaho",
           "height": "6-6"
         },
         {
@@ -1438,7 +1438,7 @@
           "name": "Caleb Medina",
           "position": "RHP",
           "classYear": "Gr.",
-          "hometown": "Stockholm, Sweden",
+          "hometown": "Eskerby, Sweden",
           "height": "6-1"
         },
         {
@@ -1446,7 +1446,7 @@
           "name": "Wen Patel",
           "position": "INF",
           "classYear": "Jr.",
-          "hometown": "Los Angeles, Calif.",
+          "hometown": "Ridgeport, Calif.",
           "height": "7-0"
         },
         {
@@ -1454,7 +1454,7 @@
           "name": "Dalia Lam",
           "position": "LHP",
           "classYear": "Sr.",
-          "hometown": "Los Angeles, Calif.",
+          "hometown": "Ridgeport, Calif.",
           "height": "6-4"
         },
         {
@@ -1471,15 +1471,15 @@
       "slug": "volleyball",
       "season": "2026",
       "headCoach": "Aaliyah Coleman",
-      "conference": "Pacific Redwood Athletic Conference (PRAC)",
+      "conference": "Pacific North Conference",
       "record": "2-6",
       "schedule": [
         {
           "date": "2026-08-28",
           "time": "7:00 p.m.",
-          "opponent": "Sierra Pacific University",
+          "opponent": "Summit State",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -1489,9 +1489,9 @@
         {
           "date": "2026-09-01",
           "time": "5:00 p.m.",
-          "opponent": "Coastal Oregon State",
+          "opponent": "Westmere University",
           "site": "Away",
-          "location": "Coastal Oregon State",
+          "location": "Westmere University",
           "conference": false,
           "result": {
             "outcome": "W",
@@ -1501,9 +1501,9 @@
         {
           "date": "2026-09-08",
           "time": "5:00 p.m.",
-          "opponent": "Shasta Tech",
+          "opponent": "Stonebridge Tech",
           "site": "Away",
-          "location": "Shasta Tech",
+          "location": "Stonebridge Tech",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -1513,9 +1513,9 @@
         {
           "date": "2026-09-11",
           "time": "7:00 p.m.",
-          "opponent": "Bay Harbor State",
+          "opponent": "Kestrel Bay State",
           "site": "Away",
-          "location": "Bay Harbor State",
+          "location": "Kestrel Bay State",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -1537,9 +1537,9 @@
         {
           "date": "2026-09-21",
           "time": "7:00 p.m.",
-          "opponent": "Bay Harbor State",
+          "opponent": "Kestrel Bay State",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true,
           "result": {
             "outcome": "L",
@@ -1549,9 +1549,9 @@
         {
           "date": "2026-09-28",
           "time": "7:00 p.m.",
-          "opponent": "Siskiyou College",
+          "opponent": "Foxglove College",
           "site": "Away",
-          "location": "Siskiyou College",
+          "location": "Foxglove College",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -1561,9 +1561,9 @@
         {
           "date": "2026-10-01",
           "time": "7:00 p.m.",
-          "opponent": "Golden Plains University",
+          "opponent": "Amberfield University",
           "site": "Away",
-          "location": "Golden Plains University",
+          "location": "Amberfield University",
           "conference": false,
           "result": {
             "outcome": "L",
@@ -1573,17 +1573,17 @@
         {
           "date": "2026-10-05",
           "time": "1:00 p.m.",
-          "opponent": "Golden Plains University",
+          "opponent": "Amberfield University",
           "site": "Away",
-          "location": "Golden Plains University",
+          "location": "Amberfield University",
           "conference": false
         },
         {
           "date": "2026-10-09",
           "time": "1:00 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Neutral",
-          "location": "Reno, Nev.",
+          "location": "Mirage Valley, Nev.",
           "conference": true
         },
         {
@@ -1591,111 +1591,111 @@
           "time": "7:00 p.m.",
           "opponent": "Cascade State",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2026-10-23",
           "time": "7:00 p.m.",
-          "opponent": "Lassen Valley College",
+          "opponent": "Juniper Valley College",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2026-10-26",
           "time": "7:00 p.m.",
-          "opponent": "Shasta Tech",
+          "opponent": "Stonebridge Tech",
           "site": "Neutral",
-          "location": "Reno, Nev.",
+          "location": "Mirage Valley, Nev.",
           "conference": true
         },
         {
           "date": "2026-11-02",
           "time": "7:00 p.m.",
-          "opponent": "Lassen Valley College",
+          "opponent": "Juniper Valley College",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2026-11-06",
           "time": "5:00 p.m.",
-          "opponent": "Coastal Oregon State",
+          "opponent": "Westmere University",
           "site": "Away",
-          "location": "Coastal Oregon State",
+          "location": "Westmere University",
           "conference": false
         },
         {
           "date": "2026-11-10",
           "time": "1:00 p.m.",
-          "opponent": "Pacific Crest University",
+          "opponent": "Harbor Point University",
           "site": "Neutral",
-          "location": "Sacramento, Calif.",
+          "location": "Westmere, Calif.",
           "conference": true
         },
         {
           "date": "2026-11-13",
           "time": "5:00 p.m.",
-          "opponent": "Tahoe Ridge College",
+          "opponent": "Timberline College",
           "site": "Away",
-          "location": "Tahoe Ridge College",
+          "location": "Timberline College",
           "conference": true
         },
         {
           "date": "2026-11-16",
           "time": "7:00 p.m.",
-          "opponent": "Sierra Pacific University",
+          "opponent": "Summit State",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2026-11-20",
           "time": "5:00 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2026-11-24",
           "time": "1:00 p.m.",
-          "opponent": "Sierra Pacific University",
+          "opponent": "Summit State",
           "site": "Away",
-          "location": "Sierra Pacific University",
+          "location": "Summit State",
           "conference": true
         },
         {
           "date": "2026-11-28",
           "time": "7:00 p.m.",
-          "opponent": "Siskiyou College",
+          "opponent": "Foxglove College",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": false
         },
         {
           "date": "2026-12-01",
           "time": "7:00 p.m.",
-          "opponent": "Klamath Valley College",
+          "opponent": "Cedar Valley University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2026-12-04",
           "time": "1:00 p.m.",
-          "opponent": "Mendocino Coast University",
+          "opponent": "North Shore University",
           "site": "Home",
-          "location": "Owl Athletic Center",
+          "location": "Owl Arena",
           "conference": true
         },
         {
           "date": "2026-12-11",
           "time": "5:00 p.m.",
-          "opponent": "Klamath Valley College",
+          "opponent": "Cedar Valley University",
           "site": "Away",
-          "location": "Klamath Valley College",
+          "location": "Cedar Valley University",
           "conference": true
         }
       ],
@@ -1714,7 +1714,7 @@
           "name": "Chinedu Torres",
           "position": "L",
           "classYear": "Fr.",
-          "hometown": "Medford, Ore.",
+          "hometown": "Harlow Springs, Ore.",
           "height": "5-7"
         },
         {
@@ -1722,7 +1722,7 @@
           "name": "Iris Kapoor",
           "position": "L",
           "classYear": "Fr.",
-          "hometown": "Honolulu, Hawaii",
+          "hometown": "Kalehua, Hawaii",
           "height": "5-8"
         },
         {
@@ -1730,7 +1730,7 @@
           "name": "Marisol Whitehorse",
           "position": "OPP",
           "classYear": "Fr.",
-          "hometown": "Reno, Nev.",
+          "hometown": "Larkspur Flats, Nev.",
           "height": "6-2"
         },
         {
@@ -1738,7 +1738,7 @@
           "name": "Selena Friedman",
           "position": "L",
           "classYear": "Fr.",
-          "hometown": "Hilo, Hawaii",
+          "hometown": "Makani Point, Hawaii",
           "height": "6-2"
         },
         {
@@ -1746,7 +1746,7 @@
           "name": "Malik Ramirez",
           "position": "OH",
           "classYear": "Fr.",
-          "hometown": "Redding, Calif.",
+          "hometown": "Pine Hollow, Calif.",
           "height": "5-10"
         },
         {
@@ -1754,7 +1754,7 @@
           "name": "Gemma Walker",
           "position": "S",
           "classYear": "So.",
-          "hometown": "Ukiah, Calif.",
+          "hometown": "Hollis Landing, Calif.",
           "height": "6-4"
         },
         {
@@ -1762,7 +1762,7 @@
           "name": "Nadia Galloway",
           "position": "L",
           "classYear": "Sr.",
-          "hometown": "Oakland, Calif.",
+          "hometown": "Kestrel Bay, Calif.",
           "height": "5-9"
         },
         {
@@ -1770,7 +1770,7 @@
           "name": "Chiara Duarte",
           "position": "S",
           "classYear": "So.",
-          "hometown": "Chico, Calif.",
+          "hometown": "Calloway, Calif.",
           "height": "5-5"
         },
         {
@@ -1778,7 +1778,7 @@
           "name": "Dalia Ramirez",
           "position": "MB",
           "classYear": "So.",
-          "hometown": "Sacramento, Calif.",
+          "hometown": "Westmere, Calif.",
           "height": "6-3"
         },
         {
@@ -1786,7 +1786,7 @@
           "name": "Joy Washington",
           "position": "DS",
           "classYear": "Fr.",
-          "hometown": "Chico, Calif.",
+          "hometown": "Calloway, Calif.",
           "height": "5-9"
         },
         {
@@ -1794,7 +1794,7 @@
           "name": "Jamal Achebe",
           "position": "DS",
           "classYear": "So.",
-          "hometown": "Boise, Idaho",
+          "hometown": "Tamsin Ridge, Idaho",
           "height": "5-9"
         },
         {
@@ -1802,7 +1802,7 @@
           "name": "Lars Olsen",
           "position": "DS",
           "classYear": "Gr.",
-          "hometown": "Reno, Nev.",
+          "hometown": "Larkspur Flats, Nev.",
           "height": "5-5"
         },
         {
@@ -1810,7 +1810,7 @@
           "name": "Joy Yazzie",
           "position": "S",
           "classYear": "Fr.",
-          "hometown": "San Jose, Calif.",
+          "hometown": "Mirador Heights, Calif.",
           "height": "5-9"
         },
         {
@@ -1818,7 +1818,7 @@
           "name": "Tomas Reyes",
           "position": "S",
           "classYear": "So.",
-          "hometown": "Medford, Ore.",
+          "hometown": "Harlow Springs, Ore.",
           "height": "6-0"
         }
       ]
@@ -1827,7 +1827,7 @@
       "slug": "cross-country",
       "season": "2026",
       "headCoach": "Graham Torres",
-      "conference": "Pacific Redwood Athletic Conference (PRAC)",
+      "conference": "Pacific North Conference",
       "record": "3 meets completed",
       "schedule": [
         {
@@ -1844,9 +1844,9 @@
         {
           "date": "2026-09-12",
           "time": "8:30 a.m.",
-          "opponent": "Shasta Tech Invitational",
+          "opponent": "Stonebridge Tech Invitational",
           "site": "Away",
-          "location": "Shasta Tech Invitational",
+          "location": "Stonebridge Tech Invitational",
           "conference": false,
           "result": {
             "score": "1st of 13 teams"
@@ -1855,9 +1855,9 @@
         {
           "date": "2026-09-26",
           "time": "10:00 a.m.",
-          "opponent": "Lassen Valley Classic",
+          "opponent": "Juniper Valley Classic",
           "site": "Away",
-          "location": "Lassen Valley Classic",
+          "location": "Juniper Valley Classic",
           "conference": false,
           "result": {
             "score": "3rd of 11 teams"
@@ -1866,33 +1866,33 @@
         {
           "date": "2026-10-10",
           "time": "10:00 a.m.",
-          "opponent": "Golden Plains Stampede",
+          "opponent": "Amberfield Stampede",
           "site": "Away",
-          "location": "Golden Plains Stampede",
+          "location": "Amberfield Stampede",
           "conference": false
         },
         {
           "date": "2026-10-17",
           "time": "10:00 a.m.",
-          "opponent": "Coastal Oregon Open",
+          "opponent": "North Shore Open",
           "site": "Away",
-          "location": "Coastal Oregon Open",
+          "location": "North Shore Open",
           "conference": false
         },
         {
           "date": "2026-10-31",
           "time": "10:00 a.m.",
-          "opponent": "Lassen Valley Classic",
+          "opponent": "Juniper Valley Classic",
           "site": "Away",
-          "location": "Lassen Valley Classic",
+          "location": "Juniper Valley Classic",
           "conference": false
         },
         {
           "date": "2026-11-14",
           "time": "8:30 a.m.",
-          "opponent": "Sierra Pacific Invitational",
+          "opponent": "Summit State Invitational",
           "site": "Away",
-          "location": "Sierra Pacific Invitational",
+          "location": "Summit State Invitational",
           "conference": false
         },
         {
@@ -1910,77 +1910,77 @@
           "name": "Bianca Costa",
           "position": "Distance",
           "classYear": "Fr.",
-          "hometown": "Honolulu, Hawaii"
+          "hometown": "Kalehua, Hawaii"
         },
         {
           "number": "",
           "name": "Colin Soto",
           "position": "Distance",
           "classYear": "Sr.",
-          "hometown": "Crescent City, Calif."
+          "hometown": "Alder Cove, Calif."
         },
         {
           "number": "",
           "name": "Farah Lindahl",
           "position": "Distance",
           "classYear": "Jr.",
-          "hometown": "Bakersfield, Calif."
+          "hometown": "Brightwater, Calif."
         },
         {
           "number": "",
           "name": "Hector Whitehorse",
           "position": "Distance",
           "classYear": "Fr.",
-          "hometown": "Sacramento, Calif."
+          "hometown": "Westmere, Calif."
         },
         {
           "number": "",
           "name": "Ines Becker",
           "position": "Distance",
           "classYear": "Sr.",
-          "hometown": "Fresno, Calif."
+          "hometown": "San Aurelio, Calif."
         },
         {
           "number": "",
           "name": "Julian Yazzie",
           "position": "Distance",
           "classYear": "Gr.",
-          "hometown": "Boise, Idaho"
+          "hometown": "Tamsin Ridge, Idaho"
         },
         {
           "number": "",
           "name": "Lucia Thornton",
           "position": "Distance",
           "classYear": "Sr.",
-          "hometown": "San Jose, Calif."
+          "hometown": "Mirador Heights, Calif."
         },
         {
           "number": "",
           "name": "Malik Pacheco",
           "position": "Distance",
           "classYear": "Fr.",
-          "hometown": "Vancouver, B.C."
+          "hometown": "Port Tallis, B.C."
         },
         {
           "number": "",
           "name": "Malik Silva",
           "position": "Distance",
           "classYear": "Jr.",
-          "hometown": "Hilo, Hawaii"
+          "hometown": "Makani Point, Hawaii"
         },
         {
           "number": "",
           "name": "Omar Thornton",
           "position": "Distance",
           "classYear": "Fr.",
-          "hometown": "Portland, Ore."
+          "hometown": "Quillan Falls, Ore."
         },
         {
           "number": "",
           "name": "Priya Castillo",
           "position": "Distance",
           "classYear": "Sr.",
-          "hometown": "Salinas, Calif.",
+          "hometown": "Fernhaven, Calif.",
           "athleteSlug": "priya-castillo"
         },
         {
@@ -1988,28 +1988,28 @@
           "name": "Ruth Young",
           "position": "Distance",
           "classYear": "Jr.",
-          "hometown": "Portland, Ore."
+          "hometown": "Quillan Falls, Ore."
         },
         {
           "number": "",
           "name": "Shira Osei",
           "position": "Distance",
           "classYear": "Gr.",
-          "hometown": "Portland, Ore."
+          "hometown": "Quillan Falls, Ore."
         },
         {
           "number": "",
           "name": "Tamika Friedman",
           "position": "Distance",
           "classYear": "So.",
-          "hometown": "Tacoma, Wash."
+          "hometown": "Wrenfield, Wash."
         },
         {
           "number": "",
           "name": "Uma Lam",
           "position": "Distance",
           "classYear": "Jr.",
-          "hometown": "Reno, Nev."
+          "hometown": "Larkspur Flats, Nev."
         }
       ]
     }
@@ -2022,8 +2022,8 @@
       "number": "13",
       "position": "M",
       "classYear": "Gr.",
-      "hometown": "Crescent City, Calif.",
-      "highSchool": "Eureka High School",
+      "hometown": "Alder Cove, Calif.",
+      "highSchool": "Alder Cove High School",
       "major": "Kinesiology",
       "stats": [
         {
@@ -2051,8 +2051,8 @@
       "number": "39",
       "position": "G/F",
       "classYear": "Gr.",
-      "hometown": "Crescent City, Calif.",
-      "highSchool": "Arcadia Falls High School",
+      "hometown": "Alder Cove, Calif.",
+      "highSchool": "Alder Cove High School",
       "major": "Biology",
       "height": "6-2",
       "stats": [
@@ -2081,8 +2081,8 @@
       "number": "44",
       "position": "G/F",
       "classYear": "Sr.",
-      "hometown": "Reno, Nev.",
-      "highSchool": "Kamehameha Schools",
+      "hometown": "Larkspur Flats, Nev.",
+      "highSchool": "Larkspur Flats High School",
       "major": "Business Administration",
       "height": "5-9",
       "stats": [
@@ -2111,8 +2111,8 @@
       "number": "5",
       "position": "OF",
       "classYear": "Fr.",
-      "hometown": "Vancouver, B.C.",
-      "highSchool": "Sheldon High School",
+      "hometown": "Port Tallis, B.C.",
+      "highSchool": "Port Tallis High School",
       "major": "Psychology",
       "height": "6-3",
       "stats": [
@@ -2142,7 +2142,7 @@
       "position": "L",
       "classYear": "Jr.",
       "hometown": "Arcadia Falls, Calif.",
-      "highSchool": "Bishop O'Dowd High School",
+      "highSchool": "Arcadia Falls High School",
       "major": "Computer Science",
       "height": "6-3",
       "stats": [
@@ -2171,8 +2171,8 @@
       "number": "",
       "position": "Distance",
       "classYear": "Sr.",
-      "hometown": "Salinas, Calif.",
-      "highSchool": "South Medford High School",
+      "hometown": "Fernhaven, Calif.",
+      "highSchool": "Fernhaven High School",
       "major": "Environmental Studies",
       "stats": [
         {
@@ -2196,8 +2196,8 @@
       "number": "26",
       "position": "C",
       "classYear": "So.",
-      "hometown": "Los Angeles, Calif.",
-      "highSchool": "Del Norte High School",
+      "hometown": "Ridgeport, Calif.",
+      "highSchool": "Ridgeport High School",
       "major": "Nursing",
       "height": "5-11",
       "stats": [
@@ -2226,8 +2226,8 @@
       "number": "21",
       "position": "D",
       "classYear": "So.",
-      "hometown": "Hilo, Hawaii",
-      "highSchool": "Galena High School",
+      "hometown": "Makani Point, Hawaii",
+      "highSchool": "Makani Point High School",
       "major": "Communication",
       "stats": [
         {

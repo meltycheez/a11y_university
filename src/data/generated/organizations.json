@@ -30,13 +30,13 @@
     "members": 54
   },
   {
-    "slug": "association-for-computing-machinery",
-    "name": "Association for Computing Machinery (RSU Chapter)",
+    "slug": "computing-society",
+    "name": "Computing Society",
     "category": "Academic",
-    "description": "Association for Computing Machinery hosts coding nights, tech talks, and the spring hackathon. All students are welcome to join.",
+    "description": "Computing Society hosts coding nights, tech talks, and the spring hackathon. All students are welcome to join.",
     "meets": "Wednesdays, 12:00–1:00 p.m.",
     "location": "Sequoia Library 207",
-    "email": "associationforcomputing@redwoodstate.example.edu",
+    "email": "computingsociety@redwoodstate.example.edu",
     "members": 100
   },
   {
@@ -63,7 +63,7 @@
     "slug": "student-nurses-association",
     "name": "Student Nurses' Association",
     "category": "Academic",
-    "description": "Student Nurses' Association supports nursing students with study groups, NCLEX preparation, and community health drives. All students are welcome to join.",
+    "description": "Student Nurses' Association supports nursing students with study groups, licensure exam preparation, and community health drives. All students are welcome to join.",
     "meets": "Thursdays, 5:00–6:00 p.m.",
     "location": "Student Union Multipurpose Room",
     "email": "studentnursesassociation@redwoodstate.example.edu",
@@ -115,7 +115,7 @@
     "category": "Academic",
     "description": "Robotics Team designs and builds robots for regional collegiate competitions. All students are welcome to join.",
     "meets": "Mondays, 6:00–7:30 p.m.",
-    "location": "Online (Zoom)",
+    "location": "Online (CanopyMeet)",
     "email": "roboticsteam@redwoodstate.example.edu",
     "members": 16
   },
@@ -135,7 +135,7 @@
     "category": "Cultural & Identity",
     "description": "Latinx Student Alliance hosts cultural celebrations, mentorship, and family events for Latinx students. All students are welcome to join.",
     "meets": "Thursdays, 6:00–7:30 p.m.",
-    "location": "Online (Zoom)",
+    "location": "Online (CanopyMeet)",
     "email": "latinxstudentalliance@redwoodstate.example.edu",
     "members": 71
   },
@@ -195,7 +195,7 @@
     "category": "Recreation",
     "description": "Redwood Outdoors Club leads hiking, kayaking, and camping trips across the North Coast. All students are welcome to join.",
     "meets": "Fridays, 5:00–6:00 p.m.",
-    "location": "Online (Zoom)",
+    "location": "Online (CanopyMeet)",
     "email": "redwoodoutdoorsclub@redwoodstate.example.edu",
     "members": 38
   },
@@ -235,7 +235,7 @@
     "category": "Club Sports",
     "description": "Surf Club surfs local breaks together and teaches beginners ocean safety. All students are welcome to join.",
     "meets": "First Thursday of the month, 6:00–7:30 p.m.",
-    "location": "Online (Zoom)",
+    "location": "Online (CanopyMeet)",
     "email": "surfclub@redwoodstate.example.edu",
     "members": 57
   },
@@ -245,7 +245,7 @@
     "category": "Club Sports",
     "description": "Cycling Club rides the coastal highways and races in collegiate road and mountain events. All students are welcome to join.",
     "meets": "First Thursday of the month, 6:00–7:30 p.m.",
-    "location": "Online (Zoom)",
+    "location": "Online (CanopyMeet)",
     "email": "cyclingclub@redwoodstate.example.edu",
     "members": 175
   },
@@ -290,13 +290,13 @@
     "members": 162
   },
   {
-    "slug": "krsu-88-3-student-radio",
-    "name": "KRSU 88.3 Student Radio",
+    "slug": "owl-radio-88-3",
+    "name": "Owl Radio 88.3 (Student Radio)",
     "category": "Media",
-    "description": "KRSU 88.3 Student Radio broadcasts student-run music and talk shows to the Arcadia Falls area. All students are welcome to join.",
+    "description": "Owl Radio 88.3 broadcasts student-run music and talk shows to the Arcadia Falls area. All students are welcome to join.",
     "meets": "First Thursday of the month, 7:00–8:30 p.m.",
     "location": "Sequoia Library 308",
-    "email": "krsu883@redwoodstate.example.edu",
+    "email": "owlradio88@redwoodstate.example.edu",
     "members": 155
   },
   {
@@ -320,13 +320,13 @@
     "members": 154
   },
   {
-    "slug": "habitat-for-humanity-campus-chapter",
-    "name": "Habitat for Humanity Campus Chapter",
+    "slug": "campus-home-builders",
+    "name": "Campus Home Builders",
     "category": "Service & Advocacy",
-    "description": "Habitat for Humanity Campus Chapter builds affordable housing with local Habitat affiliates. All students are welcome to join.",
+    "description": "Campus Home Builders builds affordable housing with local nonprofit partners. All students are welcome to join.",
     "meets": "Tuesdays, 6:00–7:30 p.m.",
     "location": "SU 204",
-    "email": "habitatforhumanity@redwoodstate.example.edu",
+    "email": "campushomebuilders@redwoodstate.example.edu",
     "members": 100
   },
   {
@@ -335,7 +335,7 @@
     "category": "Service & Advocacy",
     "description": "Owl Pantry Volunteers stocks and staffs the free Owl Pantry in the Student Union. All students are welcome to join.",
     "meets": "First Thursday of the month, 5:00–6:00 p.m.",
-    "location": "Online (Zoom)",
+    "location": "Online (CanopyMeet)",
     "email": "owlpantryvolunteers@redwoodstate.example.edu",
     "members": 22
   },
@@ -355,7 +355,7 @@
     "category": "Service & Advocacy",
     "description": "Salmon Watch monitors local creeks and helps with habitat restoration projects. All students are welcome to join.",
     "meets": "Tuesdays, 6:00–7:30 p.m.",
-    "location": "Online (Zoom)",
+    "location": "Online (CanopyMeet)",
     "email": "salmonwatch@redwoodstate.example.edu",
     "members": 100
   },
@@ -390,13 +390,13 @@
     "members": 156
   },
   {
-    "slug": "newman-catholic-community",
-    "name": "Newman Catholic Community",
+    "slug": "catholic-student-community",
+    "name": "Catholic Student Community",
     "category": "Religious & Spiritual",
-    "description": "Newman Catholic Community offers weekly gatherings, retreats, and service trips. All students are welcome to join.",
+    "description": "Catholic Student Community offers weekly gatherings, retreats, and service trips. All students are welcome to join.",
     "meets": "Every other Wednesday, 6:00–7:30 p.m.",
     "location": "ALD 101",
-    "email": "newmancatholiccommunity@redwoodstate.example.edu",
+    "email": "catholicstudentcommunity@redwoodstate.example.edu",
     "members": 21
   }
 ]

@@ -87,7 +87,7 @@ export const leadership: Person[] = [
   { slug: "mei-lin-chao", name: "Mei-Lin Chao, Ed.D.", title: "Vice President for Student Affairs" },
   { slug: "robert-haines", name: "Robert Haines, M.B.A.", title: "Vice President for Administration and Finance" },
   { slug: "priya-natarajan", name: "Priya Natarajan, Ph.D.", title: "Vice President for Research and Graduate Studies" },
-  { slug: "thomas-redcloud", name: "Thomas Redcloud, J.D.", title: "Vice President for University Advancement" },
+  { slug: "thomas-harlan", name: "Thomas Harlan, J.D.", title: "Vice President for University Advancement" },
 ];
 
 /** Faculty with full profiles and headshots. The ~150-person staff directory is generated (plan 03). */
@@ -136,7 +136,7 @@ export const newsArticles: Story[] = [
   { slug: "wildfire-smoke-sensor-network", name: "Student-Built Sensor Network Maps Wildfire Smoke Across the North Coast", category: "research" },
   { slug: "mens-basketball-season-preview", name: "Men's Basketball Season Preview: Young Roster, High Expectations", category: "athletics" },
   { slug: "sleep-study-later-classes", name: "Students Slept Better After 8 a.m. Classes Moved Later, Psychology Study Shows", category: "research" },
-  { slug: "alum-california-teacher-of-year", name: "Education Alum Named California Teacher of the Year", category: "alumni" },
+  { slug: "alum-california-teacher-of-year", name: "Education Alum Named State Teacher of the Year", category: "alumni" },
   { slug: "madrone-hall-opens", name: "Madrone Hall Opens With 400 New Beds and a Rooftop Garden", category: "campus" },
   { slug: "green-chemistry-grant", name: "$2.4 Million Grant Funds Green Solvent Research in Chemistry", category: "research" },
   { slug: "cross-country-all-american", name: "Cross Country's Priya Castillo Named All-American", category: "athletics" },

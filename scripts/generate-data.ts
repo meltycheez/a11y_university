@@ -80,9 +80,9 @@ function newName(): string {
 // ---------- Buildings ----------
 const BUILDINGS: Record<string, string> = {
   SEH: "Sequoia Engineering Hall", CSC: "Canopy Science Center", MAD: "Madrone Hall", ALD: "Alder Hall",
-  CBB: "Coastline Business Building", FRN: "Fernwood Hall", TNH: "Tanoak Health Sciences Building",
-  MAC: "Manzanita Arts Center", SPE: "Spruce Education Hall", ARC: "Arcadia Hall", LIB: "Sequoia Library",
-  SU: "Student Union", OAC: "Owl Athletic Center", WEL: "Wellness Center", CY: "Corporation Yard",
+  SPR: "Spruce Hall", TNK: "Tanoak Hall", HUC: "Huckleberry Hall", SAL: "Salal Hall",
+  HFA: "Hartwell Fine Arts Center", LAU: "Laurel Hall", FDR: "Founders Hall", LIB: "Sequoia Library",
+  SU: "Rowan Student Union", OAC: "Owl Arena", WEL: "Wellness Center", CY: "Corporation Yard",
 };
 
 // ---------- Courses ----------
@@ -97,7 +97,7 @@ const SUBJECTS: Subject[] = [
     code: "CS", name: "Computer Science", dept: "computer-science", college: "engineering", building: "SEH",
     levels: {
       100: ["Introduction to Programming|4", "Data Structures|4", "Discrete Structures for Computing", "Computing for Everyone", "Web Development Fundamentals"],
-      200: ["Computer Organization", "Object-Oriented Design", "Systems Programming in C", "Introduction to Data Science", "Human-Computer Interaction", "Linux and the Command Line|1"],
+      200: ["Computer Organization", "Object-Oriented Design", "Systems Programming in C", "Introduction to Data Science", "Human-Computer Interaction", "The Command Line and Shell Scripting|1"],
       300: ["Algorithms", "Operating Systems", "Software Engineering", "Theory of Computation", "Database Systems", "Computer Networks", "Programming Languages", "Accessible and Inclusive Software Design", "Cloud Computing"],
       400: ["Machine Learning", "Computer Security", "Distributed Systems", "Compilers", "Computer Graphics", "Mobile Application Development", "Senior Project|4", "Natural Language Processing", "Quantum Computing Concepts"],
       500: ["Advanced Algorithms", "Advanced Operating Systems", "Research Methods in Computing", "Deep Learning"],
@@ -120,7 +120,7 @@ const SUBJECTS: Subject[] = [
     activities: ["complete weekly problem sets", "design and test prototypes in the Sequoia makerspace", "write formal lab reports", "work with an industry sponsor"],
   },
   {
-    code: "BUS", name: "Business Administration", dept: "business-administration", college: "business", building: "CBB",
+    code: "BUS", name: "Business Administration", dept: "business-administration", college: "business", building: "ALD",
     levels: {
       100: ["Introduction to Business", "Financial Accounting", "Managerial Accounting", "Business Communication"],
       200: ["Principles of Marketing", "Business Statistics", "Legal Environment of Business", "Management Information Systems", "Principles of Microeconomics", "Principles of Macroeconomics"],
@@ -134,11 +134,11 @@ const SUBJECTS: Subject[] = [
     activities: ["analyze case studies from North Coast businesses", "prepare a team business plan", "present recommendations to local employers", "complete spreadsheet modeling exercises"],
   },
   {
-    code: "ENGL", name: "English", dept: "english", college: "arts-humanities", building: "ALD",
+    code: "ENGL", name: "English", dept: "english", college: "arts-humanities", building: "SPR",
     levels: {
       100: ["College Composition", "Critical Reading and Writing", "Introduction to Literature", "Introduction to Creative Writing"],
       200: ["Survey of British Literature", "Survey of American Literature", "Literary Analysis", "Writing for the Professions", "Introduction to Linguistics"],
-      300: ["Shakespeare", "The American Novel", "Literature of the Pacific Northwest", "Poetry Workshop", "Fiction Workshop", "Rhetoric and Composition Theory", "Native American Literatures", "Young Adult Literature"],
+      300: ["Early Modern Drama", "The American Novel", "Literature of the Pacific Northwest", "Poetry Workshop", "Fiction Workshop", "Rhetoric and Composition Theory", "Native American Literatures", "Young Adult Literature"],
       400: ["Senior Seminar in Literature", "Advanced Nonfiction Workshop", "Teaching Writing", "Topics in Literary Theory", "Editing and Publishing"],
     },
     topics: ["close reading", "argument and evidence", "literary history", "revision strategies", "genre and form", "research writing", "narrative voice", "cultural context", "audience and purpose", "peer workshop practice"],
@@ -146,7 +146,7 @@ const SUBJECTS: Subject[] = [
     activities: ["write and revise several essays", "workshop drafts with classmates", "lead a class discussion", "assemble a final portfolio"],
   },
   {
-    code: "HIST", name: "History", dept: "history", college: "arts-humanities", building: "ALD",
+    code: "HIST", name: "History", dept: "history", college: "arts-humanities", building: "SPR",
     levels: {
       100: ["World History to 1500", "World History since 1500", "United States History to 1877", "United States History since 1877"],
       200: ["Historical Methods", "History of California", "Modern Latin America", "East Asia since 1800", "Africa since 1800"],
@@ -158,7 +158,7 @@ const SUBJECTS: Subject[] = [
     activities: ["work with collections in the Sequoia Library archives", "write a research paper from primary sources", "complete short response papers", "record and transcribe an oral history"],
   },
   {
-    code: "MATH", name: "Mathematics", dept: "mathematics", college: "science", building: "CSC",
+    code: "MATH", name: "Mathematics", dept: "mathematics", college: "science", building: "TNK",
     levels: {
       100: ["Calculus I|4", "Calculus II|4", "Precalculus", "Statistics for Everyday Life", "Mathematics for Elementary Teachers"],
       200: ["Linear Algebra", "Calculus III|4", "Introduction to Proof", "Differential Equations", "Discrete Mathematics"],
@@ -167,7 +167,7 @@ const SUBJECTS: Subject[] = [
     },
     topics: ["limits and continuity", "vector spaces", "proof techniques", "probability distributions", "numerical approximation", "modeling with differential equations", "group theory", "convergence", "optimization", "statistical inference"],
     skills: ["rigorous reasoning", "clear mathematical writing", "computational fluency", "problem solving"],
-    activities: ["complete weekly problem sets", "present proofs at the board", "use software such as Python or R for computation", "complete a modeling project"],
+    activities: ["complete weekly problem sets", "present proofs at the board", "use statistical and computational software", "complete a modeling project"],
   },
   {
     code: "BIOL", name: "Biology", dept: "biology", college: "science", building: "CSC",
@@ -194,7 +194,7 @@ const SUBJECTS: Subject[] = [
     activities: ["complete weekly laboratory experiments", "maintain a detailed lab notebook", "analyze samples with modern instruments", "write formal lab reports"],
   },
   {
-    code: "PSYC", name: "Psychology", dept: "psychology", college: "science", building: "FRN",
+    code: "PSYC", name: "Psychology", dept: "psychology", college: "science", building: "HUC",
     levels: {
       100: ["Introduction to Psychology", "Psychology of Adjustment", "Careers in Psychology|1"],
       200: ["Research Methods in Psychology", "Statistics for the Behavioral Sciences", "Lifespan Development", "Social Psychology"],
@@ -206,7 +206,7 @@ const SUBJECTS: Subject[] = [
     activities: ["participate in or design a small study", "write an APA-style research report", "discuss current research articles", "complete short reflection papers"],
   },
   {
-    code: "NURS", name: "Nursing", dept: "nursing", college: "health-sciences", building: "TNH",
+    code: "NURS", name: "Nursing", dept: "nursing", college: "health-sciences", building: "SAL",
     levels: {
       100: ["Introduction to Professional Nursing", "Medical Terminology|1", "Nutrition for Health"],
       200: ["Pathophysiology", "Pharmacology for Nursing", "Health Assessment|4", "Fundamentals of Nursing Practice|5"],
@@ -215,10 +215,10 @@ const SUBJECTS: Subject[] = [
     },
     topics: ["patient safety", "clinical reasoning", "evidence-based practice", "health assessment", "medication administration", "rural and community health", "therapeutic communication", "care of diverse populations", "interprofessional teamwork", "quality improvement"],
     skills: ["clinical judgment", "professional communication", "safe patient care", "reflective practice"],
-    activities: ["complete scenarios in the nursing simulation center", "attend supervised clinical rotations at regional hospitals", "prepare care plans", "complete skills check-offs"],
+    activities: ["complete scenarios in the nursing simulation center", "attend supervised clinical rotations at Port Alder Medical Center and regional clinics", "prepare care plans", "complete skills check-offs"],
   },
   {
-    code: "GEOG", name: "Geography", college: "arts-humanities", building: "ALD",
+    code: "GEOG", name: "Geography", college: "arts-humanities", building: "SPR",
     levels: {
       100: ["Physical Geography", "Human Geography", "World Regional Geography", "Geography of Food"],
       200: ["Introduction to GIS|4", "Maps and Society"],
@@ -230,7 +230,7 @@ const SUBJECTS: Subject[] = [
     activities: ["complete GIS lab exercises", "take part in local field trips", "produce a final map project", "analyze census and land-use data"],
   },
   {
-    code: "ART", name: "Art", college: "arts-humanities", building: "MAC",
+    code: "ART", name: "Art", college: "arts-humanities", building: "HFA",
     levels: {
       100: ["Drawing I", "Two-Dimensional Design", "Art Appreciation", "Introduction to Ceramics"],
       200: ["Painting I", "Digital Photography", "Printmaking", "Art History: Prehistory to 1400", "Art History: 1400 to 1900"],
@@ -239,10 +239,10 @@ const SUBJECTS: Subject[] = [
     },
     topics: ["composition", "color theory", "material exploration", "art history and criticism", "studio practice", "visual communication", "critique", "portfolio development"],
     skills: ["visual literacy", "studio craft", "constructive critique", "artistic research"],
-    activities: ["complete studio projects", "participate in group critiques", "visit exhibitions in the Manzanita Arts Center", "keep a sketchbook"],
+    activities: ["complete studio projects", "participate in group critiques", "visit exhibitions in the Hartwell Fine Arts Center", "keep a sketchbook"],
   },
   {
-    code: "MUS", name: "Music", college: "arts-humanities", building: "MAC",
+    code: "MUS", name: "Music", college: "arts-humanities", building: "HFA",
     levels: {
       100: ["Music Appreciation", "Music Theory I", "Class Piano I|1", "Redwood Chorale|1", "Guitar for Beginners|1"],
       200: ["Music Theory II", "Aural Skills", "History of Jazz", "Symphonic Band|1"],
@@ -254,7 +254,7 @@ const SUBJECTS: Subject[] = [
     activities: ["attend and review live performances", "perform in class", "complete listening journals", "compose short pieces"],
   },
   {
-    code: "EDUC", name: "Education", college: "education", building: "SPE",
+    code: "EDUC", name: "Education", college: "education", building: "LAU",
     levels: {
       100: ["Introduction to Teaching", "Education in a Diverse Society"],
       200: ["Child and Adolescent Development", "Educational Technology"],
@@ -417,13 +417,13 @@ function email(slug: string) {
   return `${e}@${DOMAIN}`;
 }
 const phone = () => { const n = phones.shift()!; return `(707) 555-${String(n).padStart(4, "0")}`; };
-const HOURS = ["MW 10:00–11:30 a.m.", "TR 1:00–2:30 p.m.", "M 2:00–4:00 p.m. and by appointment", "W 9:00–11:00 a.m.", "TR 10:00–11:00 a.m.", "By appointment (Zoom or in person)", "MWF 11:00 a.m.–noon"];
+const HOURS = ["MW 10:00–11:30 a.m.", "TR 1:00–2:30 p.m.", "M 2:00–4:00 p.m. and by appointment", "W 9:00–11:00 a.m.", "TR 10:00–11:00 a.m.", "By appointment (CanopyMeet or in person)", "MWF 11:00 a.m.–noon"];
 const deptName = (slug: string) => departments.find((d) => d.slug === slug)!.name;
 const deptBuilding = (slug: string) => SUBJECTS.find((s) => s.dept === slug)!.building;
 
 const directory: DirectoryEntry[] = [];
 for (const p of leadership) {
-  directory.push({ slug: p.slug, name: p.name, title: p.title, kind: "leadership", department: "Office of the President", email: email(p.slug), phone: phone(), building: BUILDINGS.ARC, room: `ARC ${int(3, 4)}${int(0, 2)}${int(0, 9)}`, hasProfile: false });
+  directory.push({ slug: p.slug, name: p.name, title: p.title, kind: "leadership", department: "Office of the President", email: email(p.slug), phone: phone(), building: BUILDINGS.FDR, room: `FDR ${int(3, 4)}${int(0, 2)}${int(0, 9)}`, hasProfile: false });
 }
 for (const f of faculty) {
   const b = deptBuilding(f.department!);
@@ -434,15 +434,15 @@ for (const a of adjuncts) {
   directory.push({ slug: a.slug, name: a.name, title: a.title, kind: "faculty", department: s.name, ...(s.dept ? { departmentSlug: s.dept } : {}), email: email(a.slug), phone: phone(), building: BUILDINGS[s.building], room: `${s.building} ${int(1, 3)}${int(0, 4)}${int(0, 9)}`, officeHours: pick(HOURS), hasProfile: false });
 }
 const OFFICES: [string, string, string[]][] = [
-  ["Office of the Registrar", "ARC", ["University Registrar", "Associate Registrar", "Records Specialist", "Graduation Evaluator", "Transcript Coordinator"]],
-  ["Financial Aid & Scholarships", "ARC", ["Director of Financial Aid", "Financial Aid Counselor", "Financial Aid Counselor", "Scholarship Coordinator"]],
-  ["Undergraduate Admissions", "ARC", ["Director of Admissions", "Admissions Counselor", "Admissions Counselor", "Transfer Admissions Coordinator", "Campus Visit Coordinator"]],
-  ["Student Financial Services (Bursar)", "ARC", ["Bursar", "Student Accounts Specialist", "Cashier"]],
+  ["Office of the Registrar", "FDR", ["University Registrar", "Associate Registrar", "Records Specialist", "Graduation Evaluator", "Transcript Coordinator"]],
+  ["Financial Aid & Scholarships", "FDR", ["Director of Financial Aid", "Financial Aid Counselor", "Financial Aid Counselor", "Scholarship Coordinator"]],
+  ["Undergraduate Admissions", "FDR", ["Director of Admissions", "Admissions Counselor", "Admissions Counselor", "Transfer Admissions Coordinator", "Campus Visit Coordinator"]],
+  ["Student Financial Services (Bursar)", "FDR", ["Bursar", "Student Accounts Specialist", "Cashier"]],
   ["Housing & Residential Life", "MAD", ["Director of Housing", "Residence Life Coordinator", "Residence Life Coordinator", "Housing Assignments Specialist"]],
   ["Sequoia Library", "LIB", ["Dean of the Library", "Research & Instruction Librarian", "Health Sciences Librarian", "Archivist and Special Collections Librarian", "Access Services Supervisor"]],
   ["Information Technology Services", "LIB", ["Chief Information Officer", "Service Desk Manager", "Systems Administrator", "Instructional Technologist"]],
-  ["Human Resources", "ARC", ["Director of Human Resources", "HR Generalist", "Benefits Coordinator", "Recruitment Specialist"]],
-  ["Payroll Services", "ARC", ["Payroll Manager", "Payroll Technician"]],
+  ["Human Resources", "FDR", ["Director of Human Resources", "HR Generalist", "Benefits Coordinator", "Recruitment Specialist"]],
+  ["Payroll Services", "FDR", ["Payroll Manager", "Payroll Technician"]],
   ["Student Health Center", "WEL", ["Medical Director", "Nurse Practitioner", "Clinic Coordinator"]],
   ["Counseling & Psychological Services", "WEL", ["Director of Counseling", "Staff Psychologist", "Licensed Clinical Social Worker"]],
   ["Career Center", "SU", ["Director of Career Services", "Career Counselor", "Employer Relations Coordinator"]],
@@ -450,7 +450,7 @@ const OFFICES: [string, string, string[]][] = [
   ["Parking & Transportation Services", "CY", ["Parking Services Manager", "Parking Services Representative"]],
   ["Dining Services", "SU", ["Director of Dining Services", "Catering Manager"]],
   ["Athletics", "OAC", ["Director of Athletics", "Associate Athletic Director for Compliance", "Sports Information Director", "Head Athletic Trainer"]],
-  ["University Advancement", "ARC", ["Director of Annual Giving", "Alumni Relations Coordinator", "Gift Processing Specialist"]],
+  ["University Advancement", "FDR", ["Director of Annual Giving", "Alumni Relations Coordinator", "Gift Processing Specialist"]],
   ["Disability Resource Center", "LIB", ["Director of Disability Resources", "Accommodations Specialist", "Alternative Media Specialist"]],
   ["Academic Advising Center", "LIB", ["Director of Advising", "Academic Advisor", "Academic Advisor"]],
 ];
@@ -475,10 +475,10 @@ const ORGS: [string, string, string][] = [
   ["Associated Students of Redwood State", "Student Government", "represents students on university committees and funds hundreds of campus events each year"],
   ["Residence Hall Association", "Student Government", "advocates for residents and plans hall programming across Madrone Hall and the other residence halls"],
   ["Graduate Student Council", "Student Government", "represents graduate students and runs the annual graduate research showcase"],
-  ["Association for Computing Machinery (RSU Chapter)", "Academic", "hosts coding nights, tech talks, and the spring hackathon"],
+  ["Computing Society", "Academic", "hosts coding nights, tech talks, and the spring hackathon"],
   ["Women in Engineering and Computing", "Academic", "builds community among women and nonbinary students in engineering and computer science"],
   ["Pre-Health Professions Society", "Academic", "helps students prepare for medical, dental, and physician assistant programs"],
-  ["Student Nurses' Association", "Academic", "supports nursing students with study groups, NCLEX preparation, and community health drives"],
+  ["Student Nurses' Association", "Academic", "supports nursing students with study groups, licensure exam preparation, and community health drives"],
   ["Psychology Club", "Academic", "brings researchers and clinicians to campus and organizes graduate school workshops"],
   ["History and Archives Collective", "Academic", "volunteers with the Sequoia Library archives and plans local history walks"],
   ["Math Circle", "Academic", "meets weekly to tackle competition problems and puzzles over pizza"],
@@ -501,24 +501,24 @@ const ORGS: [string, string, string][] = [
   ["Theatre Guild", "Arts & Performance", "produces student-directed plays and a spring musical"],
   ["Film Society", "Arts & Performance", "screens independent films weekly and runs a short film festival"],
   ["The Understory (Literary Magazine)", "Media", "publishes student poetry, fiction, and art twice a year"],
-  ["KRSU 88.3 Student Radio", "Media", "broadcasts student-run music and talk shows to the Arcadia Falls area"],
+  ["Owl Radio 88.3 (Student Radio)", "Media", "broadcasts student-run music and talk shows to the Arcadia Falls area"],
   ["The Redwood Ring (Student Newspaper)", "Media", "covers campus news, sports, and opinion in print and online"],
   ["Campus Sustainability Coalition", "Service & Advocacy", "runs the campus garden, bike repair clinics, and waste audits"],
-  ["Habitat for Humanity Campus Chapter", "Service & Advocacy", "builds affordable housing with local Habitat affiliates"],
+  ["Campus Home Builders", "Service & Advocacy", "builds affordable housing with local nonprofit partners"],
   ["Owl Pantry Volunteers", "Service & Advocacy", "stocks and staffs the free Owl Pantry in the Student Union"],
   ["Disability Justice Collective", "Service & Advocacy", "advocates for access and disability culture on campus"],
   ["Salmon Watch", "Service & Advocacy", "monitors local creeks and helps with habitat restoration projects"],
   ["Chess Club", "Special Interest", "meets for casual games, lessons, and rated tournaments"],
   ["Tabletop Gaming Guild", "Special Interest", "gathers every week for board games and role-playing campaigns"],
   ["Interfaith Council", "Religious & Spiritual", "brings together students of many faith traditions for dialogue and service"],
-  ["Newman Catholic Community", "Religious & Spiritual", "offers weekly gatherings, retreats, and service trips"],
+  ["Catholic Student Community", "Religious & Spiritual", "offers weekly gatherings, retreats, and service trips"],
 ];
 const organizations: StudentOrganization[] = ORGS.map(([name, category, focus]) => {
   const slug = slugify(name.replace(/\(.*?\)/g, ""));
   return {
     slug, name, category, description: `${name.replace(/ \(.*?\)/, "")} ${focus}. All students are welcome to join.`,
     meets: `${pick(["Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Every other Wednesday", "First Thursday of the month"])}, ${pick(["12:00–1:00 p.m.", "5:00–6:00 p.m.", "6:00–7:30 p.m.", "7:00–8:30 p.m."])}`,
-    location: pick([`SU ${int(1, 2)}${int(0, 3)}${int(0, 9)}`, `${BUILDINGS.LIB} ${int(1, 3)}0${int(1, 9)}`, "Student Union Multipurpose Room", "Online (Zoom)", `ALD ${int(1, 2)}${int(0, 5)}${int(0, 9)}`]),
+    location: pick([`SU ${int(1, 2)}${int(0, 3)}${int(0, 9)}`, `${BUILDINGS.LIB} ${int(1, 3)}0${int(1, 9)}`, "Student Union Multipurpose Room", "Online (CanopyMeet)", `ALD ${int(1, 2)}${int(0, 5)}${int(0, 9)}`]),
     email: `${slug.split("-").slice(0, 3).join("")}@${DOMAIN}`, members: int(12, 180),
   };
 });
@@ -528,13 +528,13 @@ stream(5);
 const JOBS: [string, JobPosting["category"], string, string, string, string[]][] = [
   ["Administrative Analyst/Specialist", "Staff", "Office of the Registrar", "Full-time, permanent", "$4,612–$6,934/month", ["Bachelor's degree or equivalent experience", "Two years of office experience", "Experience with student information systems preferred"]],
   ["Financial Aid Counselor", "Staff", "Financial Aid & Scholarships", "Full-time, permanent", "$4,398–$6,120/month", ["Bachelor's degree", "Knowledge of federal Title IV regulations", "Bilingual English/Spanish preferred"]],
-  ["IT Service Desk Technician", "Staff", "Information Technology Services", "Full-time, permanent", "$4,110–$5,720/month", ["One year of help desk experience", "Familiarity with Windows, macOS, and mobile devices"]],
-  ["Web Accessibility Specialist", "Staff", "Information Technology Services", "Full-time, permanent", "$6,050–$8,480/month", ["Experience testing to WCAG 2.2 AA", "Screen reader proficiency (NVDA, JAWS, VoiceOver)", "HTML, CSS, and ARIA knowledge"]],
+  ["IT Service Desk Technician", "Staff", "Information Technology Services", "Full-time, permanent", "$4,110–$5,720/month", ["One year of help desk experience", "Familiarity with desktop and mobile operating systems"]],
+  ["Web Accessibility Specialist", "Staff", "Information Technology Services", "Full-time, permanent", "$6,050–$8,480/month", ["Experience testing to WCAG 2.2 AA", "Proficiency with desktop and mobile screen readers", "HTML, CSS, and ARIA knowledge"]],
   ["Custodian", "Staff", "Facilities Management", "Full-time, permanent (night shift)", "$3,420–$4,215/month", ["Ability to lift 50 pounds", "Prior custodial experience preferred"]],
   ["Groundskeeper", "Staff", "Facilities Management", "Full-time, permanent", "$3,660–$4,580/month", ["Valid California driver's license", "Experience with irrigation and equipment operation"]],
   ["Residence Life Coordinator", "Staff", "Housing & Residential Life", "Full-time, live-on (12-month)", "$4,250–$5,100/month plus apartment", ["Master's degree in student affairs or related field", "Experience in residence life"]],
   ["Staff Psychologist", "Staff", "Counseling & Psychological Services", "Full-time, 10-month", "$7,920–$10,400/month", ["Licensed or license-eligible psychologist in California", "Experience with college students"]],
-  ["Police Officer", "Staff", "University Police & Campus Safety", "Full-time, permanent", "$6,140–$8,020/month", ["POST Basic Academy certificate", "Must pass background investigation"]],
+  ["Police Officer", "Staff", "University Police & Campus Safety", "Full-time, permanent", "$6,140–$8,020/month", ["State peace officer basic academy certificate", "Must pass background investigation"]],
   ["Development Officer", "Staff", "University Advancement", "Full-time, permanent", "$5,800–$7,900/month", ["Three years of fundraising experience", "Excellent written and verbal communication"]],
   ["Assistant Professor of Computer Science (Tenure-Track)", "Faculty", "Department of Computer Science", "Tenure-track, begins August 2027", "Commensurate with experience", ["Ph.D. in computer science or a closely related field by the start date", "Commitment to undergraduate teaching", "Research in systems, security, or human-computer interaction"]],
   ["Assistant Professor of Nursing (Tenure-Track)", "Faculty", "School of Nursing", "Tenure-track, begins August 2027", "Commensurate with experience", ["Doctorate in nursing (Ph.D. or D.N.P.)", "Active California RN license", "Clinical expertise in medical-surgical or community health nursing"]],
@@ -563,60 +563,61 @@ const jobs: JobPosting[] = JOBS.map(([title, category, department, appointment, 
 // ---------- Library databases ----------
 stream(6);
 const DBS: [string, string[], string, string][] = [
-  ["Academic Search Commons", ["Multidisciplinary"], "A broad starting point with scholarly journals, magazines, and newspapers across nearly every discipline.", "1975–present"],
+  ["Omnibus Article Search", ["Multidisciplinary"], "A broad starting point with scholarly journals, magazines, and newspapers across nearly every discipline.", "1975–present"],
   ["Scholarly Journals Archive", ["Multidisciplinary", "History", "Literature"], "Back issues of core academic journals in the humanities, social sciences, and sciences, digitized from the first issue.", "1665–five years ago"],
   ["National Newspapers Online", ["News", "Multidisciplinary"], "Full text of major U.S. newspapers, including daily editions and archived opinion pages.", "1980–present"],
-  ["North Coast Newspaper Archive", ["News", "History", "Local History"], "Digitized regional newspapers from Humboldt, Del Norte, and Mendocino counties, including the Arcadia Falls Courier.", "1889–1998"],
+  ["North Coast Newspaper Archive", ["News", "History", "Local History"], "Digitized regional newspapers from Fernhaven County and neighboring coastal counties, including the Arcadia Falls Courier and the Port Alder Tide.", "1889–1998"],
   ["Computing Literature Index", ["Computer Science", "Engineering"], "Conference proceedings, journals, and technical reports in computing, with citation tracking.", "1954–present"],
   ["Engineering Standards Library", ["Engineering", "Mechanical Engineering"], "Full text of engineering standards and technical papers. Limit of three simultaneous users.", "Current standards"],
   ["Engineering Abstracts Plus", ["Engineering", "Computer Science", "Physics"], "Abstracts and indexing for engineering, applied science, and technology literature.", "1969–present"],
   ["MathSearch Reviews", ["Mathematics", "Statistics"], "Reviews and bibliographic data for the mathematical research literature.", "1940–present"],
-  ["BioSource Index", ["Biology", "Environmental Science"], "Indexing of life sciences journals, from molecular biology to ecology and marine science.", "1926–present"],
+  ["Life Sciences Index", ["Biology", "Environmental Science"], "Indexing of life sciences journals, from molecular biology to ecology and marine science.", "1926–present"],
   ["Biomedical Literature Search", ["Nursing", "Health Sciences", "Biology"], "Citations and abstracts from biomedical and health sciences journals, freely searchable.", "1946–present"],
-  ["Nursing & Allied Health Complete", ["Nursing", "Health Sciences"], "Full-text nursing and allied health journals, care sheets, evidence-based summaries, and continuing education modules.", "1937–present"],
-  ["Clinical Evidence Summaries", ["Nursing", "Health Sciences"], "Point-of-care summaries of clinical evidence with graded recommendations.", "Continuously updated"],
-  ["Drug Information Handbook Online", ["Nursing", "Health Sciences", "Chemistry"], "Drug monographs, interactions, and patient education handouts.", "Continuously updated"],
-  ["Chemical Abstracts Explorer", ["Chemistry", "Biology"], "Search chemical literature and substances by name, structure, or reaction. Requires individual registration.", "1907–present"],
+  ["Clinical Nursing Collection", ["Nursing", "Health Sciences"], "Full-text nursing and allied health journals, care sheets, evidence-based summaries, and continuing education modules.", "1937–present"],
+  ["Point-of-Care Evidence Summaries", ["Nursing", "Health Sciences"], "Point-of-care summaries of clinical evidence with graded recommendations.", "Continuously updated"],
+  ["Medication Reference Online", ["Nursing", "Health Sciences", "Chemistry"], "Drug monographs, interactions, and patient education handouts.", "Continuously updated"],
+  ["Chemical Literature & Substances Search", ["Chemistry", "Biology"], "Search chemical literature and substances by name, structure, or reaction. Requires individual registration.", "1907–present"],
   ["Chemistry Journals Collection", ["Chemistry"], "Full-text chemistry journals from major scientific societies.", "1996–present"],
-  ["PsycSource", ["Psychology", "Education", "Nursing"], "The core index for psychology and the behavioral sciences, including dissertations and book chapters.", "1887–present"],
+  ["Behavioral Sciences Index", ["Psychology", "Education", "Nursing"], "The core index for psychology and the behavioral sciences, including dissertations and book chapters.", "1887–present"],
   ["Psychology Tests & Measures", ["Psychology", "Education"], "Descriptions and full text of psychological tests and measurement instruments.", "1920–present"],
   ["Education Research Index", ["Education"], "Journal articles and reports in education research, policy, and practice.", "1966–present"],
-  ["Teacher Reference Center", ["Education"], "Practitioner journals and lesson resources for K–12 teachers.", "1990–present"],
-  ["Business Source Complete", ["Business", "Economics"], "Scholarly business journals, trade publications, company profiles, and industry reports.", "1886–present"],
+  ["K–12 Teaching Resources", ["Education"], "Practitioner journals and lesson resources for K–12 teachers.", "1990–present"],
+  ["Business Research Collection", ["Business", "Economics"], "Scholarly business journals, trade publications, company profiles, and industry reports.", "1886–present"],
   ["Company & Industry Profiles", ["Business"], "Financial data, SWOT analyses, and market research on public and private companies.", "Current"],
   ["Economic Data Explorer", ["Business", "Economics", "Statistics"], "U.S. and international economic indicators with charting and download tools.", "1913–present"],
   ["Legal Research Collection", ["Business", "Political Science", "Criminal Justice"], "Federal and state case law, statutes, and law reviews.", "1789–present"],
-  ["Literature Criticism Online", ["Literature", "English"], "Full-text literary criticism on authors and works from antiquity to the present.", "1973–present"],
-  ["Modern Language Bibliography", ["Literature", "English", "Linguistics"], "Indexing of scholarship on literature, language, linguistics, and folklore.", "1926–present"],
+  ["Literary Criticism Collection", ["Literature", "English"], "Full-text literary criticism on authors and works from antiquity to the present.", "1973–present"],
+  ["Language & Literature Bibliography", ["Literature", "English", "Linguistics"], "Indexing of scholarship on literature, language, linguistics, and folklore.", "1926–present"],
   ["Poetry & Short Fiction Archive", ["Literature", "English", "Creative Writing"], "Full-text poems, short stories, and author biographies.", "600–present"],
-  ["Historical Abstracts & Primary Sources", ["History"], "Scholarship on world history since 1450, with linked primary source collections.", "1955–present"],
+  ["World History Index & Primary Sources", ["History"], "Scholarship on world history since 1450, with linked primary source collections.", "1955–present"],
   ["American History Primary Sources", ["History", "Political Science"], "Letters, diaries, government documents, and pamphlets from U.S. history.", "1600–1990"],
   ["California Digital Archive", ["History", "Local History"], "Photographs, maps, and oral histories from California libraries and historical societies.", "1850–present"],
   ["Arcadia Falls Logging Records", ["Local History", "History", "Environmental Science"], "Company ledgers, photographs, and maps from Arcadia Falls timber operations, digitized by Sequoia Library Special Collections.", "1902–2004"],
   ["Environmental Science Index", ["Environmental Science", "Biology", "Geography"], "Research on ecology, pollution, energy, and resource management.", "1967–present"],
   ["GeoData Portal", ["Geography", "Environmental Science"], "GIS data layers, aerial imagery, and topographic maps for California.", "Varies by layer"],
-  ["Art & Architecture Source", ["Art"], "Full-text art journals and a large collection of images of artworks and buildings.", "1937–present"],
+  ["Visual Arts & Architecture Collection", ["Art"], "Full-text art journals and a large collection of images of artworks and buildings.", "1937–present"],
   ["Image Collection Online", ["Art", "History"], "Millions of high-quality images for teaching and research in the arts and humanities.", "Varies"],
-  ["Music Index & Scores", ["Music"], "Indexing of music periodicals plus streaming scores for study.", "1970–present"],
+  ["Music Periodicals & Scores", ["Music"], "Indexing of music periodicals plus streaming scores for study.", "1970–present"],
   ["Streaming Music Library", ["Music"], "Streaming classical, jazz, folk, and world music recordings.", "Varies"],
-  ["Films on Demand for Education", ["Multidisciplinary", "Education"], "Streaming educational documentaries and instructional videos, most with captions and transcripts.", "Varies"],
-  ["Statistical Abstracts Online", ["Statistics", "Multidisciplinary"], "Tables and datasets from government and industry sources.", "1878–present"],
-  ["Dissertations & Theses Global", ["Multidisciplinary"], "Full text of doctoral dissertations and master's theses from around the world.", "1743–present"],
+  ["Educational Video Collection", ["Multidisciplinary", "Education"], "Streaming educational documentaries and instructional videos, most with captions and transcripts.", "Varies"],
+  ["Statistical Tables Online", ["Statistics", "Multidisciplinary"], "Tables and datasets from government and industry sources.", "1878–present"],
+  ["Dissertations & Theses Collection", ["Multidisciplinary"], "Full text of doctoral dissertations and master's theses from around the world.", "1743–present"],
   ["Open Access Journals Directory", ["Multidisciplinary"], "A curated directory of peer-reviewed open access journals.", "Current"],
-  ["Citation Manager (RefTrack)", ["Multidisciplinary"], "Save, organize, and format citations in APA, MLA, and Chicago styles.", "Tool"],
+  ["Citation Manager (RSU Cite)", ["Multidisciplinary"], "Save, organize, and format citations in APA, MLA, and Chicago styles.", "Tool"],
 ];
 const databases: LibraryDatabase[] = DBS.map(([name, subjects, description, coverage]) => ({
   slug: slugify(name), name, subjects, description, coverage,
   fullText: !/abstracts|index|reviews|bibliography|directory|citation/i.test(name) || chance(0.2),
-  access: /Open Access|Biomedical Literature|Economic Data/.test(name) ? "Open access" : /Standards|Chemical Abstracts/.test(name) ? "On campus only" : "Campus & off-campus (RSU login)",
+  access: /Open Access|Biomedical Literature|Economic Data/.test(name) ? "Open access" : /Standards|Chemical Literature/.test(name) ? "On campus only" : "Campus & off-campus (RSU login)",
 }));
 databases.sort((a, b) => a.name.localeCompare(b.name));
 
 // ---------- Athletics ----------
 stream(7);
-const OPPONENTS = ["Cascade State", "Sierra Pacific University", "Klamath Valley College", "Mendocino Coast University", "Shasta Tech", "Tahoe Ridge College", "Pacific Crest University", "Bay Harbor State", "Golden Plains University", "Lassen Valley College", "Coastal Oregon State", "Siskiyou College", "Rogue River University", "Eel River State"];
+// First eight are Pacific North Conference members; the rest are non-conference.
+const OPPONENTS = ["Cascade State", "Summit State", "Cedar Valley University", "North Shore University", "Stonebridge Tech", "Timberline College", "Harbor Point University", "Kestrel Bay State", "Amberfield University", "Juniper Valley College", "Westmere University", "Foxglove College", "Granite Bluff University", "Copper Creek State"];
 const CONFERENCE = OPPONENTS.slice(0, 8);
-const HOMETOWNS = ["Eureka, Calif.", "Sacramento, Calif.", "Santa Rosa, Calif.", "Oakland, Calif.", "Fresno, Calif.", "Arcadia Falls, Calif.", "Redding, Calif.", "San Jose, Calif.", "Los Angeles, Calif.", "Chico, Calif.", "Medford, Ore.", "Portland, Ore.", "Reno, Nev.", "Honolulu, Hawaii", "Hilo, Hawaii", "Boise, Idaho", "Tacoma, Wash.", "Bakersfield, Calif.", "Salinas, Calif.", "Ukiah, Calif.", "Crescent City, Calif.", "Phoenix, Ariz.", "Vancouver, B.C.", "Stockholm, Sweden"];
+const HOMETOWNS = ["Port Alder, Calif.", "Westmere, Calif.", "Santa Lucerna, Calif.", "Kestrel Bay, Calif.", "San Aurelio, Calif.", "Arcadia Falls, Calif.", "Pine Hollow, Calif.", "Mirador Heights, Calif.", "Ridgeport, Calif.", "Calloway, Calif.", "Harlow Springs, Ore.", "Quillan Falls, Ore.", "Larkspur Flats, Nev.", "Kalehua, Hawaii", "Makani Point, Hawaii", "Tamsin Ridge, Idaho", "Wrenfield, Wash.", "Brightwater, Calif.", "Fernhaven, Calif.", "Hollis Landing, Calif.", "Alder Cove, Calif.", "Saguaro Mesa, Ariz.", "Port Tallis, B.C.", "Eskerby, Sweden"];
 const CLASSES: RosterPlayer["classYear"][] = ["Fr.", "So.", "Jr.", "Sr.", "Gr."];
 interface Sport { season: string; start: string; games: number; positions: string[]; height: boolean; time: string[] }
 const SPORTS: Record<string, Sport> = {
@@ -645,11 +646,11 @@ const teamSeasons: TeamSeason[] = teams.map((t) => {
   let date = sp.start, w = 0, l = 0, tie = 0;
   for (let i = 0; i < sp.games; i++) {
     const cc = t.slug === "cross-country";
-    const opponent = cc ? pick(["Owl Invitational", "Lassen Valley Classic", "Coastal Oregon Open", "Sierra Pacific Invitational", "Shasta Tech Invitational", "Golden Plains Stampede"]) : i === 0 && t.slug === "mens-basketball" ? "Cascade State" : pick(OPPONENTS);
+    const opponent = cc ? pick(["Owl Invitational", "Juniper Valley Classic", "North Shore Open", "Summit State Invitational", "Stonebridge Tech Invitational", "Amberfield Stampede"]) : i === 0 && t.slug === "mens-basketball" ? "Cascade State" : pick(OPPONENTS);
     const site: Game["site"] = cc ? (opponent === "Owl Invitational" ? "Home" : "Away") : i === 0 ? "Home" : chance(0.08) ? "Neutral" : chance(0.5) ? "Home" : "Away";
     const g: Game = {
       date, time: pick(sp.time), opponent, site,
-      location: site === "Home" ? (t.slug.includes("basketball") || t.slug === "volleyball" ? "Owl Athletic Center" : t.slug === "baseball" ? "Redcloud Field" : t.slug === "cross-country" ? "Arcadia Falls Community Forest" : "Fern Canyon Stadium") : site === "Neutral" ? pick(["Reno, Nev.", "Sacramento, Calif.", "Portland, Ore."]) : `${opponent}`,
+      location: site === "Home" ? (t.slug.includes("basketball") || t.slug === "volleyball" ? "Owl Arena" : t.slug === "baseball" ? "Harlan Field" : t.slug === "cross-country" ? "Arcadia Falls Community Forest" : "Redwood Field") : site === "Neutral" ? pick(["Mirage Valley, Nev.", "Westmere, Calif.", "Harlow Springs, Ore."]) : `${opponent}`,
       conference: !cc && CONFERENCE.includes(opponent) && i > 3,
     };
     if (date < SITE_NOW) { const s = score(t.slug); g.result = s.result; w += s.w; l += s.l; if (s.result.outcome === "T") tie++; }
@@ -670,12 +671,11 @@ const teamSeasons: TeamSeason[] = teams.map((t) => {
   roster.sort((a, b) => Number(a.number) - Number(b.number) || a.name.localeCompare(b.name));
   const played = schedule.some((g) => g.result);
   return {
-    slug: t.slug, season: sp.season, headCoach: newName(), conference: "Pacific Redwood Athletic Conference (PRAC)",
+    slug: t.slug, season: sp.season, headCoach: newName(), conference: "Pacific North Conference",
     record: t.slug === "cross-country" ? `${schedule.filter((g) => g.result).length} meets completed` : played ? `${w}-${l}${tie ? `-${tie}` : ""}` : "0-0",
     schedule, roster,
   };
 });
-const HIGH_SCHOOLS = ["Eureka High School", "Arcadia Falls High School", "Kamehameha Schools", "Sheldon High School", "Bishop O'Dowd High School", "South Medford High School", "Del Norte High School", "Galena High School"];
 const MAJORS = ["Kinesiology", "Biology", "Business Administration", "Psychology", "Computer Science", "Environmental Studies", "Nursing", "Communication"];
 function stats(team: string): { label: string; value: string }[] {
   if (team.includes("basketball")) return [{ label: "PPG", value: (8 + rand() * 12).toFixed(1) }, { label: "RPG", value: (2 + rand() * 7).toFixed(1) }, { label: "APG", value: (1 + rand() * 5).toFixed(1) }, { label: "FG%", value: `.${int(410, 560)}` }];
@@ -689,7 +689,7 @@ const athleteProfiles: AthleteProfile[] = athletes.map((a, i) => {
   if (a.slug === "priya-castillo") r.classYear = "Sr.";
   return {
     slug: a.slug, name: a.name, team: a.team, number: r.number, position: r.position, classYear: r.classYear, hometown: r.hometown,
-    highSchool: HIGH_SCHOOLS[i], major: MAJORS[i], ...(r.height ? { height: r.height } : {}), stats: stats(a.team),
+    highSchool: `${r.hometown.split(",")[0]} High School`, major: MAJORS[i], ...(r.height ? { height: r.height } : {}), stats: stats(a.team),
   };
 });
 const athleticsData: Athletics = { teams: teamSeasons, athletes: athleteProfiles };
@@ -750,7 +750,7 @@ const ledgerRaw: [string, string, string, LedgerEntry["type"], number][] = [
   ["2026-01-05", "Spring 2026", "Balance forward from Fall 2025", "charge", 0],
   ["2026-01-08", "Spring 2026", "Tuition – Undergraduate Resident", "charge", 3871],
   ["2026-01-08", "Spring 2026", "Campus Fees (Student Union, Health, Instructionally Related Activities)", "charge", 1016],
-  ["2026-01-08", "Spring 2026", "Housing – Madrone Hall, Double", "charge", 6245],
+  ["2026-01-08", "Spring 2026", "Housing – Redwood Commons, Double", "charge", 6245],
   ["2026-01-08", "Spring 2026", "Meal Plan – Owl 14", "charge", 2180],
   ["2026-01-12", "Spring 2026", "Federal Pell Grant", "aid", -3697.5],
   ["2026-01-12", "Spring 2026", "Redwood Promise Grant", "aid", -3871],
@@ -792,7 +792,7 @@ const todos: TodoItem[] = [
 const messages: PortalMessage[] = [
   { id: "msg-1", from: "Marcus Bell, Ph.D.", office: "Department of Computer Science", subject: "Spring 2027 advising appointments are open", date: addDays(SITE_NOW, -1), read: false, body: ["Hi Jordan,", "I've opened advising slots for Spring 2027 registration. Please book a 20-minute appointment before your registration time ticket on November 9. Bring a draft plan that includes your remaining upper-division core courses.", "Best,\nProf. Bell"] },
   { id: "msg-2", from: "Student Health Center", office: "Student Health Center", subject: "Action required: immunization record missing", date: "2026-09-02", read: false, body: ["Our records show your second MMR dose has not been documented. A registration hold has been placed on your account.", "Upload your record in the Patient Portal or bring it to the Wellness Center, Room 110. Holds are usually released within two business days."] },
-  { id: "msg-3", from: "Sequoia Library", office: "Access Services", subject: "Overdue item: Introduction to Algorithms (4th ed.)", date: "2026-09-28", read: true, body: ["The item below is overdue and a $15.00 fine has been added to your student account.", "Call number QA76.6 .C662 2022. Return it to any Sequoia Library book drop to stop further fines."] },
+  { id: "msg-3", from: "Sequoia Library", office: "Access Services", subject: "Overdue item: Foundations of Algorithm Design (3rd ed.)", date: "2026-09-28", read: true, body: ["The item below is overdue and a $15.00 fine has been added to your student account.", "Call number QA76.9 .A43 R44 2023. Return it to any Sequoia Library book drop to stop further fines."] },
   { id: "msg-4", from: "Student Financial Services", office: "Student Financial Services (Bursar)", subject: "Your October installment is due October 15", date: addDays(SITE_NOW, -5), read: true, body: ["This is a reminder that your next installment payment is due on October 15, 2026.", "Payments after the due date are subject to a $25 late fee. View your account and pay online in RedwoodConnect."] },
   { id: "msg-5", from: "Office of the Registrar", office: "Office of the Registrar", subject: "Spring 2027 registration time tickets posted", date: addDays(SITE_NOW, -7), read: true, body: ["Registration time tickets for Spring 2027 are now available on the Registration page.", "Resolve any holds before your appointment time. Holds prevent registration."] },
   { id: "msg-6", from: "Career Center", office: "Career Center", subject: "Fall Career & Internship Fair – employers announced", date: addDays(SITE_NOW, -9), read: true, body: ["More than 60 employers will attend the Fall Career & Internship Fair in the Student Union, including several software and engineering firms hiring interns for summer 2027.", "Stop by the Career Center for a resume review before the fair."] },
@@ -803,7 +803,7 @@ const messages: PortalMessage[] = [
 const portal: PortalStudent = {
   id: "R00482913", name: "Jordan Alvarez", preferredName: "Jordan",
   email: `jordan.alvarez@student.${DOMAIN}`, phone: "(707) 555-0187",
-  address: { street: "Madrone Hall, Room 312", city: "Arcadia Falls", state: "CA", zip: "95561" },
+  address: { street: "Madrone Hall, Room 312", city: "Arcadia Falls", state: "CA", zip: brand.address.zip },
   program: "bs-computer-science", major: "Computer Science, B.S.", catalogYear: "2024–2025", classStanding: "Junior",
   expectedGraduation: "Spring 2028", advisor: "Marcus Bell, Ph.D.", advisorSlug: "marcus-bell",
   currentTerm: "Fall 2026", schedule, grades, cumulativeGpa: gpa(allGrades), creditsEarned,

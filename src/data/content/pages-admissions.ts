@@ -4,26 +4,26 @@ import type { PageContent } from "./pages";
 const faq: [string, string][] = [
   ["When is the application deadline for fall 2027?", "The priority filing period for fall 2027 first-year and transfer applicants runs October 1 through December 1, 2026. Applications received after December 1 are considered on a space-available basis."],
   ["How much does it cost to apply?", "The application fee is $70 per application. Fee waivers are available for eligible low-income California residents and are requested directly in the online application."],
-  ["Does Redwood State require the SAT or ACT?", "No. RSU does not require or consider SAT or ACT scores for admission. If you submit scores, they may be used for placement in English and math courses."],
+  ["Does Redwood State require standardized test scores?", "No. RSU does not require or consider standardized test scores for admission. If you submit scores, they may be used for placement in English and math courses."],
   ["What GPA do I need to be admitted?", "First-year applicants need at least a 2.50 GPA in the A–G college preparatory courses completed in grades 10 and 11. The middle 50% of admitted students in fall 2026 had GPAs between 3.18 and 3.82."],
   ["What are the A–G course requirements?", "You must complete 15 year-long college preparatory courses with a grade of C or better: history (2 years), English (4), mathematics (3), laboratory science (2), a language other than English (2), visual and performing arts (1), and a college preparatory elective (1)."],
   ["Is Redwood State impacted?", "Nursing and Computer Science are impacted programs with higher admission criteria. All other majors admit every eligible applicant from the local service area and most eligible applicants from outside it."],
-  ["What is the local service area?", "Del Norte, Humboldt, Trinity, and Mendocino counties. Applicants from high schools and community colleges in these counties receive local admission priority."],
+  ["What is the local service area?", "Fernhaven County and the three neighboring north coast counties. Applicants from high schools and community colleges in these counties receive local admission priority."],
   ["Can I apply undeclared?", "Yes. About 12% of first-year students start as Exploring Majors. Advisors in the Exploring Majors program help you choose a major by the end of your second year."],
   ["When will I receive an admission decision?", "Most first-year applicants who apply by December 1 receive a decision by March 15. Transfer decisions are released on a rolling basis beginning in February."],
   ["How do I accept my offer of admission?", "Log in to RedwoodConnect, select Accept Offer, and pay the $250 enrollment deposit by May 1 (first-year) or June 1 (transfer). The deposit is credited toward your first-semester fees."],
   ["Can I defer my admission?", "Admitted first-year students may request a one-year deferral for military service, a religious mission, a serious medical condition, or a documented gap-year program. Submit the request before May 1."],
   ["Do I need to live on campus?", "First-year students who live outside a 30-mile radius of campus are expected to live on campus for their first year. Exemptions are available for students who are married, over 21, veterans, or living with a parent or guardian."],
   ["Is housing guaranteed?", "Housing is guaranteed for first-year students who submit the housing application and deposit by May 1. Madrone Hall, which opened in 2026, added 400 beds, and the university now also guarantees housing to returning second-year students."],
-  ["How do I transfer my community college credits?", "Courses from California community colleges are evaluated using ASSIST articulation agreements. Out-of-state transcripts are evaluated course by course after admission. You can see how your courses were applied in your Degree Progress report in RedwoodConnect."],
+  ["How do I transfer my community college credits?", "Courses from California community colleges are evaluated using statewide articulation agreements. Out-of-state transcripts are evaluated course by course after admission. You can see how your courses were applied in your Degree Progress report in RedwoodConnect."],
   ["Do you offer the Associate Degree for Transfer (ADT) pathway?", "Yes. Students who complete an ADT in a similar major are guaranteed admission with junior standing and can finish in 60 additional units."],
-  ["What English proficiency scores do international students need?", "A minimum TOEFL iBT score of 71, IELTS Academic 6.0, or Duolingo English Test 105 for undergraduates. Graduate programs may require higher scores."],
+  ["What English proficiency scores do international students need?", "Undergraduates need the minimum score on an approved English proficiency test; the Center for International Programs publishes the list of accepted tests and scores. Graduate programs may require higher scores."],
   ["Can I visit campus?", "Yes. Student-led walking tours run Monday through Friday at 10 a.m. and 2 p.m. and select Saturdays during the academic year. Reserve a spot on the Visit Campus page."],
   ["Are there scholarships for first-year students?", "Every admitted student is automatically considered for the Redwood Merit Award and the Canopy Scholarship. Complete the RSU General Scholarship Application by March 2 to be considered for more than 300 additional awards."],
   ["When should I file the FAFSA or California Dream Act Application?", "File as early as possible after October 1. The priority deadline for Cal Grant and RSU institutional aid is March 2, 2027. Use RSU's federal school code, RSU000."],
   ["How much does it cost to attend?", "For 2026–27, the estimated annual cost of attendance for a California resident living on campus is $30,856, including tuition, fees, housing, food, books, and personal expenses. About 71% of undergraduates receive financial aid."],
   ["Can I work on campus?", "Yes. More than 2,500 students work on campus each year in the library, dining halls, recreation center, and academic offices. Federal Work-Study students have priority for many positions."],
-  ["Does RSU accept AP and IB credit?", "Yes. A score of 3 or higher on most AP exams and a 5 or higher on IB Higher Level exams earns college credit. See the General Catalog for the full credit table."],
+  ["Does RSU accept credit by exam?", "Yes. Qualifying scores on most college-level exams taken in high school earn college credit, and so do dual-enrollment courses. See the General Catalog for the full credit table."],
   ["Can I change my major after I am admitted?", "Most students can change majors at any time by submitting a Change of Major form. Impacted majors, such as Nursing and Computer Science, require an application and have limited space."],
   ["Is there an honors program?", "Yes. The Sequoia Honors College admits about 150 first-year students each year and offers small seminars, priority registration, and honors housing in Madrone Hall. Apply through the admission application."],
   ["Who can I talk to about my application?", "Your regional admissions counselor. Call (707) 555-0120, email admissions@redwoodstate.example.edu, or visit Founders Hall 110 Monday through Friday, 8 a.m. to 5 p.m."],
@@ -118,7 +118,7 @@ export const admissionsPages: Record<string, PageContent> = {
       {
         heading: "Minimum eligibility",
         list: [
-          "Graduate from high school or earn an equivalent (GED, CHSPE).",
+          "Graduate from high school or earn a high school equivalency certificate.",
           "Complete the 15 A–G courses with a grade of C or better.",
           "Earn a GPA of 2.50 or higher in A–G courses taken in grades 10 and 11 (California residents). Nonresidents need a 3.00.",
         ],
@@ -190,7 +190,7 @@ export const admissionsPages: Record<string, PageContent> = {
           "A GPA of 3.00 or higher in the last 60 semester units attempted.",
           "Good standing at the last institution attended.",
           "Program-specific materials: statement of purpose, letters of recommendation, writing sample or portfolio.",
-          "GRE scores are not required by most programs.",
+          "Graduate admission test scores are not required by most programs.",
         ],
       },
       {
@@ -226,8 +226,8 @@ export const admissionsPages: Record<string, PageContent> = {
         heading: "What you will need",
         list: [
           "Completed application and $70 fee.",
-          "Official academic records, translated into English and evaluated by a NACES member if from outside the U.S.",
-          "Proof of English proficiency: TOEFL iBT 71, IELTS 6.0, or Duolingo 105 (undergraduate).",
+          "Official academic records, translated into English and evaluated by a recognized credential evaluation service if from outside the U.S.",
+          "Proof of English proficiency: the undergraduate minimum score on an approved English proficiency test.",
           "Financial documentation showing $44,900 available for one year of study and living expenses.",
           "A copy of your passport.",
         ],
@@ -297,7 +297,7 @@ export const admissionsPages: Record<string, PageContent> = {
             ["Health Services Fee", "$206", "$412", "$412"],
             ["Health Facilities Fee", "$11", "$22", "$22"],
             ["Associated Students Fee", "$102", "$204", "$204"],
-            ["Tanoak Student Union Fee", "$249", "$498", "$498"],
+            ["Rowan Student Union Fee", "$249", "$498", "$498"],
             ["Recreation Center Fee", "$178", "$356", "$356"],
             ["Instructionally Related Activities Fee", "$95", "$190", "$190"],
             ["Technology Fee", "$42", "$84", "$84"],
@@ -366,13 +366,13 @@ export const admissionsPages: Record<string, PageContent> = {
           columns: ["Scholarship", "Amount", "Eligibility", "Deadline"],
           rows: [
             ["Redwood Merit Award", "$2,000–$5,000 per year, renewable", "Admitted first-year students with a 3.50+ GPA; automatic consideration", "December 1"],
-            ["Canopy Scholarship", "$1,500 per year, renewable", "Admitted students from Del Norte, Humboldt, Trinity, or Mendocino counties", "December 1"],
+            ["Canopy Scholarship", "$1,500 per year, renewable", "Admitted students from Fernhaven County or the neighboring north coast counties", "December 1"],
             ["Redwood Promise", "Full tuition", "California residents with family income under $80,000", "March 2 (FAFSA/CADAA)"],
             ["First-Generation Scholars Award", "$3,000 per year", "First-generation students enrolled in the First-Gen Scholars program", "March 2"],
             ["Kellerman Forestry Scholarship", "$4,000", "Natural resources or biology majors with junior standing", "March 2"],
             ["Clara B. Whitcomb Teaching Scholarship", "$2,500", "Students in a teaching credential program", "March 2"],
             ["Owl Transfer Award", "$2,000", "New transfer students with a 3.30+ GPA", "March 2"],
-            ["Mad Fork Tribal Scholars Award", "$5,000", "Enrolled members or descendants of a California tribe", "March 2"],
+            ["Silverfin Tribal Scholars Award", "$5,000", "Enrolled members or descendants of a California tribe", "March 2"],
             ["Sequoia Engineering Scholarship", "$3,500", "Engineering and computer science majors", "March 2"],
             ["Huckleberry Nursing Scholarship", "$2,500", "Students admitted to the B.S.N. program", "March 2"],
             ["Graduate Equity Fellowship", "$6,000", "Graduate students from underrepresented groups", "February 1"],
@@ -409,7 +409,7 @@ export const admissionsPages: Record<string, PageContent> = {
     sections: [
       {
         paragraphs: [
-          "Campus tours last about 90 minutes and cover academic buildings, a residence hall, Sequoia Library, and Tanoak Student Union. Tours depart from the Welcome Center in Founders Hall 110. Wear comfortable shoes and bring a rain jacket: it is the north coast.",
+          "Campus tours last about 90 minutes and cover academic buildings, a residence hall, Sequoia Library, and Rowan Student Union. Tours depart from the Welcome Center in Founders Hall 110. Wear comfortable shoes and bring a rain jacket: it is the north coast.",
         ],
       },
       {
@@ -530,7 +530,7 @@ export const admissionsPages: Record<string, PageContent> = {
       {
         heading: "Work-study",
         paragraphs: [
-          "Federal Work-Study provides part-time jobs on campus and with community partners. Students earn at least $17.25 an hour and are paid biweekly. Positions are posted on Handshake through the Career Center.",
+          "Federal Work-Study provides part-time jobs on campus and with community partners. Students earn at least $17.25 an hour and are paid biweekly. Positions are posted on OwlLink Careers through the Career Center.",
         ],
         links: [
           { label: "Career Center", href: "/students/careers" },

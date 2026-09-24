@@ -8,7 +8,7 @@
     "street": "Madrone Hall, Room 312",
     "city": "Arcadia Falls",
     "state": "CA",
-    "zip": "95561"
+    "zip": "95579"
   },
   "program": "bs-computer-science",
   "major": "Computer Science, B.S.",
@@ -560,7 +560,7 @@
       {
         "date": "2026-01-08",
         "term": "Spring 2026",
-        "description": "Housing – Madrone Hall, Double",
+        "description": "Housing – Redwood Commons, Double",
         "type": "charge",
         "amount": 6245,
         "balance": 11132
@@ -833,12 +833,12 @@
       "id": "msg-3",
       "from": "Sequoia Library",
       "office": "Access Services",
-      "subject": "Overdue item: Introduction to Algorithms (4th ed.)",
+      "subject": "Overdue item: Foundations of Algorithm Design (3rd ed.)",
       "date": "2026-09-28",
       "read": true,
       "body": [
         "The item below is overdue and a $15.00 fine has been added to your student account.",
-        "Call number QA76.6 .C662 2022. Return it to any Sequoia Library book drop to stop further fines."
+        "Call number QA76.9 .A43 R44 2023. Return it to any Sequoia Library book drop to stop further fines."
       ]
     },
     {

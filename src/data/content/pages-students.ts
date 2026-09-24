@@ -101,7 +101,7 @@ export const studentPages: Record<string, PageContent> = {
           "Every RSU undergraduate has a professional advisor in the Academic Advising Center and a faculty mentor in their major. First-year students meet with their advisor at least twice each semester; after that, students must meet at least once a year to clear the advising hold before registration.",
         ],
         list: [
-          "Schedule appointments through the Navigate app or RedwoodConnect.",
+          "Schedule appointments through the Advising tab in RedwoodConnect.",
           "Drop-in advising: Monday–Thursday, 1–4 p.m., Sequoia Library 120.",
           "Exploring Majors advising for undeclared students.",
           "Degree Progress reports show how your courses apply to your degree.",
@@ -123,7 +123,7 @@ export const studentPages: Record<string, PageContent> = {
         ],
         list: [
           "One-on-one career coaching and resume reviews",
-          "Handshake job and internship postings, including on-campus jobs and Work-Study",
+          "OwlLink Careers job and internship postings, including on-campus jobs and Work-Study",
           "Mock interviews and professional headshots",
           "The Owl Closet: free professional clothing for interviews",
           "Fall and spring Career & Internship Fairs in Owl Arena",
@@ -135,7 +135,7 @@ export const studentPages: Record<string, PageContent> = {
       },
       {
         heading: "Contact",
-        list: ["Tanoak Student Union 210", "(707) 555-0148", "careers@redwoodstate.example.edu"],
+        list: ["Rowan Student Union 210", "(707) 555-0148", "careers@redwoodstate.example.edu"],
       },
     ],
   },
@@ -155,7 +155,7 @@ export const studentPages: Record<string, PageContent> = {
           "Individual counseling (up to 10 sessions per academic year)",
           "Groups: Anxiety Toolbox, Grief and Loss, First-Gen Connections, LGBTQ+ Support, Graduate Student Balance",
           "Same-day crisis appointments",
-          "Let's Talk: informal drop-in consultations at the Multicultural Center and Madrone Hall",
+          "Drop-In Chats: informal consultations at the Multicultural Center and Madrone Hall",
           "Psychiatric consultation through the Student Health Center",
         ],
       },
@@ -233,7 +233,7 @@ export const studentPages: Record<string, PageContent> = {
             ["Cypress Hall", "Traditional, first-year", "480", "$9,480", "$11,280"],
             ["Tanoak Village", "Suite", "560", "$10,380", "$12,300"],
             ["Huckleberry Court", "Suite, living-learning communities", "340", "$10,380", "$12,300"],
-            ["Fern Canyon Apartments", "Apartment, upper-division", "720", "$10,920", "$12,960"],
+            ["Fern Glen Apartments", "Apartment, upper-division", "720", "$10,920", "$12,960"],
             ["Spruce Grove Apartments", "Apartment, upper-division", "610", "$10,920", "$12,960"],
             ["Alder Family Housing", "Apartment, students with families", "320", "$1,240 per month (2-bedroom)", "—"],
           ],
@@ -367,7 +367,7 @@ export const studentPages: Record<string, PageContent> = {
     sections: [
       {
         paragraphs: [
-          "Your student ID is your bus pass. RSU students ride Redwood Transit System (RTS) buses free throughout the county, and the campus shuttle connects upper campus, Lot J, and downtown Arcadia Falls.",
+          "Your student ID is your bus pass. RSU students ride Coastline Transit buses free throughout the county, and the campus shuttle connects upper campus, Lot J, and downtown Arcadia Falls.",
         ],
       },
       {
@@ -376,7 +376,7 @@ export const studentPages: Record<string, PageContent> = {
           columns: ["Route", "Stops", "Frequency", "Hours (class days)"],
           rows: [
             ["Green Loop", "Founders Hall, Lot J, Madrone Hall, Canopy Science Center", "Every 10 minutes", "7:00 a.m. – 7:00 p.m."],
-            ["Downtown Express", "Tanoak Student Union, Arcadia Falls Transit Center", "Every 20 minutes", "7:00 a.m. – 11:00 p.m."],
+            ["Downtown Express", "Rowan Student Union, Arcadia Falls Transit Center", "Every 20 minutes", "7:00 a.m. – 11:00 p.m."],
             ["Night Owl", "All residence halls, Sequoia Library, Lot C", "On demand", "7:00 p.m. – 2:00 a.m."],
           ],
         },
@@ -387,8 +387,8 @@ export const studentPages: Record<string, PageContent> = {
           "Bike racks at every building and secure bike lockers at Madrone Hall and Lot B",
           "Owl Bike Share: 120 e-bikes at 12 stations",
           "Carpool permits at half price for two or more riders",
-          "Zipcar vehicles in Lots A and R2",
-          "Weekend Amtrak Thruway bus to Sacramento and the Bay Area",
+          "Car-share vehicles in Lots A and R2",
+          "Weekend Coastline Connector coach to Port Alder, Westmere, and the state capital",
         ],
         links: [{ label: "Parking Services", href: "/students/parking" }],
       },
@@ -417,7 +417,7 @@ export const studentPages: Record<string, PageContent> = {
       {
         heading: "Emergency preparedness",
         paragraphs: [
-          "The north coast is earthquake and tsunami country. Know your nearest evacuation route: all of main campus is above the tsunami inundation zone, but the Marine Lab at Trinidad Point is not. During a wildfire smoke event, check RSU Alert for class cancellations and clean-air rooms.",
+          "The north coast is earthquake and tsunami country. Know your nearest evacuation route: all of main campus is above the tsunami inundation zone, but the Marine Lab at Gull Rock Point is not. During a wildfire smoke event, check RSU Alert for class cancellations and clean-air rooms.",
         ],
         links: [
           { label: "Emergency Guide (PDF)", href: "/documents/emergency-guide.pdf" },
@@ -432,7 +432,7 @@ export const studentPages: Record<string, PageContent> = {
     sections: [
       {
         paragraphs: [
-          "Student organizations are registered through the Office of Student Life in Tanoak Student Union. From the Redwood Outing Club to the Society of Hispanic Professional Engineers, there is a group for every interest. Clubs can reserve space, apply for Associated Students funding, and table on Canopy Green.",
+          "Student organizations are registered through the Office of Student Life in Rowan Student Union. From the Redwood Outing Club to the Latinx Engineering Society, there is a group for every interest. Clubs can reserve space, apply for Associated Students funding, and table on Canopy Green.",
         ],
         list: [
           "Academic and professional",
@@ -476,7 +476,7 @@ export const studentPages: Record<string, PageContent> = {
         list: [
           "Intramural leagues: basketball, flag football, soccer, volleyball, ultimate",
           "Group fitness: 60+ free classes per week",
-          "Outdoor Adventures: kayaking the Mad Fork, redwood backpacking, surfing lessons",
+          "Outdoor Adventures: kayaking the Silverfin River, redwood backpacking, surfing lessons",
           "Club sports: rugby, cycling, crew, climbing, and more",
         ],
       },

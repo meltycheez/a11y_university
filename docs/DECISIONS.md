@@ -25,6 +25,7 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 | [018](#adr-018) | 2026-09-24 | Manifest alt flows into `image-sizes.json` and is `Img`'s default fixed alt | Accepted | 04 |
 | [019](#adr-019) | 2026-09-24 | No 2K upscales or JPEG fallbacks | Accepted | 04 |
 | [020](#adr-020) | 2026-09-24 | Brand marks are React SVG components in `Logo.tsx` | Accepted | 04 |
+| [021](#adr-021) | 2026-09-24 | Everything named is fictional; `docs/WORLD.md` is the gazetteer | Accepted | 03, 04 |
 
 ---
 
@@ -87,3 +88,6 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 
 ### ADR-020
 **Brand marks are components.** `LogoMark`, `Wordmark`, `Seal` and `AthleticsMark` live in `src/components/Logo.tsx` rather than `src/assets/brand/` files, so they share one accessibility pattern (decorative unless given a `title`) and the brand color tokens.
+
+### ADR-021
+**Everything named is fictional.** The user asked for no real places, institutions, organizations, companies, products, journals, tribal nations or people. `docs/WORLD.md` is the gazetteer: every writer uses (and extends) it. Allowed real references are limited to the US/California setting, the 707 area code with 555 numbers, and generic laws, public programs and standards (FAFSA, Pell, Cal Grant, Title IX, FERPA, ADA/504, WCAG, citation styles), plus real authors and historical subjects as course material. Consequences: the ZIP is 95579 (checked as unassigned), VP Thomas Redcloud became Thomas Harlan (slug `thomas-harlan`; ADR-011's no-rename rule yields to this), the footer uses fictional social networks with generic icons, and generated building names follow the content's canonical building list.
