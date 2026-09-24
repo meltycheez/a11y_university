@@ -97,7 +97,7 @@ export const megaMenu: MegaSection[] = [
         { label: "Registrar", href: "/students/registrar" },
       ] },
     ],
-    feature: { title: "Hands-On From Day One", text: "Engineering students build in the new Sequoia robotics lab.", href: "/academics/colleges/engineering", image: "college-engineering-lab" },
+    feature: { title: "Hands-On From Day One", text: "Engineering students build in the new Sequoia robotics lab.", href: "/academics/colleges/engineering", image: "college-engineering" },
   },
   {
     id: "research",
@@ -117,7 +117,7 @@ export const megaMenu: MegaSection[] = [
         { label: "Policies", href: "/library/policies" },
       ] },
     ],
-    feature: { title: "Research on the Coast", text: "Biologists track warming waters in Arcadia's tide pools.", href: "/news/tide-pool-study-coastal-warming", image: "news-coastal-research" },
+    feature: { title: "Research on the Coast", text: "Biologists track warming waters in Arcadia's tide pools.", href: "/news/tide-pool-study-coastal-warming", image: "news-tide-pool-study-coastal-warming" },
   },
   {
     id: "student-life",

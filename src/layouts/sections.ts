@@ -63,7 +63,7 @@ export const sections: Record<Section, SectionConfig> = {
     variant: "cms",
     siteName: "Academics",
     siteHref: "/academics",
-    heroImage: "college-engineering-lab",
+    heroImage: "college-engineering",
     links: [
       { label: "Colleges & Schools", href: "/academics" },
       { label: "Degree Programs", href: "/academics/programs" },
@@ -121,7 +121,7 @@ export const sections: Record<Section, SectionConfig> = {
     variant: "magazine",
     siteName: "RSU News",
     siteHref: "/news",
-    heroImage: "news-coastal-research",
+    heroImage: "news-tide-pool-study-coastal-warming",
     links: [
       { label: "Research", href: "/news/category/research" },
       { label: "Campus Life", href: "/news/category/campus" },
