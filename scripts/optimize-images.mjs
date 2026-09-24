@@ -11,7 +11,7 @@ const BUDGET_MB = 40;
 
 const manifest = new Map(JSON.parse(await readFile("src/data/images.json", "utf8")).map((m) => [m.id, m]));
 await mkdir(OUT, { recursive: true });
-const files = (await readdir(SRC)).filter((f) => /\.(jpe?g|png)$/i.test(f)).sort();
+const files = (await readdir(SRC)).filter((f) => /\.(jpe?g|png|webp)$/i.test(f)).sort();
 const sizes = {};
 
 for (const file of files) {

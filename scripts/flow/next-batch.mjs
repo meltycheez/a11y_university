@@ -5,7 +5,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 const [n = 4, prefix = ""] = process.argv.slice(2);
 const root = new URL("../../", import.meta.url);
 const manifest = JSON.parse(readFileSync(new URL("src/data/images.json", root)));
-const done = (id) => ["jpeg", "jpg", "png"].some((ext) => existsSync(new URL(`assets-src/flow/${id}.${ext}`, root)));
+const done = (id) => ["jpeg", "jpg", "png", "webp"].some((ext) => existsSync(new URL(`assets-src/flow/${id}.${ext}`, root)));
 const todo = manifest.filter((m) => !done(m.id) && m.id.startsWith(prefix));
 const items = todo.slice(0, Number(n)).map(({ id, aspect, prompt, text, plain }) => ({ id, aspect, prompt, text, plain }));
 const template = readFileSync(new URL("generate.js", import.meta.url), "utf8");

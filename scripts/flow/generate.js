@@ -39,18 +39,14 @@ async (page) => {
 
     const img = page.locator(`img[src^="${src}"]`).first();
     const dims = await img.evaluate(i => `${i.naturalWidth}x${i.naturalHeight}`);
-    const tile = img.locator('xpath=ancestor::*[.//button[@aria-label="More options"]][1]');
-    await img.hover();
-    await tile.getByRole('button', { name: 'More options' }).click();
-    await page.getByRole('menuitem', { name: /Download/ }).click();
-    const [dl] = await Promise.all([
-      page.waitForEvent('download', { timeout: 60000 }),
-      page.getByRole('menuitem', { name: /Original size/ }).click(),
-    ]);
-    const ext = dl.suggestedFilename().split('.').pop();
-    await dl.saveAs(`${OUT}${item.id}.${ext}`);
-    await page.keyboard.press('Escape');
-    results.push({ id: item.id, file: `${item.id}.${ext}`, dims, flowName: dl.suggestedFilename(), seconds: Math.round((Date.now() - started) / 1000) });
+    // The tile src is the 1K original. Fetch it directly: Chrome crashes on Flow's blob download (2026-09-24).
+    const res = await page.context().request.get(await img.getAttribute('src'));
+    if (!res.ok()) { results.push({ id: item.id, error: `image fetch ${res.status()}` }); continue; }
+    const type = res.headers()['content-type'] ?? '';
+    const ext = type.includes('png') ? 'png' : type.includes('webp') ? 'webp' : 'jpeg';
+    const { writeFileSync } = await import('node:fs');
+    writeFileSync(`${OUT}${item.id}.${ext}`, await res.body());
+    results.push({ id: item.id, file: `${item.id}.${ext}`, dims, type, seconds: Math.round((Date.now() - started) / 1000) });
   }
   return results;
 }

@@ -6,3 +6,4 @@ build/
 .env
 .DS_Store
 scripts/flow/run.js
+assets-src/flow-run.log

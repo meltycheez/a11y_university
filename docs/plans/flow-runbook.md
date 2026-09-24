@@ -20,7 +20,7 @@ These are the verified steps for generating RSU images with Nano Banana in Googl
 - The media grid is **newest-first** and **virtualized**: off-screen tiles are removed from the DOM. That means detecting new images by the set of tiles breaks. Compare the **top tile's** `src` after scrolling to the top instead.
 - Tiles are `img[alt="Tile displaying a user's image"]`. The `src` is `https://flow-content.google/image/<uuid>?<signed params>`.
 
-## Download
+## Download (superseded 2026-09-24, see below)
 
 Hover the tile, open **More options** (the tile's own button), then choose **Download** and one of:
 
@@ -64,3 +64,12 @@ Text rendering was excellent: the flyer's three lines of exact copy came out spe
 ## Throughput estimate
 
 About 35 s per image plus about 5 s to download. At x1, the full ~110-image manifest takes roughly **75 minutes** of generation, spread across 25–35 tool calls.
+
+## Update 2026-09-24 (evening): direct fetch and a standalone runner
+
+- **The Download menu crashes Chrome.** Both through the MCP and under plain Playwright, the whole browser closes the moment Flow starts its `blob:` download ("Target page, context or browser has been closed"). `generate.js` no longer uses the menu. The tile's `src` (`flow-content.google/image/<uuid>?…`) is the 1K original, so it's fetched with `page.context().request.get(src)` and written to `assets-src/flow/<id>.<ext>` (ext from content-type, currently JPEG).
+- **No MCP needed.** `scripts/flow/run-flow.mjs` opens the MCP's signed-in Chrome profile (`%LOCALAPPDATA%/ms-playwright-mcp/mcp-chrome-101a2b8`) in a visible window, waits up to 15 minutes for a manual sign-in, then processes every manifest image without a raw file, in batches, logging to `assets-src/flow-run.log`. It stops after 3 empty batches in a row. The MCP server must not be using the same profile at the same time.
+  ```bash
+  PLAYWRIGHT="file:///C:/Users/C/AppData/Local/npm-cache/_npx/<hash>/node_modules/playwright/index.mjs" node scripts/flow/run-flow.mjs 4
+  ```
+- Throughput matched the trial: about 25–40 s per image.
