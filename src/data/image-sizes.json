@@ -1,0 +1,46 @@
+{
+  "admissions-hero-tour": {
+    "width": 1376,
+    "height": 768
+  },
+  "athletics-soccer-action": {
+    "width": 1376,
+    "height": 768
+  },
+  "campus-dining-hall": {
+    "width": 1200,
+    "height": 896
+  },
+  "campus-library-interior": {
+    "width": 1200,
+    "height": 896
+  },
+  "college-engineering-lab": {
+    "width": 1376,
+    "height": 768
+  },
+  "college-health-nursing-sim": {
+    "width": 1376,
+    "height": 768
+  },
+  "faculty-headshot-01": {
+    "width": 1024,
+    "height": 1024
+  },
+  "faculty-headshot-02": {
+    "width": 1024,
+    "height": 1024
+  },
+  "flyer-fall-festival": {
+    "width": 896,
+    "height": 1200
+  },
+  "home-hero-quad": {
+    "width": 1376,
+    "height": 768
+  },
+  "news-coastal-research": {
+    "width": 1376,
+    "height": 768
+  }
+}

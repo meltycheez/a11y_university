@@ -1,0 +1,13 @@
+/* Admissions & Aid: recruitment marketing site (~2 years old). Rounded, gradient, big type. */
+.site--marketing { --color-link: #7a2e1f; }
+.section-bar--marketing { background: linear-gradient(90deg, var(--brand-redwood) 0%, #a2452d 100%); color: #fff; border: 0; }
+.section-bar--marketing .section-bar-name { font-family: var(--font-sans); font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; font-size: 1.05rem; }
+.section-bar--marketing .section-bar-nav a { color: #fff; padding: 0.35rem 0.9rem; border-radius: 999px; }
+.section-bar--marketing .section-bar-nav a:hover,
+.section-bar--marketing .section-bar-nav a[aria-current="page"] { background: rgb(255 255 255 / 0.18); text-decoration: none; }
+.site--marketing h1 { font-family: var(--font-sans); font-weight: 800; letter-spacing: -0.02em; }
+.site--marketing h2 { font-family: var(--font-sans); font-weight: 750; }
+.site--marketing .btn { border-radius: 999px; padding-inline: 1.6rem; }
+.site--marketing .hero--overlay.hero--has-image { border-radius: 28px; }
+.site--marketing .card { border-radius: 20px; border: 0; box-shadow: 0 10px 30px rgb(122 46 31 / 0.12); }
+.site--marketing .callout { border-radius: 16px; border-left: 0; background: #fbf1e9; }

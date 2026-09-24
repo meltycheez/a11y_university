@@ -1,0 +1,18 @@
+/* Athletics: outsourced sports-network style. Dark, bold, condensed caps. */
+.site--sports {
+  --color-bg: #121212; --color-text: #f2f2f2; --color-text-muted: #b9b9b9;
+  --color-surface: #1e1e1e; --color-border: #333; --color-link: #f0c64a; --color-link-hover: #ffe08a;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+.section-bar--sports { background: #000; color: #fff; border-bottom: 4px solid var(--brand-gold); }
+.section-bar--sports .section-bar-name { font-family: var(--font-sans); font-weight: 900; text-transform: uppercase; font-style: italic; font-size: 1.6rem; letter-spacing: 0.02em; }
+.section-bar--sports .section-bar-name a { color: var(--brand-gold); }
+.section-bar--sports .section-bar-nav a { color: #fff; text-transform: uppercase; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.06em; }
+.section-bar--sports .section-bar-nav a[aria-current="page"] { color: var(--brand-gold); }
+.site--sports h1, .site--sports h2, .site--sports h3 { font-family: var(--font-sans); font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em; }
+.site--sports .hero--overlay.hero--has-image { border-radius: 0; }
+.site--sports .hero-kicker { color: var(--brand-gold); }
+.site--sports .card { background: var(--color-surface); border-color: var(--color-border); }
+.site--sports .card-title a { color: #fff; }
+.site--sports .callout { background: var(--color-surface); }

@@ -1,0 +1,8 @@
+/* Student Affairs: friendly services template. */
+.site--services { --color-link: #2f5d3a; --color-link-hover: #1f4128; }
+.section-bar--services { background: var(--brand-mist); }
+.section-bar--services .section-bar-name { color: var(--brand-fern-dark); }
+.section-bar--services .section-bar-nav a { color: var(--brand-fern-dark); }
+.site--services .card { border-top: 5px solid var(--brand-fern); }
+.site--services .btn--primary { background: var(--brand-fern); }
+.site--services .btn--primary:hover { background: var(--brand-fern-dark); }

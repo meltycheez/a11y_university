@@ -1,0 +1,7 @@
+assets-src/
+.playwright-mcp/
+node_modules/
+build/
+.react-router/
+.env
+.DS_Store

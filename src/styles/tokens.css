@@ -1,0 +1,50 @@
+/* Brand tokens shared by every section. Sections may override the semantic tokens below. */
+:root {
+  --brand-redwood: #7a2e1f;
+  --brand-redwood-dark: #5a1f14;
+  --brand-fern: #2f5d3a;
+  --brand-fern-dark: #1f4128;
+  --brand-mist: #e8eef0;
+  --brand-gold: #c9a227;
+  --brand-bark: #3b2a22;
+
+  --gray-50: #f7f7f5;
+  --gray-100: #eeeeea;
+  --gray-200: #dcdcd6;
+  --gray-400: #9a9a92;
+  --gray-600: #5c5c56;
+  --gray-800: #2b2b28;
+  --gray-900: #1a1a18;
+
+  /* Semantic */
+  --color-text: var(--gray-900);
+  --color-text-muted: var(--gray-600);
+  --color-bg: #ffffff;
+  --color-surface: var(--gray-50);
+  --color-border: var(--gray-200);
+  --color-link: #8a2f1d;
+  --color-link-hover: var(--brand-redwood-dark);
+  --color-accent: var(--brand-redwood);
+  --color-accent-contrast: #ffffff;
+  --color-focus: #1a5fb4;
+
+  --font-sans: "Source Sans 3 Variable", "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif 4 Variable", "Source Serif 4", Georgia, "Times New Roman", serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
+  --shadow-md: 0 6px 20px rgb(0 0 0 / 0.1);
+
+  --container: 76rem;
+  --gutter: clamp(1rem, 3vw, 2rem);
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+}

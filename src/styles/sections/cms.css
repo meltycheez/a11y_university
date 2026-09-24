@@ -1,0 +1,17 @@
+/* Academics & Faculty: older departmental CMS (~8 years old). Serif body, sidebar, dense. */
+.site--cms { --color-link: #1f4f7a; --color-link-hover: #123552; }
+.site--cms .page-main { font-family: var(--font-serif); font-size: 1rem; }
+.section-bar--cms { background: var(--brand-fern); color: #fff; border: 0; }
+.section-bar--cms .section-bar-name { font-size: 1.6rem; font-weight: 500; }
+.site--cms .section-sidebar { background: #f3f1ea; border: 1px solid #d8d3c4; }
+.site--cms .section-sidebar-title { background: var(--brand-fern-dark); color: #fff; margin: 0; padding: 0.5rem 0.75rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.site--cms .section-sidebar li + li { border-top: 1px solid #d8d3c4; }
+.site--cms .section-sidebar a { color: #1f4f7a; font-size: 0.925rem; }
+.site--cms .section-sidebar a[aria-current="page"] { background: #fff; font-weight: 700; border-left: 4px solid var(--brand-gold); }
+.site--cms h1 { font-size: 2.1rem; font-weight: 500; color: var(--brand-fern-dark); border-bottom: 2px solid var(--brand-gold); padding-bottom: 0.4rem; }
+.site--cms h2 { font-weight: 500; color: var(--brand-fern-dark); }
+.site--cms .hero-kicker { display: none; }
+.site--cms .card { border-radius: 0; box-shadow: none; }
+.site--cms .btn { border-radius: 0; }
+.site--cms .callout { border-radius: 0; background: #fffbe6; border-left-color: var(--brand-gold); }
+.site--cms .hero--banner { border-bottom: 0; padding-bottom: 0; }

@@ -1,0 +1,9 @@
+/* Giving: foundation site. Airy, gold accents, form-focused. */
+.site--foundation { --color-link: #6b4f0f; --color-link-hover: #4a360a; }
+.section-bar--foundation { background: #fbf8ef; border-bottom: 1px solid #eadfbf; }
+.section-bar--foundation .section-bar-name { color: var(--brand-redwood); font-weight: 500; letter-spacing: 0.02em; }
+.section-bar--foundation .section-bar-nav a { color: #6b4f0f; font-weight: 500; }
+.site--foundation h1 { font-weight: 400; }
+.site--foundation .btn--primary { background: var(--brand-gold); color: var(--gray-900); }
+.site--foundation .btn--primary:hover { background: #b08b1a; color: var(--gray-900); }
+.site--foundation .hero--overlay.hero--has-image { border-radius: 4px; }

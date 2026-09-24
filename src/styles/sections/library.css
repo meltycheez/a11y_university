@@ -1,0 +1,15 @@
+/* Sequoia Library: vendor-style, dense utility navigation, many links, smaller type. */
+.site--library { --color-link: #0f5a8a; --color-link-hover: #083a5a; font-size: 0.95rem; }
+.section-bar--library { background: #1e2d3b; color: #fff; border: 0; }
+.section-bar--library .section-bar-inner { padding-block: 0.35rem; }
+.section-bar--library .section-bar-name { font-size: 1.2rem; }
+.section-bar--library .section-bar-tagline { color: #9fd3a9; }
+.section-bar--library .section-bar-nav ul { gap: 0; }
+.section-bar--library .section-bar-nav a { color: #e6edf3; font-size: 0.85rem; font-weight: 500; padding: 0.45rem 0.7rem; border-left: 1px solid #3a4b5c; display: block; }
+.section-bar--library .section-bar-nav a:hover,
+.section-bar--library .section-bar-nav a[aria-current="page"] { background: #2e4256; text-decoration: none; }
+.site--library h1 { font-family: var(--font-sans); font-weight: 700; font-size: 1.9rem; color: #1e2d3b; }
+.site--library h2 { font-family: var(--font-sans); font-weight: 700; font-size: 1.3rem; color: #1e2d3b; }
+.site--library .hero--overlay.hero--has-image { border-radius: 0; min-height: 20rem; }
+.site--library .card { border-radius: 2px; }
+.site--library .link-grid { grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); font-size: 0.9rem; }

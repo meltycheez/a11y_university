@@ -1,0 +1,30 @@
+/* RedwoodConnect: enterprise ERP vendor app shell. */
+.site--portal { --color-link: #0b5cad; --color-link-hover: #07407a; background: #eef1f5; font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif; font-size: 0.925rem; }
+.portal-appbar { display: flex; align-items: center; gap: var(--space-4); background: #1f2a36; color: #fff; padding: 0.4rem var(--space-4); min-height: 3rem; flex-wrap: wrap; }
+.portal-appbar a { color: #fff; text-decoration: none; }
+.portal-home { display: flex; }
+.portal-product { font-weight: 700; font-size: 1.05rem; letter-spacing: 0.01em; }
+.portal-term { font-size: 0.8rem; background: #334255; padding: 0.15rem 0.5rem; border-radius: 3px; }
+.portal-user { margin-left: auto; display: flex; align-items: center; gap: var(--space-2); font-size: 0.875rem; }
+.portal-avatar { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--brand-redwood); font-weight: 700; font-size: 0.8rem; }
+.portal-body { display: grid; grid-template-columns: 14rem minmax(0, 1fr); flex: 1; }
+.portal-rail { background: #fff; border-right: 1px solid #d3d9e0; }
+.portal-rail ul { list-style: none; margin: 0; padding: var(--space-3) 0; }
+.portal-rail a { display: block; padding: 0.5rem var(--space-4); color: #2b3a4a; text-decoration: none; border-left: 3px solid transparent; }
+.portal-rail a:hover { background: #f1f4f8; }
+.portal-rail a[aria-current="page"] { border-left-color: #0b5cad; background: #e8f0fb; color: #0b5cad; font-weight: 600; }
+.portal-main { padding: var(--space-5) var(--space-6); min-width: 0; }
+.portal-main:focus { outline: none; }
+.site--portal h1, .site--portal h2, .site--portal h3 { font-family: inherit; font-weight: 600; color: #1f2a36; }
+.site--portal h1 { font-size: 1.6rem; }
+.site--portal .hero { background: #fff; border: 1px solid #d3d9e0; border-radius: 4px; padding: var(--space-4) var(--space-5); }
+.site--portal .hero-kicker { display: none; }
+.site--portal .callout { background: #fff; border: 1px solid #d3d9e0; border-left: 4px solid #0b5cad; border-radius: 4px; }
+@media (max-width: 50rem) {
+  .portal-body { grid-template-columns: minmax(0, 1fr); }
+  .portal-rail { min-width: 0; border-right: 0; border-bottom: 1px solid #d3d9e0; }
+  .portal-rail ul { display: flex; overflow-x: auto; padding: 0; }
+  .portal-rail a { white-space: nowrap; border-left: 0; border-bottom: 3px solid transparent; }
+  .portal-rail a[aria-current="page"] { border-bottom-color: #0b5cad; }
+  .portal-main { padding: var(--space-4); }
+}

@@ -1,0 +1,10 @@
+/* Events: third-party calendar vendor look. Flat, blue accents, chips. */
+.site--calendar { --color-link: #1b5fa8; --color-link-hover: #0f3f75; --color-accent: #1b5fa8; }
+.section-bar--calendar { background: #f4f7fb; border-bottom: 1px solid #d5deea; }
+.section-bar--calendar .section-bar-name { font-family: var(--font-sans); font-weight: 700; color: #22334d; }
+.section-bar--calendar .section-bar-nav a { color: #1b5fa8; background: #fff; border: 1px solid #c6d4e8; border-radius: 999px; padding: 0.2rem 0.75rem; font-size: 0.85rem; }
+.section-bar--calendar .section-bar-nav a[aria-current="page"] { background: #1b5fa8; color: #fff; text-decoration: none; }
+.site--calendar h1, .site--calendar h2 { font-family: var(--font-sans); font-weight: 700; color: #22334d; }
+.site--calendar .hero--overlay.hero--has-image { border-radius: 6px; }
+.site--calendar .card { border-radius: 6px; border-color: #d5deea; }
+.site--calendar .btn { border-radius: 4px; }
