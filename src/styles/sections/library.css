@@ -25,7 +25,7 @@
 .lib-searchbox { background: #1e2d3b; color: #fff; padding: var(--space-4) var(--space-5) var(--space-2); }
 .site--library .lib-searchbox h2 { color: #fff; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.08em; }
 .lib-searchbox .tab { color: #c9d6e2; padding: var(--space-2) var(--space-3); font-size: 0.9rem; }
-.lib-searchbox .tab[aria-selected="true"] { color: #fff; border-bottom-color: #9fd3a9; }
+.lib-searchbox .tab[aria-selected="true"], .lib-searchbox .tab.is-active { color: #fff; border-bottom-color: #9fd3a9; }
 .lib-searchbox .tab-list { border-bottom-color: #3a4b5c; }
 .lib-searchbox .tab-panel { padding-block: var(--space-4); }
 .lib-searchbox a { color: #bfe3ff; }

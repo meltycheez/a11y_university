@@ -17,6 +17,17 @@
 @import "./sections/portal.css";
 @import "./sections/lab.css";
 
+/* Plan 06 interactive features */
+@import "./features/courses.css";
+@import "./features/registration.css";
+@import "./features/search.css";
+@import "./features/visit.css";
+@import "./features/apply.css";
+@import "./features/legacy-aid.css";
+@import "./features/donate.css";
+@import "./features/campus-map.css";
+@import "./features/carousel.css";
+
 /* Fix layers applied under .a11y-fix-* body classes (plan 02). */
 @import "./fixes/errors.css";
 @import "./fixes/alerts.css";

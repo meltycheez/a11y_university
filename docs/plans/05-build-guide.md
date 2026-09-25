@@ -45,3 +45,30 @@ Write each page's own defects while building it:
 - `npx vitest run` passes.
 - Don't run `npm run build` (other people build in the same tree); the lead builds and checks every route.
 - Every scenario you registered is actually rendered by the pages listed in its `pages`.
+
+## Plan 06 additions (interactive features)
+
+Read [06-interactive-features.md](06-interactive-features.md) for your feature, and plan 07's "six terrible pages" table if your route is one of them.
+
+**Widgets with defect variants** (pass `scenario` + `defect`; with no scenario, or once fixed, you get the accessible version):
+
+| Widget | Import | `defect` values → rule |
+|---|---|---|
+| `Tabs` | `~/components/Tabs` | `broken-keys` → kbd-tabs-wrong-keys · `no-roles` → sr-visual-only-state · `bad-children` → aria-required-children |
+| `Accordion` | `~/components/Accordion` | `no-state` → sr-accordion-state · `div-trigger` → kbd-div-button |
+| `Modal` | `~/components/Modal` | `no-trap` → kbd-focus-trap-bad · `no-restore` → focus-not-restored · `no-semantics` → sr-modal-no-context |
+| `Dropdown` | `~/components/widgets` | `mouse-only` → kbd-dropdown-inoperable (fixed = labeled native `<select>`) |
+| `DatePicker` | `~/components/widgets` | `mouse-only-grid` → kbd-div-button (fixed = labeled native date input) |
+| `Toast` | `~/components/widgets` | `vanishes` → sr-status-not-announced (fixed = persistent `role="status"`) |
+
+A widget scenario is still registered by you (in your registry file) with the matching rule. Different pages may use different variants of the same widget.
+
+**Helpers** (`~/lib/interactive`): `latency(key)` (fake 300–800 ms delay, fixed per key), `confirmationCode(seed)` (deterministic), `hash(s)`, and `createStore(initial)` for state that must survive client-side navigation but reset on reload (`store.use()` in components). No localStorage, sessionStorage, cookies, IndexedDB or URL-persisted state, ever.
+
+**Rules for interactive pages**
+
+- The first render must equal the prerendered HTML: derive nothing from the clock or `window` during render (use `SITE_NOW`), and read `?query` params in an effect (ADR-015).
+- Every scenario must be **registered at page load**: call `useScenario(id)` in a component that is mounted on load (the form or widget root), and put its `data-a11y-scenario` marker on an element present in the prerendered HTML, even when the defect only shows after interaction (an error message, an opened modal). `npm run check:scenarios` fails otherwise.
+- Defective behavior must still work with a mouse, exactly like a real shipped site (plan 06 acceptance). The fixed version must be fully operable by keyboard and screen reader (WAI-ARIA APG patterns).
+- Motion: anything animated gets a `prefers-reduced-motion` story (the fixed state respects it).
+- Budgets: tier **T** pages (legacy aid form, registration, donate, campus map) carry 30+ scenarios, including the signature defects in plan 07; other plan 06 pages follow their tier.

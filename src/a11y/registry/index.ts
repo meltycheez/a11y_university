@@ -13,6 +13,14 @@ import { eventsScenarios } from "./events";
 import { libraryScenarios } from "./library";
 import { athleticsScenarios } from "./athletics";
 import { portalScenarios } from "./portal";
+import { coursesScenarios } from "./courses";
+import { registrationScenarios } from "./registration";
+import { searchScenarios } from "./search";
+import { visitScenarios } from "./visit";
+import { applyScenarios } from "./apply";
+import { legacyAidScenarios } from "./legacy-aid";
+import { donateScenarios } from "./donate";
+import { campusMapScenarios } from "./campus-map";
 import type { Scenario, ScenarioDef } from "./types";
 
 export type { Scenario, ScenarioDef } from "./types";
@@ -32,6 +40,15 @@ const defs: ScenarioDef[] = [
   ...libraryScenarios,
   ...athleticsScenarios,
   ...portalScenarios,
+  // Plan 06 features
+  ...coursesScenarios,
+  ...registrationScenarios,
+  ...searchScenarios,
+  ...visitScenarios,
+  ...applyScenarios,
+  ...legacyAidScenarios,
+  ...donateScenarios,
+  ...campusMapScenarios,
 ];
 export const scenarios = new Map<string, Scenario>();
 for (const def of defs) {
