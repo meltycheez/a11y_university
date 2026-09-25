@@ -4,6 +4,7 @@
 @import "./components.css";
 
 @import "./sections/flagship.css";
+@import "./sections/home.css";
 @import "./sections/marketing.css";
 @import "./sections/cms.css";
 @import "./sections/services.css";
