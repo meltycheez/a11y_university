@@ -11,7 +11,7 @@ import { Modal } from "~/components/Modal";
 import { pageContent } from "~/data/content/pages";
 import { SITE_NOW } from "~/data/site";
 import { confirmationCode, latency } from "~/lib/interactive";
-import { useFixes } from "../admissions/_useFixes";
+import { useFixes } from "~/a11y/useFixes";
 
 export { inventoryMeta as meta } from "~/routes/meta";
 

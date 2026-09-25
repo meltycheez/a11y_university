@@ -1,0 +1,45 @@
+/* Plan 07 terrible page: /academics/catalog (General Catalog 2025-2026). Feature CSS and its colocated
+   .a11y-fix-* overrides. See src/a11y/registry/academics.ts for the academics-catalog-* scenarios. */
+
+.old-catalog .catalog-intro { text-align: justify; max-width: 48rem; }
+.old-catalog .catalog-subject-menu { margin-block-end: 1rem; position: relative; }
+.old-catalog .catalog-subject-trigger, .old-catalog .catalog-subject-menu > button { cursor: pointer; }
+.old-catalog .catalog-subject-list { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; list-style: none; margin: 0.4rem 0 0; padding: 0.5rem; border: 1px solid #ccc; background: #fafaf6; }
+.old-catalog .catalog-subject-menu.is-hover-only .catalog-subject-list { display: none; }
+.old-catalog .catalog-subject-menu.is-hover-only:hover .catalog-subject-list { display: flex; }
+
+.old-catalog .catalog-index { margin-block-end: 1rem; font-size: 0.9rem; border-collapse: collapse; }
+.old-catalog .catalog-index td { padding: 0.1rem 1rem 0.1rem 0; }
+.old-catalog .catalog-index--grid { display: grid; grid-template-columns: repeat(2, auto); gap: 0.1rem 1.5rem; }
+.old-catalog .catalog-index-label { grid-column: 1 / -1; margin: 0 0 0.25rem; }
+
+.old-catalog .catalog-jump-select { margin-block-end: 1.5rem; }
+.old-catalog .catalog-gen-ed { margin-block-end: 1.5rem; }
+.old-catalog .catalog-quick-filters { display: flex; gap: 1rem; margin-block-end: 1.5rem; }
+.old-catalog .catalog-quick-filters fieldset, .old-catalog .catalog-quick-filters > div { display: flex; gap: 1rem; border: none; padding: 0; margin: 0; }
+.old-catalog .catalog-check { display: flex; align-items: center; gap: 0.35rem; }
+
+.old-catalog .catalog-subject { margin-block-end: 2rem; }
+.old-catalog .catalog-impacted-dot { display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: #b3261e; margin-inline-start: 0.4rem; }
+.old-catalog .catalog-impacted-text { color: #b3261e; font-size: 0.85rem; }
+.old-catalog .catalog-subject-note { color: #595959; font-size: 0.9rem; }
+.old-catalog .fake-heading { margin-block-end: 0.25rem; }
+.old-catalog .catalog-table-wrap { overflow-x: auto; margin-block-end: 0.75rem; }
+.old-catalog .catalog-table { width: 100%; border-collapse: collapse; }
+.old-catalog .catalog-table th, .old-catalog .catalog-table td { padding: 0.35rem 0.6rem; text-align: left; vertical-align: top; border-bottom: 1px solid #eeeeee; }
+.old-catalog .catalog-desc { font-size: 10px; color: #aaaaaa; max-width: 28rem; height: 2.4rem; overflow: hidden; }
+.old-catalog .catalog-back-top { display: inline-block; margin-block-start: 0.25rem; }
+.old-catalog .catalog-downloads { margin-block-start: 1rem; }
+
+/* The catalog body is fixed-width and outlines are removed: two long-standing manual defects. */
+.old-catalog .page-content { max-width: 62rem; }
+.old-catalog a:focus, .old-catalog button:focus, .old-catalog select:focus, .old-catalog input:focus { outline: none; }
+
+/* ---------- Fixes ---------- */
+.a11y-fix-alerts .old-catalog .catalog-intro { text-align: left; }
+.a11y-fix-alerts .old-catalog .catalog-desc { font-size: 1rem; }
+.a11y-fix-manual .old-catalog .catalog-desc { color: #595959; height: auto; overflow: visible; }
+.a11y-fix-manual .old-catalog .catalog-table th, .a11y-fix-manual .old-catalog .catalog-table td { border-bottom-color: #767676; }
+.a11y-fix-manual .old-catalog .page-content { max-width: none; }
+.a11y-fix-manual .old-catalog a:focus-visible, .a11y-fix-manual .old-catalog button:focus-visible,
+.a11y-fix-manual .old-catalog select:focus-visible, .a11y-fix-manual .old-catalog input:focus-visible { outline: 2px solid #1a4480; outline-offset: 2px; }

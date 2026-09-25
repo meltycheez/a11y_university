@@ -41,6 +41,13 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 | [034](#adr-034) | 2026-09-25 | Session timeouts are short, page-load based and restart on toggle | Accepted | 06 |
 | [035](#adr-035) | 2026-09-25 | Scanner-visible inline handlers are added through refs where detection matters | Accepted | 06 |
 | [036](#adr-036) | 2026-09-25 | Header suggestions are matching pages, not completed phrases | Accepted | 06 |
+| [037](#adr-037) | 2026-09-25 | `useFixes` promoted to `~/a11y/useFixes.ts`, with a bare `id(key)` accessor | Accepted | 07 |
+| [038](#adr-038) | 2026-09-25 | Terrible-page hover-only menus reveal by plain CSS `:hover`, no `:focus-within` | Accepted | 07 |
+| [039](#adr-039) | 2026-09-25 | "Sticky header covers a focused row" is registered under `focus-indicator-missing` | Accepted | 07 |
+| [040](#adr-040) | 2026-09-25 | Lab specimen ids get a `-<page>-lab` suffix; a shared `<Specimen>` wrapper sources all copy from the registry | Accepted | 08 |
+| [041](#adr-041) | 2026-09-25 | Document-mechanism lab specimens are static code samples, not live toggles | Accepted | 08 |
+| [042](#adr-042) | 2026-09-25 | No new rule keys for the ARIA page's "misused roles" / "live regions" topics | Accepted | 08 |
+| [043](#adr-043) | 2026-09-25 | Lab index category filter and grouped tabs are one hand-rolled tablist, not the shared `Tabs` widget | Accepted | 08 |
 
 ---
 
@@ -151,3 +158,24 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 
 ### ADR-036
 **Search suggestions.** The header combobox suggests up to six matching pages and opens them directly; "Did you mean" on `/search` corrects each unmatched word with MiniSearch fuzzy matching. MiniSearch's own term suggestions produced unnatural phrases. Typing two characters in the header loads the search index (about 350 KB) once per session.
+
+### ADR-037
+**`useFixes` is now shared infrastructure.** Plan 06's `admissions/_useFixes.ts` carried a `ponytail:` note to promote it once a fourth page folder needed it; the two remaining terrible pages (`/academics/catalog`, `/athletics/schedule`) did. Moved to `~/a11y/useFixes.ts` unchanged apart from one addition: an exported `id(key)` bare-id accessor alongside `fix`/`mark`, for the shared widgets (`Tabs`, `Accordion`) and `SmartLink` that take a single `scenario` string rather than a marker prop. The three existing importers (apply, donate, legacy aid) were repointed; no behavior changed.
+
+### ADR-038
+**Hover-only menus stay keyboard-inoperable by construction.** The catalog's subject jump menu reveals its list with a `:hover`-only CSS rule and no `:focus-within` fallback, so there is no hidden way to reach it from a keyboard — matching the registered `kbd-hover-only-menu` defect rather than merely looking that way. The fixed state swaps the whole trigger for a real disclosure button (`aria-expanded`, click toggle, `hidden` attribute), rather than adding `:focus-within` to the same markup, since a menu that opens on both hover and focus behaves differently enough from the fixed pattern that reusing one CSS rule for both would blur the toggle.
+
+### ADR-039
+**No rule names "content covers a focused element."** The athletics composite schedule's sticky table header can visually cover a row a keyboard user just tabbed to. Plan 07's taxonomy has nothing for this (it predates WCAG 2.2's 2.4.11 Focus Not Obscured, which isn't in this project's WCAG 2.1 rule set). Registered under `focus-indicator-missing` (2.4.7) as the closest honest fit: from the user's vantage the indicator is effectively invisible, even though the browser still paints it under the header. Revisit if a future plan adds 2.4.11 to `rules.ts`.
+
+### ADR-040
+**Lab specimen ids carry a page suffix; one wrapper sources all copy.** Plan 08 asked for lab specimen ids to end in "-lab" so counts stay unambiguous from the site's own instances. Several rules (`table-header-association`, `input-missing-label`, `fieldset-missing`…) needed their own isolated specimen on more than one lab page, so ids are `<rule-slug>-<page>-lab` (e.g. `table-headers-wrong-tables-lab`) rather than a bare `-lab`, keeping every id globally unique. `pages/accessibility-lab/_Specimen.tsx` renders every specimen's heading, live-markup slot and caption (id, expected detection, live status, fix description) straight from that scenario's registry entry, so the 7 specimen pages hold only live markup, never copy that would drift from the registry.
+
+### ADR-041
+**Document-mechanism specimens are code samples.** `html-lang-missing` and `page-title-missing` can't be demonstrated live inside the lab: ADR-004 has the lab always set `<html lang>`, and a page can only carry one real `<title>`. Their lab specimens render a static before/after `<pre><code>` sample instead of a live toggle, with no `data-a11y-scenario` marker, matching how the sitewide `HtmlLang`/`ScenarioTitle` document scenarios already work.
+
+### ADR-042
+**No new rule keys for "misused roles" or "live regions."** The ARIA lab page's specimen list (plan 08) named these two topics, but `rules.ts` has no dedicated key for either. Misused roles is folded into the `aria-invalid-attr` specimen's caption as a second sentence rather than a second live element; live regions is covered by the existing `sr-results-no-live-region` rule. Consistent with ADR-039's "closest honest fit" rather than growing the taxonomy for a lab-only demo.
+
+### ADR-043
+**Category filter and grouped tabs are one control.** Plan 08 asked for both a category filter and "grouped views… as tabs" on the lab index's scenario table. The shared `Tabs` widget (`components/Tabs.tsx`) has no controlled active-tab API, and simultaneously rendering 4 hidden per-category tables just to reuse it would be the wrong shape for filtered data. The index page hand-rolls a small ARIA tablist instead (mirroring `Tabs`' keyboard handling) whose active tab (All/Errors/Alerts/Manual) doubles as the category filter, feeding one `role="tabpanel"` alongside the area/WCAG/page/text filters.

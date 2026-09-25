@@ -1,0 +1,22 @@
+/* Keyboard lab specimens (plan 08): hover menu, drag list, carousel. */
+.lab-hover-menu { position: relative; }
+.lab-hover-menu-trigger { cursor: default; padding: var(--space-2) var(--space-3); display: inline-block; }
+.lab-hover-menu-list {
+  display: none; position: absolute; top: 100%; left: 0; z-index: 5; min-width: 10rem; margin: 0; padding: var(--space-2);
+  list-style: none; background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-sm); box-shadow: var(--shadow-md);
+}
+.lab-hover-menu:hover .lab-hover-menu-list { display: block; }
+
+.lab-drag-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); max-width: 24rem; }
+.lab-drag-list li {
+  display: flex; justify-content: space-between; align-items: center; gap: var(--space-3);
+  padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: #fff; cursor: grab;
+}
+.lab-drag-controls { display: flex; gap: var(--space-2); }
+
+.lab-carousel { display: flex; align-items: center; gap: var(--space-4); max-width: 24rem; }
+.lab-carousel div, .lab-carousel button { cursor: pointer; font-size: 1.5rem; line-height: 1; user-select: none; background: none; border: 0; }
+.lab-carousel p { flex: 1; margin: 0; text-align: center; }
+
+.lab-tabindex-row { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.lab-tabindex-row .field { margin-bottom: 0; }

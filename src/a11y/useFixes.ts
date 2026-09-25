@@ -1,6 +1,6 @@
-// Page-local helper for the plan 06 form pages (apply, donate, legacy aid): registers every scenario of a page
-// on its root at load (plan 05 build guide, "Plan 06 additions") and gives short keys for them.
-// ponytail: shared by three page folders; promote to ~/a11y if other pages want it.
+// Shared by page folders with many small scenarios on one page (financial aid, admissions, giving, athletics,
+// academics): registers every scenario of a page on its root at load (plan 05 build guide, "Plan 06 additions")
+// and gives short keys for them.
 import type { ScenarioDef } from "~/a11y/registry";
 import { useScenario } from "~/a11y/useScenario";
 
@@ -23,6 +23,8 @@ export function useFixes(defs: ScenarioDef[], prefix: string) {
   return {
     /** True when the scenario's toggle is ON (render the fixed version). */
     fix: (key: string) => (id(key), fixed.get(key)!),
+    /** A key's full scenario id, e.g. for a component that takes a bare `scenario` prop. */
+    id,
     /** Marker props for an instance root; several keys may share one element. */
     mark: (...keys: string[]) => ({ "data-a11y-scenario": keys.map(id).join(" ") }),
   };

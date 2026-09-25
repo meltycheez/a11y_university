@@ -9,7 +9,7 @@ import { Dropdown } from "~/components/widgets";
 import { programs } from "~/data/catalog";
 import { pageContent } from "~/data/content/pages";
 import { confirmationCode, createStore, latency } from "~/lib/interactive";
-import { useFixes } from "./_useFixes";
+import { useFixes } from "~/a11y/useFixes";
 
 export { inventoryMeta as meta } from "~/routes/meta";
 

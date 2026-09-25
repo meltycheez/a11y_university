@@ -2,6 +2,7 @@ import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration }
 import type { Route } from "./+types/root";
 import { A11yControl } from "./a11y/A11yControl";
 import { HtmlLang } from "./a11y/DocumentScenarios";
+import { useHighlight } from "./a11y/useHighlight";
 import { usePathname } from "./routes/usePathname";
 
 import "@fontsource-variable/source-sans-3";
@@ -16,6 +17,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   // University pages ship without `lang` (scenario global-html-lang-001, handled by HtmlLang).
   // The Accessibility Lab is infrastructure and always declares it.
   const lab = usePathname().startsWith("/accessibility-lab");
+  useHighlight();
   return (
     <html lang={lab ? "en" : undefined}>
       <head>

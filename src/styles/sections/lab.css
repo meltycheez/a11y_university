@@ -8,3 +8,32 @@
 .site--lab .section-sidebar a { color: #0b4f9c; border-radius: 4px; }
 .site--lab .section-sidebar a[aria-current="page"] { background: #e7eef8; font-weight: 700; }
 .site--lab .hero-kicker { color: #444; }
+
+/* Controlled specimen pages (plan 08). Chrome around each specimen stays accessible by construction;
+   only the specimen-live contents carry the registered defects. */
+.specimen { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-5); }
+.specimen-live { margin-block: var(--space-4); padding: var(--space-4); background: var(--color-surface); border-radius: var(--radius-sm); }
+.specimen-caption { font-size: 0.9rem; color: var(--color-text-muted); margin: 0; }
+.specimen-caption code { background: var(--gray-100); padding: 0.1em 0.4em; border-radius: var(--radius-sm); }
+
+/* CSS-only scenarios (mechanism: "css"): the element always renders; a body class flips the style. */
+.lab-text-small { font-size: 0.6rem; }
+.a11y-fix-alerts .lab-text-small { font-size: 1rem; }
+.lab-text-justified { text-align: justify; }
+.a11y-fix-alerts .lab-text-justified { text-align: left; }
+.lab-layout-grid { display: grid; grid-template-columns: max-content 1fr; gap: var(--space-2) var(--space-4); }
+
+/* ?highlight=<scenario-id> outlines the target specimen or instance; presentation only. */
+.a11y-highlight { outline: 3px solid #d1361f; outline-offset: 3px; }
+
+/* Lab index (plan 08). */
+.lab-summary { margin-block: var(--space-6); }
+.lab-stats { display: flex; flex-wrap: wrap; gap: var(--space-5); }
+.lab-stat { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); min-width: 9rem; }
+.lab-stat dt { font-size: 0.85rem; color: var(--color-text-muted); }
+.lab-stat dd { margin: 0; font-size: 1.4rem; font-weight: 700; }
+.lab-stat-toggle { font-size: 0.8rem; font-weight: 500; color: var(--color-text-muted); }
+.lab-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid var(--color-border); gap: var(--space-1); margin-top: var(--space-4); }
+.lab-filters { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-block: var(--space-4); }
+.lab-filters .field { margin-bottom: 0; min-width: 12rem; }
+.sort-btn { background: none; border: 0; font: inherit; font-weight: 700; cursor: pointer; padding: 0; color: inherit; }

@@ -10,7 +10,7 @@ import { legacyAidScenarios } from "~/a11y/registry/legacy-aid";
 import { pageTitle } from "~/data/brand";
 import { pageContent } from "~/data/content/pages";
 import { confirmationCode, latency } from "~/lib/interactive";
-import { useFixes } from "../admissions/_useFixes";
+import { useFixes } from "~/a11y/useFixes";
 
 const content = pageContent["/financial-aid/legacy-application"];
 const svg = (s: string) => `data:image/svg+xml,${encodeURIComponent(s)}`;
