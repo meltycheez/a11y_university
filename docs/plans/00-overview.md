@@ -9,8 +9,8 @@ This folder breaks the PRD into ten phased plans. Each plan lists its goal, the 
 | 01 | [Foundation](01-foundation.md) | Scaffold, static prerendered routing, layouts, section themes, navigation shell | ✅ Done (2026-09-24) |
 | 02 | [Accessibility Scenario Engine](02-scenario-engine.md) | Toggle state, scenario registry, `useScenario` primitives, floating control, counts | ✅ Done (2026-09-24) |
 | 03 | [Content & Data](03-content-data.md) | Brand, seeded deterministic datasets, copy, local search index | ✅ Done (2026-09-24) |
-| 04 | [Image Assets via Google Flow](04-image-assets-flow.md) | Asset manifest, Nano Banana generation in Google Flow, optimization pipeline | 🟡 In progress: 126/131 images generated, optimized and wired into section heroes; 5 waiting on the Flow usage limit |
-| 05 | [Site Sections](05-site-sections.md) | Every public route, templates, and the route inventory | Not started |
+| 04 | [Image Assets via Google Flow](04-image-assets-flow.md) | Asset manifest, Nano Banana generation in Google Flow, optimization pipeline | 🟡 In progress: 125/131 images done; 6 waiting on the Flow usage limit (2 flyers, 2 mascots, map, Sierra Blackwood redo) |
+| 05 | [Site Sections](05-site-sections.md) | Every public route, templates, and the route inventory | ✅ Done (2026-09-25) |
 | 06 | [Interactive Features](06-interactive-features.md) | Course search, registration, portal, forms, application, map, carousel | Not started |
 | 07 | [Scenario Coverage](07-scenario-coverage.md) | Full defect catalog, per-page distribution, legacy "terrible" pages | Not started |
 | 08 | [Accessibility Lab](08-accessibility-lab.md) | `/accessibility-lab` and its seven controlled test pages | Not started |

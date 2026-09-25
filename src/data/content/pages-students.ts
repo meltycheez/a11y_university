@@ -182,7 +182,7 @@ export const studentPages: Record<string, PageContent> = {
     sections: [
       {
         paragraphs: [
-          "The Student Health Center in Huckleberry Hall provides primary care, sexual and reproductive health care, immunizations, laboratory testing, and a pharmacy. Most visits are covered by the Health Services Fee, with no charge at the time of service.",
+          "The Student Health Center in the Wellness Center provides primary care, sexual and reproductive health care, immunizations, laboratory testing, and a pharmacy. Most visits are covered by the Health Services Fee, with no charge at the time of service.",
         ],
       },
       {
@@ -243,6 +243,8 @@ export const studentPages: Record<string, PageContent> = {
         heading: "Living-learning communities",
         list: [
           "Sequoia Honors (Madrone Hall)",
+          "First-Generation Scholars (Madrone Hall)",
+          "Sustainability and Environmental Studies (Madrone Hall)",
           "Women in STEM (Huckleberry Court)",
           "Outdoor Leadership (Tanoak Village)",
           "Casa Redwood: Spanish language and Latinx culture (Cypress Hall)",
@@ -409,7 +411,7 @@ export const studentPages: Record<string, PageContent> = {
           "RSU Alert: emergency text and email notifications (all students are enrolled automatically)",
           "Safety escorts: call (707) 555-0161 from dusk to 2 a.m.",
           "Blue-light emergency phones at 64 locations",
-          "Lost and found at the Cedar Building",
+          "Lost and found at Corporation Yard",
           "Annual Security and Fire Safety Report (Clery Act)",
           "Title IX and confidential advocacy services",
         ],
@@ -432,7 +434,7 @@ export const studentPages: Record<string, PageContent> = {
     sections: [
       {
         paragraphs: [
-          "Student organizations are registered through the Office of Student Life in Rowan Student Union. From the Redwood Outing Club to the Latinx Engineering Society, there is a group for every interest. Clubs can reserve space, apply for Associated Students funding, and table on Canopy Green.",
+          "Student organizations are registered through the Office of Student Involvement in Rowan Student Union. From the Redwood Outdoors Club to the Latinx Engineering Society, there is a group for every interest. Clubs can reserve space, apply for Associated Students funding, and table on Canopy Green.",
         ],
         list: [
           "Academic and professional",
@@ -489,7 +491,7 @@ export const studentPages: Record<string, PageContent> = {
     sections: [
       {
         paragraphs: [
-          "Sequoia Library holds more than 650,000 volumes, 180 research databases, and the Arcadia Falls Local History Archives. The library is open 24 hours during finals and offers 38 bookable study rooms.",
+          "Sequoia Library holds more than 650,000 volumes, more than 40 research databases, and the Arcadia Falls Local History Archives. The library is open 24 hours during finals and offers 38 bookable study rooms.",
         ],
         links: [
           { label: "Library Search", href: "/library/search" },

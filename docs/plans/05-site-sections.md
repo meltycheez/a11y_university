@@ -111,3 +111,13 @@ For every page, write its defects at the same time it's built, following the tie
 - Every inventory route renders real content, prerenders, and loads directly.
 - No orphan pages: every route is reachable from the navigation, the footer, listings, or the sitemap.
 - Screenshots of the sections look like one real university's patchwork of sites.
+
+## Implementation notes (2026-09-25)
+
+- Foundation first (ADR-023–025): full rule taxonomy with coverage areas, scenario helpers (`SmartLink`, `IconButton`, `Field`, `Heading`), the block library, the route file convention and one registry file per area. How-to: [05-build-guide.md](05-build-guide.md).
+- Built by five parallel agents with split ownership: about/audiences/giving/employees (24 routes, 112 scenarios), admissions/aid/students (27, 124), academics/faculty (64, 38), news/events/library (45, 100), athletics/portal/home (26, 82 incl. the 8 seeds). Every page is within its tier budget.
+- Totals: 211 prerendered routes, **456 registered scenarios**. `npm run check:scenarios` confirms each one renders on every page it lists and that no page carries an unregistered marker.
+- Verified in Chrome against the static build on 29 sample pages across all sections: no console or hydration errors, Fix All changes the DOM on every page, `lang` is set, and the sections read as one university's patchwork of sites.
+- Still stubs, owned by later plans: `/admissions/apply`, `/academics/courses`, `/portal/registration` (plan 06); `/financial-aid/legacy-application`, `/academics/catalog`, `/athletics/schedule`, `/giving/donate`, `/campus-map` (plan 07, with plan 06 for the interactive parts). Static stand-ins wait for plan 06 on `/admissions/visit` (date picker), `/events/:slug` (registration form), `/library/study-rooms` (booking grid), `/faculty` and `/employees/directory` (search and filters), and portal interactions.
+- A content consistency pass reconciled the plan 03 sources (people, dates, buildings, money, registration dates, the athletics season) with each other and with `docs/WORLD.md`.
+- Known gaps for plan 07: stub pages still render content links and tables through `ContentSection` without scenarios, and a few copy helpers are imported across page folders (`pages/about/_Copy.tsx`, `pages/admissions/_content.tsx`); promote them to `components/` if more sections need them.

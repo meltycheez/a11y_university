@@ -31,6 +31,11 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 | [024](#adr-024) | 2026-09-25 | Plan 05 builds page-level defects with the pages; widgets, chrome and terrible pages wait | Accepted | 05, 06, 07 |
 | [025](#adr-025) | 2026-09-25 | Section CSS fixes are colocated in the section stylesheet | Accepted | 05 |
 | [026](#adr-026) | 2026-09-25 | `npm run build` retries the React Router build once | Accepted | 01 |
+| [027](#adr-027) | 2026-09-25 | Big generated datasets are read in route loaders, sliced per page | Accepted | 05 |
+| [028](#adr-028) | 2026-09-25 | A scenario lists a `:slug` pattern only when every instance has it | Accepted | 05 |
+| [029](#adr-029) | 2026-09-25 | Section defects in layout chrome are scoped with `:has()` on a page root | Accepted | 05 |
+| [030](#adr-030) | 2026-09-25 | Device-dependent handler scenarios are manual-only under React | Accepted | 05, 07 |
+| [031](#adr-031) | 2026-09-25 | `link-javascript` defects use `href="#"` plus a click handler | Accepted | 05, 07 |
 
 ---
 
@@ -111,3 +116,18 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 
 ### ADR-026
 **Build retries once.** Prerendering occasionally fails on Windows with "Prerender: Request failed for /<path>/:" and an empty message: the request to React Router's local preview server drops. React Router's prerender runner has `retryCount`/`retryDelay`, but only `concurrency` is passed through from `react-router.config.ts`, so the `build` script runs `react-router build` a second time if the first fails. Remove this when the underlying drop is fixed upstream or traced.
+
+### ADR-027
+**Loaders for big data.** Pages that use `courses.json`, `directory.json`, `athletics.json` or `portal.json` read them in a route `loader` (run at build time during prerender) and return only the slice the page needs, so the full datasets never reach the client bundle.
+
+### ADR-028
+**Scenario page lists match reality.** A template-level scenario uses the `:slug` pattern in `pages` only when every instance renders it. Data-dependent defects (a PDF link in only some articles, a video on only some team pages) list exact paths, often generated from an exported per-instance map in the registry file so the page and the registry share one source. `npm run check:scenarios` enforces this after every build.
+
+### ADR-029
+**Chrome-level section defects without layout edits.** When a section's defect lives in layout chrome (the academics sidebar's low contrast), the section CSS scopes it with `:has(.page-root-class)` from a page-level wrapper that also carries the marker, so only the pages that register it get it.
+
+### ADR-030
+**React hides device-dependent handlers.** React attaches events by delegation, so a hover-only control has no `onmouseover` attribute for WAVE's `event_handler` alert to find. Such scenarios keep the `event-handler-device` rule but set `detectedBy: { manualOnly: true }`. Plan 07 may add a real inline `onmouseover` attribute (set through a ref) where scanner detection matters.
+
+### ADR-031
+**`javascript:` links.** React 19 blocks `javascript:` URLs, so `link-javascript` scenarios use `href="#"` with a click handler. WAVE reports `#` links under the same family; plan 09 confirms the detection.

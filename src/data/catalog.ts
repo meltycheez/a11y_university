@@ -135,7 +135,7 @@ export const newsArticles: Story[] = [
   { slug: "library-digitizes-logging-archives", name: "Sequoia Library Digitizes a Century of Arcadia Falls Logging Records", category: "campus" },
   { slug: "wildfire-smoke-sensor-network", name: "Student-Built Sensor Network Maps Wildfire Smoke Across the North Coast", category: "research" },
   { slug: "mens-basketball-season-preview", name: "Men's Basketball Season Preview: Young Roster, High Expectations", category: "athletics" },
-  { slug: "sleep-study-later-classes", name: "Students Slept Better After 8 a.m. Classes Moved Later, Psychology Study Shows", category: "research" },
+  { slug: "sleep-study-later-classes", name: "Students Slept Better After 7:30 a.m. Classes Moved Later, Psychology Study Shows", category: "research" },
   { slug: "alum-california-teacher-of-year", name: "Education Alum Named State Teacher of the Year", category: "alumni" },
   { slug: "madrone-hall-opens", name: "Madrone Hall Opens With 400 New Beds and a Rooftop Garden", category: "campus" },
   { slug: "green-chemistry-grant", name: "$2.4 Million Grant Funds Green Solvent Research in Chemistry", category: "research" },

@@ -24,7 +24,10 @@ export async function loader({ params }: LoaderFunctionArgs) {
   const { athletes, teams } = athletics as unknown as Athletics;
   const athlete = athletes.find((a) => a.slug === params.slug);
   if (!athlete) throw new Response("Not found", { status: 404 });
-  const season = teams.find((t) => t.slug === athlete.team)!.season;
+  const team = teams.find((t) => t.slug === athlete.team)!;
+  // Before a season's first game the stats shown are last season's ("2026–27" -> "2025–26").
+  const started = team.schedule.some((g) => g.result);
+  const season = started ? team.season : team.season.replace(/(\d{4})–(\d{2})/, (_, y, e) => `${+y - 1}–${String(+e - 1).padStart(2, "0")}`);
   const news = (athleteNews[athlete.slug] ?? []).map((slug) => ({ label: newsArticles.find((n) => n.slug === slug)!.name, href: `/news/${slug}` }));
   return { athlete, season, news };
 }

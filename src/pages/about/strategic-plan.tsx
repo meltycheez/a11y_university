@@ -20,7 +20,7 @@ export default function StrategicPlanPage() {
   useScenario("about-strategic-stats-clip-001"); // CSS scenario (flagship.css)
   return (
     <>
-      <Hero title="Strategic Plan 2030" kicker="Deep Roots, Wide Branches" lede={content.summary} image="about-hero-campus" />
+      <Hero title="Strategic Plan 2030" kicker="Rooted in Place" lede={content.summary} image="about-hero-campus" />
       <div className="page-content">
         {intro.paragraphs?.map((p, i) => <p key={i} className="lede-paragraph">{p}</p>)}
 

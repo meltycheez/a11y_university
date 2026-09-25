@@ -75,7 +75,7 @@ const details: Record<string, EventDetails> = {
     location: "Campus-wide; check-in at the Rowan Student Union",
     description: [
       "Come home to the redwoods. Homecoming & Family Weekend brings alumni, families and friends back to Arcadia Falls for three days of reunions, tours, athletics and celebration.",
-      "Friday highlights include open classes, tours of the new Robotics and Autonomous Systems Lab in Sequoia Engineering Hall, the dedication of Madrone Hall at 3:00 p.m. and the Alumni Awards Dinner at 6:30 p.m. in the Rowan Student Union Redwood Ballroom, honoring this year's Distinguished and Young Alumni Award recipients. Saturday begins with the Family Brunch on Canopy Green, followed by the Homecoming Parade down Canopy Drive at 11:00 a.m. and the women's soccer Homecoming match against Cedar Valley University at Redwood Field at 1:00 p.m., where the 2009 conference champions will be recognized at halftime. The Owls volleyball team hosts Summit State in Owl Arena at 7:00 p.m.",
+      "Friday highlights include open classes, tours of the new Robotics and Autonomous Systems Lab in Sequoia Engineering Hall, the dedication of Madrone Hall at 3:00 p.m. and the Alumni Awards Dinner at 6:30 p.m. in the Rowan Student Union Redwood Ballroom, honoring this year's Distinguished and Young Alumni Award recipients. The Owls volleyball team hosts Juniper Valley College in Owl Arena at 7:00 p.m. Saturday begins with the Family Brunch on Canopy Green, followed by the Homecoming Parade down Canopy Drive at 11:00 a.m. and the women's soccer Homecoming match against Cedar Valley University at Redwood Field at 1:00 p.m., where the 2009 conference champions will be recognized at halftime.",
       "Sunday closes the weekend with the 50-year and 25-year class reunion breakfasts and a guided walk through the old-growth grove at the Tanoak Creek Field Station.",
       "General admission to most events is free. Tickets are required for the Alumni Awards Dinner and the Family Brunch and must be purchased in advance. A full schedule will be available at check-in.",
     ],
@@ -161,7 +161,7 @@ const details: Record<string, EventDetails> = {
     description: [
       "Pack Owl Arena as the Redwood Owls men's basketball team opens its home schedule against longtime rival Cascade State. Led by junior guard Jordan Whitfield and sophomore center Noah Lindgren, the Owls look to start the season strong in front of the home crowd.",
       "It's a Blackout the Arena night: wear black, and the first 1,000 students through the doors receive a free Blackout T-shirt. The Owls Pep Band and Spirit Squad will perform, and Rowan the Redwood Owl will lead a halftime half-court shot contest for a chance to win free textbooks for spring semester.",
-      "Doors open at 6:00 p.m. The women's basketball team plays its home opener in the same arena at 4:30 p.m.; a single ticket is good for both games.",
+      "Doors open at 6:00 p.m. The women's basketball team opens its season the next evening, Saturday, November 7, at 5:00 p.m. against Stonebridge Tech.",
     ],
     capacity: 3200,
     registration: {
@@ -183,9 +183,9 @@ const details: Record<string, EventDetails> = {
     location: "Rowan Student Union, Redwood Ballroom",
     description: [
       "Discover Redwood State at our Fall Admissions Open House for prospective first-year and transfer students and their families. Meet faculty from all six colleges, talk with current students, learn about financial aid and scholarships, and tour campus, including residence halls, the Sequoia Library and the new Robotics and Autonomous Systems Lab.",
-      "The day begins with check-in and a welcome from the Office of Admissions at 9:00 a.m., followed by an academic fair, breakout sessions on the admissions process, financial aid, the First-Generation Scholars Program and the honors program, and student-led campus tours departing every 20 minutes. Lunch at the Canopy Commons dining hall is included for registered guests.",
+      "The day begins with check-in and a welcome from the Office of Admissions at 9:00 a.m., followed by an academic fair, breakout sessions on the admissions process, financial aid, the First-Generation Scholars Program and the honors program, and student-led campus tours departing every 20 minutes. Lunch at The Grove Dining Commons is included for registered guests.",
       "Can't make it to Arcadia Falls? A virtual open house will be streamed live from 10:00 to 11:30 a.m. with a presentation from admissions counselors and a live Q&A with current students.",
-      "Students who apply for fall 2027 admission by the priority deadline of November 30 will have their application fee waived. Ask about the fee waiver code at check-in.",
+      "Students who apply for fall 2027 admission by the priority deadline of December 1 will have their application fee waived. Ask about the fee waiver code at check-in.",
     ],
     capacity: 600,
     registration: {

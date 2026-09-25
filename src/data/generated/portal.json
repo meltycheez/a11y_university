@@ -433,16 +433,16 @@
             "status": "not-started"
           },
           {
-            "courseId": "cs-438",
-            "code": "CS 438",
-            "title": "Senior Project",
-            "credits": 4,
-            "status": "not-started"
-          },
-          {
             "courseId": "cs-445",
             "code": "CS 445",
             "title": "Natural Language Processing",
+            "credits": 3,
+            "status": "not-started"
+          },
+          {
+            "courseId": "cs-452",
+            "code": "CS 452",
+            "title": "Quantum Computing Concepts",
             "credits": 3,
             "status": "not-started"
           }
@@ -450,13 +450,13 @@
       },
       {
         "name": "Capstone",
-        "requiredCredits": 3,
+        "requiredCredits": 4,
         "courses": [
           {
-            "courseId": "cs-452",
-            "code": "CS 452",
-            "title": "Quantum Computing Concepts",
-            "credits": 3,
+            "courseId": "cs-438",
+            "code": "CS 438",
+            "title": "Senior Project",
+            "credits": 4,
             "status": "not-started"
           }
         ]
@@ -546,32 +546,32 @@
         "term": "Spring 2026",
         "description": "Tuition – Undergraduate Resident",
         "type": "charge",
-        "amount": 3871,
-        "balance": 3871
+        "amount": 2946,
+        "balance": 2946
       },
       {
         "date": "2026-01-08",
         "term": "Spring 2026",
-        "description": "Campus Fees (Student Union, Health, Instructionally Related Activities)",
+        "description": "Campus Fees (Student Success, Health, Student Union, Recreation, and other mandatory fees)",
         "type": "charge",
-        "amount": 1016,
-        "balance": 4887
+        "amount": 1356,
+        "balance": 4302
       },
       {
         "date": "2026-01-08",
         "term": "Spring 2026",
         "description": "Housing – Redwood Commons, Double",
         "type": "charge",
-        "amount": 6245,
-        "balance": 11132
+        "amount": 4590,
+        "balance": 8892
       },
       {
         "date": "2026-01-08",
         "term": "Spring 2026",
         "description": "Meal Plan – Owl 14",
         "type": "charge",
-        "amount": 2180,
-        "balance": 13312
+        "amount": 3090,
+        "balance": 11982
       },
       {
         "date": "2026-01-12",
@@ -579,15 +579,15 @@
         "description": "Federal Pell Grant",
         "type": "aid",
         "amount": -3697.5,
-        "balance": 9614.5
+        "balance": 8284.5
       },
       {
         "date": "2026-01-12",
         "term": "Spring 2026",
         "description": "Redwood Promise Grant",
         "type": "aid",
-        "amount": -3871,
-        "balance": 5743.5
+        "amount": -2946,
+        "balance": 5338.5
       },
       {
         "date": "2026-01-12",
@@ -595,7 +595,7 @@
         "description": "Federal Direct Subsidized Loan (net of origination fee)",
         "type": "aid",
         "amount": -2721.5,
-        "balance": 3022
+        "balance": 2617
       },
       {
         "date": "2026-01-20",
@@ -603,14 +603,14 @@
         "description": "Online Payment – Thank you",
         "type": "payment",
         "amount": -1500,
-        "balance": 1522
+        "balance": 1117
       },
       {
         "date": "2026-02-15",
         "term": "Spring 2026",
         "description": "Online Payment – Thank you",
         "type": "payment",
-        "amount": -1522,
+        "amount": -1117,
         "balance": 0
       },
       {
@@ -618,32 +618,32 @@
         "term": "Fall 2026",
         "description": "Tuition – Undergraduate Resident",
         "type": "charge",
-        "amount": 3871,
-        "balance": 3871
+        "amount": 3042,
+        "balance": 3042
       },
       {
         "date": "2026-07-20",
         "term": "Fall 2026",
-        "description": "Campus Fees (Student Union, Health, Instructionally Related Activities)",
+        "description": "Campus Fees (Student Success, Health, Student Union, Recreation, and other mandatory fees)",
         "type": "charge",
-        "amount": 1042,
-        "balance": 4913
+        "amount": 1396,
+        "balance": 4438
       },
       {
         "date": "2026-07-20",
         "term": "Fall 2026",
         "description": "Housing – Madrone Hall, Double",
         "type": "charge",
-        "amount": 6420,
-        "balance": 11333
+        "amount": 5820,
+        "balance": 10258
       },
       {
         "date": "2026-07-20",
         "term": "Fall 2026",
         "description": "Meal Plan – Owl 14",
         "type": "charge",
-        "amount": 2240,
-        "balance": 13573
+        "amount": 3180,
+        "balance": 13438
       },
       {
         "date": "2026-08-17",
@@ -651,15 +651,15 @@
         "description": "Federal Pell Grant",
         "type": "aid",
         "amount": -3697.5,
-        "balance": 9875.5
+        "balance": 9740.5
       },
       {
         "date": "2026-08-17",
         "term": "Fall 2026",
         "description": "Redwood Promise Grant",
         "type": "aid",
-        "amount": -3871,
-        "balance": 6004.5
+        "amount": -3042,
+        "balance": 6698.5
       },
       {
         "date": "2026-08-17",
@@ -667,7 +667,7 @@
         "description": "Federal Direct Subsidized Loan (net of origination fee)",
         "type": "aid",
         "amount": -2721.5,
-        "balance": 3283
+        "balance": 3977
       },
       {
         "date": "2026-08-24",
@@ -675,15 +675,15 @@
         "description": "Online Payment – Thank you",
         "type": "payment",
         "amount": -1500,
-        "balance": 1783
+        "balance": 2477
       },
       {
         "date": "2026-08-31",
         "term": "Fall 2026",
-        "description": "Parking Permit – Semester General (G)",
+        "description": "Parking Permit – Semester, Madrone Hall Resident (RM)",
         "type": "charge",
-        "amount": 238,
-        "balance": 2021
+        "amount": 246,
+        "balance": 2723
       },
       {
         "date": "2026-09-15",
@@ -691,21 +691,21 @@
         "description": "Online Payment – Thank you",
         "type": "payment",
         "amount": -1200,
-        "balance": 821
+        "balance": 1523
       },
       {
         "date": "2026-09-28",
         "term": "Fall 2026",
-        "description": "Library Fine – Overdue Item",
+        "description": "Library Fine – Overdue Course Reserve",
         "type": "charge",
         "amount": 15,
-        "balance": 836
+        "balance": 1538
       }
     ],
-    "balance": 836,
+    "balance": 1538,
     "nextDue": {
       "date": "2026-10-15",
-      "amount": 836
+      "amount": 1200
     }
   },
   "registration": {
@@ -833,12 +833,12 @@
       "id": "msg-3",
       "from": "Sequoia Library",
       "office": "Access Services",
-      "subject": "Overdue item: Foundations of Algorithm Design (3rd ed.)",
+      "subject": "Overdue course reserve: Foundations of Algorithm Design (3rd ed.)",
       "date": "2026-09-28",
       "read": true,
       "body": [
-        "The item below is overdue and a $15.00 fine has been added to your student account.",
-        "Call number QA76.9 .A43 R44 2023. Return it to any Sequoia Library book drop to stop further fines."
+        "The course reserve item below was returned 15 hours late. Reserves accrue $1.00 per hour, so a $15.00 fine has been added to your student account.",
+        "Call number QA76.9 .A43 R44 2023. Course reserves circulate for 2 hours; return them to the Access Services desk on the first floor."
       ]
     },
     {
@@ -873,7 +873,7 @@
       "date": "2026-09-26",
       "read": true,
       "body": [
-        "More than 60 employers will attend the Fall Career & Internship Fair in the Student Union, including several software and engineering firms hiring interns for summer 2027.",
+        "More than 110 employers will attend the Fall Career & Internship Fair in Owl Arena on October 14, including several software and engineering firms hiring interns for summer 2027.",
         "Stop by the Career Center for a resume review before the fair."
       ]
     },

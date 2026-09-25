@@ -15,6 +15,7 @@ registerHooks({
   },
 });
 const { athletes, departments, faculty, leadership, teams } = await import("../src/data/catalog");
+const { facultyProfiles, leadershipBios } = await import("../src/data/content/people");
 const { SITE_NOW, addDays } = await import("../src/data/site");
 const { brand } = await import("../src/data/brand");
 
@@ -403,6 +404,26 @@ for (const s of SUBJECTS) {
     });
   }
 }
+// Emeriti don't carry a teaching load: Harold Mensah keeps only Oral History Methods. His other
+// sections go to the first free colleague, rotating so no one person absorbs them all. No PRNG calls.
+let turn = 0;
+for (const e of faculty.filter((f) => f.title.includes("Emeritus"))) {
+  for (const c of courses) {
+    const s = SUBJECTS.find((x) => x.code === c.subject)!;
+    const pool = [
+      ...faculty.filter((f) => f.department === s.dept && !f.title.includes("Emeritus")).map((f) => ({ slug: f.slug, name: nameOnly(f.name) })),
+      ...adjuncts.filter((a) => a.subject === s.code),
+    ];
+    for (const sec of c.sections) {
+      if (sec.instructorSlug !== e.slug || c.title === "Oral History Methods") continue;
+      const order = [...pool.slice(turn % pool.length), ...pool.slice(0, turn++ % pool.length)];
+      const who = order.find((p) => isFree(p.slug, sec)) ?? order[0];
+      if (sec.days) book(who.slug, sec);
+      sec.instructor = who.name;
+      sec.instructorSlug = who.slug;
+    }
+  }
+}
 const courseById = new Map(courses.map((c) => [c.id, c]));
 
 // ---------- Directory ----------
@@ -421,13 +442,22 @@ const HOURS = ["MW 10:00–11:30 a.m.", "TR 1:00–2:30 p.m.", "M 2:00–4:00 p.
 const deptName = (slug: string) => departments.find((d) => d.slug === slug)!.name;
 const deptBuilding = (slug: string) => SUBJECTS.find((s) => s.dept === slug)!.building;
 
+// Profiled people list the office, email and phone from their bio (content/people.ts). The random values
+// are still drawn first so every later directory entry keeps its generated details.
+const CODE = Object.fromEntries(Object.entries(BUILDINGS).map(([k, v]) => [v, k]));
+function fromProfile(p: { office: string; email: string; phone: string }) {
+  const [, building, room] = p.office.match(/^([^,]+),.*?(?:Room|Suite) (\w+)/)!;
+  return { email: p.email, phone: p.phone, building, room: `${CODE[building]} ${room}` };
+}
 const directory: DirectoryEntry[] = [];
 for (const p of leadership) {
-  directory.push({ slug: p.slug, name: p.name, title: p.title, kind: "leadership", department: "Office of the President", email: email(p.slug), phone: phone(), building: BUILDINGS.FDR, room: `FDR ${int(3, 4)}${int(0, 2)}${int(0, 9)}`, hasProfile: false });
+  email(p.slug); phone(); int(3, 4); int(0, 2); int(0, 9); // unused draws (see above)
+  directory.push({ slug: p.slug, name: p.name, title: p.title, kind: "leadership", department: "Office of the President", ...fromProfile(leadershipBios[p.slug]), hasProfile: false });
 }
 for (const f of faculty) {
-  const b = deptBuilding(f.department!);
-  directory.push({ slug: f.slug, name: f.name, title: f.title, kind: "faculty", department: deptName(f.department!), departmentSlug: f.department, email: email(f.slug), phone: phone(), building: BUILDINGS[b], room: `${b} ${int(2, 3)}${int(0, 4)}${int(0, 9)}`, officeHours: pick(HOURS), hasProfile: true });
+  const prof = facultyProfiles[f.slug];
+  email(f.slug); phone(); int(2, 3); int(0, 4); int(0, 9); pick(HOURS); // unused draws (see above)
+  directory.push({ slug: f.slug, name: f.name, title: f.title, kind: "faculty", department: deptName(f.department!), departmentSlug: f.department, ...fromProfile(prof), officeHours: prof.officeHours, hasProfile: true });
 }
 for (const a of adjuncts) {
   const s = SUBJECTS.find((x) => x.code === a.subject)!;
@@ -592,7 +622,7 @@ const DBS: [string, string[], string, string][] = [
   ["World History Index & Primary Sources", ["History"], "Scholarship on world history since 1450, with linked primary source collections.", "1955–present"],
   ["American History Primary Sources", ["History", "Political Science"], "Letters, diaries, government documents, and pamphlets from U.S. history.", "1600–1990"],
   ["California Digital Archive", ["History", "Local History"], "Photographs, maps, and oral histories from California libraries and historical societies.", "1850–present"],
-  ["Arcadia Falls Logging Records", ["Local History", "History", "Environmental Science"], "Company ledgers, photographs, and maps from Arcadia Falls timber operations, digitized by Sequoia Library Special Collections.", "1902–2004"],
+  ["Arcadia Falls Logging Records", ["Local History", "History", "Environmental Science"], "Payroll ledgers, photographs, maps, and oral histories from Arcadia Falls timber operations, digitized by Sequoia Library Special Collections.", "1885–1985"],
   ["Environmental Science Index", ["Environmental Science", "Biology", "Geography"], "Research on ecology, pollution, energy, and resource management.", "1967–present"],
   ["GeoData Portal", ["Geography", "Environmental Science"], "GIS data layers, aerial imagery, and topographic maps for California.", "Varies by layer"],
   ["Visual Arts & Architecture Collection", ["Art"], "Full-text art journals and a large collection of images of artworks and buildings.", "1937–present"],
@@ -676,7 +706,51 @@ const teamSeasons: TeamSeason[] = teams.map((t) => {
     schedule, roster,
   };
 });
-const MAJORS = ["Kinesiology", "Biology", "Business Administration", "Psychology", "Computer Science", "Environmental Studies", "Nursing", "Communication"];
+// Facts the news stories report, set after the random pass (no PRNG calls, so nothing else moves).
+const team = (slug: string) => teamSeasons.find((t) => t.slug === slug)!;
+team("mens-basketball").headCoach = "Terrence Vail";
+team("womens-soccer").headCoach = "Andrea Whitlock";
+// Men's basketball: 7 p.m. home opener, then the Desert Palms Classic over Thanksgiving weekend.
+const mbb = team("mens-basketball").schedule;
+mbb[0].time = "7:00 p.m.";
+mbb.splice(mbb.findIndex((g) => g.date > "2026-11-27"), 0,
+  { date: "2026-11-27", time: "5:00 p.m.", opponent: "Copper Creek State", site: "Neutral", location: "Mirage Valley, Nev.", conference: false },
+  { date: "2026-11-28", time: "7:00 p.m.", opponent: "Juniper Valley College", site: "Neutral", location: "Mirage Valley, Nev.", conference: false });
+// Women's soccer clinched the Pacific North Conference title on Oct. 1 (news: womens-soccer-conference-title).
+// Scores are Owls first, as score() writes them.
+const WSOC: [string, string, string, Game["site"], boolean, string?][] = [
+  ["2026-08-21", "7:00 p.m.", "Westmere University", "Home", false, "W 2-0"],
+  ["2026-08-23", "1:00 p.m.", "Granite Bluff University", "Away", false, "W 1-0"],
+  ["2026-08-28", "7:00 p.m.", "Amberfield University", "Home", false, "L 0-1"],
+  ["2026-08-30", "1:00 p.m.", "Juniper Valley College", "Away", false, "T 1-1"],
+  ["2026-09-04", "4:00 p.m.", "Foxglove College", "Home", false, "W 3-0"],
+  ["2026-09-06", "1:00 p.m.", "Copper Creek State", "Away", false, "W 2-1"],
+  ["2026-09-11", "7:00 p.m.", "North Shore University", "Home", true, "W 2-0"],
+  ["2026-09-13", "1:00 p.m.", "Stonebridge Tech", "Away", true, "W 1-0"],
+  ["2026-09-18", "7:00 p.m.", "Timberline College", "Home", true, "W 4-0"],
+  ["2026-09-20", "1:00 p.m.", "Harbor Point University", "Away", true, "W 2-0"],
+  ["2026-09-25", "4:00 p.m.", "Kestrel Bay State", "Home", true, "W 3-0"],
+  ["2026-10-01", "7:00 p.m.", "Summit State", "Home", true, "W 2-1"],
+  ["2026-10-09", "7:00 p.m.", "Cascade State", "Away", true],
+  ["2026-10-24", "1:00 p.m.", "Cedar Valley University", "Home", true],
+];
+const wsoc = team("womens-soccer");
+wsoc.schedule = WSOC.map(([date, time, opponent, site, conference, r]) => ({
+  date, time, opponent, site, location: site === "Home" ? "Redwood Field" : opponent, conference,
+  ...(r ? { result: { outcome: r[0] as "W" | "L" | "T", score: r.slice(2) } } : {}),
+}));
+const tally = (o: string) => wsoc.schedule.filter((g) => g.result?.outcome === o).length;
+wsoc.record = `${tally("W")}-${tally("L")}-${tally("T")}`;
+
+const MAJORS = ["Kinesiology", "Biology", "Business Administration", "Psychology", "Computer Science", "Nursing", "Environmental Studies", "Communication"];
+// Roster facts the news stories report (see content/news.ts).
+const ATHLETE_FACTS: Record<string, Partial<RosterPlayer> & { stats?: AthleteProfile["stats"] }> = {
+  "maya-delgado": { position: "F", classYear: "Sr.", stats: [{ label: "GP", value: "12" }, { label: "Goals", value: "13" }, { label: "Assists", value: "5" }, { label: "Shots", value: "41" }] },
+  "sierra-blackwood": { position: "D", classYear: "Jr.", stats: [{ label: "GP", value: "12" }, { label: "Goals", value: "1" }, { label: "Assists", value: "2" }, { label: "Shots", value: "6" }] },
+  "jordan-whitfield": { position: "G", classYear: "Jr." },
+  "noah-lindgren": { position: "C", classYear: "So.", height: "6-10", hometown: "Arcadia Falls, Calif." },
+  "priya-castillo": { classYear: "Sr." },
+};
 function stats(team: string): { label: string; value: string }[] {
   if (team.includes("basketball")) return [{ label: "PPG", value: (8 + rand() * 12).toFixed(1) }, { label: "RPG", value: (2 + rand() * 7).toFixed(1) }, { label: "APG", value: (1 + rand() * 5).toFixed(1) }, { label: "FG%", value: `.${int(410, 560)}` }];
   if (team === "womens-soccer") return [{ label: "GP", value: String(int(10, 12)) }, { label: "Goals", value: String(int(2, 11)) }, { label: "Assists", value: String(int(1, 7)) }, { label: "Shots", value: String(int(15, 40)) }];
@@ -686,10 +760,12 @@ function stats(team: string): { label: string; value: string }[] {
 }
 const athleteProfiles: AthleteProfile[] = athletes.map((a, i) => {
   const r = teamSeasons.find((t) => t.slug === a.team)!.roster.find((p) => p.athleteSlug === a.slug)!;
-  if (a.slug === "priya-castillo") r.classYear = "Sr.";
+  const { stats: fixedStats, ...facts } = ATHLETE_FACTS[a.slug] ?? {};
+  Object.assign(r, facts);
+  const drawn = stats(a.team);
   return {
     slug: a.slug, name: a.name, team: a.team, number: r.number, position: r.position, classYear: r.classYear, hometown: r.hometown,
-    highSchool: `${r.hometown.split(",")[0]} High School`, major: MAJORS[i], ...(r.height ? { height: r.height } : {}), stats: stats(a.team),
+    highSchool: `${r.hometown.split(",")[0]} High School`, major: MAJORS[i], ...(r.height ? { height: r.height } : {}), stats: fixedStats ?? drawn,
   };
 });
 const athleticsData: Athletics = { teams: teamSeasons, athletes: athleteProfiles };
@@ -733,13 +809,15 @@ const auditCourse = (c: Course) => {
   const d = done.get(c.id);
   return { courseId: c.id, code: c.code, title: c.title, credits: c.credits, status: d ? "complete" as const : current.has(c.id) ? "in-progress" as const : "not-started" as const, ...(d ?? (current.has(c.id) ? { term: "Fall 2026" } : {})) };
 };
-const csElectives = lvl("CS", 400).slice(0, -1);
+// The B.S. capstone is CS Senior Project (program page sample courses); the other 400-level courses are electives.
+const capstone = lvl("CS", 400).find((c) => c.title === "Senior Project")!;
+const csElectives = lvl("CS", 400).filter((c) => c !== capstone);
 const groups: AuditGroup[] = [
   { name: "Lower-Division Core", requiredCredits: 0, courses: [cs(100, 0), cs(100, 1), cs(100, 2), cs(200, 0), cs(200, 1)].map(auditCourse) },
   { name: "Mathematics", requiredCredits: 0, courses: [lvl("MATH", 100)[0], lvl("MATH", 100)[1], lvl("MATH", 200)[0]].map(auditCourse) },
   { name: "Upper-Division Core", requiredCredits: 0, courses: lvl("CS", 300).slice(0, 4).map(auditCourse) },
   { name: "Upper-Division Electives (choose 3)", requiredCredits: 9, courses: csElectives.map(auditCourse) },
-  { name: "Capstone", requiredCredits: 0, courses: [lvl("CS", 400).at(-1)!].map(auditCourse) },
+  { name: "Capstone", requiredCredits: 0, courses: [capstone].map(auditCourse) },
   { name: "General Education", requiredCredits: 24, courses: [first("ENGL"), first("HIST"), first("PSYC"), first("PHYS"), first("ART"), first("MUS"), first("ENVS")].map(auditCourse) },
 ];
 for (const g of groups) if (!g.requiredCredits) g.requiredCredits = g.courses.reduce((s, c) => s + c.credits, 0);
@@ -748,26 +826,26 @@ const inProgress = schedule.reduce((s, r) => s + r.credits, 0);
 
 const ledgerRaw: [string, string, string, LedgerEntry["type"], number][] = [
   ["2026-01-05", "Spring 2026", "Balance forward from Fall 2025", "charge", 0],
-  ["2026-01-08", "Spring 2026", "Tuition – Undergraduate Resident", "charge", 3871],
-  ["2026-01-08", "Spring 2026", "Campus Fees (Student Union, Health, Instructionally Related Activities)", "charge", 1016],
-  ["2026-01-08", "Spring 2026", "Housing – Redwood Commons, Double", "charge", 6245],
-  ["2026-01-08", "Spring 2026", "Meal Plan – Owl 14", "charge", 2180],
+  ["2026-01-08", "Spring 2026", "Tuition – Undergraduate Resident", "charge", 2946],
+  ["2026-01-08", "Spring 2026", "Campus Fees (Student Success, Health, Student Union, Recreation, and other mandatory fees)", "charge", 1356],
+  ["2026-01-08", "Spring 2026", "Housing – Redwood Commons, Double", "charge", 4590],
+  ["2026-01-08", "Spring 2026", "Meal Plan – Owl 14", "charge", 3090],
   ["2026-01-12", "Spring 2026", "Federal Pell Grant", "aid", -3697.5],
-  ["2026-01-12", "Spring 2026", "Redwood Promise Grant", "aid", -3871],
+  ["2026-01-12", "Spring 2026", "Redwood Promise Grant", "aid", -2946],
   ["2026-01-12", "Spring 2026", "Federal Direct Subsidized Loan (net of origination fee)", "aid", -2721.5],
   ["2026-01-20", "Spring 2026", "Online Payment – Thank you", "payment", -1500],
-  ["2026-02-15", "Spring 2026", "Online Payment – Thank you", "payment", -1522],
-  ["2026-07-20", "Fall 2026", "Tuition – Undergraduate Resident", "charge", 3871],
-  ["2026-07-20", "Fall 2026", "Campus Fees (Student Union, Health, Instructionally Related Activities)", "charge", 1042],
-  ["2026-07-20", "Fall 2026", "Housing – Madrone Hall, Double", "charge", 6420],
-  ["2026-07-20", "Fall 2026", "Meal Plan – Owl 14", "charge", 2240],
+  ["2026-02-15", "Spring 2026", "Online Payment – Thank you", "payment", -1117],
+  ["2026-07-20", "Fall 2026", "Tuition – Undergraduate Resident", "charge", 3042],
+  ["2026-07-20", "Fall 2026", "Campus Fees (Student Success, Health, Student Union, Recreation, and other mandatory fees)", "charge", 1396],
+  ["2026-07-20", "Fall 2026", "Housing – Madrone Hall, Double", "charge", 5820],
+  ["2026-07-20", "Fall 2026", "Meal Plan – Owl 14", "charge", 3180],
   ["2026-08-17", "Fall 2026", "Federal Pell Grant", "aid", -3697.5],
-  ["2026-08-17", "Fall 2026", "Redwood Promise Grant", "aid", -3871],
+  ["2026-08-17", "Fall 2026", "Redwood Promise Grant", "aid", -3042],
   ["2026-08-17", "Fall 2026", "Federal Direct Subsidized Loan (net of origination fee)", "aid", -2721.5],
   ["2026-08-24", "Fall 2026", "Online Payment – Thank you", "payment", -1500],
-  ["2026-08-31", "Fall 2026", "Parking Permit – Semester General (G)", "charge", 238],
+  ["2026-08-31", "Fall 2026", "Parking Permit – Semester, Madrone Hall Resident (RM)", "charge", 246],
   ["2026-09-15", "Fall 2026", "Online Payment – Thank you", "payment", -1200],
-  ["2026-09-28", "Fall 2026", "Library Fine – Overdue Item", "charge", 15],
+  ["2026-09-28", "Fall 2026", "Library Fine – Overdue Course Reserve", "charge", 15],
 ];
 let bal = 0;
 const ledger: LedgerEntry[] = ledgerRaw.map(([date, term, description, type, amount]) => {
@@ -792,10 +870,10 @@ const todos: TodoItem[] = [
 const messages: PortalMessage[] = [
   { id: "msg-1", from: "Marcus Bell, Ph.D.", office: "Department of Computer Science", subject: "Spring 2027 advising appointments are open", date: addDays(SITE_NOW, -1), read: false, body: ["Hi Jordan,", "I've opened advising slots for Spring 2027 registration. Please book a 20-minute appointment before your registration time ticket on November 9. Bring a draft plan that includes your remaining upper-division core courses.", "Best,\nProf. Bell"] },
   { id: "msg-2", from: "Student Health Center", office: "Student Health Center", subject: "Action required: immunization record missing", date: "2026-09-02", read: false, body: ["Our records show your second MMR dose has not been documented. A registration hold has been placed on your account.", "Upload your record in the Patient Portal or bring it to the Wellness Center, Room 110. Holds are usually released within two business days."] },
-  { id: "msg-3", from: "Sequoia Library", office: "Access Services", subject: "Overdue item: Foundations of Algorithm Design (3rd ed.)", date: "2026-09-28", read: true, body: ["The item below is overdue and a $15.00 fine has been added to your student account.", "Call number QA76.9 .A43 R44 2023. Return it to any Sequoia Library book drop to stop further fines."] },
+  { id: "msg-3", from: "Sequoia Library", office: "Access Services", subject: "Overdue course reserve: Foundations of Algorithm Design (3rd ed.)", date: "2026-09-28", read: true, body: ["The course reserve item below was returned 15 hours late. Reserves accrue $1.00 per hour, so a $15.00 fine has been added to your student account.", "Call number QA76.9 .A43 R44 2023. Course reserves circulate for 2 hours; return them to the Access Services desk on the first floor."] },
   { id: "msg-4", from: "Student Financial Services", office: "Student Financial Services (Bursar)", subject: "Your October installment is due October 15", date: addDays(SITE_NOW, -5), read: true, body: ["This is a reminder that your next installment payment is due on October 15, 2026.", "Payments after the due date are subject to a $25 late fee. View your account and pay online in RedwoodConnect."] },
   { id: "msg-5", from: "Office of the Registrar", office: "Office of the Registrar", subject: "Spring 2027 registration time tickets posted", date: addDays(SITE_NOW, -7), read: true, body: ["Registration time tickets for Spring 2027 are now available on the Registration page.", "Resolve any holds before your appointment time. Holds prevent registration."] },
-  { id: "msg-6", from: "Career Center", office: "Career Center", subject: "Fall Career & Internship Fair – employers announced", date: addDays(SITE_NOW, -9), read: true, body: ["More than 60 employers will attend the Fall Career & Internship Fair in the Student Union, including several software and engineering firms hiring interns for summer 2027.", "Stop by the Career Center for a resume review before the fair."] },
+  { id: "msg-6", from: "Career Center", office: "Career Center", subject: "Fall Career & Internship Fair – employers announced", date: addDays(SITE_NOW, -9), read: true, body: ["More than 110 employers will attend the Fall Career & Internship Fair in Owl Arena on October 14, including several software and engineering firms hiring interns for summer 2027.", "Stop by the Career Center for a resume review before the fair."] },
   { id: "msg-7", from: "Housing & Residential Life", office: "Housing & Residential Life", subject: "Madrone Hall fire alarm testing", date: addDays(SITE_NOW, -14), read: true, body: ["Fire alarm testing will take place in Madrone Hall between 9:00 a.m. and noon. Alarms may sound several times. You do not need to evacuate during testing."] },
   { id: "msg-8", from: "Financial Aid & Scholarships", office: "Financial Aid & Scholarships", subject: "Fall 2026 aid disbursed", date: "2026-08-17", read: true, body: ["Your Fall 2026 financial aid has been applied to your student account. Any credit balance will be refunded by direct deposit within 14 days."] },
 ];

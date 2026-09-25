@@ -130,8 +130,8 @@ export const sectionPages: Record<string, PageContent> = {
             ["August 31", "Last day to add without permission number"],
             ["September 7", "Labor Day (campus closed)"],
             ["September 18", "Census date"],
-            ["October 9–11", "Homecoming & Family Weekend"],
-            ["November 2", "Spring 2027 registration begins"],
+            ["October 23–25", "Homecoming & Family Weekend"],
+            ["November 2", "Spring 2027 registration begins (by time ticket)"],
             ["November 6", "Last day to withdraw with a W"],
             ["November 11", "Veterans Day (campus closed)"],
             ["November 23–27", "Fall break (no classes)"],
@@ -251,7 +251,7 @@ export const sectionPages: Record<string, PageContent> = {
   "/athletics/schedule": {
     summary: "Composite schedule for all Redwood Owls teams, 2026–27.",
     updated: "Schedule subject to change",
-    sections: [{ paragraphs: ["All times Pacific. H = home, A = away, N = neutral site. * = conference game. Tickets: (707) 555-0196."] }],
+    sections: [{ paragraphs: ["All times Pacific. H = home, A = away, N = neutral site. * = conference game. Tickets: (707) 555-0165."] }],
   },
   "/athletics/scores": {
     summary: "Recent scores and results for the Redwood Owls.",
@@ -305,7 +305,7 @@ export const sectionPages: Record<string, PageContent> = {
     summary: "Where gifts make the greatest difference right now.",
     sections: [
       { heading: "Student Success Fund", paragraphs: ["Flexible support for scholarships, emergency grants, the Owl Pantry, and textbook assistance. Last year, emergency grants of $500 or less kept 640 students enrolled."] },
-      { heading: "First-Generation Scholars", paragraphs: ["Mentoring, summer bridge, and $3,000 annual scholarships for students who are the first in their families to attend college. The program doubled to 800 students in 2026."], links: [{ label: "Read more", href: "/news/first-gen-scholars-expands" }] },
+      { heading: "First-Generation Scholars", paragraphs: ["Mentoring, summer bridge, and $3,000 annual scholarships for students who are the first in their families to attend college. The program nearly doubled in 2026, to almost 500 students."], links: [{ label: "Read more", href: "/news/first-gen-scholars-expands" }] },
       { heading: "Institute for Coastal Forest Resilience", paragraphs: ["Endowed faculty positions and student research fellowships for the study of redwood forests, fire, and climate."] },
       { heading: "Redwood Owls Athletics", paragraphs: ["Scholarships for student-athletes and improvements to Redwood Field, including new lights and a video board."] },
       { heading: "Sequoia Library", paragraphs: ["Digitization of the Arcadia Falls Local History Archives and expanded 24-hour study space."] },
@@ -442,7 +442,7 @@ export const sectionPages: Record<string, PageContent> = {
           "(707) 555-0180",
           "hr@redwoodstate.example.edu",
           "HR Service Center: Monday–Friday, 8 a.m. to 4:30 p.m.",
-          "Director of Human Resources: Colleen Marsh",
+          "Director of Human Resources: Hector Pacheco",
         ],
         links: [
           { label: "Benefits", href: "/employees/benefits" },
@@ -598,7 +598,7 @@ export const sectionPages: Record<string, PageContent> = {
   "/portal/grades": { summary: "Midterm and final grades by term.", sections: [{ paragraphs: ["Final grades for Fall 2026 will be available December 23."] }] },
   "/portal/degree-progress": { summary: "Your degree audit: completed, in-progress, and remaining requirements.", sections: [{ paragraphs: ["This report is unofficial. Contact your advisor with questions about how courses apply to your degree."] }] },
   "/portal/account": { summary: "Charges, payments, financial aid, and refunds.", sections: [{ paragraphs: ["Spring 2027 fees are due January 8, 2027."], links: [{ label: "Tuition & Fees", href: "/admissions/tuition" }] }] },
-  "/portal/registration": { summary: "Add, drop, and swap classes.", sections: [{ paragraphs: ["Your Spring 2027 registration appointment is November 4, 2026 at 9:00 a.m."] }] },
+  "/portal/registration": { summary: "Add, drop, and swap classes.", sections: [{ paragraphs: ["Your Spring 2027 registration appointment is November 9, 2026 at 8:00 a.m."] }] },
   "/portal/holds": { summary: "Holds that may prevent registration or transcripts.", sections: [{ paragraphs: ["Resolve holds by contacting the office listed for each hold."] }] },
   "/portal/todo": { summary: "Items you need to complete.", sections: [{ paragraphs: ["Complete these items to avoid delays in registration or financial aid."] }] },
   "/portal/messages": { summary: "Messages from university offices.", sections: [{ paragraphs: ["Official university messages are also sent to your RSU email address."] }] },

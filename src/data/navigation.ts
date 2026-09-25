@@ -44,7 +44,7 @@ export const megaMenu: MegaSection[] = [
         { label: "Contact Us", href: "/contact" },
       ] },
     ],
-    feature: { title: "Deep Roots, Wide Branches", text: "Read the strategic plan guiding Redwood State through 2030.", href: "/about/strategic-plan", image: "home-hero-quad" },
+    feature: { title: "Rooted in Place", text: "Read the strategic plan guiding Redwood State through 2030.", href: "/about/strategic-plan", image: "home-hero-quad" },
   },
   {
     id: "admissions",

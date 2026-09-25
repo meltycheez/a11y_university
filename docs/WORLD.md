@@ -71,7 +71,7 @@ PhotoPine (photos), ReelWave (video), WorkCircle (professional). Icons are gener
 | Building | Use |
 |---|---|
 | Founders Hall | Administration: President, Provost, HR, payroll, admissions, financial aid, registrar, student financial services |
-| Sequoia Engineering Hall | Computer Science, Mechanical Engineering, robotics lab |
+| Sequoia Engineering Hall | Computer Science, Mechanical Engineering, Robotics and Autonomous Systems Lab (opened Aug 2026) |
 | Canopy Science Center | Biology, Chemistry, Environmental Studies, Physics |
 | Tanoak Hall | Mathematics |
 | Huckleberry Hall | Psychology |
@@ -80,14 +80,14 @@ PhotoPine (photos), ReelWave (video), WorkCircle (professional). Icons are gener
 | Laurel Hall | College of Education |
 | Salal Hall | Nursing, Nursing Simulation Center |
 | Hartwell Fine Arts Center | Art, Music; Burl Gallery, Fern Hollow Recital Hall |
-| Sequoia Library | Library, advising, disability resources |
-| Rowan Student Union | Dining, career center, clubs, Owl Pantry |
+| Sequoia Library | Library, Special Collections and the Arcadia Falls Local History Archives, Learning Center & Writing Studio, Stacks Café, advising, disability resources |
+| Rowan Student Union | Dining (The Grove Dining Commons), career center, clubs, Office of Student Involvement, Multicultural Center, First-Generation Scholars office, Owl Pantry |
 | Wellness Center | Student Health Center, counseling |
 | Owl Arena | Basketball, volleyball |
 | Redwood Field | Soccer |
 | Harlan Field | Baseball |
-| Residence halls | Madrone Hall (opened Aug 2026), Redwood Commons, Cypress Hall, Tanoak Village, Huckleberry Court, Fern Glen Apartments, Spruce Grove Apartments, Alder Family Housing, Silverfin Court |
-| Other | Corporation Yard (facilities, parking office), Tanoak Creek Field Station, Canopy Green (central lawn) |
+| Residence halls | Madrone Hall (opened Aug 2026; Housing & Residential Life office), Redwood Commons, Cypress Hall, Tanoak Village, Huckleberry Court, Fern Glen Apartments, Spruce Grove Apartments, Alder Family Housing (eight communities) |
+| Other | Corporation Yard (facilities, University Police, parking office, lost and found), Student Recreation Center (with the Outdoor Center), Tanoak Creek Field Station, Canopy Green (central lawn) |
 
 ## Names added during the fictionalization pass (2026-09-24)
 
@@ -97,3 +97,27 @@ PhotoPine (photos), ReelWave (video), WorkCircle (professional). Icons are gener
 - **Bodies:** Council for Counseling Center Accreditation (CCCA), Healthcare Simulation Standards Council.
 - **Campus:** *Fernleaf* (literary journal), Arcadia Falls Repertory Theatre, Alder Hall Gallery, North Coast Small Business Center, Drop-In Chats, Whitcomb wing of Founders Hall, Owl Radio 88.3, and clubs: Computing Society, Campus Home Builders, Catholic Student Community, Latinx Engineering Society, Women in Engineering, Women in Computing, Owl Computing Club, RSU Indigenous and Latinx Scientists Alliance.
 - **Library databases:** all vendor-neutral (Omnibus Article Search, Life Sciences Index, Clinical Nursing Collection, and so on; see `src/data/generated/databases.json`).
+
+## Names added during plan 05 (2026-09-25)
+
+- **News bylines:** Laurel Whitcomb, Adaeze Okonkwo, Lena Marsh, Priya Sandoval, Grete Lindahl, Desmond Farrow, Tunde Adebayo, Claire Morel, Corinne Hale, Dana Whitaker (plus the earlier Jenna Albright, Colin Reyes, Megan Fairweather).
+- **Publishers and journals:** Fernhaven Valley Media (regional publisher), *Journal of Western Hydrology*.
+- **Placeholder domains:** photopine.example (and photopine.example.com), reelwave.example, workcircle.example, oajournals.example.org, proxy.redwoodstate.example.edu (library proxy).
+- **Athletics:** coaches Terrence Vail (men's basketball), Andrea Whitlock (women's soccer, since 2021), Graham Torres (cross country and track); Arcadia Falls Community Forest (home cross country course).
+- **Staff named in copy (from the generated directory):** Yara Sullivan (Dean of the Library), Hector Pacheco (Director of Human Resources).
+- **Plans and campaigns:** *Strategic Plan 2030: Rooted in Place* (adopted June 2024). *Wide Branches: The Campaign for Redwood State* ($250 million by June 2030). They are separate; don't call either one "Deep Roots, Wide Branches", which is the motto.
+- **Dining:** The Grove Dining Commons, Madrone Kitchen, Tanoak Food Court, Stacks Café, Canopy Coffee, Owl Bites food truck, Canopy Farm.
+- **Employee health plans:** Canopy HMO, North Coast PPO, Redwood Health Savings Plan, alongside the Redwood Health Plan.
+- **Archives:** Arcadia Lumber Company (records 1902–1958), Arcadia Falls Logging Records Digital Collection (1885–1985), Arcadia Falls Oral History Project.
+- **Accreditation document:** PACCU Commission Action Letter (July 2021; `public/documents/paccu-action-letter-2021.pdf`).
+
+## Fixed facts
+
+Writers and generators must agree on these.
+
+- Elena Vásquez-Hart is the 13th president (since July 2021). Offices: President Founders Hall Suite 300, Provost 410, VP Administration and Finance 330, VP Research 220, VP Advancement 320 (the Advancement office), VP Student Affairs Rowan Student Union 310.
+- Spring 2027 registration opens November 2 by time ticket; Jordan Alvarez's (portal) ticket is November 9, 8:00 a.m.
+- Fall 2027 priority application deadline: December 1, 2026. Homecoming & Family Weekend: October 23–25, 2026.
+- Earliest class start is 8:00 a.m. (moved from 7:30 in fall 2025; the psychology sleep study).
+- 2025–26 external research funding: $38.9 million. Carbon-neutral campus operations target: 2035.
+- Profiled faculty and leaders' office, phone, email and office hours come from `src/data/content/people.ts`; the generator copies them into the directory.

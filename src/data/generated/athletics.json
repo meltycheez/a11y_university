@@ -3,13 +3,13 @@
     {
       "slug": "mens-basketball",
       "season": "2026–27",
-      "headCoach": "Graham Wu",
+      "headCoach": "Terrence Vail",
       "conference": "Pacific North Conference",
       "record": "0-0",
       "schedule": [
         {
           "date": "2026-11-06",
-          "time": "5:30 p.m.",
+          "time": "7:00 p.m.",
           "opponent": "Cascade State",
           "site": "Home",
           "location": "Owl Arena",
@@ -61,6 +61,22 @@
           "opponent": "Westmere University",
           "site": "Home",
           "location": "Owl Arena",
+          "conference": false
+        },
+        {
+          "date": "2026-11-27",
+          "time": "5:00 p.m.",
+          "opponent": "Copper Creek State",
+          "site": "Neutral",
+          "location": "Mirage Valley, Nev.",
+          "conference": false
+        },
+        {
+          "date": "2026-11-28",
+          "time": "7:00 p.m.",
+          "opponent": "Juniper Valley College",
+          "site": "Neutral",
+          "location": "Mirage Valley, Nev.",
           "conference": false
         },
         {
@@ -278,8 +294,8 @@
           "name": "Noah Lindgren",
           "position": "C",
           "classYear": "So.",
-          "hometown": "Ridgeport, Calif.",
-          "height": "5-11",
+          "hometown": "Arcadia Falls, Calif.",
+          "height": "6-10",
           "athleteSlug": "noah-lindgren"
         },
         {
@@ -317,8 +333,8 @@
         {
           "number": "39",
           "name": "Jordan Whitfield",
-          "position": "G/F",
-          "classYear": "Gr.",
+          "position": "G",
+          "classYear": "Jr.",
           "hometown": "Alder Cove, Calif.",
           "height": "6-2",
           "athleteSlug": "jordan-whitfield"
@@ -684,86 +700,14 @@
     {
       "slug": "womens-soccer",
       "season": "2026",
-      "headCoach": "Ben Mahoney",
+      "headCoach": "Andrea Whitlock",
       "conference": "Pacific North Conference",
-      "record": "5-5",
+      "record": "10-1-1",
       "schedule": [
         {
           "date": "2026-08-21",
-          "time": "4:00 p.m.",
-          "opponent": "Cascade State",
-          "site": "Home",
-          "location": "Redwood Field",
-          "conference": false,
-          "result": {
-            "outcome": "W",
-            "score": "4-2"
-          }
-        },
-        {
-          "date": "2026-08-25",
-          "time": "1:00 p.m.",
-          "opponent": "Harbor Point University",
-          "site": "Away",
-          "location": "Harbor Point University",
-          "conference": false,
-          "result": {
-            "outcome": "W",
-            "score": "2-1"
-          }
-        },
-        {
-          "date": "2026-08-28",
           "time": "7:00 p.m.",
-          "opponent": "North Shore University",
-          "site": "Home",
-          "location": "Redwood Field",
-          "conference": false,
-          "result": {
-            "outcome": "L",
-            "score": "0-4"
-          }
-        },
-        {
-          "date": "2026-09-01",
-          "time": "4:00 p.m.",
-          "opponent": "Amberfield University",
-          "site": "Home",
-          "location": "Redwood Field",
-          "conference": false,
-          "result": {
-            "outcome": "L",
-            "score": "3-4"
-          }
-        },
-        {
-          "date": "2026-09-05",
-          "time": "4:00 p.m.",
-          "opponent": "North Shore University",
-          "site": "Home",
-          "location": "Redwood Field",
-          "conference": true,
-          "result": {
-            "outcome": "W",
-            "score": "1-0"
-          }
-        },
-        {
-          "date": "2026-09-12",
-          "time": "1:00 p.m.",
-          "opponent": "North Shore University",
-          "site": "Away",
-          "location": "North Shore University",
-          "conference": true,
-          "result": {
-            "outcome": "L",
-            "score": "0-1"
-          }
-        },
-        {
-          "date": "2026-09-15",
-          "time": "1:00 p.m.",
-          "opponent": "Juniper Valley College",
+          "opponent": "Westmere University",
           "site": "Home",
           "location": "Redwood Field",
           "conference": false,
@@ -773,93 +717,149 @@
           }
         },
         {
-          "date": "2026-09-18",
-          "time": "4:00 p.m.",
-          "opponent": "Cascade State",
-          "site": "Neutral",
-          "location": "Mirage Valley, Nev.",
-          "conference": true,
+          "date": "2026-08-23",
+          "time": "1:00 p.m.",
+          "opponent": "Granite Bluff University",
+          "site": "Away",
+          "location": "Granite Bluff University",
+          "conference": false,
+          "result": {
+            "outcome": "W",
+            "score": "1-0"
+          }
+        },
+        {
+          "date": "2026-08-28",
+          "time": "7:00 p.m.",
+          "opponent": "Amberfield University",
+          "site": "Home",
+          "location": "Redwood Field",
+          "conference": false,
           "result": {
             "outcome": "L",
             "score": "0-1"
           }
         },
         {
-          "date": "2026-09-25",
+          "date": "2026-08-30",
           "time": "1:00 p.m.",
-          "opponent": "Summit State",
-          "site": "Neutral",
-          "location": "Mirage Valley, Nev.",
-          "conference": true,
+          "opponent": "Juniper Valley College",
+          "site": "Away",
+          "location": "Juniper Valley College",
+          "conference": false,
           "result": {
-            "outcome": "W",
-            "score": "4-2"
+            "outcome": "T",
+            "score": "1-1"
           }
         },
         {
-          "date": "2026-10-02",
+          "date": "2026-09-04",
           "time": "4:00 p.m.",
+          "opponent": "Foxglove College",
+          "site": "Home",
+          "location": "Redwood Field",
+          "conference": false,
+          "result": {
+            "outcome": "W",
+            "score": "3-0"
+          }
+        },
+        {
+          "date": "2026-09-06",
+          "time": "1:00 p.m.",
           "opponent": "Copper Creek State",
           "site": "Away",
           "location": "Copper Creek State",
           "conference": false,
           "result": {
-            "outcome": "L",
-            "score": "0-2"
+            "outcome": "W",
+            "score": "2-1"
+          }
+        },
+        {
+          "date": "2026-09-11",
+          "time": "7:00 p.m.",
+          "opponent": "North Shore University",
+          "site": "Home",
+          "location": "Redwood Field",
+          "conference": true,
+          "result": {
+            "outcome": "W",
+            "score": "2-0"
+          }
+        },
+        {
+          "date": "2026-09-13",
+          "time": "1:00 p.m.",
+          "opponent": "Stonebridge Tech",
+          "site": "Away",
+          "location": "Stonebridge Tech",
+          "conference": true,
+          "result": {
+            "outcome": "W",
+            "score": "1-0"
+          }
+        },
+        {
+          "date": "2026-09-18",
+          "time": "7:00 p.m.",
+          "opponent": "Timberline College",
+          "site": "Home",
+          "location": "Redwood Field",
+          "conference": true,
+          "result": {
+            "outcome": "W",
+            "score": "4-0"
+          }
+        },
+        {
+          "date": "2026-09-20",
+          "time": "1:00 p.m.",
+          "opponent": "Harbor Point University",
+          "site": "Away",
+          "location": "Harbor Point University",
+          "conference": true,
+          "result": {
+            "outcome": "W",
+            "score": "2-0"
+          }
+        },
+        {
+          "date": "2026-09-25",
+          "time": "4:00 p.m.",
+          "opponent": "Kestrel Bay State",
+          "site": "Home",
+          "location": "Redwood Field",
+          "conference": true,
+          "result": {
+            "outcome": "W",
+            "score": "3-0"
+          }
+        },
+        {
+          "date": "2026-10-01",
+          "time": "7:00 p.m.",
+          "opponent": "Summit State",
+          "site": "Home",
+          "location": "Redwood Field",
+          "conference": true,
+          "result": {
+            "outcome": "W",
+            "score": "2-1"
           }
         },
         {
           "date": "2026-10-09",
-          "time": "4:00 p.m.",
-          "opponent": "Harbor Point University",
-          "site": "Home",
-          "location": "Redwood Field",
-          "conference": true
-        },
-        {
-          "date": "2026-10-13",
-          "time": "4:00 p.m.",
-          "opponent": "Harbor Point University",
-          "site": "Away",
-          "location": "Harbor Point University",
-          "conference": true
-        },
-        {
-          "date": "2026-10-17",
           "time": "7:00 p.m.",
-          "opponent": "Foxglove College",
-          "site": "Home",
-          "location": "Redwood Field",
-          "conference": false
+          "opponent": "Cascade State",
+          "site": "Away",
+          "location": "Cascade State",
+          "conference": true
         },
         {
           "date": "2026-10-24",
-          "time": "4:00 p.m.",
+          "time": "1:00 p.m.",
           "opponent": "Cedar Valley University",
-          "site": "Neutral",
-          "location": "Mirage Valley, Nev.",
-          "conference": true
-        },
-        {
-          "date": "2026-10-27",
-          "time": "4:00 p.m.",
-          "opponent": "Copper Creek State",
-          "site": "Home",
-          "location": "Redwood Field",
-          "conference": false
-        },
-        {
-          "date": "2026-10-31",
-          "time": "4:00 p.m.",
-          "opponent": "Cedar Valley University",
-          "site": "Away",
-          "location": "Cedar Valley University",
-          "conference": true
-        },
-        {
-          "date": "2026-11-07",
-          "time": "4:00 p.m.",
-          "opponent": "Harbor Point University",
           "site": "Home",
           "location": "Redwood Field",
           "conference": true
@@ -890,8 +890,8 @@
         {
           "number": "13",
           "name": "Maya Delgado",
-          "position": "M",
-          "classYear": "Gr.",
+          "position": "F",
+          "classYear": "Sr.",
           "hometown": "Alder Cove, Calif.",
           "athleteSlug": "maya-delgado"
         },
@@ -920,7 +920,7 @@
           "number": "21",
           "name": "Sierra Blackwood",
           "position": "D",
-          "classYear": "So.",
+          "classYear": "Jr.",
           "hometown": "Makani Point, Hawaii",
           "athleteSlug": "sierra-blackwood"
         },
@@ -2020,27 +2020,27 @@
       "name": "Maya Delgado",
       "team": "womens-soccer",
       "number": "13",
-      "position": "M",
-      "classYear": "Gr.",
+      "position": "F",
+      "classYear": "Sr.",
       "hometown": "Alder Cove, Calif.",
       "highSchool": "Alder Cove High School",
       "major": "Kinesiology",
       "stats": [
         {
           "label": "GP",
-          "value": "10"
+          "value": "12"
         },
         {
           "label": "Goals",
-          "value": "9"
+          "value": "13"
         },
         {
           "label": "Assists",
-          "value": "7"
+          "value": "5"
         },
         {
           "label": "Shots",
-          "value": "35"
+          "value": "41"
         }
       ]
     },
@@ -2049,8 +2049,8 @@
       "name": "Jordan Whitfield",
       "team": "mens-basketball",
       "number": "39",
-      "position": "G/F",
-      "classYear": "Gr.",
+      "position": "G",
+      "classYear": "Jr.",
       "hometown": "Alder Cove, Calif.",
       "highSchool": "Alder Cove High School",
       "major": "Biology",
@@ -2173,7 +2173,7 @@
       "classYear": "Sr.",
       "hometown": "Fernhaven, Calif.",
       "highSchool": "Fernhaven High School",
-      "major": "Environmental Studies",
+      "major": "Nursing",
       "stats": [
         {
           "label": "8K PR",
@@ -2196,10 +2196,10 @@
       "number": "26",
       "position": "C",
       "classYear": "So.",
-      "hometown": "Ridgeport, Calif.",
-      "highSchool": "Ridgeport High School",
-      "major": "Nursing",
-      "height": "5-11",
+      "hometown": "Arcadia Falls, Calif.",
+      "highSchool": "Arcadia Falls High School",
+      "major": "Environmental Studies",
+      "height": "6-10",
       "stats": [
         {
           "label": "PPG",
@@ -2225,7 +2225,7 @@
       "team": "womens-soccer",
       "number": "21",
       "position": "D",
-      "classYear": "So.",
+      "classYear": "Jr.",
       "hometown": "Makani Point, Hawaii",
       "highSchool": "Makani Point High School",
       "major": "Communication",
@@ -2236,15 +2236,15 @@
         },
         {
           "label": "Goals",
-          "value": "4"
+          "value": "1"
         },
         {
           "label": "Assists",
-          "value": "6"
+          "value": "2"
         },
         {
           "label": "Shots",
-          "value": "22"
+          "value": "6"
         }
       ]
     }

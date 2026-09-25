@@ -15,7 +15,7 @@ const lateNight = (row: string[]) => /1[01]:00 p\.m\./.test(row[1]);
 // (images.json itself stays out of the client bundle, ADR-018).
 const flyerText =
   (sizes as Record<string, { alt: string }>)[FLYER]?.alt ??
-  "Canopy Commons fall hours. Monday to Friday 7 AM to 9 PM. Saturday and Sunday 9 AM to 7 PM.";
+  "The Grove this week. Monday: rockfish tacos. Wednesday: mushroom barley stew. Friday: wood-fired pizza. Open weekdays 7 AM to 9 PM, weekends 9 AM to 8 PM.";
 
 export default function Dining() {
   const [intro, plans, locations, menu] = content("/students/dining")!.sections;
