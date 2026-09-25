@@ -1,19 +1,15 @@
 // Temporary page used by every route until its real template lands (plan 05).
 // It renders the section's chrome, title, breadcrumbs, and links to child pages so navigation can be exercised.
-import type { MetaFunction } from "react-router";
 import { Link } from "react-router";
 import { Callout } from "~/components/Callout";
-import { pageContent, type PageSection } from "~/data/content/pages";
+import { ContentSection } from "~/components/blocks";
+import { pageContent } from "~/data/content/pages";
 import { Hero } from "~/components/Hero";
-import { pageTitle } from "~/data/brand";
 import { sections } from "~/layouts/sections";
 import { getChildren, getEntry } from "~/routes/inventory";
 import { usePathname } from "~/routes/usePathname";
 
-export const meta: MetaFunction = ({ location }) => {
-  const entry = getEntry(location.pathname);
-  return [{ title: pageTitle(entry?.title ?? "Page") }];
-};
+export { inventoryMeta as meta } from "~/routes/meta";
 
 export default function StubPage() {
   const pathname = usePathname();
@@ -62,30 +58,3 @@ export default function StubPage() {
   );
 }
 
-/** Generic renderer for hand-written page copy until each page gets its own template (plan 05). */
-function ContentSection({ section }: { section: PageSection }) {
-  const { heading, paragraphs, list, table, links } = section;
-  return (
-    <section className="stack">
-      {heading && <h2>{heading}</h2>}
-      {paragraphs?.map((p, i) => <p key={i}>{p}</p>)}
-      {list && <ul>{list.map((item, i) => <li key={i}>{item}</li>)}</ul>}
-      {table && (
-        <div className="table-scroll">
-          <table>
-            {table.caption && <caption>{table.caption}</caption>}
-            <thead><tr>{table.columns.map((c) => <th key={c} scope="col">{c}</th>)}</tr></thead>
-            <tbody>{table.rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j}>{cell}</td>)}</tr>)}</tbody>
-          </table>
-        </div>
-      )}
-      {links && (
-        <ul className="link-list">
-          {links.map((l) => (
-            <li key={l.href + l.label}>{l.href.startsWith("/documents/") || l.href.startsWith("http") ? <a href={l.href.startsWith("/") ? import.meta.env.BASE_URL + l.href.slice(1) : l.href}>{l.label}</a> : <Link to={l.href}>{l.label}</Link>}</li>
-          ))}
-        </ul>
-      )}
-    </section>
-  );
-}

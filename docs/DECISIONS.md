@@ -27,6 +27,9 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 | [020](#adr-020) | 2026-09-24 | Brand marks are React SVG components in `Logo.tsx` | Accepted | 04 |
 | [021](#adr-021) | 2026-09-24 | Everything named is fictional; `docs/WORLD.md` is the gazetteer | Accepted | 03, 04 |
 | [022](#adr-022) | 2026-09-25 | Flow images are taken from the agent chat as `=s0` originals by a standalone runner | Accepted | 04 |
+| [023](#adr-023) | 2026-09-25 | Route modules follow a file convention; no inventory edits per page | Accepted | 05 |
+| [024](#adr-024) | 2026-09-25 | Plan 05 builds page-level defects with the pages; widgets, chrome and terrible pages wait | Accepted | 05, 06, 07 |
+| [025](#adr-025) | 2026-09-25 | Section CSS fixes are colocated in the section stylesheet | Accepted | 05 |
 
 ---
 
@@ -95,3 +98,12 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 
 ### ADR-022
 **Standalone Flow runner, chat-based capture.** Flow's Download menu crashes Chrome (under the MCP and plain Playwright alike), and mid-run Flow's agent began filing images into collections while tile URLs switched to WebP thumbnails, which broke top-of-grid detection. `scripts/flow/run-flow.mjs` drives the MCP's signed-in Chrome profile directly, starts a fresh agent session per batch, tells the agent not to use collections, takes each new image from the agent chat (`img[alt^="Option"]`), and fetches the original JPEG by rewriting the URL suffix to `=s0`. Guards delete byte-identical duplicates and wrong-aspect results so they regenerate, and the run stops cleanly on Flow's usage limit. A visual contact-sheet review is still required: one near-duplicate (a re-sent earlier image) passed both guards.
+
+### ADR-023
+**Route file convention.** `src/routes.ts` maps each inventory route without an explicit module to `src/pages/<path>.tsx` or `src/pages/<path>/index.tsx`, with `:slug` written `$slug` (`/news/:slug` → `pages/news/$slug.tsx`). Until the file exists the route renders `StubPage`. Pages use `export { inventoryMeta as meta } from "~/routes/meta"` for titles. This lets several people (or agents) add pages in parallel without touching `inventory.ts`.
+
+### ADR-024
+**Scope split for pages.** Plan 05 builds every page's content, templates and blocks, and adds that page's own defects as it's built (guiding rule: defects are written with the page), registered in the area's registry file. It does not build defect variants of shared widgets (tabs, accordion, modal, dropdown, date picker: plan 06 #12), interactive features (plan 06), global chrome defects or the six terrible pages (plan 07). Those routes get static, content-complete shells that the later plans replace. `rules.ts` now holds the full plan 07 taxonomy (about 90 keys) with coverage `areas`; the seed scenarios were renamed to those keys.
+
+### ADR-025
+**Colocated CSS fixes.** A section's defective CSS and its `.a11y-fix-errors` / `.a11y-fix-alerts` / `.a11y-fix-manual` overrides live together in that section's stylesheet (`src/styles/sections/*.css`), so each section is self-contained. `src/styles/fixes/*.css` is kept for global chrome and the home page.

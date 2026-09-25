@@ -1,4 +1,4 @@
-import type { RuleKey } from "../rules";
+import type { Area, RuleKey } from "../rules";
 import type { Category } from "../state";
 
 /** What a registry file declares. Category, WCAG and detections default from the rule. */
@@ -14,11 +14,14 @@ export interface ScenarioDef {
   mechanism: "markup" | "css" | "behavior" | "document";
   severity?: "minor" | "moderate" | "serious" | "critical";
   wcag?: string[];
+  /** Coverage areas; defaults to the rule's. */
+  areas?: Area[];
   detectedBy?: { wave?: string[]; axe?: string[]; manualOnly?: boolean };
 }
 
 export interface Scenario extends ScenarioDef {
   category: Category;
   wcag: string[];
+  areas: Area[];
   detectedBy: { wave?: string[]; axe?: string[]; manualOnly?: boolean };
 }

@@ -15,7 +15,7 @@ export const globalScenarios: ScenarioDef[] = [
   },
   {
     id: "nav-megamenu-hover-001",
-    rule: "hover-only-menu",
+    rule: "kbd-hover-only-menu",
     title: "Mega menu opens on hover only",
     description: "Main navigation panels open on mouse hover. Keyboard and touch users can reach the top-level links but never the panel links.",
     fixDescription: "Replaces the hover menu with disclosure buttons that open on Enter/Space, close on Escape, and return focus.",

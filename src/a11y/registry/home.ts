@@ -14,7 +14,7 @@ export const homeScenarios: ScenarioDef[] = [
   },
   {
     id: "home-hero-img-alt-001",
-    rule: "alt-missing",
+    rule: "img-missing-alt",
     title: "Hero photo has no alt attribute",
     description: "The home hero photo has no alt attribute, so screen readers may announce the file name.",
     fixDescription: "Adds alt text describing the photo.",
@@ -25,7 +25,7 @@ export const homeScenarios: ScenarioDef[] = [
   },
   {
     id: "home-program-finder-label-001",
-    rule: "form-label-missing",
+    rule: "input-missing-label",
     title: "Program finder input has no label",
     description: "The visible \"Find your program\" text is a paragraph, not a <label>, so the input has no accessible name.",
     fixDescription: "Turns the text into a <label> associated with the input.",
@@ -69,7 +69,7 @@ export const homeScenarios: ScenarioDef[] = [
   },
   {
     id: "home-card-meta-contrast-001",
-    rule: "contrast-low",
+    rule: "contrast-text-low",
     title: "Card category labels have low contrast",
     description: "The small uppercase category label on each card is light gray (#a8a8a0, about 2.4:1).",
     fixDescription: "Uses the muted text token (#5c5c56, about 6.6:1).",
