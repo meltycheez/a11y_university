@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "node scripts/build-search-index.ts && react-router build && node scripts/postbuild.mjs",
+    "build": "node scripts/build-search-index.ts && (react-router build || react-router build) && node scripts/postbuild.mjs",
     "preview": "serve build/client -l 4173",
     "typecheck": "react-router typegen && tsc",
     "gen:data": "node scripts/generate-data.ts",

@@ -8,9 +8,6 @@ export default {
   prerender: {
     paths: () => [...allRoutePaths(), "/404"],
     concurrency: 4,
-    // The prerender fetch to the local preview server occasionally drops on Windows ("Request failed" with an empty message).
-    retryCount: 3,
-    retryDelay: 2000,
   },
   basename: process.env.BASE_PATH ?? "/",
 } satisfies Config;

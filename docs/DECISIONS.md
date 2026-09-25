@@ -30,6 +30,7 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 | [023](#adr-023) | 2026-09-25 | Route modules follow a file convention; no inventory edits per page | Accepted | 05 |
 | [024](#adr-024) | 2026-09-25 | Plan 05 builds page-level defects with the pages; widgets, chrome and terrible pages wait | Accepted | 05, 06, 07 |
 | [025](#adr-025) | 2026-09-25 | Section CSS fixes are colocated in the section stylesheet | Accepted | 05 |
+| [026](#adr-026) | 2026-09-25 | `npm run build` retries the React Router build once | Accepted | 01 |
 
 ---
 
@@ -107,3 +108,6 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 
 ### ADR-025
 **Colocated CSS fixes.** A section's defective CSS and its `.a11y-fix-errors` / `.a11y-fix-alerts` / `.a11y-fix-manual` overrides live together in that section's stylesheet (`src/styles/sections/*.css`), so each section is self-contained. `src/styles/fixes/*.css` is kept for global chrome and the home page.
+
+### ADR-026
+**Build retries once.** Prerendering occasionally fails on Windows with "Prerender: Request failed for /<path>/:" and an empty message: the request to React Router's local preview server drops. React Router's prerender runner has `retryCount`/`retryDelay`, but only `concurrency` is passed through from `react-router.config.ts`, so the `build` script runs `react-router build` a second time if the first fails. Remove this when the underlying drop is fixed upstream or traced.
