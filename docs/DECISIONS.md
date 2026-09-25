@@ -36,6 +36,7 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 | [029](#adr-029) | 2026-09-25 | Section defects in layout chrome are scoped with `:has()` on a page root | Accepted | 05 |
 | [030](#adr-030) | 2026-09-25 | Device-dependent handler scenarios are manual-only under React | Accepted | 05, 07 |
 | [031](#adr-031) | 2026-09-25 | `link-javascript` defects use `href="#"` plus a click handler | Accepted | 05, 07 |
+| [032](#adr-032) | 2026-09-25 | Widget defect variants are props on the shared widgets | Accepted | 06 |
 
 ---
 
@@ -131,3 +132,6 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 
 ### ADR-031
 **`javascript:` links.** React 19 blocks `javascript:` URLs, so `link-javascript` scenarios use `href="#"` with a click handler. WAVE reports `#` links under the same family; plan 09 confirms the detection.
+
+### ADR-032
+**Widget variants as props, not parallel files.** Plan 06 sketched `widgets/Tabs/TabsFixed.tsx`, `TabsBrokenKeyboard.tsx` and so on. Instead each shared widget takes `scenario` and `defect` props and switches markup internally: `Tabs` (broken-keys, no-roles, bad-children), `Accordion` (no-state, div-trigger), `Modal` (no-trap, no-restore, no-semantics), and new `Dropdown`, `DatePicker` and `Toast` in `components/widgets.tsx`. Existing callers keep the accessible version unchanged. Fixed versions follow the APG patterns, and prefer native elements where they are the accessible choice (`<select>`, `<input type="date">`, `<dialog>`). Interactive state uses `createStore` from `~/lib/interactive` (module memory, reset on reload), and fake latency is fixed per action key so runs stay reproducible.
