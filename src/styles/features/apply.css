@@ -1,1 +1,70 @@
 /* Plan 06 feature: apply. Feature CSS and its colocated .a11y-fix-* overrides. */
+.apply-intro { max-width: 50rem; }
+.apply-card { background: #fff; border-radius: 24px; padding: var(--space-6); box-shadow: 0 10px 30px rgb(122 46 31 / 0.1); max-width: 54rem; }
+@media (max-width: 40rem) { .apply-card { padding: var(--space-4); border-radius: 16px; } }
+
+/* Progress. apply-stepper-state-001: current/done shown by color only (fixed adds aria-current + hidden text). */
+.apply-steps { list-style: none; padding: 0; margin: 0 0 var(--space-6); display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); counter-reset: none; }
+.apply-step { display: grid; justify-items: center; gap: var(--space-1); text-align: center; font-size: 0.9rem; color: var(--gray-600); }
+.apply-step-num { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--gray-100); font-weight: 700; }
+.apply-step.is-current .apply-step-num { background: var(--brand-redwood); color: #fff; }
+.apply-step.is-current { color: var(--gray-900); font-weight: 650; }
+.apply-step.is-done .apply-step-num { background: #f3dcd2; color: var(--brand-redwood-dark); }
+@media (max-width: 40rem) { .apply-step-label { font-size: 0.75rem; } }
+
+.apply-step-title { font-size: 1.5rem; margin: 0 0 var(--space-2); }
+.apply-step-title:focus, .apply-done h2:focus { outline: none; }
+.apply-note { font-size: 0.95rem; color: var(--color-text-muted); margin: 0 0 var(--space-4); }
+.apply-form .field { display: grid; gap: var(--space-1); margin-bottom: var(--space-4); }
+.apply-form input:not([type="radio"]):not([type="checkbox"]), .apply-form select, .apply-form textarea {
+  font: inherit; padding: 0.6rem 0.9rem; border: 1px solid var(--gray-400); border-radius: 12px; max-width: 32rem;
+}
+.apply-form textarea { max-width: 100%; border-radius: 12px; }
+.apply-form label, .apply-label, .apply-form legend { font-weight: 650; }
+.apply-label { margin: 0; }
+.apply-hint { font-size: 0.9rem; color: var(--color-text-muted); margin: 0; }
+.apply-short { width: 7rem; }
+
+/* apply-required-color-001: required labels in red only. */
+.apply-req { color: #d0342c; }
+
+.apply-group { border: 1px solid var(--gray-200); border-radius: 16px; padding: var(--space-4) var(--space-5); margin: 0 0 var(--space-5); }
+.apply-group > legend { font-size: 1.1rem; padding: 0 var(--space-2); }
+.apply-flat .field, .apply-flat .apply-date { margin-bottom: var(--space-3); }
+
+.apply-date { border: 0; padding: 0; margin: 0 0 var(--space-4); }
+.apply-date-row { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.apply-date-row label { font-weight: 500; font-size: 0.9rem; }
+.apply-form .apply-date-m, .apply-form .apply-date-d { width: 3.5rem; }
+.apply-form .apply-date-y { width: 5rem; }
+
+.apply-radios { border: 0; padding: 0; margin: 0 0 var(--space-4); display: grid; gap: var(--space-2); }
+.apply-radio, .apply-check { display: flex; gap: var(--space-2); align-items: center; font-weight: 400 !important; }
+.apply-check { margin-bottom: var(--space-4); }
+.apply-dropdown { margin-bottom: var(--space-4); }
+.apply-dropdown--req .field-label { color: #d0342c; }
+
+.apply-prompt { margin: 0; font-size: 0.95rem; }
+.apply-count { font-size: 0.85rem; color: var(--color-text-muted); margin: 0; text-align: right; }
+.apply-count.is-over { color: #a3271b; font-weight: 650; }
+
+.apply-error { color: #a3271b; font-size: 0.95rem; font-weight: 600; margin: 0; }
+.apply-summary:empty { display: none; }
+.apply-summary { border: 2px solid #a3271b; background: #fdf1ef; border-radius: 12px; padding: var(--space-3) var(--space-4); margin-bottom: var(--space-4); }
+.apply-summary-title { font-weight: 700; margin: 0 0 var(--space-1); }
+.apply-summary ul { margin: 0; padding-left: 1.2rem; }
+
+.apply-review-section { border-bottom: 1px solid var(--gray-200); padding-bottom: var(--space-3); margin-bottom: var(--space-4); }
+.apply-review-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); }
+.apply-review-head h3, .apply-review-head h4 { margin: 0 0 var(--space-2); font-size: 1.1rem; }
+.apply-review-section dl { display: grid; gap: var(--space-1); margin: 0; }
+.apply-review-section dl div { display: grid; grid-template-columns: 9rem 1fr; gap: var(--space-3); }
+.apply-review-section dt { color: var(--gray-600); font-weight: 600; }
+.apply-review-section dd { margin: 0; }
+.apply-edit { font: inherit; background: none; border: 0; padding: 0; color: var(--color-link); text-decoration: underline; cursor: pointer; }
+
+.apply-nav { display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); margin-top: var(--space-5); }
+.apply-nav .btn--primary { margin-left: auto; }
+.apply-back { font-weight: 650; }
+.apply-submitting { font-weight: 650; }
+.apply-code { font-family: ui-monospace, monospace; font-size: 1.2rem; }

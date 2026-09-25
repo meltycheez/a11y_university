@@ -1,1 +1,98 @@
-/* Plan 06 feature: registration. Feature CSS and its colocated .a11y-fix-* overrides. */
+/* Plan 06 feature: registration (/portal/registration). Defects sit next to their .a11y-fix-* override (ADR-025). */
+.rg-intro p { margin: 0 0 var(--space-2); }
+.rg-term { max-width: 18rem; margin-top: var(--space-3); }
+.rg-term .field { margin-bottom: 0; }
+
+/* portal-reg-layout-reflow-001: the two columns never stack, so small viewports / 200% zoom scroll sideways. */
+.rg-layout { display: grid; grid-template-columns: 22rem minmax(0, 1fr); gap: var(--space-4); align-items: start; min-width: 64rem; }
+.a11y-fix-manual .rg-layout { min-width: 0; }
+@media (max-width: 60rem) { .a11y-fix-manual .rg-layout { grid-template-columns: minmax(0, 1fr); } }
+.rg-main { background: #fff; border: 1px solid #d3d9e0; border-radius: 4px; padding: var(--space-2) var(--space-4) var(--space-4); min-width: 0; }
+.rg-main .tab-panel { padding-block: var(--space-3); }
+.site--portal .rg-main .tab.is-active { color: #0b5cad; border-bottom-color: #0b5cad; }
+.rg-main h2 { margin: var(--space-3) 0 var(--space-2); }
+
+/* Search form */
+.rg-search-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0 var(--space-4); align-items: end; }
+.rg-search-form select, .rg-quick input { font: inherit; padding: var(--space-2) var(--space-3); border: 1px solid var(--gray-600); border-radius: var(--radius-sm); background: #fff; }
+.rg-search-actions { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-4); }
+.rg-adv { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: end; background: #f5f7fa; padding: var(--space-3); border-radius: 4px; margin-bottom: var(--space-3); }
+.rg-adv.is-collapsed { max-height: 0; padding: 0; margin: 0; overflow: hidden; } /* portal-reg-adv-hidden-focus-001: hidden visually only */
+.rg-adv .field { margin: 0; }
+.rg-check { display: flex; gap: var(--space-2); align-items: center; }
+.rg-count { font-weight: 600; }
+
+/* Results grid: the defective <div> version borrows table layout so both states look the same. */
+.rg-course { margin-bottom: var(--space-4); }
+.site--portal .rg-course-title { margin: 0 0 var(--space-2); font-size: 1rem; }
+.rg-grid { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.rg-grid--div { display: table; }
+.rg-grid--div .rg-head { display: table-header-group; }
+.rg-grid--div .rg-body { display: table-row-group; }
+.rg-grid--div .rg-row { display: table-row; }
+.rg-grid--div .rg-cell { display: table-cell; }
+.rg-grid [hidden] { display: none; }
+.rg-grid .rg-cell { border: 1px solid #dfe4ea; padding: 0.35rem 0.6rem; text-align: start; vertical-align: middle; }
+.rg-grid .rg-head .rg-cell { background: #f0f3f7; font-weight: 600; white-space: nowrap; }
+.rg-details .rg-cell { background: #f8fafc; color: #2b3a4a; }
+.rg-seat { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 2px; vertical-align: middle; } /* portal-reg-seats-color-001 */
+.rg-seat--open { background: #2e7d32; }
+.rg-seat--few { background: #f59e0b; }
+.rg-seat--full { background: #c62828; }
+.rg-seat-text { margin-left: var(--space-2); white-space: nowrap; }
+.rg-add { width: 1.9rem; height: 1.9rem; color: #0b5cad; border-color: #9fb6d0; }
+.rg-in { font-size: 0.8rem; font-weight: 600; color: #2b3a4a; }
+.rg-seats-note { font-size: 10px; color: #5b6673; } /* portal-reg-seats-note-small-001 */
+.a11y-fix-alerts .rg-seats-note { font-size: 0.875rem; }
+
+/* Cart */
+.rg-cart { position: sticky; top: var(--space-3); }
+.site--portal .rg-cart-heading { margin: 0 0 var(--space-3); font-size: 1.15rem; }
+.rg-cart-heading:focus { outline: none; }
+.rg-cart-heading:focus-visible { outline: 3px solid #0b5cad; outline-offset: 2px; }
+.rg-cart-list { list-style: none; margin: 0 0 var(--space-3); padding: 0; }
+.rg-cart-item { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; gap: var(--space-2); align-items: start; padding: var(--space-2); border: 1px solid #dfe4ea; border-left: 4px solid #0b5cad; border-radius: 3px; margin-bottom: var(--space-2); background: #fff; cursor: grab; }
+.rg-grip { width: 0.6rem; height: 1.4rem; background: radial-gradient(circle, #8a96a3 1.5px, transparent 1.6px) 0 0 / 0.3rem 0.35rem; }
+.rg-prio { font-weight: 700; color: #5b6673; }
+.rg-cart-body { min-width: 0; font-size: 0.875rem; }
+.rg-cart-when { display: block; color: #5b6673; }
+.rg-conflict { border-left-color: #c62828; background: #fff5f5; } /* portal-reg-conflict-color-001: red border only */
+.rg-conflict .rg-cart-when { color: #c62828; }
+.rg-conflict-msg { margin: 0; color: #b42318; font-weight: 600; }
+.rg-conflict-msg:empty { display: none; }
+.rg-conflict-msg svg, .rg-over svg { vertical-align: -2px; margin-right: 0.25rem; }
+.rg-cart-actions { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-1); font-size: 0.85rem; }
+.rg-move { width: 1.75rem; height: 1.5rem; border: 1px solid #9fb6d0; border-radius: 3px; background: #fff; cursor: pointer; line-height: 1; }
+.rg-move[aria-disabled="true"] { opacity: 0.5; cursor: default; }
+.rg-cart a:focus, .rg-cart button:focus, .rg-cart input:focus { outline: none; } /* portal-reg-cart-focus-ring-001 */
+.a11y-fix-manual .rg-cart a:focus-visible, .a11y-fix-manual .rg-cart button:focus-visible, .a11y-fix-manual .rg-cart input:focus-visible { outline: 3px solid #0b5cad; outline-offset: 2px; }
+.rg-cart-note { font-size: 0.8rem; color: #a3adb8; margin-bottom: 0; } /* portal-reg-footnote-contrast-001: ~2.3:1 */
+.a11y-fix-manual .rg-cart-note { color: #5b6673; }
+.rg-meter-wrap { margin-bottom: var(--space-3); }
+.rg-meter-label { margin: 0 0 var(--space-1); font-size: 0.875rem; }
+.rg-meter { height: 0.6rem; background: #e6ebf1; border: 1px solid #8a96a3; border-radius: 2px; overflow: hidden; }
+.rg-meter-fill { height: 100%; background: #0b5cad; }
+.rg-over { margin: var(--space-1) 0 0; color: #b42318; font-weight: 600; font-size: 0.85rem; }
+.rg-quick { display: flex; flex-wrap: wrap; align-items: end; gap: 0 var(--space-2); border-top: 1px solid #e6ebf1; padding-top: var(--space-3); margin-top: var(--space-3); }
+.rg-quick .field { margin: 0; flex: 1 1 8rem; }
+.rg-quick input { width: 100%; }
+.rg-error { flex-basis: 100%; margin: var(--space-1) 0 0; color: #b42318; font-weight: 600; }
+.rg-error:empty { display: none; }
+
+/* Results */
+.rg-results:empty { display: none; }
+.rg-results h2:focus { outline: none; }
+.rg-results h2:focus-visible { outline: 3px solid #0b5cad; outline-offset: 2px; }
+.rg-result-icon { vertical-align: -3px; }
+.rg-result-text { margin-left: var(--space-2); font-weight: 600; }
+
+/* Processing overlay / dialog */
+.rg-overlay { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: rgb(31 42 54 / 0.55); }
+.rg-processing { background: #fff; border: 0; border-radius: 4px; padding: var(--space-5) var(--space-6); text-align: center; box-shadow: var(--shadow-md); }
+.rg-processing::backdrop { background: rgb(31 42 54 / 0.55); }
+.rg-processing-title { font-weight: 700; margin: var(--space-3) 0 var(--space-1); }
+.rg-processing p { margin: 0; }
+.rg-spinner { display: inline-block; width: 2rem; height: 2rem; border: 3px solid #d3d9e0; border-top-color: #0b5cad; border-radius: 50%; animation: rg-spin 0.8s linear infinite; }
+@keyframes rg-spin { to { transform: rotate(360deg); } }
+/* portal-reg-spinner-motion-001: the spinner ignores reduced motion until fixed. */
+@media (prefers-reduced-motion: reduce) { .a11y-fix-manual .rg-spinner { animation: none; border-top-color: #0b5cad; border-right-color: #0b5cad; } }

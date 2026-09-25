@@ -39,21 +39,24 @@ export function Modal({ open, title, onClose, children, scenario, defect }: Moda
   const header = (
     <div className="modal-header">
       {broken === "no-semantics" ? <p className="modal-title">{title}</p> : <h2 id={titleId}>{title}</h2>}
-      <button type="button" className="modal-close" onClick={onClose} aria-label={broken === "no-semantics" ? undefined : "Close"}>
+      <button type="button" className="modal-close" onClick={onClose} aria-label="Close">
         <span aria-hidden="true">×</span>
       </button>
     </div>
   );
 
   if (broken === "no-semantics") {
-    return open ? (
-      <div className="modal-backdrop" onClick={onClose} {...marker}>
-        <div className="modal modal--div" onClick={(e) => e.stopPropagation()}>
-          {header}
-          <div className="modal-body">{children}</div>
-        </div>
+    // Rendered (hidden) while closed so the scenario marker is in the prerendered HTML.
+    return (
+      <div className="modal-backdrop" hidden={!open} onClick={onClose} {...marker}>
+        {open && (
+          <div className="modal modal--div" onClick={(e) => e.stopPropagation()}>
+            {header}
+            <div className="modal-body">{children}</div>
+          </div>
+        )}
       </div>
-    ) : null;
+    );
   }
 
   return (

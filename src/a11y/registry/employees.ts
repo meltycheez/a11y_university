@@ -262,6 +262,18 @@ export const employeesScenarios: ScenarioDef[] = [
     fixDescription: "Restores a visible focus outline.",
   },
   {
+    id: "employees-directory-search-placeholder-001", rule: "placeholder-as-label", pages: ["/employees/directory"], component: "DirectoryPage", mechanism: "markup", severity: "moderate",
+    title: "Directory search box is labeled only by its placeholder",
+    description: "The name search box has no label; its only hint is the placeholder \"Name or title\", which disappears once you type.",
+    fixDescription: "Adds a visible <label for> (\"Name or title\").",
+  },
+  {
+    id: "employees-directory-count-live-001", rule: "sr-results-no-live-region", pages: ["/employees/directory"], component: "DirectoryPage", mechanism: "behavior", severity: "moderate",
+    title: "Directory result count changes silently",
+    description: "Typing a name or choosing a department filters the tables and updates \"N people found\", but the count isn't a live region.",
+    fixDescription: "The count has role=\"status\".",
+  },
+  {
     id: "employees-directory-reflow-001", rule: "reflow-horizontal-scroll", pages: ["/employees/directory"], component: "LetterTable", mechanism: "css", severity: "serious",
     title: "Directory tables force the page to scroll sideways",
     description: "The tables have min-width: 58rem and their wrappers don't scroll, so the whole page scrolls horizontally on phones and at 400% zoom.",

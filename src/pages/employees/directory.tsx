@@ -1,6 +1,7 @@
-// Static, content-complete employee directory (plan 05). The search and filter interaction is plan 06 #4.
+// Employee directory: A–Z tables with an instant name/title and department filter (plan 06 #4).
+import { useId, useState } from "react";
 import { useLoaderData } from "react-router";
-import { Heading, SmartLink } from "~/a11y/helpers";
+import { Field, Heading, SmartLink } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
 import { Callout } from "~/components/Callout";
 import { Hero } from "~/components/Hero";
@@ -28,6 +29,10 @@ const mail = <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" 
 
 export default function DirectoryPage() {
   const people = useLoaderData<typeof loader>();
+  const id = useId();
+  const [q, setQ] = useState("");
+  const [dept, setDept] = useState("all");
+  const liveFixed = useScenario("employees-directory-count-live-001");
   const lettersFixed = useScenario("employees-directory-letter-links-001");
   const describedFixed = useScenario("employees-directory-describedby-001");
   // CSS scenarios (intranet.css).
@@ -35,8 +40,11 @@ export default function DirectoryPage() {
   useScenario("employees-directory-focus-001");
   useScenario("employees-directory-reflow-001");
 
+  const depts = [...new Set(people.map((p) => p.department))].sort();
+  const needle = q.trim().toLowerCase();
+  const found = people.filter((p) => (dept === "all" || p.department === dept) && (!needle || `${p.name} ${p.title}`.toLowerCase().includes(needle)));
   const groups = new Map<string, Person[]>();
-  for (const p of people) {
+  for (const p of found) {
     const l = lastName(p.name)[0].toUpperCase();
     groups.set(l, [...(groups.get(l) ?? []), p]);
   }
@@ -50,6 +58,23 @@ export default function DirectoryPage() {
       >
         <p id={describedFixed ? "directory-help" : "dir-help"}>
           {content.sections[0].paragraphs![0]} {people.length} people are listed, sorted by last name. Select a name to open a faculty profile.
+        </p>
+
+        <form className="intranet-search directory-filter" role="search" aria-label="Directory" onSubmit={(e) => e.preventDefault()}>
+          <Field
+            scenario="employees-directory-search-placeholder-001" id={`${id}-q`} label="Name or title" defect="placeholder" type="search"
+            value={q} onChange={(e) => setQ(e.target.value)}
+          />
+          <div className="field">
+            <label htmlFor={`${id}-dept`}>Department</label>
+            <select id={`${id}-dept`} value={dept} onChange={(e) => setDept(e.target.value)}>
+              <option value="all">All departments and offices</option>
+              {depts.map((d) => <option key={d}>{d}</option>)}
+            </select>
+          </div>
+        </form>
+        <p className="directory-count" role={liveFixed ? "status" : undefined} data-a11y-scenario="employees-directory-count-live-001">
+          {found.length ? `${found.length} ${found.length === 1 ? "person" : "people"} found` : "No one matches your search."}
         </p>
 
         <nav aria-label="Jump to letter" className="directory-letters" data-a11y-scenario="employees-directory-letter-links-001">

@@ -80,3 +80,17 @@ Keep the fixed versions to WAI-ARIA Authoring Practices patterns. The defective 
 - Every feature works end to end with the mouse in the defective state, just as a real shipped site would.
 - With the matching toggle ON, every feature can be fully operated by keyboard and screen reader.
 - A reload restores every feature's initial state. Plan 09 includes a test that changes state, reloads, and asserts the reset.
+
+## Implementation notes (2026-09-25)
+
+- Widgets (#12) first: defect variants as props on `Tabs`, `Accordion`, `Modal`, plus `Dropdown`, `DatePicker`, `Toast` in `components/widgets.tsx` (ADR-032); helpers `latency`, `confirmationCode`, `createStore` in `~/lib/interactive`. Tested in `components/widgets.test.tsx`.
+- Built by five parallel agents with split ownership:
+  - #1 course search and #4 directories: `/academics/courses` (H, 12), `/faculty` (H, 13), `/employees/directory` (H, 12).
+  - #2 registration (`/portal/registration`, T, 34) and #3 portal interactions (every portal page within tier).
+  - #5 header search and `/search` (7), #6 event registration (6 open events), study-room booking grid (10), visit date picker + booking modal + toast (13).
+  - #7 donate (T, 37), #8 apply (H, 15), #9 legacy aid form (T, 45).
+  - #10 campus map (T, 37) and #11 homepage carousel + ticker and athletics ticker animation.
+- Totals: **669 registered scenarios**, all verified by `npm run check:scenarios`; 127 unit/component tests.
+- Verified in Chrome on 17 interactive pages: hydration with no console errors, Fix All clears every count.
+- Homepage is at 19 page-level scenarios (build guide says 8–15 for H); plan 07 rebalances tiers once chrome defects land.
+- Left for plan 07: `/academics/catalog` and `/athletics/schedule` (terrible pages), global chrome defects, and the unregistered-defect audit (stub/copy renderers, axe on all toggles OFF/ON).

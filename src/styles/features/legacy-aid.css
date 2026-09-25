@@ -1,1 +1,85 @@
-/* Plan 06 feature: legacy-aid. Feature CSS and its colocated .a11y-fix-* overrides. */
+/* Plan 06 feature: legacy-aid. Feature CSS and its colocated .a11y-fix-* overrides.
+   A ~2006 stylesheet scoped to .legacy-aid; most font styling is inline in the markup, as it was then. */
+.legacy-aid { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 13px; color: #000; background: #fff; }
+.legacy-aid p { margin: 0 0 8px; }
+.legacy-aid a { color: #0000cc; }
+.legacy-aid a:visited { color: #551a8b; }
+
+/* legacy-aid-reflow-001: the page table is 780px (width attribute plus this rule). */
+.legacy-frame { width: 780px; border: 1px solid #999; background: #fff; }
+.a11y-fix-manual .legacy-frame { width: auto; max-width: 780px; }
+.a11y-fix-manual .legacy-aid img.legacy-banner { width: 100%; height: auto; }
+.a11y-fix-manual .legacy-aid .legacy-fields { width: auto; max-width: 100%; }
+.a11y-fix-manual .legacy-aid .legacy-household { max-width: 100%; }
+@media (max-width: 40rem) {
+  .a11y-fix-manual .legacy-aid table.lt, .a11y-fix-manual .legacy-aid table.lt > tbody,
+  .a11y-fix-manual .legacy-aid table.lt > tbody > tr, .a11y-fix-manual .legacy-aid table.lt > tbody > tr > td { display: block; width: auto !important; }
+  .a11y-fix-manual .legacy-aid .legacy-input { max-width: 100%; }
+}
+
+/* legacy-aid-focus-outline-001 */
+.legacy-aid a:focus, .legacy-aid input:focus, .legacy-aid select:focus, .legacy-aid textarea:focus, .legacy-aid button:focus { outline: 0; }
+.a11y-fix-manual .legacy-aid a:focus-visible, .a11y-fix-manual .legacy-aid input:focus-visible, .a11y-fix-manual .legacy-aid select:focus-visible,
+.a11y-fix-manual .legacy-aid textarea:focus-visible, .a11y-fix-manual .legacy-aid button:focus-visible, .a11y-fix-manual .legacy-aid [tabindex="-1"]:focus {
+  outline: 2px solid #1a5fb4; outline-offset: 2px;
+}
+
+/* legacy-aid-input-contrast-001 */
+.legacy-input { border: 1px solid #dddddd; padding: 2px; font: 12px Verdana, Arial, sans-serif; }
+.a11y-fix-manual .legacy-input { border-color: #767676; }
+.legacy-aid select { font: 12px Verdana, Arial, sans-serif; }
+
+/* Layout-table fix (legacy-aid-layout-table-001): the same rows as CSS. */
+.legacy-aid div.lt { display: grid; gap: 4px; }
+.legacy-aid div.lr { display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 3px; }
+.legacy-aid div.lc { flex: 1 1 22rem; min-width: 0; }
+.legacy-aid div.lr > div.lc:first-child:not(.lc--full) { flex: 0 0 170px; }
+.legacy-aid div.lc--full { flex-basis: 100%; }
+.legacy-frame > .lr > .legacy-nav-cell { flex: 0 0 150px !important; }
+
+.legacy-banner-cell { padding: 0 !important; }
+.legacy-banner { display: block; }
+.legacy-banner-text { display: grid; gap: 4px; padding: 12px 20px; background: linear-gradient(90deg, #5a1f14, #9b3b26); border-bottom: 6px solid #c9a227; }
+.legacy-banner-name { font: 26px Georgia, serif; color: #fff; }
+.legacy-banner-sub { font-size: 13px; color: #f2dfa0; }
+
+.legacy-nav-cell { background: #efe9dc; border-right: 1px solid #ccc; padding: 10px 6px !important; }
+.legacy-nav { list-style: none; margin: 0; padding: 0; font-size: 12px; }
+.legacy-nav a { color: #5a1f14; font-weight: 700; text-decoration: none; }
+.a11y-fix-alerts .legacy-nav a:hover, .a11y-fix-alerts .legacy-nav a:focus { background: #ffffcc; text-decoration: underline; }
+
+.legacy-content { padding: 10px 14px !important; }
+.legacy-spacer { margin: 0; height: 10px; }
+.legacy-title { font: bold 16px Arial, Helvetica, sans-serif; color: #5a1f14; margin: 6px 0; }
+.legacy-title:focus { outline: 0; }
+.legacy-instructions { background: #f0f0f0; padding: 8px; border: 1px solid #ddd; margin-bottom: 10px; }
+.legacy-print { color: #0000cc; text-decoration: underline; cursor: pointer; }
+.legacy-linkbutton { font: inherit; background: none; border: 0; padding: 0; color: #0000cc; text-decoration: underline; cursor: pointer; }
+.legacy-help { background: #ffffe1; border: 1px solid #999; padding: 4px; margin-top: 4px; max-width: 320px; }
+
+/* legacy-aid-marquee-001: scrolls forever (and ignores reduced motion). Fixed = static notice, no animation. */
+.legacy-notice { overflow: hidden; white-space: nowrap; background: #ffffcc; border: 1px solid #e0c040; color: #990000; font: bold 11px Verdana, sans-serif; padding: 3px 0; margin-bottom: 8px; }
+.legacy-marquee span { display: inline-block; padding-left: 100%; animation: legacy-marquee 14s linear infinite; }
+@keyframes legacy-marquee { to { transform: translateX(-100%); } }
+.legacy-notice:not(.legacy-marquee) { white-space: normal; padding: 3px 6px; }
+
+.legacy-section { background: #5a1f14; color: #fff; padding: 3px 6px !important; }
+.legacy-section b, .legacy-section h2 { font: bold 12px Arial, Helvetica, sans-serif; color: #fff; margin: 0; letter-spacing: 0.03em; }
+.legacy-opt { display: block; font-size: 12px; }
+.legacy-inline-fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.legacy-inline-fieldset legend { padding: 0; font-family: Arial, Helvetica, sans-serif; }
+.legacy-right { text-align: right; }
+.legacy-household { border-collapse: collapse; margin-top: 4px; font-size: 12px; }
+.legacy-household th { background: #ddd; font: bold 11px Arial, sans-serif; }
+.legacy-household caption { text-align: left; font-weight: 700; }
+.legacy-captcha { border: 1px solid #999; vertical-align: middle; }
+.legacy-image-button { vertical-align: middle; cursor: pointer; }
+.legacy-button { font: 12px Verdana, Arial, sans-serif; }
+
+.legacy-errors:empty { display: none; }
+.legacy-errors { color: #cc0000; border: 1px solid #cc0000; background: #fff0f0; padding: 6px; margin-bottom: 8px; }
+.legacy-errors ul { margin: 4px 0 0; padding-left: 18px; }
+.legacy-warning { border: 2px solid #cc6600; background: #fff4e0; padding: 8px; margin-bottom: 10px; }
+.legacy-expired, .legacy-confirm { border: 1px solid #999; padding: 12px; background: #fafafa; }
+.legacy-code { font: bold 16px "Courier New", monospace; }
+.legacy-footer { border-top: 1px solid #ccc; text-align: center; padding: 6px !important; }

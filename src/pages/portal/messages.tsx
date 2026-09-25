@@ -1,11 +1,12 @@
-// /portal/messages: inbox grid plus every message shown in the reading pane (opening/marking read is plan 06).
-import { useState } from "react";
+// /portal/messages: inbox list plus a reading pane. Opening a message marks it read (state in ./_store).
+import { useEffect, useRef, useState } from "react";
 import { Link, useLoaderData } from "react-router";
 import { SmartLink } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
 import portal from "~/data/generated/portal.json";
 import type { PortalStudent } from "~/data/types";
 import { PortalPage, erpDate } from "./_PortalPage";
+import { isRead, portalStore, updatePortal } from "./_store";
 
 export { inventoryMeta as meta } from "~/routes/meta";
 
@@ -26,7 +27,10 @@ export async function loader() {
 
 export default function MessagesPage() {
   const { messages } = useLoaderData<typeof loader>();
+  const { read } = portalStore.use();
   const [q, setQ] = useState("");
+  const [openId, setOpenId] = useState(messages[0].id);
+  const paneHeading = useRef<HTMLHeadingElement>(null);
   const searchFixed = useScenario("portal-msg-search-placeholder-001");
   const rowFixed = useScenario("portal-msg-row-click-001");
   const unreadFixed = useScenario("portal-msg-unread-bold-001");
@@ -34,61 +38,84 @@ export default function MessagesPage() {
   const headingFixed = useScenario("portal-msg-subject-heading-001");
   const ariaFixed = useScenario("portal-msg-labeledby-001");
   useScenario("portal-msg-date-contrast-001");
+
+  const open = (id: string, focus = false) => {
+    setOpenId(id);
+    updatePortal({ read: { ...portalStore.get().read, [id]: true } });
+    if (focus && rowFixed) paneHeading.current?.focus();
+  };
+  // Dashboard links arrive as /portal/messages#msg-3 (read in an effect so the first render matches the prerender).
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (messages.some((m) => m.id === id)) open(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const needle = q.trim().toLowerCase();
   const rows = needle ? messages.filter((m) => `${m.subject} ${m.from} ${m.office}`.toLowerCase().includes(needle)) : messages;
-  const unread = messages.filter((m) => !m.read).length;
+  const unread = messages.filter((m) => !isRead(m, read)).length;
+  const msg = messages.find((m) => m.id === openId)!;
   const H = headingFixed ? "h3" : "h4";
   const paneLabel = ariaFixed ? { "aria-labelledby": "msg-pane-heading" } : { "aria-labeledby": "msg-pane-heading" };
+  const List = rowFixed ? "ul" : "div";
+  const Item = rowFixed ? "li" : "div";
 
   return (
     <PortalPage title="Messages" subtitle={`${messages.length} messages · ${unread} unread`}>
-      <section className="pt-card" aria-labelledby="inbox-heading">
-        <h2 id="inbox-heading">Inbox</h2>
-        <div className="pt-search" data-a11y-scenario="portal-msg-search-placeholder-001">
-          {searchFixed && <label htmlFor="msg-q">Search messages</label>}
-          <input id="msg-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={searchFixed ? undefined : "Search messages"} autoComplete="off" />
-        </div>
-        <div className="table-wrap">
-          <table className="pt-grid pt-inbox" data-a11y-scenario="portal-msg-row-click-001 portal-msg-unread-bold-001 portal-msg-checkbox-label-001 portal-msg-date-contrast-001">
-            <caption className="visually-hidden">Inbox</caption>
-            <thead>
-              <tr><th scope="col"><span className="visually-hidden">Select</span></th><th scope="col">From</th><th scope="col">Subject</th><th scope="col">Date</th></tr>
-            </thead>
-            <tbody>
-              {rows.map((m) => (
-                <tr key={m.id} className={m.read ? "pt-row-click" : "pt-row-click pt-unread"} onClick={() => document.getElementById(m.id)?.scrollIntoView()}>
-                  <td onClick={(e) => e.stopPropagation()}>
+      <div className="pt-mail">
+        <section className="pt-card" aria-labelledby="inbox-heading">
+          <h2 id="inbox-heading">Inbox</h2>
+          <div className="pt-search" data-a11y-scenario="portal-msg-search-placeholder-001">
+            {searchFixed && <label htmlFor="msg-q">Search messages</label>}
+            <input id="msg-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={searchFixed ? undefined : "Search messages"} autoComplete="off" />
+          </div>
+          <List className="pt-inbox" data-a11y-scenario="portal-msg-row-click-001 portal-msg-unread-bold-001 portal-msg-checkbox-label-001 portal-msg-date-contrast-001">
+            {rows.map((m) => {
+              const unreadNow = !isRead(m, read);
+              const summary = (
+                <>
+                  <span className="pt-inbox-from">{unreadFixed && unreadNow && <span className="pt-badge">Unread</span>}{m.from}</span>
+                  <span className="pt-inbox-subject">{m.subject}</span>
+                  <span className="pt-date">{erpDate(m.date)}</span>
+                </>
+              );
+              return (
+                <Item key={m.id} className={`pt-inbox-row${unreadNow ? " pt-unread" : ""}${m.id === openId ? " is-open" : ""}`}>
+                  <span className="pt-inbox-check">
                     <input type="checkbox" id={`sel-${m.id}`} />
                     {boxFixed && <label htmlFor={`sel-${m.id}`} className="visually-hidden">Select message: {m.subject}</label>}
-                  </td>
-                  <td>{m.from}</td>
-                  <td>
-                    {unreadFixed && !m.read && <span className="pt-badge">Unread</span>}
-                    {rowFixed ? <a href={`#${m.id}`}>{m.subject}</a> : m.subject}
-                  </td>
-                  <td className="pt-date">{erpDate(m.date)}</td>
-                </tr>
-              ))}
-              {rows.length === 0 && <tr><td colSpan={4}>No messages match “{q}”.</td></tr>}
-            </tbody>
-          </table>
-        </div>
-      </section>
+                  </span>
+                  {rowFixed ? (
+                    <button type="button" className="pt-inbox-open" aria-current={m.id === openId ? "true" : undefined} onClick={() => open(m.id, true)}>{summary}</button>
+                  ) : (
+                    // Vendor inbox: the whole row is a clickable <div> with no role, name or keyboard access.
+                    <div className="pt-inbox-open" onClick={() => open(m.id)}>{summary}</div>
+                  )}
+                </Item>
+              );
+            })}
+            {rows.length === 0 && <Item className="pt-inbox-row">No messages match “{q}”.</Item>}
+          </List>
+        </section>
 
-      <section className="pt-card pt-pane" {...paneLabel} data-a11y-scenario="portal-msg-labeledby-001 portal-msg-subject-heading-001 portal-msg-click-here-001">
-        <h2 id="msg-pane-heading">Messages</h2>
-        {messages.map((m) => (
-          <article key={m.id} id={m.id} className="pt-message">
-            <H>{m.subject}</H>
-            <p className="pt-muted">From {m.from}, {m.office} · {erpDate(m.date)}</p>
-            {m.body.map((para, i) => <p key={i} className="pt-message-body">{para}</p>)}
-            {actions[m.id] && (
-              <p><SmartLink scenario="portal-msg-click-here-001" to={actions[m.id].to} defect="Click here">{actions[m.id].label}</SmartLink></p>
+        <section className="pt-card pt-pane" {...paneLabel} data-a11y-scenario="portal-msg-labeledby-001 portal-msg-subject-heading-001 portal-msg-click-here-001">
+          <h2 id="msg-pane-heading">Message</h2>
+          <article className="pt-message">
+            <H ref={paneHeading} tabIndex={-1}>{msg.subject}</H>
+            <p className="pt-muted">From {msg.from}, {msg.office} · {erpDate(msg.date)}</p>
+            {msg.body.map((para, i) => <p key={i} className="pt-message-body">{para}</p>)}
+            {actions[msg.id] && (
+              <p><SmartLink scenario="portal-msg-click-here-001" to={actions[msg.id].to} defect="Click here">{actions[msg.id].label}</SmartLink></p>
             )}
+            <p>
+              <button type="button" className="btn pt-btn" onClick={() => updatePortal({ read: { ...read, [msg.id]: !isRead(msg, read) } })}>
+                {isRead(msg, read) ? "Mark as unread" : "Mark as read"}
+              </button>
+            </p>
           </article>
-        ))}
-        <p className="pt-muted">Official university messages are also sent to your RSU email address. <Link to="/portal/profile">Update your contact preferences</Link>.</p>
-      </section>
+          <p className="pt-muted">Official university messages are also sent to your RSU email address. <Link to="/portal/profile">Update your contact preferences</Link>.</p>
+        </section>
+      </div>
     </PortalPage>
   );
 }

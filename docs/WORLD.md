@@ -121,3 +121,7 @@ Writers and generators must agree on these.
 - Earliest class start is 8:00 a.m. (moved from 7:30 in fall 2025; the psychology sleep study).
 - 2025–26 external research funding: $38.9 million. Carbon-neutral campus operations target: 2035.
 - Profiled faculty and leaders' office, phone, email and office hours come from `src/data/content/people.ts`; the generator copies them into the directory.
+
+## Campus map codes (plan 06)
+
+Building codes on `/campus-map`: SEH, CSC, TNK, HUC, ALD, SPR, LAU, SAL, HFA, LIB, RSU (Rowan Student Union), WEL, OAC (Owl Arena), FDR, MAD, plus HAR (Harlan Field), SRC (Student Recreation Center), RC (Redwood Commons), CYP (Cypress Hall), TV (Tanoak Village), HC (Huckleberry Court), AFH (Alder Family Housing), SGA (Spruce Grove Apartments), FGA (Fern Glen Apartments), CY (Corporation Yard). "Green Loop" is the campus shuttle road. Every building uses the university address, 1400 Canopy Drive.

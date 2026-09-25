@@ -6,6 +6,7 @@ import { useScenario } from "~/a11y/useScenario";
 import portal from "~/data/generated/portal.json";
 import type { PortalStudent } from "~/data/types";
 import { PortalPage } from "./_PortalPage";
+import { type ProfilePrefs, portalStore, updatePortal } from "./_store";
 
 export { inventoryMeta as meta } from "~/routes/meta";
 
@@ -19,6 +20,15 @@ export async function loader() {
 export default function ProfilePage() {
   const { student: s } = useLoaderData<typeof loader>();
   const [saved, setSaved] = useState(false);
+  const stored = portalStore.use().profile;
+  const v: ProfilePrefs = stored ?? { chosen: s.preferredName, pronouns: "", phone: "", email: s.email, emergency: "Elena Alvarez", emergencyPhone: "(707) 555-0143", alerts: "Yes" };
+  // Saved values live in ./_store: they survive navigation between portal pages and reset on reload.
+  const save = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.currentTarget)) as unknown as ProfilePrefs;
+    updatePortal({ profile: { ...v, ...data } });
+    setSaved(true);
+  };
 
   return (
     <PortalPage title="Profile" subtitle="Your contact information, emergency contacts, and preferences.">
@@ -50,12 +60,12 @@ export default function ProfilePage() {
       <section className="pt-card" aria-labelledby="pf-prefs">
         <h2 id="pf-prefs">Preferences</h2>
         <p>Your chosen name will appear on class rosters and in RedwoodConnect.</p>
-        <form className="pt-form" onSubmit={(e) => { e.preventDefault(); setSaved(true); }} onChange={() => setSaved(false)}>
-          <Field scenario="portal-profile-for-mismatch-001" id="pf-chosen" label="Chosen first name" defect="for-mismatch" defaultValue={s.preferredName} autoComplete="given-name" />
-          <Pronouns />
-          <Field scenario="portal-profile-phone-placeholder-001" id="pf-phone" label="Mobile phone" defect="placeholder" type="tel" autoComplete="tel" />
-          <RequiredFields email={s.email} />
-          <TextAlerts />
+        <form className="pt-form" onSubmit={save} onChange={() => setSaved(false)}>
+          <Field scenario="portal-profile-for-mismatch-001" id="pf-chosen" label="Chosen first name" defect="for-mismatch" name="chosen" defaultValue={v.chosen} autoComplete="given-name" />
+          <Pronouns value={v.pronouns} />
+          <Field scenario="portal-profile-phone-placeholder-001" id="pf-phone" label="Mobile phone" defect="placeholder" type="tel" name="phone" defaultValue={v.phone} autoComplete="tel" />
+          <RequiredFields v={v} />
+          <TextAlerts value={v.alerts} />
           <p><button type="submit" className="btn btn--primary pt-btn">Save preferences</button></p>
           <p role="status" className="pt-saved">{saved ? "Preferences saved for this session." : ""}</p>
         </form>
@@ -64,12 +74,12 @@ export default function ProfilePage() {
   );
 }
 
-function Pronouns() {
+function Pronouns({ value }: { value: string }) {
   const fixed = useScenario("portal-profile-pronouns-label-001");
   return (
     <div className="field" data-a11y-scenario="portal-profile-pronouns-label-001">
       {fixed ? <label htmlFor="pf-pronouns">Pronouns</label> : <span className="field-label">Pronouns</span>}
-      <select id="pf-pronouns" defaultValue="">
+      <select id="pf-pronouns" name="pronouns" defaultValue={value}>
         <option value="">Prefer not to say</option>
         <option>she/her</option>
         <option>he/him</option>
@@ -80,29 +90,29 @@ function Pronouns() {
   );
 }
 
-function RequiredFields({ email }: { email: string }) {
+function RequiredFields({ v }: { v: ProfilePrefs }) {
   const fixed = useScenario("portal-profile-required-color-001");
   const fields = [
-    { id: "pf-email", label: "Preferred email", type: "email", value: email, auto: "email" },
-    { id: "pf-emergency", label: "Emergency contact name", type: "text", value: "Elena Alvarez", auto: "off" },
-    { id: "pf-emergency-phone", label: "Emergency contact phone", type: "tel", value: "(707) 555-0143", auto: "off" },
+    { id: "pf-email", name: "email", label: "Preferred email", type: "email", value: v.email, auto: "email" },
+    { id: "pf-emergency", name: "emergency", label: "Emergency contact name", type: "text", value: v.emergency, auto: "off" },
+    { id: "pf-emergency-phone", name: "emergencyPhone", label: "Emergency contact phone", type: "tel", value: v.emergencyPhone, auto: "off" },
   ];
   return (
     <div data-a11y-scenario="portal-profile-required-color-001">
       {fields.map((f) => (
         <div className="field" key={f.id}>
           <label htmlFor={f.id} className="pt-required">{f.label}{fixed && " (required)"}</label>
-          <input id={f.id} type={f.type} defaultValue={f.value} autoComplete={f.auto} required={fixed} />
+          <input id={f.id} name={f.name} type={f.type} defaultValue={f.value} autoComplete={f.auto} required={fixed} />
         </div>
       ))}
     </div>
   );
 }
 
-function TextAlerts() {
+function TextAlerts({ value }: { value: string }) {
   const fixed = useScenario("portal-profile-radios-fieldset-001");
   const radios = ["Yes", "No"].map((v) => (
-    <label key={v} className="pt-radio"><input type="radio" name="pf-alerts" value={v} defaultChecked={v === "Yes"} /> {v}</label>
+    <label key={v} className="pt-radio"><input type="radio" name="alerts" value={v} defaultChecked={v === value} /> {v}</label>
   ));
   const question = "Receive RSU Alert emergency text messages at my mobile number";
   return fixed ? (

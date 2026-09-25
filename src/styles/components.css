@@ -185,3 +185,4 @@ dialog.modal[open]:not(:modal) { position: fixed; inset: 0; margin: auto; height
 .toast-region { position: fixed; left: 1rem; bottom: 1rem; z-index: 9000; max-width: min(28rem, calc(100vw - 2rem)); }
 .toast { display: flex; gap: var(--space-4); align-items: center; background: var(--gray-900); color: #fff; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); box-shadow: var(--shadow-md); }
 .toast-dismiss { background: none; border: 1px solid #fff; color: #fff; border-radius: var(--radius-sm); padding: var(--space-1) var(--space-2); font: inherit; cursor: pointer; }
+.modal-backdrop[hidden] { display: none; }

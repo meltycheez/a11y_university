@@ -11,7 +11,7 @@ This folder breaks the PRD into ten phased plans. Each plan lists its goal, the 
 | 03 | [Content & Data](03-content-data.md) | Brand, seeded deterministic datasets, copy, local search index | ✅ Done (2026-09-24) |
 | 04 | [Image Assets via Google Flow](04-image-assets-flow.md) | Asset manifest, Nano Banana generation in Google Flow, optimization pipeline | 🟡 In progress: 125/131 images done; 6 waiting on the Flow usage limit (2 flyers, 2 mascots, map, Sierra Blackwood redo) |
 | 05 | [Site Sections](05-site-sections.md) | Every public route, templates, and the route inventory | ✅ Done (2026-09-25) |
-| 06 | [Interactive Features](06-interactive-features.md) | Course search, registration, portal, forms, application, map, carousel | Not started |
+| 06 | [Interactive Features](06-interactive-features.md) | Course search, registration, portal, forms, application, map, carousel | ✅ Done (2026-09-25) |
 | 07 | [Scenario Coverage](07-scenario-coverage.md) | Full defect catalog, per-page distribution, legacy "terrible" pages | Not started |
 | 08 | [Accessibility Lab](08-accessibility-lab.md) | `/accessibility-lab` and its seven controlled test pages | Not started |
 | 09 | [Testing](09-testing.md) | Unit, component, and Playwright + axe tests that prove the toggles work | Not started |

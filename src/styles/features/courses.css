@@ -1,1 +1,43 @@
 /* Plan 06 feature: courses. Feature CSS and its colocated .a11y-fix-* overrides. */
+.courses-form { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-4); align-items: end; background: #f3f1ea; border: 1px solid #d8d3c4; padding: var(--space-3) var(--space-4); font-family: var(--font-sans); font-size: 0.9rem; }
+.courses-field { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; max-width: 100%; }
+.courses-field > label, .courses-field > .field-label { font-weight: 700; }
+.courses-field--q { flex: 1 1 16rem; }
+.courses-field input, .courses-field select { font: inherit; padding: 0.3rem; max-width: 100%; border: 1px solid #8a877c; }
+.courses-field .field-hint { font-size: 0.8rem; color: var(--gray-600); order: 3; }
+.courses-form .btn { padding: 0.35rem 1.1rem; }
+
+.courses-layout { display: grid; gap: var(--space-5); margin-top: var(--space-5); }
+@media (min-width: 64rem) { .courses-layout { grid-template-columns: 11rem minmax(0, 1fr) 15rem; align-items: start; } }
+.courses-facets { font-family: var(--font-sans); font-size: 0.9rem; display: grid; gap: var(--space-4); align-content: start; }
+.courses-facet { border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; }
+@media (min-width: 64rem) { .courses-facet { flex-direction: column; } }
+.courses-facet legend, .courses-facet > p { font-weight: 700; margin: 0 0 0.25rem; padding: 0; width: 100%; }
+.courses-check { display: inline-flex; gap: 0.35rem; align-items: center; }
+
+.courses-results h2 { margin-bottom: 0.25rem; }
+.courses-list { list-style: none; padding: 0; margin: 0; }
+.courses-list[aria-busy] { opacity: 0.55; }
+.course-row { border-bottom: 1px dotted #d8d3c4; }
+.course-row-head { display: flex; gap: var(--space-3); align-items: center; padding: 0.3rem 0; }
+.course-toggle { flex: 1; min-width: 0; text-align: start; font: inherit; font-weight: 600; color: var(--color-link); background: none; border: 0; padding: 0.2rem 0; cursor: pointer; }
+.course-toggle::before { content: "▸ "; color: var(--gray-600); }
+.course-row.is-open .course-toggle::before { content: "▾ "; }
+.course-toggle:hover { text-decoration: underline; }
+.course-code { font-family: var(--font-sans); }
+.course-credits { font-size: 0.85rem; white-space: nowrap; color: var(--gray-600); }
+.course-add { width: 2rem; height: 2rem; border-radius: 0; font-weight: 700; font-size: 1.1rem; }
+.course-add.is-added { background: var(--brand-fern); color: #fff; border-color: var(--brand-fern); }
+.course-details { padding: 0 0 var(--space-3) 1.1rem; font-size: 0.9rem; }
+.course-details p { margin: 0 0 0.4rem; }
+.course-prereq { color: #9a9a94; } /* courses-prereq-contrast-001: ~2.8:1 */
+.courses-table-wrap { overflow-x: auto; }
+
+.courses-plan { background: #fbfaf6; border: 1px solid #d8d3c4; padding: var(--space-3) var(--space-4); font-size: 0.9rem; }
+.cms-page .courses-plan h2 { font-size: 1.15rem; }
+.courses-plan ul { list-style: none; padding: 0; margin: 0 0 var(--space-2); }
+.courses-plan li { display: flex; justify-content: space-between; gap: var(--space-2); padding: 0.25rem 0; border-bottom: 1px dotted #d8d3c4; }
+.courses-plan-note { font-size: 0.8rem; font-style: italic; }
+
+/* ---------- Fixes (ADR-025) ---------- */
+.a11y-fix-manual .course-prereq { color: var(--gray-600); } /* courses-prereq-contrast-001 */

@@ -8,7 +8,7 @@ const collegesWithDepartments = colleges.filter((c) => departments.some((d) => d
 /** Every page built on the academics CMS templates (the catalog and course search are plans 06/07). */
 export const cmsPages = [
   "/academics", "/academics/colleges/:slug", "/academics/departments/:slug", "/academics/programs",
-  "/academics/programs/:slug", "/academics/minors", "/academics/certificates", "/academics/calendar",
+  "/academics/programs/:slug", "/academics/minors", "/academics/certificates", "/academics/calendar", "/academics/courses",
   "/faculty", "/faculty/:slug",
 ];
 

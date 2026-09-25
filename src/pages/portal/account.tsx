@@ -17,6 +17,7 @@ export default function AccountPage() {
   const { account, id, term } = useLoaderData<typeof loader>();
   const creditFixed = useScenario("portal-acct-credit-color-001");
   const captionFixed = useScenario("portal-acct-caption-001");
+  useScenario("portal-acct-ledger-width-001");
   const ledger = [...account.ledger].reverse();
   const termCharges = account.ledger.filter((e) => e.term === term && e.amount > 0).reduce((n, e) => n + e.amount, 0);
   const termCredits = account.ledger.filter((e) => e.term === term && e.amount < 0).reduce((n, e) => n - e.amount, 0);
@@ -47,7 +48,7 @@ export default function AccountPage() {
         </section>
       </div>
 
-      <section className="pt-card" aria-labelledby="acct-activity">
+      <section className="pt-card pt-ledger" aria-labelledby="acct-activity" data-a11y-scenario="portal-acct-ledger-width-001">
         <h2 id="acct-activity">Account Activity</h2>
         <div className="table-wrap">
           <table className="pt-grid" data-a11y-scenario="portal-acct-credit-color-001 portal-acct-caption-001">

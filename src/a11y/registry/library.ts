@@ -3,7 +3,7 @@ import type { ScenarioDef } from "./types";
 type Def = Omit<ScenarioDef, "pages" | "component"> & { severity: NonNullable<ScenarioDef["severity"]> };
 const on = (pages: string[], component: string, defs: Def[]): ScenarioDef[] => defs.map((d) => ({ ...d, pages, component }));
 
-// Sequoia Library: its own dense vendor-hosted site. The study-room drag grid is plan 06.
+// Sequoia Library: its own dense vendor-hosted site, including the study-room drag-to-book grid (plan 06 #12).
 export const libraryScenarios: ScenarioDef[] = [
   // ---------- /library (tier H) ----------
   ...on(["/library"], "LibraryHome", [
@@ -71,6 +71,8 @@ export const libraryScenarios: ScenarioDef[] = [
     { id: "library-rooms-color-only-001", rule: "color-only-info", title: "Open and booked slots are shown by color only", description: "Slots are empty green or gray cells with no text or legend.", fixDescription: "Writes \"Open\" or \"Booked\" in each slot and adds a legend.", mechanism: "markup", severity: "serious" },
     { id: "library-rooms-caption-001", rule: "table-no-caption", title: "Availability table has no caption", description: "The table doesn't say which day it shows.", fixDescription: "Adds a caption with the date.", mechanism: "markup", severity: "minor" },
     { id: "library-rooms-reflow-001", rule: "reflow-horizontal-scroll", title: "Availability table forces page scrolling", description: "The table has a 60rem minimum width and no scroll container, so at 320 CSS px the whole page scrolls sideways.", fixDescription: "Puts the table in its own keyboard-scrollable region, so only the table scrolls (data tables are exempt from reflow).", mechanism: "css", severity: "serious" },
+    { id: "library-rooms-drag-001", rule: "kbd-drag-no-alternative", title: "Booking a room requires dragging", description: "A time range can only be chosen by pressing on an open slot and dragging across the row; the slots aren't focusable and there is no other way to pick a room and time.", fixDescription: "Adds a labeled Room / Start / Length form that books the same slots with the keyboard or single clicks, with errors in role=\"alert\".", mechanism: "behavior", severity: "serious" },
+    { id: "library-rooms-toast-001", rule: "sr-status-not-announced", title: "Reservation confirmation toast vanishes silently", description: "After reserving, a toast with the confirmation number appears in the corner for 3 seconds and disappears. It isn't a live region, so screen readers never hear it, and slow readers miss it.", fixDescription: "The toast is a persistent role=\"status\" message with a Dismiss button.", mechanism: "behavior", severity: "moderate" },
     { id: "library-rooms-policies-pdf-001", rule: "link-document", title: "Policies PDF link gives no size", description: "\"Library Policies (PDF)\" gives no file size.", fixDescription: "Reads \"Library Policies (PDF, 2 KB)\".", mechanism: "markup", severity: "minor" },
   ]),
 

@@ -1,6 +1,9 @@
 import type { ScenarioDef } from "./types";
 
-// Events calendar (third-party vendor widget look). The registration form on /events/:slug is plan 06.
+/** Events with registration still open on SITE_NOW, i.e. the pages that render the registration form (ADR-028). */
+const REGISTRATION_PAGES = ["research-symposium-2026", "homecoming-2026", "fall-choral-concert", "basketball-home-opener", "admissions-open-house", "redwood-lecture-climate"].map((s) => `/events/${s}`);
+
+// Events calendar (third-party vendor widget look), including the registration form on /events/:slug.
 export const eventsScenarios: ScenarioDef[] = [
   // ---------- /events (month grid) ----------
   {
@@ -251,4 +254,10 @@ export const eventsScenarios: ScenarioDef[] = [
     mechanism: "markup",
     severity: "moderate",
   },
+
+  // ---------- /events/:slug registration form (plan 06 #6): events whose registration is still open ----------
+  { id: "events-reg-stepper-001", rule: "kbd-div-button", title: "Attendee stepper works by mouse only", description: "The attendee count is a <span> between − and + <span>s with click handlers: they can't be focused, have no role or name, and the count isn't a form control.", fixDescription: "Uses a labeled number input with − and + buttons named \"Remove one attendee\" and \"Add one attendee\".", pages: REGISTRATION_PAGES, component: "RegistrationForm", mechanism: "behavior", severity: "serious" },
+  { id: "events-reg-required-001", rule: "color-only-required", title: "Required fields marked only by a red asterisk", description: "Name and email carry a small red \"*\" that is never explained, and the inputs aren't marked required in code.", fixDescription: "Writes \"(required)\" in the labels and sets aria-required.", pages: REGISTRATION_PAGES, component: "RegistrationForm", mechanism: "markup", severity: "moderate" },
+  { id: "events-reg-errors-001", rule: "form-vague-errors", title: "Every error says \"Invalid input\"", description: "An empty name or a malformed email both show \"Invalid input\" in red under the field, with no hint of what to fix; the message isn't tied to the input.", fixDescription: "Specific messages (\"Enter an email address in the format name@example.com.\") linked with aria-describedby and aria-invalid; focus moves to the first problem.", pages: REGISTRATION_PAGES, component: "RegistrationForm", mechanism: "behavior", severity: "serious" },
+  { id: "events-reg-confirm-001", rule: "sr-status-not-announced", title: "Registration confirmation appears silently", description: "After Register, the form is replaced by the confirmation number with no announcement, and focus is left on nothing.", fixDescription: "The confirmation is a role=\"status\" region and receives focus.", pages: REGISTRATION_PAGES, component: "RegistrationForm", mechanism: "behavior", severity: "moderate" },
 ];

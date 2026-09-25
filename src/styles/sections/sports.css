@@ -26,8 +26,21 @@
 .site--sports .cta-band .btn--primary { background: var(--brand-gold); color: #000; }
 .site--sports .related-links a, .site--sports .ath-table a { color: var(--color-link); }
 
-/* Score ticker (static; motion is plan 06 #11) */
-.ath-ticker { display: flex; align-items: stretch; background: #000; border-bottom: 2px solid var(--brand-gold); margin-bottom: var(--space-5); overflow-x: auto; }
+/* Score ticker (plan 06 #11): a CSS marquee over a duplicated list. */
+.ath-ticker { display: flex; align-items: stretch; background: #000; border-bottom: 2px solid var(--brand-gold); margin-bottom: var(--space-5); }
+.ath-ticker-window { flex: 1; min-width: 0; overflow: hidden; }
+.ath-ticker-track { display: flex; width: max-content; height: 100%; animation: ath-ticker 60s linear infinite; } /* athletics-home-ticker-motion-001, -reduced-motion-001 */
+@keyframes ath-ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.a11y-fix-manual .ath-ticker.is-paused .ath-ticker-track,
+.a11y-fix-manual .ath-ticker:hover .ath-ticker-track,
+.a11y-fix-manual .ath-ticker:focus-within .ath-ticker-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .a11y-fix-manual .ath-ticker-track { animation: none; }
+  .a11y-fix-manual .ath-ticker-dup { display: none; }
+  .a11y-fix-manual .ath-ticker-window { overflow-x: auto; }
+}
+.ath-ticker-pause { flex: none; align-self: center; margin-left: var(--space-2); font: inherit; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; background: transparent; color: #fff; border: 1px solid #fff; padding: var(--space-1) var(--space-2); cursor: pointer; }
+.ath-ticker-pause:focus-visible { outline: 3px solid var(--brand-gold); outline-offset: 2px; }
 .ath-ticker ul { display: flex; list-style: none; margin: 0; padding: 0; }
 .ath-ticker-item { flex: 0 0 11rem; border-right: 1px solid #222; }
 .ath-ticker a { display: flex; flex-direction: column; padding: var(--space-2) var(--space-3); color: #fff; text-decoration: none; font-size: 0.85rem; line-height: 1.25; height: 100%; }

@@ -1,12 +1,15 @@
-import { useState } from "react";
-import { Link } from "react-router";
-import { Heading, SmartLink } from "~/a11y/helpers";
+import { useCallback, useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
+import { Field, Heading } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
 import { Hero } from "~/components/Hero";
 import { Img } from "~/components/Img";
 import { Callout } from "~/components/Callout";
+import { Modal } from "~/components/Modal";
+import { DatePicker, Toast } from "~/components/widgets";
 import { VideoEmbed } from "~/components/blocks";
 import { SITE_NOW, addDays, formatDate } from "~/data/site";
+import { confirmationCode, hash, latency } from "~/lib/interactive";
 import { LinkList, Table, content } from "./_content";
 
 export { inventoryMeta as meta } from "~/routes/meta";
@@ -14,16 +17,14 @@ export { inventoryMeta as meta } from "~/routes/meta";
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const dayOf = (iso: string) => DAYS[new Date(`${iso}T00:00:00Z`).getUTCDay()];
 
-/** Upcoming weekday walking tours after SITE_NOW (static until plan 06's date picker replaces this list). */
-function upcomingTours(count: number) {
-  const slots: { date: string; time: string; key: string }[] = [];
-  for (let d = 1; slots.length < count; d++) {
-    const date = addDays(SITE_NOW, d);
-    if (["Saturday", "Sunday"].includes(dayOf(date))) continue;
-    slots.push({ date, time: "10:00 a.m.", key: `${date}-10am` }, { date, time: "2:00 p.m.", key: `${date}-2pm` });
-  }
-  return slots.slice(0, count);
-}
+// Weekday walking tours, bookable from tomorrow through eight weeks out (SITE_NOW, never the clock).
+const FIRST = addDays(SITE_NOW, 1);
+const LAST = addDays(SITE_NOW, 56);
+const TIMES = ["10:00 a.m.", "2:00 p.m."];
+const SPOTS = 20;
+const isTourDay = (d: string) => d >= FIRST && d <= LAST && !["Saturday", "Sunday"].includes(dayOf(d));
+/** Deterministic spots already taken; about one slot in eight is full. */
+const takenSpots = (date: string, time: string) => (hash(`${date} ${time}`) % 8 === 0 ? SPOTS : hash(`${time} ${date}`) % 18);
 
 const GALLERY = [
   { image: "campus-library-interior", defect: "DSC_0192.JPG", caption: "Sequoia Library reading room" },
@@ -34,12 +35,7 @@ const GALLERY = [
 export default function Visit() {
   const c = content("/admissions/visit")!;
   const [intro, schedule] = c.sections;
-  const [open, setOpen] = useState(false);
-  const moreFixed = useScenario("adm-visit-more-dates-001");
-  useScenario("adm-visit-saturday-contrast-001"); // CSS scenarios (marketing.css): register only.
-  useScenario("adm-visit-reserve-focus-001");
-  const tours = upcomingTours(open ? 12 : 6);
-  const toggle = () => setOpen((o) => !o);
+  useScenario("adm-visit-saturday-contrast-001"); // CSS scenario (marketing.css): register only.
 
   return (
     <div className="adm-visit">
@@ -68,23 +64,7 @@ export default function Visit() {
           </div>
         </section>
 
-        {/* Static placeholder: plan 06 replaces this list with the visit date picker and booking dialog. */}
-        <section className="stack adm-dates" id="choose-date" aria-labelledby="dates-heading" data-a11y-scenario="adm-visit-reserve-focus-001">
-          <h2 id="dates-heading">Choose a date</h2>
-          <p>Upcoming weekday campus walking tours. Pick a time to reserve your spot.</p>
-          <ul className="adm-date-list">
-            {tours.map((t) => (
-              <li key={t.key}>
-                <span className="adm-date">{dayOf(t.date)}, {formatDate(t.date)}</span>
-                <span className="adm-time">{t.time}</span>
-                <ReserveLink date={t.date} time={t.time} />
-              </li>
-            ))}
-          </ul>
-          {moreFixed
-            ? <button type="button" className="btn btn--secondary" aria-expanded={open} onClick={toggle} data-a11y-scenario="adm-visit-more-dates-001">{open ? "Show fewer dates" : "Show more dates"}</button>
-            : <div className="btn btn--secondary" onClick={toggle} data-a11y-scenario="adm-visit-more-dates-001">{open ? "Show fewer dates" : "Show more dates"}</div>}
-        </section>
+        <VisitScheduler />
 
         <section className="stack" aria-labelledby="virtual-heading">
           <h2 id="virtual-heading">Can't make it to the redwoods?</h2>
@@ -113,11 +93,99 @@ export default function Visit() {
   );
 }
 
-function ReserveLink({ date, time }: { date: string; time: string }) {
-  const fixed = useScenario("adm-visit-reserve-generic-001");
+/**
+ * Tour booking (plan 06 #12): date picker, time slots, a reservation dialog and a confirmation toast. Honors
+ * ?date=YYYY-MM-DD&time=… links, read after hydration so the prerendered HTML stays query-free (ADR-015).
+ */
+function VisitScheduler() {
+  const timeFixed = useScenario("visit-time-state-001");
+  const guestsFixed = useScenario("visit-guests-select-001");
+  const [params] = useSearchParams();
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [pickerKey, setPickerKey] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [guests, setGuests] = useState("1");
+  const [busy, setBusy] = useState(false);
+  const [booked, setBooked] = useState<Record<string, number>>({});
+  const [toast, setToast] = useState<string | null>(null);
+  const dismiss = useCallback(() => setToast(null), []);
+
+  useEffect(() => {
+    const d = params.get("date") ?? "";
+    const t = params.get("time") ?? "";
+    if (!isTourDay(d)) return;
+    setDate(d);
+    setTime(TIMES.includes(t) ? t : "");
+    setPickerKey((k) => k + 1); // remount the picker so its month shows the linked date
+  }, [params]);
+
+  const left = (t: string) => SPOTS - takenSpots(date, t) - (booked[`${date} ${t}`] ?? 0);
+  const pick = (d: string) => { setDate(d); setTime(""); };
+  const when = date && time ? `${dayOf(date)}, ${formatDate(date)} at ${time}` : "";
+
+  async function confirm(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const party = Number(guests);
+    setBusy(true);
+    await latency(`visit-${date}-${time}`);
+    setBusy(false);
+    setBooked((b) => ({ ...b, [`${date} ${time}`]: (b[`${date} ${time}`] ?? 0) + party }));
+    setOpen(false);
+    setToast(`You're booked for the ${when} campus tour (party of ${party}). Confirmation ${confirmationCode(`visit|${date}|${time}|${email.trim().toLowerCase()}`)}.`);
+  }
+
   return (
-    <Link to={`/admissions/visit?date=${date}&time=${encodeURIComponent(time)}`} className="btn btn--primary adm-reserve" data-a11y-scenario="adm-visit-reserve-generic-001">
-      Reserve{fixed && <span className="visually-hidden"> a spot on the {formatDate(date)} {time} tour</span>}
-    </Link>
+    <section className="stack visit-scheduler" id="choose-date" aria-labelledby="dates-heading">
+      <h2 id="dates-heading">Choose a date</h2>
+      <p>Weekday campus walking tours run at 10:00 a.m. and 2:00 p.m. Pick a date, then a time, to reserve your spot.</p>
+
+      <div className="visit-picker">
+        <DatePicker key={pickerKey} label="Tour date" value={date} onChange={pick} min={FIRST} max={LAST} isAvailable={isTourDay} scenario="visit-datepicker-grid-001" defect="mouse-only-grid" />
+
+        <div className="visit-times" data-a11y-scenario="visit-time-state-001">
+          <p className="visit-times-label">{date ? `Tour times for ${dayOf(date)}, ${formatDate(date)}` : "Tour times"}</p>
+          {!date && <p className="visit-note">Choose a date to see tour times.</p>}
+          {date && !isTourDay(date) && <p className="visit-note">Tours run Monday through Friday, {formatDate(FIRST)} to {formatDate(LAST)}. Choose another date.</p>}
+          {date && isTourDay(date) && (
+            <div className="visit-time-list">
+              {TIMES.map((t) => {
+                const n = left(t);
+                return (
+                  <button key={t} type="button" className={`visit-time${t === time ? " is-selected" : ""}`} disabled={n <= 0}
+                    aria-pressed={timeFixed ? t === time : undefined} onClick={() => setTime(t)}>
+                    <span className="visit-time-at">{t}</span>
+                    <span className="visit-time-left">{n > 0 ? `${n} spots left` : "Full"}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          <button type="button" className="btn btn--primary visit-reserve" disabled={!when} onClick={() => setOpen(true)}>Reserve this tour</button>
+        </div>
+      </div>
+
+      <Modal open={open} title="Reserve your campus tour" onClose={() => setOpen(false)} scenario="visit-modal-restore-001" defect="no-restore">
+        <form className="visit-form" onSubmit={confirm}>
+          <p className="visit-when"><strong>{when || "Choose a date and time first."}</strong><br />Welcome Center, Founders Hall 110</p>
+          <Field scenario="visit-name-placeholder-001" id="visit-name" label="Visitor name" defect="placeholder" required autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} />
+          <div className="field">
+            <label htmlFor="visit-email">Email</label>
+            <input id="visit-email" type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </div>
+          <div className="field" data-a11y-scenario="visit-guests-select-001">
+            {guestsFixed ? <label htmlFor="visit-guests">How many in your group?</label> : <p className="field-label">How many in your group?</p>}
+            <select id="visit-guests" value={guests} onChange={(e) => setGuests(e.target.value)}>
+              {[1, 2, 3, 4, 5, 6].filter((n) => !time || n <= Math.max(1, left(time))).map((n) => <option key={n} value={n}>{n === 1 ? "Just me" : `${n} people`}</option>)}
+            </select>
+          </div>
+          <button type="submit" className="btn btn--primary" disabled={busy || !when}>{busy ? "Reserving…" : "Confirm reservation"}</button>
+        </form>
+      </Modal>
+
+      <Toast message={toast} onDismiss={dismiss} scenario="visit-toast-001" defect="vanishes" />
+    </section>
   );
 }

@@ -1,7 +1,7 @@
 import type { ScenarioDef } from "./types";
 
-// Every PortalPage-template route (registration is the plan 07 terrible SPA and has its own defects).
-const PORTAL_PAGES = ["", "/schedule", "/grades", "/degree-progress", "/account", "/holds", "/todo", "/messages", "/profile"].map((p) => `/portal${p}`);
+// Every PortalPage-template route. Registration (the plan 07 terrible SPA) uses the template too; its own defects are in registration.ts.
+const PORTAL_PAGES = ["", "/schedule", "/grades", "/degree-progress", "/account", "/registration", "/holds", "/todo", "/messages", "/profile"].map((p) => `/portal${p}`);
 
 const s = (def: Omit<ScenarioDef, "pages"> & { pages?: string[] }, page: string): ScenarioDef => ({ pages: [page], ...def });
 
@@ -34,11 +34,21 @@ export const portalScenarios: ScenarioDef[] = [
     id: "portal-dash-widget-heading-001",
     rule: "heading-possible",
     title: "Widget titles are styled text, not headings",
-    description: "Dashboard widget titles (My Classes Today, Account Summary, To-Do, Messages) are bold paragraphs, so the page has no structure below the <h1>.",
+    description: "Dashboard widget titles (My Classes, Account Summary, To-Do List, Messages...) are bold paragraphs, so the widgets can't be reached by heading.",
     fixDescription: "Widget titles become <h2> headings.",
     component: "DashboardWidget",
     mechanism: "markup",
     severity: "moderate",
+  }, "/portal"),
+  s({
+    id: "portal-dash-ack-focus-001",
+    rule: "focus-lost-on-update",
+    title: "Focus is lost after acknowledging an announcement",
+    description: "Acknowledge removes the announcement along with the button that had focus, so focus drops to the top of the page.",
+    fixDescription: "Focus moves to the Announcements heading, and each button names its announcement.",
+    component: "Announcements",
+    mechanism: "behavior",
+    severity: "serious",
   }, "/portal"),
   s({
     id: "portal-dash-asof-contrast-001",
@@ -118,13 +128,23 @@ export const portalScenarios: ScenarioDef[] = [
     id: "portal-grades-duplicate-id-001",
     rule: "duplicate-id",
     title: "Every term table reuses the same ids",
-    description: "Each term table copies the same header ids (grade-course, grade-title...) and the cells point at them with headers, so ids repeat four times.",
+    description: "Each term's table (one per tab panel, all in the DOM) copies the same header ids (grade-course, grade-title...) and the cells point at them with headers, so ids repeat once per term.",
     fixDescription: "Prefixes each table's ids with the term.",
     // The repeated ids are referenced by headers, not ARIA, so axe reports the cross-table headers instead.
     detectedBy: { axe: ["td-headers-attr"] },
     component: "GradesPage",
     mechanism: "markup",
     severity: "serious",
+  }, "/portal/grades"),
+  s({
+    id: "portal-grades-tabs-001",
+    rule: "sr-visual-only-state",
+    title: "Term tabs are plain buttons",
+    description: "The term picker above the grade tables is a row of plain buttons; which term is showing is conveyed only by color and an underline, with no tab roles or selected state.",
+    fixDescription: "Uses the tabs pattern (tablist, tab, tabpanel, aria-selected, arrow keys).",
+    component: "GradesPage",
+    mechanism: "markup",
+    severity: "moderate",
   }, "/portal/grades"),
   s({
     id: "portal-grades-footnote-small-001",
@@ -189,14 +209,14 @@ export const portalScenarios: ScenarioDef[] = [
     severity: "serious",
   }, "/portal/degree-progress"),
   s({
-    id: "portal-audit-group-heading-001",
-    rule: "heading-possible",
-    title: "Requirement group names are bold text",
-    description: "Requirement group names (Lower-Division Core, Mathematics...) are bold paragraphs, not headings.",
-    fixDescription: "Group names become <h3> headings.",
-    component: "RequirementGroup",
+    id: "portal-audit-accordion-001",
+    rule: "sr-accordion-state",
+    title: "Requirement groups don't expose expanded state",
+    description: "Each requirement group expands from a button with no aria-expanded or aria-controls, so screen readers can't tell whether a group is open.",
+    fixDescription: "Buttons carry aria-expanded and aria-controls, and panels are labeled regions.",
+    component: "Requirements",
     mechanism: "markup",
-    severity: "moderate",
+    severity: "serious",
   }, "/portal/degree-progress"),
   s({
     id: "portal-audit-notes-list-001",
@@ -222,9 +242,9 @@ export const portalScenarios: ScenarioDef[] = [
     id: "portal-audit-group-spacing-001",
     rule: "text-spacing-breaks",
     title: "Group headers clip when text spacing is increased",
-    description: "Requirement group header bars have a fixed 2.25rem height with overflow hidden, so user text-spacing overrides (or wrapping on narrow screens) clip the text.",
+    description: "Requirement group header buttons have a fixed 2.25rem height with overflow hidden and no wrapping, so user text-spacing overrides (or narrow screens) clip the group names.",
     fixDescription: "Uses padding and min-height instead of a fixed height.",
-    component: "RequirementGroup",
+    component: "Requirements",
     mechanism: "css",
     severity: "moderate",
   }, "/portal/degree-progress"),
@@ -232,7 +252,7 @@ export const portalScenarios: ScenarioDef[] = [
     id: "portal-audit-credits-underline-001",
     rule: "underline-non-link",
     title: "Credit totals are underlined like links",
-    description: "Group credit totals (\"12 of 17 credits\") are underlined to show they are totals, so they look like links.",
+    description: "Group credit totals (\"12 of 17 credits\") inside each expanded group are underlined to show they are totals, so they look like links.",
     fixDescription: "Removes the underline and uses bold.",
     component: "RequirementGroup",
     mechanism: "css",
@@ -259,6 +279,16 @@ export const portalScenarios: ScenarioDef[] = [
     component: "Ledger",
     mechanism: "markup",
     severity: "minor",
+  }, "/portal/account"),
+  s({
+    id: "portal-acct-ledger-width-001",
+    rule: "reflow-fixed-dimensions",
+    title: "Account ledger is fixed-width and clipped at 200% zoom",
+    description: "The account activity table is a fixed 60rem wide inside a card with overflow hidden, so at 200% zoom or on small screens the Amount and Balance columns are cut off.",
+    fixDescription: "The table fills the card and scrolls inside its own container.",
+    component: "Ledger",
+    mechanism: "css",
+    severity: "serious",
   }, "/portal/account"),
   s({
     id: "portal-acct-epay-window-001",
@@ -303,6 +333,16 @@ export const portalScenarios: ScenarioDef[] = [
     severity: "serious",
   }, "/portal/holds"),
   s({
+    id: "portal-holds-modal-001",
+    rule: "sr-modal-no-context",
+    title: "Hold details open in a div with no dialog semantics",
+    description: "\"View details\" opens an overlay <div> with no dialog role or name; focus isn't moved into it, Esc doesn't close it, and its close button has no name.",
+    fixDescription: "Uses a modal <dialog> labeled by its heading, with focus moved in, Esc to close and focus restored.",
+    component: "HoldModal",
+    mechanism: "behavior",
+    severity: "serious",
+  }, "/portal/holds"),
+  s({
     id: "portal-holds-resolve-generic-001",
     rule: "link-generic",
     title: "Hold actions all read \"More info\"",
@@ -329,9 +369,9 @@ export const portalScenarios: ScenarioDef[] = [
   s({
     id: "portal-msg-row-click-001",
     rule: "kbd-div-button",
-    title: "Inbox rows open only on mouse click",
-    description: "Inbox rows are clickable table rows with no link or button, so keyboard users can't open a message.",
-    fixDescription: "The subject becomes a link to the message.",
+    title: "Inbox is a list of clickable divs",
+    description: "Each inbox row is a clickable <div> with no role, name or tabindex, so keyboard and screen reader users can't open a message (or mark it read).",
+    fixDescription: "The inbox is a list and each row is a button that opens the message and moves focus to it.",
     component: "Inbox",
     mechanism: "behavior",
     severity: "critical",

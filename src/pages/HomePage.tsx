@@ -1,15 +1,16 @@
+import { useEffect, useRef, useState } from "react";
 import { Form, Link, useLoaderData } from "react-router";
 import { ScenarioTitle } from "~/a11y/DocumentScenarios";
 import { SmartLink } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
 import { ButtonLink } from "~/components/Button";
 import { Card, CardGrid } from "~/components/Card";
-import { Hero } from "~/components/Hero";
 import { Img } from "~/components/Img";
 import { StatsBand, VideoEmbed } from "~/components/blocks";
 import { brand } from "~/data/brand";
 import { eventsContent } from "~/data/content/events";
 import { newsContent } from "~/data/content/news";
+import imageSizes from "~/data/image-sizes.json";
 import { megaMenu } from "~/data/navigation";
 import { SITE_NOW, formatDate } from "~/data/site";
 
@@ -42,16 +43,8 @@ export default function HomePage() {
   return (
     <>
       <ScenarioTitle scenario="home-page-title-001" title={brand.name} />
-      <Hero
-        title="Deep roots. Wide branches."
-        kicker={brand.name}
-        lede="A public research university on California's redwood coast, where 18,000 students learn, discover, and grow."
-        image="home-hero-quad"
-        imageScenario="home-hero-img-alt-001"
-      >
-        <ButtonLink to="/admissions">Apply to Redwood State</ButtonLink>
-        <ButtonLink to="/admissions/visit" variant="secondary">Plan a visit</ButtonLink>
-      </Hero>
+      <AnnouncementTicker />
+      <HeroCarousel />
 
       <div className="page-content">
         <AudiencePaths />
@@ -211,6 +204,182 @@ function HomeEvents({ items }: { items: { slug: string; title: string; start: st
       <div data-a11y-scenario="home-events-list-001">
         {listFixed ? <ul className="home-event-list">{rows}</ul> : <div className="home-event-list">{rows}</div>}
       </div>
+    </section>
+  );
+}
+
+// ---------- Plan 06 #11: hero carousel and announcement ticker (styles/features/carousel.css) ----------
+// The first render shows slide 1 and an untouched ticker; timers start in effects only, so the prerendered HTML
+// equals the first client render.
+
+const altOf = (id: string) => (imageSizes as Record<string, { alt: string }>)[id]?.alt ?? "";
+const ROTATE_MS = 6000;
+
+interface Slide { image: string; kicker: string; title: string; lede: string; actions: { label: string; to: string }[] }
+const slides: Slide[] = [
+  {
+    image: "home-hero-quad", kicker: brand.name, title: "Deep roots. Wide branches.",
+    lede: "A public research university on California's redwood coast, where 18,000 students learn, discover, and grow.",
+    actions: [{ label: "Apply to Redwood State", to: "/admissions" }, { label: "Plan a visit", to: "/admissions/visit" }],
+  },
+  {
+    image: "home-slide-research", kicker: "Research", title: "A 1,200-acre forest for a laboratory",
+    lede: "Students and faculty study carbon, water and wildlife in the Tanoak Creek Research Forest, part of $38.9 million in external research funding last year.",
+    actions: [{ label: "Explore academics", to: "/academics" }],
+  },
+  {
+    image: "home-slide-arts", kicker: "Arts", title: "On stage this fall",
+    lede: "Concerts, exhibitions and student productions fill the calendar at Hartwell Fine Arts Center and across campus.",
+    actions: [{ label: "See upcoming events", to: "/events" }],
+  },
+  {
+    image: "home-slide-forest", kicker: "Learning outdoors", title: "Class meets under the canopy",
+    lede: "Field courses take students from Canopy Green into the research forest and down to the tide pools at Gull Rock Point.",
+    actions: [{ label: "Browse programs", to: "/academics/programs" }],
+  },
+  {
+    image: "home-slide-commencement", kicker: "Admissions", title: "Apply by December 1",
+    lede: "The priority application deadline for fall 2027 is December 1, 2026. First-year and transfer applicants are welcome.",
+    actions: [{ label: "Start your application", to: "/admissions/apply" }],
+  },
+];
+
+/**
+ * home-carousel-pause-001 (no pause, ignores reduced motion), home-carousel-controls-kbd-001 (span controls) and
+ * home-carousel-focus-001 (focus follows every slide change). Slide 1 keeps home-hero-img-alt-001.
+ */
+function HeroCarousel() {
+  const pauseFixed = useScenario("home-carousel-pause-001");
+  const kbdFixed = useScenario("home-carousel-controls-kbd-001");
+  const focusFixed = useScenario("home-carousel-focus-001");
+  const [index, setIndex] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const [hold, setHold] = useState(false);
+  const [reduced, setReduced] = useState(false);
+  const slideEls = useRef<(HTMLDivElement | null)[]>([]);
+  const changed = useRef(false);
+  const n = slides.length;
+
+  useEffect(() => {
+    const mq = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    if (!mq) return;
+    const on = () => setReduced(mq.matches);
+    on();
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
+  // Fixed: never auto-rotate under reduced motion (the visitor can still press Play).
+  useEffect(() => { if (pauseFixed && reduced) setPlaying(false); }, [pauseFixed, reduced]);
+
+  const rotating = pauseFixed ? playing && !hold : true;
+  useEffect(() => {
+    if (!rotating) return;
+    const t = setInterval(() => { changed.current = true; setIndex((i) => (i + 1) % n); }, ROTATE_MS);
+    return () => clearInterval(t);
+  }, [rotating, n]);
+
+  // Defective: every slide change focuses the new slide (except while the tester is in the a11y control).
+  useEffect(() => {
+    if (!changed.current) return;
+    changed.current = false;
+    if (focusFixed || document.activeElement?.closest(".a11y-control")) return;
+    slideEls.current[index]?.focus({ preventScroll: true });
+  }, [index, focusFixed]);
+
+  const go = (i: number) => { changed.current = true; setIndex((i + n) % n); };
+  const control = (label: string, className: string, onClick: () => void, children: React.ReactNode, current?: boolean, key?: string) =>
+    kbdFixed
+      ? <button key={key} type="button" className={className} aria-label={label} aria-current={current ? "true" : undefined} onClick={onClick}>{children}</button>
+      : <span key={key} className={className} onClick={onClick}>{children}</span>;
+  const holdProps = pauseFixed ? {
+    onMouseEnter: () => setHold(true),
+    onMouseLeave: () => setHold(false),
+    onFocus: () => setHold(true),
+    onBlur: (e: React.FocusEvent) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setHold(false); },
+  } : {};
+
+  return (
+    <section
+      className="home-carousel"
+      aria-roledescription="carousel"
+      aria-label="Featured stories"
+      data-a11y-scenario="home-carousel-pause-001 home-carousel-controls-kbd-001 home-carousel-focus-001"
+      {...holdProps}
+    >
+      <div className="home-carousel-slides" aria-live={pauseFixed && !rotating ? "polite" : "off"}>
+        {slides.map((s, i) => {
+          const H = i === 0 ? "h1" : "h2";
+          return (
+            <div
+              key={s.image}
+              ref={(el) => { slideEls.current[i] = el; }}
+              className={`hero hero--overlay hero--has-image home-slide${i === index ? " is-active" : ""}`}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${n}`}
+              inert={i !== index}
+              tabIndex={focusFixed ? undefined : -1}
+            >
+              <div className="hero-media">
+                {i === 0
+                  ? <Img image={s.image} scenario="home-hero-img-alt-001" loading="eager" fetchPriority="high" />
+                  : <Img image={s.image} alt={altOf(s.image)} />}
+              </div>
+              <div className="hero-body">
+                <p className="hero-kicker">{s.kicker}</p>
+                <H id={i === 0 ? "page-title" : undefined}>{s.title}</H>
+                <p className="hero-lede">{s.lede}</p>
+                <div className="hero-actions">
+                  {s.actions.map((a, j) => <ButtonLink key={a.to} to={a.to} variant={j ? "secondary" : "primary"}>{a.label}</ButtonLink>)}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="carousel-controls">
+        {pauseFixed && (
+          <button type="button" className="carousel-btn carousel-pause" onClick={() => setPlaying(!playing)}>
+            <span aria-hidden="true">{playing ? "❚❚" : "▶"}</span> {playing ? "Pause" : "Play"}<span className="visually-hidden"> slideshow</span>
+          </button>
+        )}
+        {control("Previous slide", "carousel-btn carousel-arrow", () => go(index - 1), <span aria-hidden="true">‹</span>)}
+        <span className="carousel-dots">
+          {slides.map((s, i) => control(`Slide ${i + 1} of ${n}: ${s.title}`, `carousel-dot${i === index ? " is-active" : ""}`, () => go(i), null, i === index, s.image))}
+        </span>
+        {control("Next slide", "carousel-btn carousel-arrow", () => go(index + 1), <span aria-hidden="true">›</span>)}
+      </div>
+    </section>
+  );
+}
+
+const announcements = [
+  { text: "Spring 2027 registration opens November 2 by time ticket.", to: "/students/registrar" },
+  { text: "Homecoming & Family Weekend is October 23–25.", to: "/events/homecoming-2026" },
+  { text: "Fall 2027 priority application deadline: December 1, 2026.", to: "/admissions/apply" },
+  { text: "Owls basketball opens at home against Cascade State on November 6.", to: "/events/basketball-home-opener" },
+  { text: "Madrone Hall and the Robotics and Autonomous Systems Lab opened in August.", to: "/news" },
+];
+
+/** home-ticker-motion-001: an endless CSS marquee. Fixed: Pause button, pauses on hover/focus, static under reduced motion. */
+function AnnouncementTicker() {
+  const fixed = useScenario("home-ticker-motion-001");
+  const [paused, setPaused] = useState(false);
+  const items = announcements.map((a) => <li key={a.to}><Link to={a.to}>{a.text}</Link></li>);
+  return (
+    <section className={`home-ticker${fixed && paused ? " is-paused" : ""}`} aria-label="Campus announcements" data-a11y-scenario="home-ticker-motion-001">
+      <p className="home-ticker-label">Announcements</p>
+      <div className="home-ticker-window">
+        <div className="ticker-track">
+          <ul>{items}</ul>
+          <ul className="ticker-dup" aria-hidden="true" inert>{items}</ul>
+        </div>
+      </div>
+      {fixed && (
+        <button type="button" className="ticker-pause" onClick={() => setPaused(!paused)}>
+          {paused ? "Play" : "Pause"}<span className="visually-hidden"> announcements</span>
+        </button>
+      )}
     </section>
   );
 }

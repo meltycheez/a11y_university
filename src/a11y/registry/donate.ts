@@ -1,3 +1,90 @@
+import type { RuleKey } from "../rules";
 import type { ScenarioDef } from "./types";
 
-export const donateScenarios: ScenarioDef[] = [];
+type Mech = ScenarioDef["mechanism"];
+type Sev = NonNullable<ScenarioDef["severity"]>;
+const d = (id: string, rule: RuleKey, component: string, mechanism: Mech, severity: Sev, title: string, description: string, fixDescription: string): ScenarioDef =>
+  ({ id: `donate-${id}-001`, rule, pages: ["/giving/donate"], component, mechanism, severity, title, description, fixDescription });
+
+// /giving/donate: Donation Form, one of the six terrible pages (plan 06 #7, plan 07). Tier T.
+export const donateScenarios: ScenarioDef[] = [
+  // ---------- Errors ----------
+  d("amount-custom-label", "input-missing-label", "DonateAmount", "markup", "critical",
+    "\"Other amount\" input has no label", "The custom amount box sits next to a \"$\" and the chip row; nothing labels it.", "Adds a visible <label> \"Other amount (USD)\"."),
+  d("fund-select-label", "select-missing-label", "DonateFund", "markup", "critical",
+    "Fund select has no label", "\"Designate my gift to\" is a paragraph above the fund <select>, not a label.", "Makes the text a <label for> the select."),
+  d("card-number-for", "label-for-mismatch", "DonatePayment", "markup", "critical",
+    "Card number label points at the wrong id", "The \"Card number\" label has for=\"card-number\" but the input id is \"cc-number\".", "The label's for matches the input id."),
+  d("expiry-select-label", "select-missing-label", "DonatePayment", "markup", "serious",
+    "Expiration month and year selects are unlabeled", "\"Expiration\" is plain text in front of two selects with no names.", "Wraps the selects in a fieldset with the legend \"Expiration date\" and labels Month and Year."),
+  d("progress-aria-current", "aria-invalid-value", "DonateProgress", "markup", "moderate",
+    "Progress steps use aria-current=\"yes\"", "The gift progress bar marks the current step with aria-current=\"yes\", which is not an allowed value.", "Uses aria-current=\"step\"."),
+  d("card-hint-describedby", "aria-broken-reference", "DonatePayment", "markup", "serious",
+    "Card number describedby points at a missing id", "The card number input has aria-describedby=\"cc-hint\", but the hint's id is \"card-hint\".", "aria-describedby references the hint's real id."),
+  d("secure-img-alt", "img-missing-alt", "DonatePayment", "markup", "serious",
+    "\"Secure checkout\" badge has no alt", "The padlock badge image, which carries the words \"Secure checkout\", has no alt attribute.", "Adds alt=\"Secure checkout: your card details are encrypted\"."),
+  d("tribute-remove-button", "button-empty", "DonateTribute", "markup", "critical",
+    "Remove-tribute \"×\" button has no name", "The tribute panel's close button contains only a \"×\" glyph.", "Names the button \"Remove tribute\"."),
+  d("chip-duplicate-id", "duplicate-id", "DonateAmount", "markup", "moderate",
+    "Amount and frequency chips repeat the same ids", "Both chip rows generate ids chip-0, chip-1, … from the same template, so ids repeat on the page.", "Each chip gets a unique id (amount-0, freq-0, …)."),
+
+  // ---------- Alerts ----------
+  d("amount-fieldset", "fieldset-missing", "DonateAmount", "markup", "moderate",
+    "Amount radio chips are not grouped", "The $25–$500 amount chips are radio buttons in a plain <div>; the question \"Gift amount\" is not a legend.", "Wraps the chips in a <fieldset> with the legend \"Gift amount\"."),
+  d("donor-placeholder", "placeholder-as-label", "DonateDonor", "markup", "moderate",
+    "Donor fields are labeled only by placeholders", "First name, last name, email, phone, street, city and ZIP show their names as placeholders that vanish on typing.", "Adds visible labels above each field."),
+  d("tribute-orphan-label", "label-orphaned", "DonateTribute", "markup", "minor",
+    "Honoree name label is not attached", "The \"Honoree's full name\" <label> has no for attribute and does not wrap the input.", "Adds for=\"tribute-name\"."),
+  d("card-logos-alt", "alt-suspicious", "DonatePayment", "markup", "minor",
+    "Accepted-cards image alt is a file name", "The accepted card strip has alt=\"accepted_cards.gif\".", "Uses alt=\"We accept all major credit and debit cards\"."),
+  d("contact-title-redundant", "title-redundant", "DonatePage", "markup", "minor",
+    "Advancement link repeats its text as a title", "The \"Office of Advancement\" link has title=\"Office of Advancement\", so it is announced twice.", "Removes the title attribute."),
+  d("help-link-generic", "link-generic", "DonatePage", "markup", "minor",
+    "\"Click here\" for giving questions", "The help sentence ends in a link reading \"Click here\".", "The link reads \"Contact the Office of Advancement\"."),
+  d("ways-new-window", "link-new-window", "DonatePage", "markup", "minor",
+    "\"Other ways to give\" opens a new tab silently", "The link to other ways to give opens in a new tab with no warning.", "Adds \"(opens in a new tab)\"."),
+  d("section-heading-skip", "heading-skipped", "DonateForm", "markup", "moderate",
+    "Form sections jump from h1 to h3", "The form's section titles (Your gift, Your information, Payment) are <h3> directly under the page <h1>.", "Section titles are <h2>."),
+  d("tribute-heading-fake", "heading-possible", "DonateTribute", "markup", "minor",
+    "\"Tribute gift\" is a bold paragraph", "The tribute section title is bold paragraph text instead of a heading.", "Makes it an <h2>."),
+  d("fineprint-small", "text-small", "DonateForm", "css", "minor",
+    "Tax and recurring-gift fine print is 10px", "The tax-deductibility and monthly-gift terms under the form are set at 10px.", "Uses 0.9rem."),
+  d("review-layout-table", "table-layout", "DonateReview", "markup", "minor",
+    "Review summary is a layout table", "The review step lays out label/value pairs in a <table> with no headers, for spacing.", "Uses a description list (<dl>)."),
+  d("review-edit-javascript", "link-javascript", "DonateReview", "markup", "moderate",
+    "Review \"Edit\" links are href=\"#\" links", "\"Edit\" on the review step is <a href=\"#\"> with a click handler.", "Uses a real <button> named \"Edit gift details\"."),
+  d("promise-underline", "underline-non-link", "DonateForm", "markup", "minor",
+    "Underlined emphasis looks like a link", "\"100% of your gift\" is underlined for emphasis, so it looks clickable.", "Uses bold emphasis instead."),
+  d("cvv-hover-help", "event-handler-device", "DonatePayment", "behavior", "serious",
+    "CVV help opens on hover only", "The \"?\" next to Security code shows its tooltip on mouse hover; it can't be focused or opened by keyboard or touch.", "A \"What is this?\" toggle button shows the help and the text is linked with aria-describedby."),
+
+  // ---------- Manual ----------
+  d("timeout-no-extend", "form-timeout-no-warning", "DonateSession", "behavior", "serious",
+    "Session times out after 4 minutes with no warning", "Four minutes after the page loads, the gift is cleared and a \"Session expired\" message appears. There is no warning and no way to extend.", "A warning appears at 3 minutes with a countdown and a \"Continue my gift\" button that restarts the timer."),
+  d("timeout-modal-context", "sr-modal-no-context", "DonateSession", "behavior", "serious",
+    "Session-expired overlay is a plain <div>", "The expiry message is a styled overlay with no dialog role or name; focus stays behind it.", "Uses a modal dialog that takes focus and is named by its heading."),
+  d("amount-instructions-vanish", "form-instructions-disappear", "DonateAmount", "css", "moderate",
+    "Custom amount instructions hide on focus", "\"Minimum $5, whole dollars only\" disappears as soon as the Other amount box is focused.", "The instructions stay visible and are linked with aria-describedby."),
+  d("errors-not-announced", "sr-errors-not-announced", "DonateErrors", "behavior", "serious",
+    "Error list at the top is not announced", "Validation errors appear in a red box at the top of the form. Focus stays on the button and nothing is announced.", "The summary is announced (role=\"alert\"), receives focus and links to each field."),
+  d("errors-color-only", "color-only-error", "DonateErrors", "css", "serious",
+    "Invalid fields are marked only with a red border", "Fields with errors only turn red; there is no text or icon next to them and no aria-invalid.", "Adds an inline message with an icon under each field, plus aria-invalid."),
+  d("errors-vague", "form-vague-errors", "DonateErrors", "behavior", "moderate",
+    "Errors say only \"Invalid entry\"", "Every problem is listed as \"Invalid entry\" with no field name or fix.", "Each message names the field and how to fix it."),
+  d("required-unclear", "form-required-unclear", "DonateForm", "markup", "moderate",
+    "Required fields are marked with an unexplained asterisk", "Some labels end in \"*\" but the form never says what it means, and the inputs are not marked required.", "Adds \"Fields marked * are required\" and the required attribute."),
+  d("chip-focus", "focus-indicator-missing", "DonateAmount", "css", "serious",
+    "Amount chips show no focus", "The real radio inputs are hidden and the chip styles have no focus state.", "Chips show a focus ring when their radio is focused."),
+  d("chip-caption-contrast", "contrast-text-low", "DonateAmount", "css", "serious",
+    "Amount impact captions are light gray", "The caption under each amount (\"a week of groceries\") is #b0b0a8 on white, about 2.1:1.", "Uses #5c5c56, about 6.6:1."),
+  d("frequency-visual-state", "sr-visual-only-state", "DonateFrequency", "behavior", "serious",
+    "Frequency buttons show the choice by color only", "One-time / Monthly / Annually are buttons whose selection is only a filled background; nothing exposes which is chosen.", "Uses a radio group in a fieldset."),
+  d("tribute-focus-lost", "focus-lost-on-update", "DonateTribute", "behavior", "moderate",
+    "Removing the tribute drops focus", "Closing the tribute panel removes the focused button, so focus falls back to the top of the page.", "Focus returns to the \"Give in honor or memory\" checkbox."),
+  d("review-focus-lost", "focus-lost-on-update", "DonateReview", "behavior", "moderate",
+    "Review step leaves focus behind", "\"Review my gift\" swaps the form for the review step, and focus is lost.", "Focus moves to the review heading."),
+  d("confirm-status", "sr-status-not-announced", "DonateConfirmation", "behavior", "moderate",
+    "Processing and thank-you messages are silent", "\"Processing your gift…\" and the confirmation appear without being announced.", "Both render in a role=\"status\" region and focus moves to the thank-you heading."),
+  d("form-fixed-width", "reflow-fixed-dimensions", "DonateForm", "css", "moderate",
+    "Form is fixed at 760px wide", "The form card has width: 760px, so at 400% zoom (320 CSS px) it scrolls sideways.", "Uses max-width with a fluid width."),
+];

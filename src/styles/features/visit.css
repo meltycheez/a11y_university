@@ -1,1 +1,19 @@
 /* Plan 06 feature: visit. Feature CSS and its colocated .a11y-fix-* overrides. */
+
+.visit-picker { display: grid; gap: var(--space-5); align-items: start; }
+@media (min-width: 48rem) { .visit-picker { grid-template-columns: minmax(16rem, 22rem) 1fr; } }
+.visit-picker .fake-calendar { border-radius: 20px; box-shadow: 0 4px 14px rgb(122 46 31 / 0.08); }
+.visit-picker .fake-calendar-day.is-selected { background: var(--brand-redwood); }
+.visit-picker .field input[type="date"] { font: inherit; padding: var(--space-2) var(--space-3); border: 1px solid var(--gray-600); border-radius: 12px; max-width: 16rem; }
+.visit-times { display: grid; gap: var(--space-3); justify-items: start; }
+.visit-times-label { font-weight: 700; margin: 0; }
+.visit-note { margin: 0; color: var(--color-text-muted); }
+.visit-time-list { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.visit-time { display: grid; gap: 2px; text-align: start; font: inherit; padding: var(--space-3) var(--space-4); border: 2px solid #e6cfc4; border-radius: 16px; background: #fff; color: var(--color-text); cursor: pointer; min-width: 10rem; }
+.visit-time:hover:not(:disabled) { border-color: var(--brand-redwood); }
+.visit-time.is-selected { background: var(--brand-redwood); border-color: var(--brand-redwood); color: #fff; }
+.visit-time:disabled { cursor: default; background: #f3efec; color: #5c5c56; border-style: dashed; }
+.visit-time-at { font-weight: 750; font-size: 1.1rem; }
+.visit-time-left { font-size: 0.9rem; }
+.visit-when { margin-top: 0; }
+.visit-form .field input, .visit-form .field select { width: 100%; }

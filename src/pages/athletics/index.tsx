@@ -1,5 +1,5 @@
-// /athletics: the outsourced sports-network front page. Score ticker is static markup here;
-// its motion scenarios belong to plan 06 (#11).
+// /athletics: the outsourced sports-network front page, with the scrolling score ticker from plan 06 (#11).
+import { useState } from "react";
 import { Link, useLoaderData } from "react-router";
 import { SmartLink } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
@@ -127,28 +127,45 @@ export default function AthleticsHome() {
 
 type Result = Awaited<ReturnType<typeof loader>>["results"][number];
 
+/** Scrolling score ticker (plan 06 #11). The copy is duplicated (inert, aria-hidden) for a seamless CSS loop. */
 function ScoreTicker({ results }: { results: Result[] }) {
   const colorFixed = useScenario("athletics-home-ticker-color-001");
+  const pauseFixed = useScenario("athletics-home-ticker-motion-001");
+  useScenario("athletics-home-ticker-reduced-motion-001");
   useScenario("athletics-home-ticker-contrast-001");
   useScenario("athletics-home-ticker-clip-001");
+  const [paused, setPaused] = useState(false);
+  const items = results.map((g) => {
+    const outcome = g.result?.outcome;
+    return (
+      <li key={g.team + g.date} className="ath-ticker-item">
+        <Link to={`/athletics/teams/${g.team}#schedule`}>
+          <span className="ath-ticker-meta">{shortDate(g.date)} · {teamName(g.team)}</span>
+          <span className="ath-ticker-opp">{versus(g)}</span>
+          <span className={outcome ? `ath-score ath-score--${outcome}` : "ath-score"}>
+            {colorFixed && outcome && `${outcome} `}{g.result?.score}
+          </span>
+        </Link>
+      </li>
+    );
+  });
   return (
-    <section className="ath-ticker" aria-label="Latest scores" data-a11y-scenario="athletics-home-ticker-color-001 athletics-home-ticker-contrast-001 athletics-home-ticker-clip-001">
-      <ul>
-        {results.map((g) => {
-          const outcome = g.result?.outcome;
-          return (
-            <li key={g.team + g.date} className="ath-ticker-item">
-              <Link to={`/athletics/teams/${g.team}#schedule`}>
-                <span className="ath-ticker-meta">{shortDate(g.date)} · {teamName(g.team)}</span>
-                <span className="ath-ticker-opp">{versus(g)}</span>
-                <span className={outcome ? `ath-score ath-score--${outcome}` : "ath-score"}>
-                  {colorFixed && outcome && `${outcome} `}{g.result?.score}
-                </span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+    <section
+      className={`ath-ticker${pauseFixed && paused ? " is-paused" : ""}`}
+      aria-label="Latest scores"
+      data-a11y-scenario="athletics-home-ticker-color-001 athletics-home-ticker-contrast-001 athletics-home-ticker-clip-001 athletics-home-ticker-motion-001 athletics-home-ticker-reduced-motion-001"
+    >
+      <div className="ath-ticker-window">
+        <div className="ath-ticker-track">
+          <ul>{items}</ul>
+          <ul className="ath-ticker-dup" aria-hidden="true" inert>{items}</ul>
+        </div>
+      </div>
+      {pauseFixed && (
+        <button type="button" className="ath-ticker-pause" onClick={() => setPaused(!paused)}>
+          {paused ? "Play" : "Pause"}<span className="visually-hidden"> scores</span>
+        </button>
+      )}
       <Link to="/athletics/scores" className="ath-ticker-all">All scores</Link>
     </section>
   );

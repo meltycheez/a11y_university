@@ -1,1 +1,27 @@
 /* Plan 06 feature: search. Feature CSS and its colocated .a11y-fix-* overrides. */
+
+/* Header box (chrome.css owns the base styles): let the suggestion list escape the pill's overflow clip. */
+.site-search { position: relative; overflow: visible; }
+.site-search input { border-radius: 999px 0 0 999px; }
+.site-search-submit { border-radius: 0 999px 999px 0; }
+.site-search-list { position: absolute; z-index: 60; top: calc(100% + 4px); left: 0; right: 0; margin: 0; padding: var(--space-1) 0; list-style: none; background: #fff; color: var(--gray-900); border: 1px solid var(--gray-400); border-radius: var(--radius-sm); box-shadow: var(--shadow-md); }
+.site-search-option { padding: var(--space-2) var(--space-3); cursor: pointer; font-size: 0.95rem; }
+.site-search-option:hover, .site-search-option.is-active { background: var(--brand-mist); }
+.site-search-option.is-active { outline: 2px solid var(--color-focus); outline-offset: -2px; }
+
+/* /search */
+.search-page-form { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: end; }
+.search-page-form .field { margin: 0; flex: 1 1 18rem; }
+.search-page-form .field input { max-width: none; width: 100%; }
+.search-facets { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-block: var(--space-4); }
+.search-facets > span { display: contents; }
+.search-facets-label { font-weight: 650; }
+.search-facet.is-active { background: var(--gray-900); color: #fff; border-color: var(--gray-900); }
+.search-list { list-style: none; padding: 0; display: grid; gap: var(--space-4); }
+.search-result-title { font-size: 1.1rem; margin: 0; }
+.search-snippet { margin: var(--space-1) 0 0; }
+.search-suggestion { font-size: 1.05rem; }
+
+/* search-page-snippet-contrast-001: #9a9a9a on white (~2.8:1) */
+.search-snippet { color: #9a9a9a; }
+.a11y-fix-manual .search-snippet { color: var(--color-text-muted); }

@@ -37,6 +37,10 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 | [030](#adr-030) | 2026-09-25 | Device-dependent handler scenarios are manual-only under React | Accepted | 05, 07 |
 | [031](#adr-031) | 2026-09-25 | `link-javascript` defects use `href="#"` plus a click handler | Accepted | 05, 07 |
 | [032](#adr-032) | 2026-09-25 | Widget defect variants are props on the shared widgets | Accepted | 06 |
+| [033](#adr-033) | 2026-09-25 | Interaction-only defects carry their marker on an always-rendered container | Accepted | 06 |
+| [034](#adr-034) | 2026-09-25 | Session timeouts are short, page-load based and restart on toggle | Accepted | 06 |
+| [035](#adr-035) | 2026-09-25 | Scanner-visible inline handlers are added through refs where detection matters | Accepted | 06 |
+| [036](#adr-036) | 2026-09-25 | Header suggestions are matching pages, not completed phrases | Accepted | 06 |
 
 ---
 
@@ -135,3 +139,15 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 
 ### ADR-032
 **Widget variants as props, not parallel files.** Plan 06 sketched `widgets/Tabs/TabsFixed.tsx`, `TabsBrokenKeyboard.tsx` and so on. Instead each shared widget takes `scenario` and `defect` props and switches markup internally: `Tabs` (broken-keys, no-roles, bad-children), `Accordion` (no-state, div-trigger), `Modal` (no-trap, no-restore, no-semantics), and new `Dropdown`, `DatePicker` and `Toast` in `components/widgets.tsx`. Existing callers keep the accessible version unchanged. Fixed versions follow the APG patterns, and prefer native elements where they are the accessible choice (`<select>`, `<input type="date">`, `<dialog>`). Interactive state uses `createStore` from `~/lib/interactive` (module memory, reset on reload), and fake latency is fixed per action key so runs stay reproducible.
+
+### ADR-033
+**Markers exist at load.** Defects that only appear after interaction (later form steps, error messages, opened modals, table views) register at page load, and their `data-a11y-scenario` marker sits on a container that is always rendered (the form, results list or widget root). The `Modal` `no-semantics` variant renders a hidden backdrop while closed for the same reason. This keeps on-page counts honest and lets `check:scenarios` verify every scenario from prerendered HTML.
+
+### ADR-034
+**Timeouts you can observe.** Session-timeout scenarios run from page load, not from last activity, and are short enough to watch in a test session: donate warns at 3:00 and clears at 4:00 once fixed (silently clears at 4:00 while defective); the legacy aid form uses 4:00 / 5:00. Turning the toggle on or off restarts the clock. Timers are cleared on unmount.
+
+### ADR-035
+**Inline handlers for scanners.** Where WAVE's `event_handler` detection matters (the legacy aid form's hover menu), real `onmouseover`/`onmouseout` attributes are set through a ref after hydration, and the scenario keeps the rule's default detection. Elsewhere hover-only scenarios stay `manualOnly` per ADR-030.
+
+### ADR-036
+**Search suggestions.** The header combobox suggests up to six matching pages and opens them directly; "Did you mean" on `/search` corrects each unmatched word with MiniSearch fuzzy matching. MiniSearch's own term suggestions produced unnatural phrases. Typing two characters in the header loads the search index (about 350 KB) once per session.

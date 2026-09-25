@@ -1,9 +1,10 @@
-// /portal/grades: final grades by term (all terms shown; the term picker is plan 06).
+// /portal/grades: final grades, one tab per term.
 import { useLoaderData } from "react-router";
 import { SmartLink } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
+import { Tabs } from "~/components/Tabs";
 import portal from "~/data/generated/portal.json";
-import type { PortalStudent } from "~/data/types";
+import type { PortalStudent, TermGrades } from "~/data/types";
 import { PortalPage } from "./_PortalPage";
 
 export { inventoryMeta as meta } from "~/routes/meta";
@@ -18,10 +19,9 @@ export async function loader() {
 
 export default function GradesPage() {
   const { grades, gpa, credits, term } = useLoaderData<typeof loader>();
-  const headingFixed = useScenario("portal-grades-heading-skip-001");
-  const idsFixed = useScenario("portal-grades-duplicate-id-001");
+  useScenario("portal-grades-heading-skip-001");
+  useScenario("portal-grades-duplicate-id-001");
   useScenario("portal-grades-footnote-small-001");
-  const H = headingFixed ? "h3" : "h4";
 
   return (
     <PortalPage title="Grades" subtitle="Final grades by term">
@@ -38,41 +38,52 @@ export default function GradesPage() {
         </p>
       </section>
 
-      <section className="pt-card" aria-labelledby="history-heading" data-a11y-scenario="portal-grades-heading-skip-001 portal-grades-duplicate-id-001">
+      <section className="pt-card pt-grades" aria-labelledby="history-heading" data-a11y-scenario="portal-grades-heading-skip-001 portal-grades-duplicate-id-001">
         <h2 id="history-heading">Grade History</h2>
-        {grades.map((t) => {
-          const id = (key: string) => (idsFixed ? `${t.term.toLowerCase().replace(" ", "-")}-grade-${key}` : `grade-${key}`);
-          const termCredits = t.courses.reduce((n, c) => n + c.credits, 0);
-          return (
-            <div key={t.term} className="pt-term">
-              <H>{t.term}</H>
-              <div className="table-wrap">
-                <table className="pt-grid">
-                  <caption>{t.term} final grades</caption>
-                  <thead><tr>{cols.map(([k, label]) => <th key={k} id={id(k)} className={k === "credits" || k === "points" ? "num" : undefined}>{label}</th>)}</tr></thead>
-                  <tbody>
-                    {t.courses.map((c) => (
-                      <tr key={c.courseId}>
-                        <td headers={id("course")}>{c.code}</td>
-                        <td headers={id("title")}>{c.title}</td>
-                        <td headers={id("credits")} className="num">{c.credits.toFixed(1)}</td>
-                        <td headers={id("grade")}>{c.grade}</td>
-                        <td headers={id("points")} className="num">{((points[c.grade] ?? 0) * c.credits).toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                  <tfoot>
-                    <tr><td colSpan={2}>Term totals</td><td className="num">{termCredits.toFixed(1)}</td><td colSpan={2}>Term GPA {t.termGpa.toFixed(2)}</td></tr>
-                  </tfoot>
-                </table>
-              </div>
-            </div>
-          );
-        })}
+        <Tabs
+          label="Terms"
+          scenario="portal-grades-tabs-001"
+          defect="no-roles"
+          tabs={grades.map((t) => ({ label: t.term, content: <TermTable t={t} /> }))}
+        />
         <p className="pt-footnote" data-a11y-scenario="portal-grades-footnote-small-001">
           Grades of W (withdrawal), I (incomplete), CR/NC (credit/no credit) and AU (audit) are not included in GPA. Repeated courses count only the most recent attempt.
         </p>
       </section>
     </PortalPage>
+  );
+}
+
+function TermTable({ t }: { t: TermGrades }) {
+  const headingFixed = useScenario("portal-grades-heading-skip-001");
+  const idsFixed = useScenario("portal-grades-duplicate-id-001");
+  const H = headingFixed ? "h3" : "h4";
+  // Every (hidden) tab panel stays in the DOM, so the unprefixed ids repeat once per term.
+  const id = (key: string) => (idsFixed ? `${t.term.toLowerCase().replace(" ", "-")}-grade-${key}` : `grade-${key}`);
+  const termCredits = t.courses.reduce((n, c) => n + c.credits, 0);
+  return (
+    <div className="pt-term">
+      <H>{t.term}</H>
+      <div className="table-wrap">
+        <table className="pt-grid">
+          <caption>{t.term} final grades</caption>
+          <thead><tr>{cols.map(([k, label]) => <th key={k} id={id(k)} className={k === "credits" || k === "points" ? "num" : undefined}>{label}</th>)}</tr></thead>
+          <tbody>
+            {t.courses.map((c) => (
+              <tr key={c.courseId}>
+                <td headers={id("course")}>{c.code}</td>
+                <td headers={id("title")}>{c.title}</td>
+                <td headers={id("credits")} className="num">{c.credits.toFixed(1)}</td>
+                <td headers={id("grade")}>{c.grade}</td>
+                <td headers={id("points")} className="num">{((points[c.grade] ?? 0) * c.credits).toFixed(2)}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr><td colSpan={2}>Term totals</td><td className="num">{termCredits.toFixed(1)}</td><td colSpan={2}>Term GPA {t.termGpa.toFixed(2)}</td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
   );
 }

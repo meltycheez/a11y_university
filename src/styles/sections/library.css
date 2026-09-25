@@ -153,3 +153,19 @@
 .lib-due--soon { color: #b36b00; font-weight: 700; }
 .lib-renew-bar { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; margin-top: var(--space-4); }
 .lib-renew-msg { margin: 0; font-weight: 600; }
+
+/* Study-room booking (plan 06 #12) */
+.lib-rooms-hint { font-size: 0.9rem; margin: 0 0 var(--space-2); }
+.lib-slot[data-slot] { cursor: pointer; touch-action: none; user-select: none; }
+.lib-slot--open[data-slot]:hover { background: #a9d9b6; }
+.lib-slot--selected { background: #1b6fb0; color: #fff; }
+.lib-slot--mine { background: #f2d58a; color: #3d2e00; }
+.lib-rooms-selection { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); align-items: center; margin-block: var(--space-3); min-height: 2.5rem; }
+.lib-btn { font: inherit; font-size: 0.9rem; font-weight: 700; padding: 0.4rem 0.9rem; border: 1px solid #1e2d3b; border-radius: 2px; background: #1e2d3b; color: #fff; cursor: pointer; }
+.lib-btn--plain { background: #fff; color: #1e2d3b; }
+.lib-btn:disabled { opacity: 0.6; cursor: default; }
+.lib-rooms-picker fieldset { border: 1px solid #c3ccd5; padding: var(--space-3) var(--space-4); display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: end; }
+.lib-rooms-picker legend { font-weight: 700; font-size: 0.9rem; }
+.lib-rooms-picker label { display: grid; gap: var(--space-1); font-size: 0.85rem; font-weight: 700; color: #1e2d3b; }
+.lib-rooms-picker select { font: inherit; font-weight: 400; padding: 0.4rem 0.5rem; border: 1px solid #6b7c8c; border-radius: 2px; }
+.lib-rooms-error { color: #9b1c1c; font-weight: 700; }

@@ -89,3 +89,7 @@
 .directory-page a:focus, .directory-page a:focus-visible { outline: none; } /* employees-directory-focus-001 */
 .a11y-fix-manual .directory-page a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 1px; }
 .directory-email { display: inline-flex; padding: 0.15rem; }
+.directory-filter { gap: var(--space-2) var(--space-5); }
+.directory-filter .field { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); min-width: 0; max-width: 100%; }
+.directory-filter select, .directory-filter input { max-width: 100%; }
+.directory-count { margin: var(--space-2) 0 0; font-weight: 700; }

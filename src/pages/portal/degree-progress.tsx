@@ -1,6 +1,7 @@
-// /portal/degree-progress: degree audit. Every requirement group is shown expanded (the accordion is plan 06).
+// /portal/degree-progress: degree audit with expandable requirement groups.
 import { Link, useLoaderData } from "react-router";
-import { Heading, SmartLink } from "~/a11y/helpers";
+import { SmartLink } from "~/a11y/helpers";
+import { Accordion } from "~/components/Accordion";
 import { useScenario } from "~/a11y/useScenario";
 import portal from "~/data/generated/portal.json";
 import type { AuditCourse, AuditGroup, PortalStudent } from "~/data/types";
@@ -60,7 +61,7 @@ export default function DegreeProgressPage() {
       </section>
 
       <h2 className="pt-section-title">Requirements</h2>
-      {audit.groups.map((g) => <RequirementGroup key={g.name} group={g} />)}
+      <Requirements groups={audit.groups} />
 
       <AuditNotes advisorSlug={advisorSlug} />
     </PortalPage>
@@ -86,21 +87,34 @@ function ProgressBar({ completed, inProgress, total }: { completed: number; inPr
   );
 }
 
-function RequirementGroup({ group }: { group: AuditGroup }) {
-  const statusFixed = useScenario("portal-audit-status-color-001");
-  useScenario("portal-audit-group-spacing-001");
-  useScenario("portal-audit-credits-underline-001");
+const groupState = (group: AuditGroup) => {
   const done = group.courses.filter((c) => c.status === "complete").reduce((n, c) => n + c.credits, 0);
   const ip = group.courses.filter((c) => c.status === "in-progress").reduce((n, c) => n + c.credits, 0);
   const state = done >= group.requiredCredits ? "Complete" : done + ip >= group.requiredCredits ? "In progress" : "Not complete";
+  return { done: Math.min(done, group.requiredCredits), state };
+};
 
+/** Requirement groups as an expandable audit (collapsed by default, like the vendor's audit view). */
+function Requirements({ groups }: { groups: AuditGroup[] }) {
+  useScenario("portal-audit-group-spacing-001");
   return (
-    <section className="pt-card pt-req" data-a11y-scenario="portal-audit-status-color-001 portal-audit-group-spacing-001 portal-audit-credits-underline-001">
-      <div className="pt-req-head">
-        <Heading scenario="portal-audit-group-heading-001" level={3} defect="fake" className="pt-req-name">{group.name}</Heading>
-        <span className="pt-req-credits">{Math.min(done, group.requiredCredits)} of {group.requiredCredits} credits</span>
-        <span className="pt-req-state">{state}</span>
-      </div>
+    <div className="pt-card pt-audit" data-a11y-scenario="portal-audit-group-spacing-001">
+      <Accordion
+        scenario="portal-audit-accordion-001"
+        defect="no-state"
+        items={groups.map((g) => ({ title: `${g.name} (${groupState(g).state})`, content: <GroupPanel group={g} /> }))}
+      />
+    </div>
+  );
+}
+
+function GroupPanel({ group }: { group: AuditGroup }) {
+  const statusFixed = useScenario("portal-audit-status-color-001");
+  useScenario("portal-audit-credits-underline-001");
+  const { done } = groupState(group);
+  return (
+    <div data-a11y-scenario="portal-audit-status-color-001 portal-audit-credits-underline-001">
+      <p><span className="pt-req-credits">{done} of {group.requiredCredits} credits</span> complete in this group.</p>
       <div className="table-wrap">
         <table className="pt-grid">
           <caption className="visually-hidden">{group.name} courses</caption>
@@ -124,7 +138,7 @@ function RequirementGroup({ group }: { group: AuditGroup }) {
           </tbody>
         </table>
       </div>
-    </section>
+    </div>
   );
 }
 

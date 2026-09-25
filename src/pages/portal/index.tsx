@@ -1,10 +1,12 @@
-// /portal: RedwoodConnect dashboard widgets (static; acknowledging alerts etc. is plan 06).
+// /portal: RedwoodConnect dashboard widgets and acknowledgeable announcements (state in ./_store).
+import { useRef } from "react";
 import { Link, useLoaderData } from "react-router";
 import { Heading, SmartLink } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
 import portal from "~/data/generated/portal.json";
 import type { PortalStudent } from "~/data/types";
 import { PortalPage, erpDate, money, time12 } from "./_PortalPage";
+import { isRead, portalStore, updatePortal } from "./_store";
 
 export { inventoryMeta as meta } from "~/routes/meta";
 
@@ -30,11 +32,14 @@ export default function PortalDashboard() {
   const d = useLoaderData<typeof loader>();
   const unreadFixed = useScenario("portal-dash-unread-color-001");
   useScenario("portal-dash-asof-contrast-001");
+  const store = portalStore.use();
   const [ticketDate, ticketTime] = d.registration.timeTicket.split("T");
+  const todos = d.todos.filter((t) => !store.done.includes(t.id));
 
   return (
-    <PortalPage title="Dashboard" subtitle={`Welcome back, ${d.preferredName}.`}>
+    <PortalPage title="Dashboard" subtitle={`Welcome back, ${store.profile?.chosen || d.preferredName}.`}>
       <HoldsBanner holds={d.holds} />
+      <Announcements />
       <div className="pt-widgets" data-a11y-scenario="portal-dash-asof-contrast-001">
         <Widget title="My Classes" viewAll={{ to: "/portal/schedule", label: "View full class schedule" }}>
           <ul className="pt-list">
@@ -53,18 +58,18 @@ export default function PortalDashboard() {
 
         <Widget title="To-Do List" viewAll={{ to: "/portal/todo", label: "View all to-do items" }}>
           <ul className="pt-list">
-            {d.todos.slice(0, 3).map((t) => (
+            {todos.slice(0, 3).map((t) => (
               <li key={t.id}><Link to={t.url}>{t.title}</Link>{t.due && <><br /><span className="pt-foot">Due {erpDate(t.due)}</span></>}</li>
             ))}
           </ul>
-          <p className="pt-foot">{d.todos.length} open items</p>
+          <p className="pt-foot">{todos.length} open items</p>
         </Widget>
 
         <Widget title="Messages" viewAll={{ to: "/portal/messages", label: "View all messages" }}>
           <ul className="pt-list" data-a11y-scenario="portal-dash-unread-color-001">
             {d.messages.map((m) => (
               <li key={m.id} className="pt-msg">
-                {!m.read && (unreadFixed ? <span className="pt-badge">New</span> : <span className="pt-dot" />)}
+                {!isRead(m, store.read) && (unreadFixed ? <span className="pt-badge">New</span> : <span className="pt-dot" />)}
                 <Link to={`/portal/messages#${m.id}`}>{m.subject}</Link>
                 <br /><span className="pt-foot">{m.from} · {erpDate(m.date)}</span>
               </li>
@@ -91,6 +96,38 @@ export default function PortalDashboard() {
         </Widget>
       </div>
     </PortalPage>
+  );
+}
+
+// Office announcements the student can acknowledge (dismiss) for this session.
+const announcements = [
+  { id: "ann-spring-schedule", title: "Spring 2027 Schedule of Classes is available", body: "Build your cart in Registration now; your time ticket opens November 9." },
+  { id: "ann-flu", title: "Flu shot clinics October 12–16", body: "Walk in at the Student Health Center, 9 a.m. to 3 p.m. No cost with your RSU ID." },
+];
+
+function Announcements() {
+  const focusFixed = useScenario("portal-dash-ack-focus-001");
+  const { acknowledged } = portalStore.use();
+  const heading = useRef<HTMLHeadingElement>(null);
+  const open = announcements.filter((a) => !acknowledged.includes(a.id));
+  const ack = (id: string) => {
+    updatePortal({ acknowledged: [...acknowledged, id] });
+    // Defective: the pressed button unmounts and focus falls back to <body>.
+    if (focusFixed) heading.current?.focus();
+  };
+  return (
+    <section className="pt-card pt-announce" aria-labelledby="ann-heading" data-a11y-scenario="portal-dash-ack-focus-001">
+      <h2 id="ann-heading" ref={heading} tabIndex={-1}>Announcements ({open.length})</h2>
+      {open.length === 0 && <p className="pt-muted">No new announcements.</p>}
+      {open.map((a) => (
+        <div key={a.id} className="pt-announce-item">
+          <p><strong>{a.title}.</strong> {a.body}</p>
+          <button type="button" className="btn pt-btn" onClick={() => ack(a.id)}>
+            Acknowledge{focusFixed && <span className="visually-hidden">: {a.title}</span>}
+          </button>
+        </div>
+      ))}
+    </section>
   );
 }
 

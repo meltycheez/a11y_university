@@ -1,1 +1,121 @@
-/* Plan 06 feature: campus-map. Feature CSS and its colocated .a11y-fix-* overrides. */
+/* Plan 06 feature: campus-map (src/pages/campus-map.tsx). Feature CSS and its colocated .a11y-fix-* overrides. */
+
+/* Layout: tools and detail in a left sidebar, map on the right. Grid areas keep this visual order whatever the
+   source order is (campus-map-focus-order-001 puts the tools last in the source while defective). */
+.cmap { display: grid; gap: var(--space-5); grid-template-columns: 17rem minmax(0, 1fr); grid-template-areas: "tools main" "detail main"; align-items: start; }
+.cmap-tools { grid-area: tools; display: grid; gap: var(--space-4); }
+.cmap-main { grid-area: main; }
+.cmap-detail { grid-area: detail; }
+@media (max-width: 60rem) { .cmap { grid-template-columns: minmax(0, 1fr); grid-template-areas: "tools" "main" "detail"; } }
+
+/* Search and filters */
+.cmap-search .field { margin: 0; flex: 1; }
+.cmap-search .field input { width: 100%; }
+.cmap-search-row { display: flex; align-items: end; gap: var(--space-2); }
+.cmap-search-btn { flex: none; }
+.cmap-search-msg { margin: var(--space-1) 0 0; font-size: 0.9rem; }
+.cmap-search-msg:empty { display: none; }
+.cmap-field { display: grid; gap: var(--space-1); }
+.cmap-field label, .cmap-field-label { font-weight: 650; }
+.cmap-field select { font: inherit; padding: var(--space-2) var(--space-3); border: 1px solid var(--gray-600); border-radius: var(--radius-sm); background: #fff; }
+.cmap-chips-label { margin: var(--space-3) 0 var(--space-1); font-weight: 650; }
+.cmap-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.cmap-chip { font: inherit; font-size: 0.9rem; padding: var(--space-1) var(--space-3); border-radius: 999px; background: #fff; color: var(--color-text); border: 1px solid #d4d4d4; cursor: pointer; } /* campus-map-layers-contrast-001: ~1.5:1 */
+.cmap-chip.is-on { background: var(--brand-fern); border-color: var(--brand-fern); color: #fff; } /* campus-map-layers-state-001: color is the only state cue */
+.a11y-fix-manual .cmap-chip { border-color: var(--gray-600); }
+.a11y-fix-manual .cmap-chip.is-on { border-color: var(--brand-fern); }
+.cmap-count { margin: var(--space-3) 0 0; font-size: 0.9rem; color: var(--color-text-muted); }
+
+/* Legend */
+.cmap-legend { border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: var(--space-3); background: var(--color-surface); }
+.cmap-legend-toggle { font: inherit; font-weight: 700; background: none; border: 0; padding: 0; cursor: pointer; color: var(--color-text); }
+.cmap-legend-toggle::after { content: " ▾"; }
+.cmap-legend-list { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: grid; gap: var(--space-1); font-size: 0.9rem; }
+.cmap-legend-list li { display: flex; align-items: center; gap: var(--space-2); }
+.cmap-legend-list--row { display: flex; gap: var(--space-3); }
+.cmap-legend-sub { margin: var(--space-3) 0 0; font-weight: 650; font-size: 0.9rem; }
+.cmap-swatch { display: inline-block; flex: none; width: 1.1rem; height: 1.1rem; border-radius: 3px; border: 1px solid rgb(0 0 0 / 0.35); }
+.cmap-swatch--door { border-radius: 50%; background: #1a5fb4; }
+
+/* Toolbar */
+.cmap-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); }
+.cmap-zoom { display: inline-flex; border: 1px solid var(--gray-400); border-radius: var(--radius-sm); overflow: hidden; }
+.cmap-zoom-btn { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; background: #fff; border: 0; border-right: 1px solid var(--gray-200); color: var(--gray-800); cursor: pointer; }
+.cmap-zoom-btn:last-child { border-right: 0; }
+.cmap-zoom-btn:hover { background: var(--gray-100); }
+.cmap-print { margin-left: auto; font: inherit; }
+button.cmap-print { background: none; border: 0; padding: 0; color: var(--color-link); text-decoration: underline; cursor: pointer; }
+
+/* Map viewport */
+.cmap-viewport { position: relative; width: 52rem; aspect-ratio: 1000 / 640; border: 1px solid var(--gray-400); border-radius: var(--radius-sm); overflow: hidden; background: #e3efe0; } /* campus-map-reflow-001: fixed width */
+.a11y-fix-manual .cmap-viewport { width: 100%; }
+.cmap-aerial { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cmap-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; user-select: none; }
+.cmap-svg:active { cursor: grabbing; }
+.cmap-land { fill: #e3efe0; opacity: 0.88; }
+.cmap-road { fill: none; stroke: #fff; stroke-width: 12; stroke-linecap: round; }
+.cmap-road--loop { stroke-width: 8; stroke: #f7f4ec; }
+.cmap-green { fill: #b7d8a8; }
+.cmap-place { font: italic 600 13px var(--font-sans); fill: #4b5a47; }
+.cmap-north path { fill: var(--gray-800); }
+.cmap-north text { font: 700 12px var(--font-sans); fill: var(--gray-800); }
+
+.cmap-bldg { stroke: #fff; stroke-width: 2; cursor: pointer; }
+.cmap-bldg:hover { filter: brightness(0.9); }
+.cmap-bldg.is-selected { stroke: var(--brand-gold); stroke-width: 5; }
+.cmap-b--academic { fill: #c7b9a3; background: #c7b9a3; }
+.cmap-b--housing { fill: #b9c9d9; background: #b9c9d9; }
+.cmap-b--student-life { fill: #e3c46f; background: #e3c46f; }
+.cmap-b--athletics { fill: #d8a79c; background: #d8a79c; }
+.cmap-b--services { fill: #b8b8b0; background: #b8b8b0; }
+.cmap-labels { pointer-events: none; }
+.cmap-label { font: 700 13px var(--font-sans); fill: #8fae93; } /* campus-map-labels-contrast-001: ~2.2:1 */
+.a11y-fix-manual .cmap-label { fill: var(--brand-fern-dark); }
+
+.cmap-lot path { stroke: #fff; stroke-width: 2; opacity: 0.85; }
+.cmap-lot text { font: 800 16px var(--font-sans); fill: #fff; pointer-events: none; }
+.cmap-lot:hover path { opacity: 1; }
+.cmap-doors { pointer-events: none; }
+.cmap-door { fill: #1a5fb4; stroke: #fff; stroke-width: 2; }
+
+.cmap-here { pointer-events: none; }
+.cmap-here-dot { fill: var(--brand-redwood); stroke: #fff; stroke-width: 2; }
+.cmap-here-pulse { fill: var(--brand-redwood); opacity: 0.4; transform-box: fill-box; transform-origin: center; animation: cmap-pulse 1.6s ease-out infinite; } /* campus-map-marker-motion-001 */
+.cmap-here text { font: 700 13px var(--font-sans); fill: var(--brand-redwood-dark); }
+@keyframes cmap-pulse { from { transform: scale(0.6); opacity: 0.6; } to { transform: scale(1.8); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .a11y-fix-manual .cmap-here-pulse { animation: none; } }
+
+.cmap-tip { pointer-events: none; }
+.cmap-tip rect { fill: var(--gray-900); }
+.cmap-tip text { font: 600 13px var(--font-sans); fill: #fff; }
+
+.cmap-hint { margin: var(--space-2) 0 0; font-size: 0.9rem; color: var(--color-text-muted); }
+.cmap-footnote { margin: var(--space-2) 0 0; font-size: 10px; color: var(--color-text-muted); } /* campus-map-footnote-small-001 */
+.a11y-fix-alerts .cmap-footnote { font-size: 0.9rem; }
+
+/* Focus: the vendor widget strips outlines (campus-map-focus-indicator-001). */
+.cmap button:focus, .cmap select:focus, .cmap input:focus, .cmap svg:focus, .cmap path:focus, .cmap a:focus, .cmap-list button:focus { outline: none; }
+.a11y-fix-manual .cmap :focus-visible, .a11y-fix-manual .cmap-list button:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+.a11y-fix-manual .cmap-bldg:focus-visible { outline: none; stroke: var(--color-focus); stroke-width: 6; }
+.a11y-fix-manual .cmap-svg:focus-visible { outline-offset: -3px; }
+
+/* Detail panel */
+.cmap-detail { border-top: 4px solid var(--brand-fern); background: var(--color-surface); padding: var(--space-4); border-radius: var(--radius-sm); }
+.cmap-detail-head { display: flex; align-items: start; justify-content: space-between; gap: var(--space-2); }
+.cmap-detail-title { font-size: 1.3rem; margin: 0 0 var(--space-2); }
+.cmap-detail-title:empty { margin: 0; }
+.cmap-detail h3, .cmap-detail h5 { font-size: 0.95rem; margin: var(--space-3) 0 var(--space-1); text-transform: uppercase; letter-spacing: 0.04em; }
+.cmap-detail p { margin: 0 0 var(--space-2); }
+.cmap-detail-address, .cmap-detail-empty { color: var(--color-text-muted); font-size: 0.95rem; }
+.cmap-close { flex: none; font-size: 1.4rem; line-height: 1; }
+.cmap-code { font-size: 0.8em; font-weight: 600; color: var(--color-text-muted); }
+.cmap-entrances { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1); }
+.cmap-entrances li { display: flex; align-items: center; gap: var(--space-2); font-size: 0.95rem; }
+.cmap-entrance-gap { display: inline-block; width: 18px; }
+
+/* Parallel building list (appears with the campus-map-building-keyboard-001 fix) */
+.cmap-list ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1) var(--space-4); grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+.cmap-list-btn { font: inherit; text-align: left; width: 100%; background: none; border: 0; border-bottom: 1px solid var(--color-border); padding: var(--space-2) 0; color: var(--color-link); cursor: pointer; }
+.cmap-list-btn[aria-current] { font-weight: 700; }
+
+@media print { .cmap-tools, .cmap-toolbar { display: none; } .cmap-viewport { width: 100%; } }

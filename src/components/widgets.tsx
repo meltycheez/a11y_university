@@ -1,7 +1,7 @@
 // Common widgets (plan 06 #12) that have no baseline elsewhere: custom dropdown, date picker, toast.
 // Each renders an accessible implementation once its scenario is fixed (or when no scenario is given) and a
 // realistic defective one while the scenario is unfixed. Tabs, Accordion and Modal live in their own files.
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useScenario } from "~/a11y/useScenario";
 
 const marker = (scenario?: string) => (scenario ? { "data-a11y-scenario": scenario } : {});
@@ -110,11 +110,14 @@ export function DatePicker({ label, value, onChange, min, max, isAvailable = () 
 export function Toast({ message, onDismiss, scenario, defect }: { message: string | null; onDismiss: () => void; scenario?: string; defect?: "vanishes" }) {
   const fixed = useScenario(scenario);
   const broken = scenario && !fixed && defect === "vanishes";
+  // Ref so callers needn't memoize onDismiss: the 3 s timer restarts only when the message changes.
+  const dismiss = useRef(onDismiss);
+  dismiss.current = onDismiss;
   useEffect(() => {
     if (!broken || !message) return;
-    const t = setTimeout(onDismiss, 3000);
+    const t = setTimeout(() => dismiss.current(), 3000);
     return () => clearTimeout(t);
-  }, [broken, message, onDismiss]);
+  }, [broken, message]);
   return (
     <div className="toast-region" role={broken ? undefined : "status"} {...marker(scenario)}>
       {message && (
