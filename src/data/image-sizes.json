@@ -1,8 +1,38 @@
 {
+  "about-hero-campus": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Timber-and-glass university buildings rise among old-growth redwoods in morning fog"
+  },
+  "academics-hero-lecture": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A professor gestures toward a projected chart in a tiered lecture hall full of students"
+  },
+  "admissions-hero-movein": {
+    "width": 1376,
+    "height": 768,
+    "alt": "First-year students and families carry boxes into a residence hall on move-in day"
+  },
   "admissions-hero-tour": {
     "width": 1376,
     "height": 768,
     "alt": "A student tour guide walks backwards leading prospective students and parents past the welcome center"
+  },
+  "aid-hero-advising": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A financial aid counselor reviews an award letter with a student and her father"
+  },
+  "alumni-hero-reunion": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Alumni of several generations laugh together at a reunion under a white tent"
+  },
+  "athletics-hero-arena": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A packed arena watches a college basketball game under bright lights"
   },
   "athletics-soccer-action": {
     "width": 1376,
@@ -19,6 +49,21 @@
     "height": 896,
     "alt": "Students study at long wooden tables in the timber-beamed library reading room"
   },
+  "college-arts-humanities": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Art students paint at easels in a sunlit studio"
+  },
+  "college-business": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Business students present to classmates in a glass-walled atrium"
+  },
+  "college-education": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A student teacher reads a picture book to a circle of young children"
+  },
   "college-engineering": {
     "width": 1376,
     "height": 768,
@@ -28,6 +73,71 @@
     "width": 1376,
     "height": 768,
     "alt": "Nursing students practice on a patient simulator while an instructor observes"
+  },
+  "college-science": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Chemistry students in safety goggles work at a lab bench"
+  },
+  "dept-biology": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A student looks through a microscope in a biology lab"
+  },
+  "dept-business-administration": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Students discuss a case study around a seminar table"
+  },
+  "dept-chemistry": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A chemist pipettes a sample under a fume hood"
+  },
+  "dept-computer-science": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Two students pair-program at a shared monitor"
+  },
+  "dept-english": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A small seminar discusses a novel around a wooden table"
+  },
+  "dept-history": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A student examines an old ledger in the archives"
+  },
+  "dept-mathematics": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A professor works through a proof on a chalkboard"
+  },
+  "dept-mechanical-engineering": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A student checks a 3D-printed part beside a printer"
+  },
+  "dept-nursing": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A nursing student takes a classmate's blood pressure"
+  },
+  "dept-psychology": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A researcher runs a study with a participant at a computer"
+  },
+  "employees-hero-office": {
+    "width": 1376,
+    "height": 768,
+    "alt": "University staff members collaborate around a table in an open office"
+  },
+  "events-hero-concert": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A crowd gathers on Canopy Green for an outdoor evening concert"
   },
   "faculty-anjali-raman": {
     "width": 1024,
@@ -44,14 +154,104 @@
     "height": 1200,
     "alt": "Redwood State Fall Fest. Friday, October 16, 4 to 9 PM, Canopy Green. Live music, food trucks, pumpkin carving."
   },
+  "giving-hero-scholars": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Scholarship recipients pose with donors at a campus luncheon"
+  },
   "home-hero-quad": {
     "width": 1376,
     "height": 768,
     "alt": "Students cross the central quad beneath redwood trees on an autumn afternoon"
   },
+  "home-slide-arts": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Theater students rehearse a scene on a lit stage"
+  },
+  "home-slide-commencement": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Graduates in maroon gowns toss their caps at commencement"
+  },
+  "home-slide-forest": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A class hikes a fern-lined trail through the research forest"
+  },
+  "home-slide-research": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A graduate student measures a redwood trunk in the university research forest"
+  },
+  "library-hero-exterior": {
+    "width": 1376,
+    "height": 768,
+    "alt": "The Sequoia Library's glass entrance glows at dusk under tall redwoods"
+  },
+  "news-alumna-salmon-sensor-startup": {
+    "width": 1376,
+    "height": 768,
+    "alt": "An alumna in waders installs a sensor in a coastal river"
+  },
+  "news-engineering-robotics-lab-opens": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Students and faculty cut a ribbon at the entrance to the new robotics lab"
+  },
+  "news-first-gen-scholars-expands": {
+    "width": 1376,
+    "height": 768,
+    "alt": "First-generation scholars pose together on the library steps"
+  },
+  "news-library-digitizes-logging-archives": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A library technician scans a historic logging photograph"
+  },
+  "news-nursing-simulation-center-accreditation": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Nursing faculty and students gather in the simulation center"
+  },
+  "news-redwood-canopy-carbon-study": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A researcher in a climbing harness takes measurements high in a redwood canopy"
+  },
   "news-tide-pool-study-coastal-warming": {
     "width": 1376,
     "height": 768,
     "alt": "A biology professor and two graduate students collect water samples in a rocky tide pool"
+  },
+  "news-wildfire-smoke-sensor-network": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Students mount an air-quality sensor on a rooftop under a hazy sky"
+  },
+  "news-womens-soccer-conference-title": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Women's soccer players celebrate with a trophy on the field"
+  },
+  "parents-hero-family": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A parent hugs a college student goodbye outside a residence hall"
+  },
+  "portal-banner-laptops": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Students work on laptops at a long table in a student union"
+  },
+  "students-hero-lawn": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Students relax and study on a sunny lawn between classes"
+  },
+  "visitors-hero-welcome": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Visitors look at a campus map sign near the welcome center"
   }
 }

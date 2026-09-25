@@ -1,7 +1,8 @@
 // Standalone Flow runner: opens the Playwright MCP's signed-in Chrome profile directly (no MCP needed)
 // and generates every manifest image that has no raw file yet, in batches, reusing generate.js.
 // Usage: PLAYWRIGHT=<path to playwright package> node scripts/flow/run-flow.mjs [batchSize]
-import { appendFileSync, existsSync, readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { appendFileSync, existsSync, readdirSync, readFileSync, unlinkSync } from "node:fs";
 import { homedir } from "node:os";
 import path from "node:path";
 
@@ -11,6 +12,8 @@ const PROFILE = process.env.FLOW_PROFILE ?? path.join(homedir(), "AppData/Local/
 const BATCH = Number(process.argv[2] ?? 4);
 const root = new URL("../../", import.meta.url);
 const LOG = new URL("assets-src/flow-run.log", root);
+const FLOW = new URL("assets-src/flow/", root);
+const md5 = (f) => createHash("md5").update(readFileSync(new URL(f, FLOW))).digest("hex");
 const log = (msg) => { const line = `${new Date().toISOString()} ${msg}`; console.log(line); appendFileSync(LOG, line + "\n"); };
 
 const manifest = JSON.parse(readFileSync(new URL("src/data/images.json", root)));
@@ -39,9 +42,21 @@ for (;;) {
   const items = todo.slice(0, BATCH).map(({ id, aspect, prompt, text, plain }) => ({ id, aspect, prompt, text, plain }));
   log(`batch: ${items.map((i) => i.id).join(", ")} (${todo.length} remaining)`);
   try {
-    for (const r of await makeRun(items)(page)) log(r.error ? `FAIL ${r.id}: ${r.error}` : `ok ${r.id} ${r.dims} ${r.seconds}s ${r.type}`);
+    for (const r of await makeRun(items)(page)) {
+      if (r.error) { log(`FAIL ${r.id}: ${r.error}`); continue; }
+      // A stray tile (e.g. from an interrupted run) shows up with the wrong shape: reject it so it regenerates.
+      const [w, h] = r.dims.split("x").map(Number), [aw, ah] = items.find((i) => i.id === r.id).aspect.split(":").map(Number);
+      if (Math.abs(w / h - aw / ah) > 0.05) { unlinkSync(new URL(r.file, FLOW)); log(`WRONG-ASPECT ${r.id} got ${r.dims}; deleted for retry`); continue; }
+      log(`ok ${r.id} ${r.dims} ${r.seconds}s ${r.type}`);
+    }
   } catch (e) {
     log(`batch error: ${e.message.split("\n")[0]}`);
+  }
+  // An older tile can resurface at the top of Flow's grid; drop byte-identical copies so they regenerate.
+  const hashes = new Map(readdirSync(FLOW).filter((f) => !items.some((i) => f.startsWith(i.id + "."))).map((f) => [md5(f), f]));
+  for (const f of readdirSync(FLOW).filter((f) => items.some((i) => f.startsWith(i.id + ".")))) {
+    const twin = hashes.get(md5(f));
+    if (twin) { unlinkSync(new URL(f, FLOW)); log(`DUP ${f} duplicated ${twin}; deleted for retry`); } else hashes.set(md5(f), f);
   }
   const stillTodo = items.filter((i) => !done(i.id)).length;
   failures = stillTodo === items.length ? failures + 1 : 0;
