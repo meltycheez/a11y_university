@@ -7,7 +7,8 @@ export default {
   ssr: false,
   prerender: {
     paths: () => [...allRoutePaths(), "/404"],
-    concurrency: 4,
+    // ponytail: 2 not 4; builds failed intermittently ("Request failed", no message) under memory pressure at 4.
+    concurrency: 2,
   },
   basename: process.env.BASE_PATH ?? "/",
 } satisfies Config;

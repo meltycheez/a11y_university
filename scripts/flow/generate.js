@@ -38,6 +38,7 @@ async (page) => {
         if (s && !seen.has(s)) { img = last; seen.add(s); break; }
       }
       if ((await failed.count()) > failsBefore && (await chatImgs.count()) === before) break;   // agent reported a failure
+      if (await page.getByText('reached your usage limit').count()) { results.push({ id: item.id, error: 'USAGE LIMIT reached' }); return results; }
     }
     if (!img) { results.push({ id: item.id, error: 'no new image in the agent chat (failed or timed out)' }); continue; }
     await img.scrollIntoViewIfNeeded();

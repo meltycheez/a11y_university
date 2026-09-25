@@ -29,25 +29,150 @@
     "height": 768,
     "alt": "Alumni of several generations laugh together at a reunion under a white tent"
   },
+  "athlete-diego-alvarez": {
+    "width": 896,
+    "height": 1200,
+    "alt": "Diego Alvarez in his baseball uniform"
+  },
+  "athlete-jordan-whitfield": {
+    "width": 896,
+    "height": 1200,
+    "alt": "Jordan Whitfield in his basketball uniform"
+  },
+  "athlete-leilani-kahale": {
+    "width": 896,
+    "height": 1200,
+    "alt": "Leilani Kahale in her volleyball uniform"
+  },
+  "athlete-maya-delgado": {
+    "width": 896,
+    "height": 1200,
+    "alt": "Maya Delgado in her soccer uniform"
+  },
+  "athlete-noah-lindgren": {
+    "width": 896,
+    "height": 1200,
+    "alt": "Noah Lindgren in his basketball uniform"
+  },
+  "athlete-priya-castillo": {
+    "width": 896,
+    "height": 1200,
+    "alt": "Priya Castillo in her cross country uniform"
+  },
+  "athlete-sierra-blackwood": {
+    "width": 896,
+    "height": 1200,
+    "alt": "Sierra Blackwood in her soccer goalkeeper kit"
+  },
+  "athlete-tasha-greene": {
+    "width": 896,
+    "height": 1200,
+    "alt": "Tasha Greene in her basketball uniform"
+  },
+  "athletics-baseball": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A pitcher delivers from the mound at Harlan Field"
+  },
+  "athletics-cross-country": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Cross country runners pack together at the start of a race"
+  },
   "athletics-hero-arena": {
     "width": 1376,
     "height": 768,
     "alt": "A packed arena watches a college basketball game under bright lights"
+  },
+  "athletics-mens-basketball": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A men's basketball player rises for a layup"
+  },
+  "athletics-owl-arena": {
+    "width": 1376,
+    "height": 768,
+    "alt": "The empty Owl Arena court with maroon seating"
+  },
+  "athletics-redwood-field": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Redwood Field stadium at sunset with redwoods behind the stands"
   },
   "athletics-soccer-action": {
     "width": 1376,
     "height": 768,
     "alt": "A women's soccer player in maroon strikes the ball under stadium lights"
   },
+  "athletics-volleyball": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A volleyball player spikes the ball over the net"
+  },
+  "athletics-womens-basketball": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A women's basketball guard dribbles up the court"
+  },
+  "campus-career-center": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A career advisor reviews a résumé with a student"
+  },
+  "campus-counseling": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A calm counseling center waiting area with soft chairs and plants"
+  },
   "campus-dining-hall": {
     "width": 1200,
     "height": 896,
     "alt": "Students carry trays past food stations in the bright dining commons"
   },
+  "campus-health-center": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A nurse practitioner talks with a student in an exam room"
+  },
+  "campus-housing-madrone": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Two roommates unpack in a sunny residence hall room"
+  },
   "campus-library-interior": {
     "width": 1200,
     "height": 896,
     "alt": "Students study at long wooden tables in the timber-beamed library reading room"
+  },
+  "campus-parking": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Bike racks beside a campus parking structure"
+  },
+  "campus-rec-center": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Students climb the bouldering wall at the recreation center"
+  },
+  "campus-research-forest": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A boardwalk trail winds into the university research forest"
+  },
+  "campus-safety": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A campus safety officer on a bicycle chats with students"
+  },
+  "campus-student-orgs": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Students browse club tables at the involvement fair"
+  },
+  "campus-transit": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Students board a campus shuttle bus"
   },
   "college-arts-humanities": {
     "width": 1376,
@@ -134,20 +259,210 @@
     "height": 768,
     "alt": "University staff members collaborate around a table in an open office"
   },
+  "event-admissions-open-house": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Prospective students pick up materials at an open house table"
+  },
+  "event-basketball-home-opener": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Fans in maroon cheer in the student section"
+  },
+  "event-career-fair-fall-2026": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Students talk with recruiters at career fair booths"
+  },
+  "event-faculty-art-exhibition": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Visitors view large paintings in a white gallery"
+  },
+  "event-fall-choral-concert": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A choir in black performs in a concert hall"
+  },
+  "event-fall-fest-2026": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Students carve pumpkins at a festival booth"
+  },
+  "event-homecoming-2026": {
+    "width": 1200,
+    "height": 896,
+    "alt": "The marching band leads the homecoming parade"
+  },
+  "event-redwood-lecture-climate": {
+    "width": 1200,
+    "height": 896,
+    "alt": "A speaker addresses an audience in front of a forest photo"
+  },
+  "event-research-symposium-2026": {
+    "width": 1200,
+    "height": 896,
+    "alt": "An undergraduate explains a research poster to visitors"
+  },
+  "event-wellness-week": {
+    "width": 1200,
+    "height": 896,
+    "alt": "Students take part in an outdoor yoga class"
+  },
   "events-hero-concert": {
     "width": 1376,
     "height": 768,
     "alt": "A crowd gathers on Canopy Green for an outdoor evening concert"
+  },
+  "faculty-aisha-rahman": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Aisha Rahman"
+  },
+  "faculty-amara-nwosu": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Amara Nwosu"
   },
   "faculty-anjali-raman": {
     "width": 1024,
     "height": 1024,
     "alt": "Portrait of Anjali Raman"
   },
+  "faculty-arjun-mehta": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Arjun Mehta"
+  },
+  "faculty-carmen-ruiz": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Carmen Ruiz"
+  },
+  "faculty-daniel-brooks": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Daniel Brooks"
+  },
+  "faculty-denise-carter": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Denise Carter"
+  },
+  "faculty-ethan-park": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Ethan Park"
+  },
+  "faculty-fatima-haddad": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Fatima Haddad"
+  },
+  "faculty-grace-yamamoto": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Grace Yamamoto"
+  },
+  "faculty-hannah-lindqvist": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Hannah Lindqvist"
+  },
   "faculty-harold-mensah": {
     "width": 1024,
     "height": 1024,
     "alt": "Portrait of Harold Mensah"
+  },
+  "faculty-isabel-moreno": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Isabel Moreno"
+  },
+  "faculty-james-oconnell": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of James O'Connell"
+  },
+  "faculty-kenji-watanabe": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Kenji Watanabe"
+  },
+  "faculty-kwame-asante": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Kwame Asante"
+  },
+  "faculty-lauren-fischer": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Lauren Fischer"
+  },
+  "faculty-luis-ortega": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Luis Ortega"
+  },
+  "faculty-marcus-bell": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Marcus Bell"
+  },
+  "faculty-michael-harjo": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Michael Harjo"
+  },
+  "faculty-miguel-santos": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Miguel Santos"
+  },
+  "faculty-naomi-begay": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Naomi Begay"
+  },
+  "faculty-olga-petrova": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Olga Petrova"
+  },
+  "faculty-patricia-nguyen": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Patricia Nguyen"
+  },
+  "faculty-rachel-goldberg": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Rachel Goldberg"
+  },
+  "faculty-rebecca-stein": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Rebecca Stein"
+  },
+  "faculty-samuel-adeyemi": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Samuel Adeyemi"
+  },
+  "faculty-sofia-kowalski": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Sofia Kowalski"
+  },
+  "faculty-william-tran": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of William Tran"
+  },
+  "faculty-yuki-sato": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Yuki Sato"
   },
   "flyer-fall-festival": {
     "width": 896,
@@ -184,15 +499,55 @@
     "height": 768,
     "alt": "A graduate student measures a redwood trunk in the university research forest"
   },
+  "leader-david-okafor": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Provost David Okafor"
+  },
+  "leader-elena-vasquez-hart": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of President Elena Vásquez-Hart"
+  },
+  "leader-mei-lin-chao": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Mei-Lin Chao"
+  },
+  "leader-priya-natarajan": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Priya Natarajan"
+  },
+  "leader-robert-haines": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Robert Haines"
+  },
+  "leader-thomas-harlan": {
+    "width": 1024,
+    "height": 1024,
+    "alt": "Portrait of Thomas Harlan"
+  },
   "library-hero-exterior": {
     "width": 1376,
     "height": 768,
     "alt": "The Sequoia Library's glass entrance glows at dusk under tall redwoods"
   },
+  "news-alum-california-teacher-of-year": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A teacher helps a middle-school student with a science project"
+  },
   "news-alumna-salmon-sensor-startup": {
     "width": 1376,
     "height": 768,
     "alt": "An alumna in waders installs a sensor in a coastal river"
+  },
+  "news-cross-country-all-american": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A cross country runner races along a forest trail"
   },
   "news-engineering-robotics-lab-opens": {
     "width": 1376,
@@ -204,10 +559,25 @@
     "height": 768,
     "alt": "First-generation scholars pose together on the library steps"
   },
+  "news-green-chemistry-grant": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A chemistry professor and student examine a flask of green solution"
+  },
   "news-library-digitizes-logging-archives": {
     "width": 1376,
     "height": 768,
     "alt": "A library technician scans a historic logging photograph"
+  },
+  "news-madrone-hall-opens": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Students tour the rooftop garden of the new Madrone Hall"
+  },
+  "news-mens-basketball-season-preview": {
+    "width": 1376,
+    "height": 768,
+    "alt": "Men's basketball players run a drill at practice"
   },
   "news-nursing-simulation-center-accreditation": {
     "width": 1376,
@@ -218,6 +588,11 @@
     "width": 1376,
     "height": 768,
     "alt": "A researcher in a climbing harness takes measurements high in a redwood canopy"
+  },
+  "news-sleep-study-later-classes": {
+    "width": 1376,
+    "height": 768,
+    "alt": "A sleepy student yawns in an early-morning lecture"
   },
   "news-tide-pool-study-coastal-warming": {
     "width": 1376,

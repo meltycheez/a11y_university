@@ -29,8 +29,8 @@ export interface SectionConfig {
 
 export const sections: Record<Section, SectionConfig> = {
   home: { variant: "flagship", heroImage: "home-hero-quad" },
-  about: { variant: "flagship", heroImage: "home-hero-quad" },
-  audience: { variant: "flagship", heroImage: "home-hero-quad" },
+  about: { variant: "flagship", heroImage: "about-hero-campus" },
+  audience: { variant: "flagship", heroImage: "visitors-hero-welcome" },
   utility: { variant: "flagship" },
   admissions: {
     variant: "marketing",
@@ -50,7 +50,7 @@ export const sections: Record<Section, SectionConfig> = {
     variant: "marketing",
     siteName: "Financial Aid & Scholarships",
     siteHref: "/financial-aid",
-    heroImage: "admissions-hero-tour",
+    heroImage: "aid-hero-advising",
     links: [
       { label: "Aid Overview", href: "/financial-aid" },
       { label: "Types of Aid", href: "/financial-aid/types" },
@@ -63,7 +63,7 @@ export const sections: Record<Section, SectionConfig> = {
     variant: "cms",
     siteName: "Academics",
     siteHref: "/academics",
-    heroImage: "college-engineering",
+    heroImage: "academics-hero-lecture",
     links: [
       { label: "Colleges & Schools", href: "/academics" },
       { label: "Degree Programs", href: "/academics/programs" },
@@ -90,7 +90,7 @@ export const sections: Record<Section, SectionConfig> = {
     variant: "services",
     siteName: "Student Affairs",
     siteHref: "/students",
-    heroImage: "campus-dining-hall",
+    heroImage: "students-hero-lawn",
     links: [
       { label: "Registrar", href: "/students/registrar" },
       { label: "Advising", href: "/students/advising" },
@@ -106,7 +106,7 @@ export const sections: Record<Section, SectionConfig> = {
     siteName: "Sequoia Library",
     siteHref: "/library",
     tagline: "Open today 7:30 AM – 12:00 AM",
-    heroImage: "campus-library-interior",
+    heroImage: "library-hero-exterior",
     links: [
       { label: "Search", href: "/library/search" },
       { label: "Databases", href: "/library/databases" },
@@ -132,6 +132,7 @@ export const sections: Record<Section, SectionConfig> = {
   },
   events: {
     variant: "calendar",
+    heroImage: "events-hero-concert",
     siteName: "Events Calendar",
     siteHref: "/events",
     links: [
@@ -146,7 +147,7 @@ export const sections: Record<Section, SectionConfig> = {
     variant: "sports",
     siteName: "Redwood Owls",
     siteHref: "/athletics",
-    heroImage: "athletics-soccer-action",
+    heroImage: "athletics-hero-arena",
     links: [
       { label: "Teams", href: "/athletics/teams" },
       { label: "Schedule", href: "/athletics/schedule" },
@@ -159,7 +160,7 @@ export const sections: Record<Section, SectionConfig> = {
     variant: "foundation",
     siteName: "Redwood State Foundation",
     siteHref: "/giving",
-    heroImage: "home-hero-quad",
+    heroImage: "giving-hero-scholars",
     links: [
       { label: "Priorities", href: "/giving/priorities" },
       { label: "Scholarships", href: "/giving/scholarships" },
@@ -169,6 +170,7 @@ export const sections: Record<Section, SectionConfig> = {
   },
   employees: {
     variant: "intranet",
+    heroImage: "employees-hero-office",
     siteName: "Faculty & Staff Intranet",
     siteHref: "/employees",
     links: [
@@ -182,6 +184,7 @@ export const sections: Record<Section, SectionConfig> = {
   },
   portal: {
     variant: "portal",
+    heroImage: "portal-banner-laptops",
     siteName: "RedwoodConnect",
     siteHref: "/portal",
     links: [

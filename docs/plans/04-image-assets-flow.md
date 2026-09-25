@@ -99,3 +99,10 @@ Until an image exists, `<Img>` renders a tinted SVG placeholder of the correct a
 - No generated image contains real logos, real people, or accidental garbled text. The deliberate flyers have legible, correctly spelled text.
 - The visual style is consistent across the site.
 - Total `public/images` size is under about 40 MB.
+
+## Implementation notes (2026-09-25)
+
+- Manifest: `src/data/images.json`, 131 entries (ids per ADR-017). Brand marks are in `src/components/Logo.tsx` (ADR-020); the seal was checked in Chrome.
+- Generated 126/131 with `scripts/flow/run-flow.mjs` (ADR-022). Waiting on Flow's usage limit: `flyer-dining-hours`, `flyer-apply-jan15`, `mascot-rowan`, `mascot-rowan-cheer`, `map-aerial-illustration`. Rerun the runner to finish; it only processes missing files.
+- Reviewed on contact sheets: consistent style, headshots match their descriptors, no real logos or garbled text. Removed one duplicate (wildfire), one misfiled image (art exhibition) and one near-duplicate (dining-hours flyer).
+- `public/images` is 26.2 MB (budget 40 MB). Section heroes now use the dedicated hero images.

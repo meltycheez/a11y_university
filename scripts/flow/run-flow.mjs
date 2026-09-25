@@ -43,7 +43,7 @@ for (;;) {
   log(`batch: ${items.map((i) => i.id).join(", ")} (${todo.length} remaining)`);
   try {
     for (const r of await makeRun(items)(page)) {
-      if (r.error) { log(`FAIL ${r.id}: ${r.error}`); continue; }
+      if (r.error) { log(`FAIL ${r.id}: ${r.error}`); if (r.error.includes("USAGE LIMIT")) { log("Flow usage limit reached; stopping. Rerun later to resume."); await context.close(); process.exit(0); } continue; }
       // A stray tile (e.g. from an interrupted run) shows up with the wrong shape: reject it so it regenerates.
       const [w, h] = r.dims.split("x").map(Number), [aw, ah] = items.find((i) => i.id === r.id).aspect.split(":").map(Number);
       if (Math.abs(w / h - aw / ah) > 0.05) { unlinkSync(new URL(r.file, FLOW)); log(`WRONG-ASPECT ${r.id} got ${r.dims}; deleted for retry`); continue; }

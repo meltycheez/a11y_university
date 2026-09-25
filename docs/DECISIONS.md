@@ -26,6 +26,7 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 | [019](#adr-019) | 2026-09-24 | No 2K upscales or JPEG fallbacks | Accepted | 04 |
 | [020](#adr-020) | 2026-09-24 | Brand marks are React SVG components in `Logo.tsx` | Accepted | 04 |
 | [021](#adr-021) | 2026-09-24 | Everything named is fictional; `docs/WORLD.md` is the gazetteer | Accepted | 03, 04 |
+| [022](#adr-022) | 2026-09-25 | Flow images are taken from the agent chat as `=s0` originals by a standalone runner | Accepted | 04 |
 
 ---
 
@@ -91,3 +92,6 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 
 ### ADR-021
 **Everything named is fictional.** The user asked for no real places, institutions, organizations, companies, products, journals, tribal nations or people. `docs/WORLD.md` is the gazetteer: every writer uses (and extends) it. Allowed real references are limited to the US/California setting, the 707 area code with 555 numbers, and generic laws, public programs and standards (FAFSA, Pell, Cal Grant, Title IX, FERPA, ADA/504, WCAG, citation styles), plus real authors and historical subjects as course material. Consequences: the ZIP is 95579 (checked as unassigned), VP Thomas Redcloud became Thomas Harlan (slug `thomas-harlan`; ADR-011's no-rename rule yields to this), the footer uses fictional social networks with generic icons, and generated building names follow the content's canonical building list.
+
+### ADR-022
+**Standalone Flow runner, chat-based capture.** Flow's Download menu crashes Chrome (under the MCP and plain Playwright alike), and mid-run Flow's agent began filing images into collections while tile URLs switched to WebP thumbnails, which broke top-of-grid detection. `scripts/flow/run-flow.mjs` drives the MCP's signed-in Chrome profile directly, starts a fresh agent session per batch, tells the agent not to use collections, takes each new image from the agent chat (`img[alt^="Option"]`), and fetches the original JPEG by rewriting the URL suffix to `=s0`. Guards delete byte-identical duplicates and wrong-aspect results so they regenerate, and the run stops cleanly on Flow's usage limit. A visual contact-sheet review is still required: one near-duplicate (a re-sent earlier image) passed both guards.
