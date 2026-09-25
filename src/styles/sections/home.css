@@ -1,1 +1,29 @@
 /* Home page (pages/HomePage.tsx): page CSS and colocated .a11y-fix-* fixes for new home scenarios. */
+
+/* Audience paths */
+.home-audiences ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); }
+.home-audiences a { display: flex; flex-direction: column; height: 100%; padding: var(--space-3) var(--space-4); background: var(--brand-gold); color: #fff; text-decoration: none; border-radius: var(--radius-sm); } /* home-audience-contrast-001: ~2.8:1 */
+.home-audiences a:hover { background: #b8931f; }
+.a11y-fix-manual .home-audiences a { color: var(--gray-900); }
+.home-audience-label { font-weight: 700; font-size: 1.05rem; }
+.home-audience-text { font-size: 0.9rem; }
+
+/* News and events */
+.home-columns { display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: start; }
+@media (max-width: 55rem) { .home-columns { grid-template-columns: minmax(0, 1fr); } }
+.home-section-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); border-bottom: 2px solid var(--brand-redwood); padding-bottom: var(--space-1); }
+.home-section-head h2 { margin: 0; }
+.home-news-item { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: var(--space-4); }
+.home-news-item h3 { font-size: 1.15rem; margin: 0 0 var(--space-2); }
+.home-news-item p { margin: 0 0 var(--space-2); }
+.home-news-photo img, .home-news-photo .img-placeholder { display: block; width: 100%; height: auto; border-radius: var(--radius-sm); }
+.home-news-date { font-size: 0.85rem; color: var(--color-text-muted); }
+@media (max-width: 36rem) { .home-news-item { grid-template-columns: minmax(0, 1fr); } }
+.home-event-list { list-style: none; margin: 0; padding: 0; }
+.home-event { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+.home-event-date { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--brand-fern-dark); color: #fff; border-radius: var(--radius-sm); line-height: 1.1; padding: var(--space-1); }
+.home-event-date span:first-child { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.home-event-date span:last-child { font-size: 1.4rem; font-weight: 700; }
+.home-event a { font-weight: 650; }
+.home-event-where { display: block; font-size: 0.9rem; color: var(--color-text-muted); }
+.home-tour { max-width: 52rem; }

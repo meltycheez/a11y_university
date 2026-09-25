@@ -7,3 +7,60 @@
 .site--foundation .btn--primary { background: var(--brand-gold); color: var(--gray-900); }
 .site--foundation .btn--primary:hover { background: #b08b1a; color: var(--gray-900); }
 .site--foundation .hero--overlay.hero--has-image { border-radius: 4px; }
+
+/* ---------- Giving pages ---------- */
+.site--foundation .lede-paragraph { font-size: 1.15rem; max-width: 48rem; }
+.site--foundation .link-list { padding-left: 1.1rem; }
+.site--foundation .table-title { margin-bottom: var(--space-2); font-family: var(--font-serif); font-size: 1.15rem; }
+.site--foundation .stats-band { background: #fbf8ef; color: var(--gray-900); border: 1px solid #eadfbf; }
+.site--foundation .cta-band { background: #6b4f0f; }
+.site--foundation .cta-band .btn--primary { background: var(--brand-gold); color: var(--gray-900); }
+
+/* /giving */
+.giving-stats .stats-band { background: var(--brand-gold); color: #fff; border: 0; } /* giving-home-stats-contrast-001: ~2.4:1 */
+.a11y-fix-manual .giving-stats .stats-band { color: var(--gray-900); } /* ~7.2:1 */
+.giving-tax-note { font-size: 10px; font-style: italic; } /* giving-home-tax-small-001 */
+.a11y-fix-alerts .giving-tax-note { font-size: 0.9rem; }
+.campaign-meter { height: 1.25rem; background: #eee6cc; border-radius: 999px; overflow: hidden; max-width: 40rem; }
+.campaign-meter-fill { display: block; height: 100%; background: var(--brand-gold); }
+.ways-grid { list-style: none; padding: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); }
+.way { border-top: 3px solid var(--brand-gold); padding-top: var(--space-3); }
+.way-title { font-size: 1.15rem; margin: 0 0 var(--space-2); }
+.way p { margin: 0 0 var(--space-2); }
+
+/* /giving/priorities */
+.priority-grid { list-style: none; padding: 0; display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); }
+.priority { background: #fff; border: 1px solid #eadfbf; display: flex; flex-direction: column; }
+.priority-image { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.priority-body { padding: var(--space-4) var(--space-5) var(--space-5); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
+.priority-body p { margin: 0; }
+.priority-title { font-size: 1.25rem; margin: 0; line-height: 1.3; height: 1.6em; overflow: hidden; } /* giving-priorities-title-clip-001 */
+.a11y-fix-manual .priority-title { height: auto; overflow: visible; }
+.priority-give { margin-top: auto; align-self: flex-start; }
+.priority-give:focus, .priority-give:focus-visible { outline: none; } /* giving-priorities-give-focus-001 */
+.a11y-fix-manual .priority-give:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+
+/* /giving/alumni */
+.giving-photo { margin: 0; }
+.giving-photo img { width: 100%; height: auto; max-height: 22rem; object-fit: cover; }
+.giving-photo figcaption { font-size: 0.9rem; color: var(--color-text-muted); margin-top: var(--space-1); }
+.share-row { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+.share-button { font-size: 1.1rem; padding: 0.35rem 0.55rem; border: 1px solid #eadfbf; background: #fff; cursor: pointer; }
+
+/* /giving/scholarships */
+.site--foundation .text-underline { text-decoration: underline; } /* giving-scholarships-underline-001 (fixed in markup) */
+.scholarship-table { overflow: visible; } /* giving-scholarships-table-reflow-001 */
+.scholarship-table table { min-width: 48rem; }
+.a11y-fix-manual .scholarship-table { overflow-x: auto; }
+.a11y-fix-manual .scholarship-table table { min-width: 0; }
+.giving-updated { color: #c8b98a; } /* giving-scholarships-updated-contrast-001: ~2:1 */
+.a11y-fix-manual .giving-updated { color: var(--color-text-muted); }
+
+/* /giving/campaigns */
+.campaign-bars { list-style: none; padding: 0; display: grid; gap: var(--space-3); max-width: 44rem; }
+.campaign-bar-label { margin: 0 0 var(--space-1); font-weight: 600; }
+.campaign-bar { height: 0.9rem; background: #eee6cc; border-radius: 999px; overflow: hidden; }
+.campaign-bar-fill { display: block; height: 100%; background: var(--brand-gold); animation: campaign-fill 2.4s ease-out; } /* giving-campaigns-bars-motion-001 */
+@keyframes campaign-fill { from { width: 0; } }
+@media (prefers-reduced-motion: reduce) { .a11y-fix-manual .campaign-bar-fill { animation: none; } }
+.site--foundation .total-row th, .site--foundation .total-row td { font-weight: 700; border-top: 2px solid var(--gray-400); }

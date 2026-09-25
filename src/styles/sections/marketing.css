@@ -11,3 +11,132 @@
 .site--marketing .hero--overlay.hero--has-image { border-radius: 28px; }
 .site--marketing .card { border-radius: 20px; border: 0; box-shadow: 0 10px 30px rgb(122 46 31 / 0.12); }
 .site--marketing .callout { border-radius: 16px; border-left: 0; background: #fbf1e9; }
+
+/* ---------- Admissions & Aid pages (plan 05). Defects sit next to their .a11y-fix-* override (ADR-025). ---------- */
+.site--marketing .adm-lead { font-size: clamp(1.2rem, 2.2vw, 1.5rem); line-height: 1.5; max-width: 50rem; }
+.site--marketing .cta-band { background: linear-gradient(120deg, var(--brand-redwood) 0%, #a2452d 100%); border-radius: 28px; }
+.site--marketing .stats-band { border-radius: 24px; background: linear-gradient(120deg, #5a1f14, var(--brand-redwood)); }
+.site--marketing .adm-band { background: #fbf1e9; border-radius: 24px; padding: var(--space-6); }
+.site--marketing .adm-legend { font-size: 0.95rem; color: var(--color-text-muted); }
+
+/* Two-column body (main + contact card): audience landings, request info, aid */
+.adm-audience-body { display: grid; gap: var(--space-6); align-items: start; }
+@media (min-width: 60rem) { .adm-audience-body { grid-template-columns: minmax(0, 1fr) 20rem; } }
+.page-content > .adm-audience-body > * + *, .adm-audience-body > * + * { margin-top: 0; }
+.adm-audience .page-updated { margin-top: var(--space-5); }
+
+/* adm-home-stats-contrast-001: gold figures on white (~2.4:1) */
+.adm-stats .stats-band { background: #fff; color: var(--color-text); border: 2px solid #f3e3d6; }
+.adm-stats .stat-value { color: var(--brand-gold); font-family: var(--font-sans); font-weight: 800; }
+.a11y-fix-manual .adm-stats .stat-value { color: var(--brand-redwood); }
+
+/* adm-home-card-clip-001: fixed-height card text clips when zoomed */
+.adm-paths .card { border-radius: 24px; }
+.adm-paths .card-text { height: 3em; overflow: hidden; }
+.a11y-fix-manual .adm-paths .card-text { height: auto; overflow: visible; }
+
+/* adm-home-motion-001: entrance animation ignores prefers-reduced-motion */
+@keyframes adm-rise { from { opacity: 0; transform: translateY(2.5rem); } to { opacity: 1; transform: none; } }
+.adm-paths .card { animation: adm-rise 0.9s ease-out both; }
+.adm-paths .card:nth-child(2) { animation-delay: 0.15s; }
+.adm-paths .card:nth-child(3) { animation-delay: 0.3s; }
+.adm-paths .card:nth-child(4) { animation-delay: 0.45s; }
+@media (prefers-reduced-motion: reduce) { .a11y-fix-manual .adm-paths .card { animation: none; } }
+
+/* adm-audience-cta-contrast-001: white on a light coral pill (2.5:1 down to 1.9:1) */
+.adm-audience .cta-band { background: #fbf1e9; color: var(--color-text); }
+.site--marketing .adm-audience .cta-band h2 { color: var(--brand-redwood); }
+.adm-audience .cta-band .btn--primary { background: linear-gradient(90deg, #f08a65, #f6a98a); color: #fff; }
+.a11y-fix-manual .adm-audience .cta-band .btn--primary { background: linear-gradient(90deg, var(--brand-redwood), #5a1f14); }
+
+/* adm-grad-updated-small-001: 10px updated note */
+.adm-grad .page-updated { font-size: 10px; }
+.a11y-fix-alerts .adm-grad .page-updated { font-size: 0.9rem; }
+
+/* Freshman requirements */
+.adm-checklist { list-style: none; padding: 0; display: grid; gap: var(--space-3); }
+.adm-checklist li { background: #fbf1e9; border-radius: 14px; padding: var(--space-3) var(--space-4); }
+.adm-check { color: var(--brand-fern); font-weight: 800; margin-right: var(--space-2); }
+/* adm-fresh-new-row-color-001: the tint is the only cue while defective (the fix restores the text) */
+.adm-row-new > * { background: #fbeec2; }
+
+/* Process stepper */
+.adm-stepper { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-5); }
+.adm-step { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); gap: var(--space-4); align-items: start; background: #fff; border-radius: 24px; padding: var(--space-5); box-shadow: 0 10px 30px rgb(122 46 31 / 0.1); }
+.adm-step h2, .adm-step h3 { margin-top: 0; font-size: 1.35rem; }
+/* adm-process-number-contrast-001: white on light peach (~2.0:1) */
+.adm-step-number { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background: #f2a383; color: #fff; font-weight: 800; font-size: 1.4rem; }
+.a11y-fix-manual .adm-step-number { background: var(--brand-redwood); }
+
+/* Tuition */
+/* adm-tuition-fineprint-small-001 */
+.adm-fineprint { font-size: 10px; color: var(--color-text-muted); }
+.a11y-fix-alerts .adm-fineprint { font-size: 0.95rem; }
+/* adm-tuition-table-reflow-001: wide table with no scroll container forces page scroll */
+.adm-tuition .adm-wide-table { overflow-x: visible; }
+.adm-tuition .adm-wide-table table { min-width: 56rem; }
+.a11y-fix-manual .adm-tuition .adm-wide-table { overflow-x: auto; }
+.a11y-fix-manual .adm-tuition .adm-wide-table table { min-width: 0; }
+.adm-tuition tbody tr:last-child > * { font-weight: 700; }
+
+/* Scholarships */
+.adm-schol-list { list-style: none; padding: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); }
+.adm-schol-card { background: #fff; border-radius: 20px; padding: var(--space-4) var(--space-5); box-shadow: 0 10px 30px rgb(122 46 31 / 0.1); border-left: 8px solid transparent; }
+.adm-schol-card h3 { margin-top: 0; font-size: 1.15rem; }
+.adm-schol-card dl { margin: 0; display: grid; gap: var(--space-1); }
+.adm-schol-card dt { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.adm-schol-card dd { margin: 0 0 var(--space-2); }
+/* adm-schol-renewable-color-001: green bar is the only cue while defective */
+.adm-schol-card.is-renewable { border-left-color: var(--brand-fern); }
+.adm-swatch { display: inline-block; width: 0.5rem; height: 1rem; background: var(--brand-fern); vertical-align: middle; }
+
+/* Request info form */
+.adm-form { background: #fff; border-radius: 24px; padding: var(--space-6); box-shadow: 0 10px 30px rgb(122 46 31 / 0.1); }
+.adm-form .field { display: grid; gap: var(--space-1); }
+.adm-form input:not([type="radio"]), .adm-form select { font: inherit; padding: 0.7rem 1rem; border: 1px solid var(--gray-400); border-radius: 999px; }
+.adm-form-row { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+.adm-form-row > * + * { margin-top: 0; }
+.adm-form .field-label, .adm-form .field label, .adm-form legend { font-weight: 650; }
+.adm-radios { border: 0; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+.adm-radio { display: flex; gap: var(--space-2); align-items: center; }
+/* adm-reqinfo-required-color-001: red labels are the only required cue while defective (the fix adds text) */
+.adm-form .is-required label, .adm-form .is-required .field-label, .adm-form-note { color: #c0392b; }
+.adm-form-thanks { background: #e7f3ea; border-radius: 14px; padding: var(--space-3) var(--space-4); font-weight: 650; }
+
+/* Visit */
+/* adm-visit-saturday-contrast-001: gray on cream (~2.5:1) */
+.adm-saturday .callout-body { color: #9a9a92; }
+.a11y-fix-manual .adm-saturday .callout-body { color: var(--color-text); }
+.adm-date-list { list-style: none; padding: 0; display: grid; gap: var(--space-2); }
+.adm-date-list li { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); align-items: center; background: #fff; border-radius: 16px; padding: var(--space-3) var(--space-4); box-shadow: 0 4px 14px rgb(122 46 31 / 0.08); }
+.adm-date { font-weight: 700; flex: 1 1 14rem; }
+.adm-time { color: var(--color-text-muted); }
+/* adm-visit-reserve-focus-001 */
+.adm-reserve:focus, .adm-reserve:focus-visible { outline: none; }
+.a11y-fix-manual .adm-reserve:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+.adm-dates div.btn { cursor: pointer; }
+
+/* FAQ */
+/* adm-faq-group-contrast-001: light coral category headings (~2.3:1) */
+.site--marketing .adm-faq-group > h2 { color: #e8957a; text-transform: uppercase; letter-spacing: 0.06em; font-size: 1.1rem; }
+.a11y-fix-manual .site--marketing .adm-faq-group > h2 { color: var(--brand-redwood); }
+
+/* Financial aid */
+/* aid-home-deadline-contrast-001: white on gold (~2.4:1) */
+.aid-deadline { background: var(--brand-gold); color: #fff; border-radius: 20px; padding: var(--space-4) var(--space-5); font-size: 1.1rem; }
+.aid-deadline p { margin: 0; }
+.a11y-fix-manual .aid-deadline { color: var(--gray-900); }
+/* aid-home-sap-justified-001 */
+.aid-sap { text-align: justify; }
+.a11y-fix-alerts .aid-sap { text-align: start; }
+.aid-steps { display: grid; gap: var(--space-3); padding-left: 1.5rem; }
+.aid-steps li::marker { color: var(--brand-redwood); font-weight: 800; }
+.aid-icon-link { display: inline-grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: var(--brand-redwood); color: #fff; font-size: 1.4rem; text-decoration: none; }
+/* aid-types-source-color-001: dot color is the only cue while defective */
+.aid-src { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 50%; vertical-align: middle; }
+.aid-src--federal { background: #1a5fb4; }
+.aid-src--state { background: var(--brand-gold); }
+.aid-src--rsu { background: var(--brand-redwood); }
+.aid-src-legend .aid-src { margin-left: var(--space-3); }
+.aid-src-legend .aid-src:first-child { margin-left: 0; }
+.aid-info { cursor: help; color: var(--color-text-muted); }

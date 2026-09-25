@@ -8,3 +8,93 @@
 .site--calendar .hero--overlay.hero--has-image { border-radius: 6px; }
 .site--calendar .card { border-radius: 6px; border-color: #d5deea; }
 .site--calendar .btn { border-radius: 4px; }
+
+/* ---------- Events pages (src/pages/events). Defects and their .a11y-fix-* overrides side by side (ADR-025). ---------- */
+.site--calendar { --cal-academic: #1b5fa8; --cal-arts: #8e3fa8; --cal-athletics: #c0392b; --cal-student-life: #1e8a5a; }
+.cal-widget { border: 1px solid #d5deea; border-radius: 6px; padding: var(--space-4); background: #fff; font-family: var(--font-sans); }
+.cal-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-4); }
+.cal-chip { font: inherit; font-size: 0.85rem; border: 1px solid #c6d4e8; background: #fff; color: #1b5fa8; border-radius: 999px; padding: 0.25rem 0.85rem; cursor: pointer; }
+.cal-chip.is-active { background: #1b5fa8; color: #fff; border-color: #1b5fa8; }
+.cal-toolbar { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); }
+.cal-month { margin: 0; font-size: 1.35rem; font-weight: 700; color: #22334d; min-width: 11rem; text-align: center; }
+.cal-nav { font-size: 1.5rem; line-height: 1; width: 2.25rem; height: 2.25rem; border: 1px solid #c6d4e8; background: #f4f7fb; border-radius: 4px; color: #22334d; cursor: pointer; }
+.cal-nav:disabled { opacity: 0.4; cursor: default; }
+
+.cal-table { width: 100%; min-width: 56rem; table-layout: fixed; border-collapse: collapse; } /* events-cal-reflow-001 */
+.a11y-fix-manual .cal-table { min-width: 0; }
+.a11y-fix-manual .cal-event a { overflow-wrap: anywhere; }
+.cal-table th { font-size: 0.8rem; text-transform: uppercase; color: #4a5a70; padding: var(--space-2); border-bottom: 2px solid #d5deea; }
+.cal-table th abbr { text-decoration: none; }
+.cal-day, .cal-empty { border: 1px solid #e3e9f2; vertical-align: top; height: 6.5rem; padding: var(--space-1) var(--space-2); }
+.cal-empty { background: #f8fafc; }
+.cal-day.has-events { cursor: pointer; }
+.cal-day.is-today { background: #eef4fc; box-shadow: inset 0 0 0 2px #1b5fa8; }
+.cal-day.is-selected { background: #fff8e1; }
+.cal-day-num { display: inline-block; font-weight: 700; font-size: 0.85rem; color: #22334d; }
+button.cal-day-num { font: inherit; font-weight: 700; font-size: 0.85rem; background: none; border: 1px solid #c6d4e8; border-radius: 4px; padding: 0 0.35rem; cursor: pointer; }
+.cal-events { list-style: none; padding: 0; margin: var(--space-1) 0 0; display: grid; gap: 2px; }
+.cal-event { display: flex; gap: 0.3rem; align-items: baseline; line-height: 1.25; }
+.cal-event a { font-size: 10px; color: #22334d; text-decoration: none; } /* events-cal-text-small-001 */
+.cal-event a:hover { text-decoration: underline; }
+.a11y-fix-alerts .cal-event a { font-size: 0.85rem; }
+.cal-dot { flex: none; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--cal-color); transform: translateY(-1px); }
+.cal-tag { font-size: 0.7rem; font-weight: 700; color: var(--cal-color); }
+.cal-event--academic { --cal-color: var(--cal-academic); }
+.cal-event--arts { --cal-color: var(--cal-arts); }
+.cal-event--athletics { --cal-color: var(--cal-athletics); }
+.cal-event--student-life { --cal-color: var(--cal-student-life); }
+.cal-legend { list-style: none; padding: 0; margin: var(--space-3) 0 0; display: flex; flex-wrap: wrap; gap: var(--space-4); font-size: 0.85rem; }
+.cal-agenda-list { list-style: none; padding: 0; display: grid; gap: var(--space-4); }
+.cal-agenda-list li { border-left: 4px solid #1b5fa8; padding-left: var(--space-4); }
+.cal-agenda-list h3 { font-family: var(--font-sans); font-size: 1.15rem; margin: 0 0 var(--space-1); }
+.cal-agenda-when { font-weight: 700; color: #1b5fa8; margin: 0; font-size: 0.9rem; }
+.cal-agenda-meta { margin: 0; color: #4a5a70; font-size: 0.9rem; }
+.cal-agenda > * + * { margin-top: var(--space-4); }
+
+/* Search */
+.evs-form { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); align-items: end; background: #f4f7fb; border: 1px solid #d5deea; border-radius: 6px; padding: var(--space-5); font-family: var(--font-sans); }
+.evs-form .field { display: grid; gap: var(--space-1); }
+.evs-form .field label, .evs-form .field-label, .evs-cats-title, .evs-cats legend { font-weight: 700; font-size: 0.9rem; color: #22334d; }
+.evs-form input[type="search"], .evs-form input[type="date"] { font: inherit; padding: var(--space-2); border: 1px solid #93a3b8; border-radius: 4px; }
+.evs-cats { grid-column: 1 / -1; }
+.evs-cats fieldset { border: 0; padding: 0; margin: 0; }
+.evs-cats-title { margin: 0 0 var(--space-1); }
+.evs-check { display: inline-flex; gap: var(--space-2); align-items: center; margin-right: var(--space-5); }
+.evs-actions { display: flex; gap: var(--space-3); }
+.evs-count { font-weight: 700; }
+
+/* Category listing */
+.evc-list { list-style: none; padding: 0; display: grid; gap: var(--space-5); }
+.evc-item { display: grid; grid-template-columns: auto minmax(6rem, 10rem) 1fr; gap: var(--space-4); align-items: start; border-bottom: 1px solid #e3e9f2; padding-bottom: var(--space-5); }
+@media (max-width: 40rem) { .evc-item { grid-template-columns: auto 1fr; } .evc-thumb, .evc-item .img-placeholder { display: none; } }
+.evc-badge { display: grid; text-align: center; width: 3.5rem; border: 1px solid #c6d4e8; border-radius: 6px; overflow: hidden; font-family: var(--font-sans); }
+.evc-badge span { background: #1b5fa8; color: #fff; font-size: 0.75rem; font-weight: 700; }
+.evc-badge strong { font-size: 1.5rem; color: #22334d; }
+.evc-thumb, .evc-item .img-placeholder { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; }
+.evc-title { font-size: 1.25rem; margin-bottom: var(--space-1); }
+.evc-meta { color: #93a3b8; font-size: 0.9rem; margin: 0; } /* events-category-meta-contrast-001: ~2.6:1 */
+.a11y-fix-manual .evc-meta { color: #4a5a70; }
+.evc-more { font-weight: 700; font-size: 0.9rem; }
+
+/* Detail */
+.evd > * + * { margin-top: var(--space-5); }
+.evd-header .hero-kicker a { color: inherit; text-decoration: none; }
+.evd-when { font-size: 1.15rem; font-weight: 700; color: #1b5fa8; }
+.evd-layout { display: grid; gap: var(--space-6); }
+@media (min-width: 60rem) { .evd-layout { grid-template-columns: minmax(0, 44rem) minmax(16rem, 1fr); } }
+.evd-image, .evd-main .img-placeholder { width: 100%; border-radius: 6px; margin-bottom: var(--space-5); }
+.evd-aside > * + * { margin-top: var(--space-5); }
+.evd-facts { border: 1px solid #d5deea; border-radius: 6px; padding: var(--space-4); background: #f4f7fb; }
+.evd-facts h2 { font-size: 1.1rem; }
+.evd-facts table { border-collapse: collapse; font-size: 0.95rem; }
+.evd-facts td { padding: var(--space-1) var(--space-3) var(--space-1) 0; vertical-align: top; }
+.evd-facts-key, .evd-facts dt { font-weight: 700; color: #22334d; }
+.evd-facts dl { margin: 0; display: grid; gap: var(--space-2); font-size: 0.95rem; }
+.evd-facts dd { margin: 0; }
+.evd-directions { font-size: 0.9rem; }
+.evd-access { border-left: 4px solid var(--cal-student-life); padding-left: var(--space-4); margin-block: var(--space-5); }
+.evd-access h2, .evd-access .fake-heading { font-size: 1.15rem; margin-bottom: var(--space-2); }
+.evd-registration { border: 1px solid #d5deea; border-radius: 6px; padding: var(--space-5); margin-top: var(--space-6); }
+.evd-options { padding: 0; list-style: none; border-top: 1px solid #e3e9f2; }
+.evd-options li { display: flex; justify-content: space-between; gap: var(--space-4); padding: var(--space-2) 0; border-bottom: 1px solid #e3e9f2; }
+.evd-price { font-weight: 700; white-space: nowrap; }

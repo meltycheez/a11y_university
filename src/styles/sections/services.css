@@ -6,3 +6,109 @@
 .site--services .card { border-top: 5px solid var(--brand-fern); }
 .site--services .btn--primary { background: var(--brand-fern); }
 .site--services .btn--primary:hover { background: var(--brand-fern-dark); }
+
+/* ---------- ServicePage template and student services pages (plan 05). Defects sit next to their fixes (ADR-025). ---------- */
+.svc-layout { display: grid; gap: var(--space-6); align-items: start; }
+@media (min-width: 60rem) { .svc-layout { grid-template-columns: minmax(0, 1fr) 19rem; } }
+.svc-aside .related-links { margin-top: 0; border-top: 0; padding-top: 0; }
+.svc-aside .related-links ul { grid-template-columns: 1fr; }
+.site--services .table-scroll thead th { background: var(--brand-mist); }
+.site--services .callout { border-left-color: var(--brand-fern); }
+.site--services .cta-band { background: var(--brand-fern-dark); }
+.site--services .cta-band .btn--primary { background: #fff; color: var(--brand-fern-dark); }
+.svc-note { font-size: 0.95rem; color: var(--color-text-muted); }
+.svc-figure { margin: 0; }
+.svc-figure img, .svc-figure .img-placeholder { width: 100%; height: auto; border-radius: var(--radius-md); }
+.svc-figure figcaption { font-size: 0.9rem; color: var(--color-text-muted); margin-top: var(--space-1); }
+.svc-legend { font-size: 0.95rem; color: var(--color-text-muted); }
+
+/* "Updated" note: stu-registrar-updated-small-001, stu-parking-updated-small-001 (10px light gray) */
+.svc-registrar .page-updated, .svc-parking .page-updated { font-size: 10px; color: var(--gray-400); }
+.a11y-fix-alerts .svc-registrar .page-updated, .a11y-fix-alerts .svc-parking .page-updated { font-size: 0.9rem; color: var(--color-text-muted); }
+
+/* Hub: quick links */
+.svc-quick ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.svc-quick a { display: grid; justify-items: center; gap: var(--space-1); text-decoration: none; color: var(--brand-fern-dark); font-weight: 600; font-size: 0.9rem; }
+.svc-quick-icon { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background: var(--brand-mist); font-size: 1.5rem; }
+/* stu-hub-quicklinks-focus-001 */
+.svc-quick a:focus, .svc-quick a:focus-visible { outline: none; }
+.a11y-fix-manual .svc-quick a:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+
+/* Hub: tiles and groups */
+.svc-tiles { list-style: none; padding: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); }
+.svc-tile { background: #fff; border: 1px solid var(--color-border); border-top: 5px solid var(--brand-fern); border-radius: var(--radius-md); overflow: hidden; }
+.svc-tile a { display: block; text-decoration: none; }
+.svc-tile img, .svc-tile .img-placeholder { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; height: auto; }
+.svc-tile-title { display: block; padding: var(--space-3) var(--space-4); font-weight: 700; }
+.svc-groups { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.page-content > .svc-groups > * + * { margin-top: 0; }
+.svc-group { background: var(--brand-mist); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); }
+.svc-group .fake-heading, .svc-group h2 { margin-top: 0; font-size: 1.2rem; }
+.svc-group .link-list { padding-left: 1.1rem; }
+
+/* Careers */
+.svc-icon-list { list-style: none; padding: 0; display: grid; gap: var(--space-2); }
+.svc-icon { margin-right: var(--space-2); }
+.svc-feature { max-width: 24rem; }
+
+/* Health: stu-health-closed-contrast-001 (~2.2:1) */
+.svc-closed { color: #b0b0a8; }
+.a11y-fix-manual .svc-closed { color: var(--color-text-muted); }
+
+/* Housing: stu-housing-table-clip-001 (no wrapping, overflow hidden) */
+.svc-halls-table { overflow: hidden; }
+.svc-halls-table th, .svc-halls-table td { white-space: nowrap; }
+.a11y-fix-manual .svc-halls-table { overflow-x: auto; }
+.a11y-fix-manual .svc-halls-table th, .a11y-fix-manual .svc-halls-table td { white-space: normal; }
+
+/* Dining: stu-dining-header-contrast-001 (white on light green, ~2.0:1) */
+.svc-dining .table-scroll thead th { background: #8cc49a; color: #fff; }
+.a11y-fix-manual .svc-dining .table-scroll thead th { background: var(--brand-fern-dark); }
+/* stu-dining-late-color-001: the purple tint is the only cue while defective */
+.svc-late > * { background: #efe4f7; }
+.svc-swatch { display: inline-block; width: 1rem; height: 1rem; border-radius: 3px; vertical-align: middle; }
+.svc-swatch--late { background: #c9a6e4; }
+.svc-tag { display: inline-block; font-size: 0.8rem; font-weight: 700; padding: 0 var(--space-2); border-radius: 999px; background: #efe4f7; color: #4b2466; }
+.svc-flyer { margin: 0; max-width: 24rem; }
+.svc-flyer img, .svc-flyer .img-placeholder { width: 100%; height: auto; border-radius: var(--radius-sm); box-shadow: var(--shadow-md); }
+.svc-flyer figcaption { margin-top: var(--space-2); }
+
+/* Parking: stu-parking-permit-reflow-001 (min-width table, no scroll container) */
+.svc-parking .svc-wide-table { overflow-x: visible; }
+.svc-parking .svc-wide-table table { min-width: 52rem; }
+.a11y-fix-manual .svc-parking .svc-wide-table { overflow-x: auto; }
+.a11y-fix-manual .svc-parking .svc-wide-table table { min-width: 0; }
+.svc-parking span.btn { cursor: pointer; }
+
+/* Transportation: stu-transit-route-contrast-001 (white on light green, ~2.0:1) */
+.svc-route { display: inline-block; padding: 0.1rem 0.6rem; border-radius: 999px; background: #8cc49a; color: #fff; font-weight: 700; }
+.a11y-fix-manual .svc-route { background: var(--brand-fern-dark); }
+
+/* Safety: stu-safety-alert-motion-001 (endless pulse), stu-safety-alert-contrast-001 (white on coral, ~2.8:1) */
+@keyframes svc-pulse { 50% { opacity: 0.35; } }
+.svc-alert-banner { background: #ec7b68; color: #fff; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); animation: svc-pulse 1.2s ease-in-out infinite; }
+.a11y-fix-manual .svc-alert-banner { background: #9b1c12; animation: none; }
+.svc-shield { display: block; width: 2.5rem; height: 2.5rem; background: var(--brand-fern); clip-path: polygon(50% 0, 100% 15%, 100% 55%, 50% 100%, 0 55%, 0 15%); }
+.svc-shield-heading { margin: 0; }
+
+/* Organizations */
+.svc-jump ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.svc-jump a { display: inline-block; padding: 0.25rem 0.8rem; border: 1px solid var(--brand-fern); border-radius: 999px; text-decoration: none; }
+.svc-orgs > section { scroll-margin-top: var(--space-6); }
+.svc-orgs > * + * { margin-top: var(--space-6); }
+.svc-org-list { list-style: none; padding: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); }
+.svc-org { border: 1px solid var(--color-border); border-top: 5px solid var(--brand-fern); border-radius: var(--radius-md); padding: var(--space-4); }
+.svc-org h3, .svc-org h4 { margin-top: 0; font-size: 1.1rem; }
+.svc-org p { margin-bottom: var(--space-2); }
+.svc-org-meta { font-size: 0.9rem; color: var(--color-text-muted); }
+/* stu-orgs-members-contrast-001 (~2.4:1) */
+.svc-org-members { font-size: 0.85rem; color: #a8a8a0; }
+.a11y-fix-manual .svc-org-members { color: var(--color-text-muted); }
+.svc-flyer-link { display: block; max-width: 20rem; }
+.svc-flyer-link img, .svc-flyer-link .img-placeholder { width: 100%; height: auto; }
+
+/* Recreation: stu-rec-hours-clip-001 (fixed layout + nowrap cells cut off the pool schedule) */
+.svc-rec-hours table { table-layout: fixed; }
+.svc-rec-hours td { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.a11y-fix-manual .svc-rec-hours table { table-layout: auto; }
+.a11y-fix-manual .svc-rec-hours td { white-space: normal; overflow: visible; }

@@ -11,3 +11,81 @@
 .site--intranet .section-sidebar a[aria-current="page"] { font-weight: 700; background: #fff; }
 .site--intranet .hero-kicker { display: none; }
 .site--intranet .card, .site--intranet .btn, .site--intranet .callout { border-radius: 0; box-shadow: none; }
+
+/* ---------- Employees pages ---------- */
+.site--intranet .page-content > * + * { margin-top: var(--space-5); }
+.site--intranet .page-main h2 { font-size: 1.3rem; border-bottom: 1px solid #ccc; padding-bottom: 0.2rem; }
+.site--intranet .data-table { font-size: 0.875rem; }
+.site--intranet .data-table caption { font-family: Arial, Helvetica, sans-serif; font-size: 1rem; }
+.site--intranet .data-table thead th { background: #e4e4e4; }
+.site--intranet .data-table tbody tr:nth-child(even) { background: #f6f6f6; }
+.site--intranet .table-title { margin-bottom: var(--space-1); }
+.site--intranet .table-note { font-size: 0.85rem; color: #555; }
+.site--intranet .contact-card { border-radius: 0; background: #f6f6f6; border-color: #aaa; }
+.site--intranet .field-label, .site--intranet label { font-weight: 700; margin-right: var(--space-2); }
+.site--intranet select, .site--intranet input[type="search"] { font: inherit; padding: 0.25rem 0.35rem; border: 1px solid #888; }
+.site--intranet .text-underline { text-decoration: underline; } /* employees-payroll-noon-underline-001 (fixed in markup) */
+
+/* /employees */
+.intranet-links td { border: 1px solid #ccc; background: #fafafa; width: 33%; }
+.intranet-links a { font-weight: 700; }
+.intranet-announcements { border: 1px solid #c9b458; background: #fffbe6; padding: var(--space-3) var(--space-4); }
+.intranet-announcements h2 { margin-top: 0; border: 0; }
+.announcement-rotator { margin: 0; }
+.announcement-count { color: #555; font-size: 0.85rem; }
+.intranet-maintained { font-size: 10px; } /* employees-home-maintained-small-001 */
+.a11y-fix-alerts .intranet-maintained { font-size: 0.9rem; }
+
+/* /employees/hr */
+.intranet-search { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); background: #eee; border: 1px solid #ccc; padding: var(--space-2) var(--space-3); }
+.intranet-search .btn { padding: 0.25rem 0.75rem; }
+.term-note { color: #aaaaaa; } /* employees-hr-negotiation-contrast-001: ~2.3:1 */
+.a11y-fix-manual .term-note { color: #555; } /* ~7.5:1 */
+
+/* /employees/benefits */
+.benefits-year { display: flex; align-items: center; }
+.benefits-medical { max-width: 100%; overflow: hidden; } /* employees-benefits-medical-reflow-001: columns clipped, no scroll */
+.benefits-medical table { width: 62rem; }
+.a11y-fix-manual .benefits-medical { overflow-x: auto; }
+.row-free, .site--intranet .data-table tbody tr.row-free { background: #dff0d8; } /* employees-benefits-recommended-color-001 (fixed in markup) */
+.site--intranet .badge { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 0 0.35rem; border: 1px solid #3c763d; color: #2b542c; background: #fff; }
+
+/* /employees/jobs */
+.jobs-eeo { font-size: 10px; } /* employees-jobs-eeo-small-001 */
+.a11y-fix-alerts .jobs-eeo { font-size: 0.95rem; }
+.jobs-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); background: #eee; border: 1px solid #ccc; padding: var(--space-2) var(--space-3); }
+.jobs-count { margin: 0; font-weight: 700; }
+.job-list { list-style: none; padding: 0; }
+.job { border-bottom: 1px solid #ccc; padding: var(--space-3) 0; }
+.site--intranet .page-main .job-title { font-size: 1.1rem; border: 0; margin: 0; color: #0645ad; }
+.job-meta, .job-dates { margin: var(--space-1) 0; font-size: 0.875rem; }
+.job-closes--soon { color: #c00; font-weight: 700; } /* employees-jobs-closing-color-001 (fixed in markup) */
+.job details { margin: var(--space-2) 0; }
+
+/* /employees/policies */
+.revised-old { color: #b0b0b0; } /* employees-policies-revised-contrast-001: ~2.2:1 */
+.a11y-fix-manual .revised-old { color: inherit; }
+.site--intranet .doc-list { padding-left: 1.1rem; }
+
+/* /employees/payroll */
+.payroll-schedule-head { display: flex; align-items: center; gap: var(--space-3); }
+.print-button { font-size: 1.1rem; padding: 0.2rem 0.45rem; border: 1px solid #888; background: #f6f6f6; cursor: pointer; }
+.site--intranet .data-table tbody tr.row-current { background: #fff3a0; } /* employees-payroll-current-color-001 (fixed in markup) */
+.payroll-schedule table { table-layout: fixed; } /* employees-payroll-cells-spacing-001 */
+.payroll-schedule th, .payroll-schedule td { white-space: nowrap; overflow: hidden; }
+.a11y-fix-manual .payroll-schedule table { table-layout: auto; }
+.a11y-fix-manual .payroll-schedule th, .a11y-fix-manual .payroll-schedule td { white-space: normal; overflow: visible; }
+
+/* /employees/directory */
+.directory-letters ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 2px; }
+.directory-letters a, .directory-letters span { display: inline-block; min-width: 1.6rem; text-align: center; padding: 0.15rem 0.2rem; border: 1px solid #ccc; background: #f6f6f6; font-weight: 700; }
+.directory-letters .letter-empty { color: #666; font-weight: 400; }
+.directory-letter { font-size: 1.15rem; margin: var(--space-4) 0 var(--space-2); }
+.directory-table-wrap { overflow: visible; } /* employees-directory-reflow-001 */
+.directory-table { min-width: 58rem; }
+.a11y-fix-manual .directory-table-wrap { overflow-x: auto; }
+.directory-location { font-size: 10px; } /* employees-directory-location-small-001 */
+.a11y-fix-alerts .directory-location { font-size: inherit; }
+.directory-page a:focus, .directory-page a:focus-visible { outline: none; } /* employees-directory-focus-001 */
+.a11y-fix-manual .directory-page a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 1px; }
+.directory-email { display: inline-flex; padding: 0.15rem; }

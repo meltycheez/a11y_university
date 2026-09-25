@@ -16,3 +16,91 @@
 .site--sports .card { background: var(--color-surface); border-color: var(--color-border); }
 .site--sports .card-title a { color: #fff; }
 .site--sports .callout { background: var(--color-surface); }
+
+/* ---------- Athletics pages (src/pages/athletics). Defects sit next to their .a11y-fix-* override (ADR-025). ---------- */
+.site--sports .data-table th, .site--sports .data-table td { border-bottom-color: var(--color-border); }
+.site--sports .data-table caption { font-family: var(--font-sans); font-weight: 900; text-transform: uppercase; }
+.site--sports .stats-band { background: #000; border-top: 4px solid var(--brand-gold); border-radius: 0; }
+.site--sports .stat-value { font-family: var(--font-sans); font-weight: 900; color: var(--brand-gold); }
+.site--sports .cta-band { background: var(--brand-redwood); color: #fff; }
+.site--sports .cta-band .btn--primary { background: var(--brand-gold); color: #000; }
+.site--sports .related-links a, .site--sports .ath-table a { color: var(--color-link); }
+
+/* Score ticker (static; motion is plan 06 #11) */
+.ath-ticker { display: flex; align-items: stretch; background: #000; border-bottom: 2px solid var(--brand-gold); margin-bottom: var(--space-5); overflow-x: auto; }
+.ath-ticker ul { display: flex; list-style: none; margin: 0; padding: 0; }
+.ath-ticker-item { flex: 0 0 11rem; border-right: 1px solid #222; }
+.ath-ticker a { display: flex; flex-direction: column; padding: var(--space-2) var(--space-3); color: #fff; text-decoration: none; font-size: 0.85rem; line-height: 1.25; height: 100%; }
+.ath-ticker a:hover { background: #1a1a1a; }
+.ath-ticker-opp { font-weight: 700; }
+.ath-score { font-weight: 900; font-size: 1.05rem; }
+.ath-score--W { color: #4ade80; }
+.ath-score--L { color: #f87171; }
+.ath-ticker-all { align-self: center; flex: none; padding: 0 var(--space-4); color: var(--brand-gold); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
+.ath-ticker-meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: #5a5a5a; } /* athletics-home-ticker-contrast-001: ~3.0:1 on #000 */
+.a11y-fix-manual .ath-ticker-meta { color: #b9b9b9; }
+.ath-ticker-item { height: 4.5rem; overflow: hidden; } /* athletics-home-ticker-clip-001 */
+.a11y-fix-manual .ath-ticker-item { height: auto; overflow: visible; }
+.ath-home .ath-ticker a:focus, .ath-home .ath-team-strip-link:focus { outline: none; } /* athletics-home-focus-001 */
+.a11y-fix-manual .ath-home .ath-ticker a:focus-visible, .a11y-fix-manual .ath-home .ath-team-strip-link:focus-visible { outline: 3px solid var(--brand-gold); outline-offset: -3px; }
+
+/* /athletics */
+.ath-intro { font-size: 1.15rem; max-width: 48rem; }
+.ath-headlines { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+.ath-headline { background: var(--color-surface); border-top: 4px solid var(--brand-redwood); padding-bottom: var(--space-4); }
+.ath-headline > :not(img, .img-placeholder) { margin-inline: var(--space-4); }
+.ath-headline img, .ath-headline .img-placeholder { width: 100%; height: auto; margin-bottom: var(--space-3); }
+.ath-headline-date { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--brand-gold); margin-bottom: var(--space-1); }
+.ath-headline-title { font-size: 1.15rem; }
+.ath-headline-title a { color: #fff; text-decoration: none; }
+.ath-more { font-weight: 800; text-transform: uppercase; font-size: 0.85rem; }
+.ath-team-strip, .ath-spotlight { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); }
+.ath-team-strip-link { display: flex; flex-direction: column; background: var(--color-surface); color: #fff; text-decoration: none; height: 100%; }
+.ath-team-strip-link img, .ath-team-strip-link .img-placeholder { width: 100%; height: auto; }
+.ath-team-strip-name { font-weight: 900; text-transform: uppercase; padding: var(--space-2) var(--space-3) 0; }
+.ath-team-strip-record { font-size: 0.85rem; color: var(--color-text-muted); padding: 0 var(--space-3) var(--space-2); }
+.ath-team-strip-link:hover .ath-team-strip-name { color: var(--brand-gold); }
+.ath-spotlight li { display: flex; flex-direction: column; gap: var(--space-1); }
+.ath-spotlight img, .ath-spotlight .img-placeholder { width: 100%; height: auto; }
+.ath-spotlight a { font-weight: 900; text-transform: uppercase; }
+.ath-spotlight span { font-size: 0.85rem; color: var(--color-text-muted); }
+.ath-social ul { list-style: none; padding: 0; display: flex; gap: var(--space-3); }
+.ath-social a { display: grid; place-items: center; width: 3rem; height: 3rem; background: var(--color-surface); color: #fff; }
+.ath-social a:hover { color: var(--brand-gold); }
+
+/* /athletics/teams */
+.ath-season { font-weight: 900; text-transform: uppercase; font-size: 1.6rem; border-bottom: 3px solid var(--brand-gold); padding-bottom: var(--space-1); }
+.ath-tiles { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); }
+.ath-tile { background: var(--color-surface); padding-bottom: var(--space-4); }
+.ath-tile > :not(img, .img-placeholder, .ath-tile-photo) { margin-inline: var(--space-4); }
+.ath-tile img, .ath-tile .img-placeholder { display: block; width: 100%; height: auto; margin-bottom: var(--space-3); }
+.ath-tile h3 a { color: #fff; text-decoration: none; }
+.ath-tile-links { display: flex; gap: var(--space-4); font-weight: 800; text-transform: uppercase; font-size: 0.85rem; }
+.ath-tile-meta { font-size: 0.9rem; color: #777; } /* athletics-teams-record-contrast-001: ~3.7:1 on #1e1e1e */
+.a11y-fix-manual .ath-tile-meta { color: #b9b9b9; }
+
+/* /athletics/scores */
+.ath-filter { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.ath-filter select { font: inherit; padding: var(--space-2) var(--space-3); background: #000; color: #fff; border: 1px solid #666; }
+.ath-filter-count, .ath-note { color: var(--color-text-muted); font-size: 0.9rem; }
+.ath-scores-wrap { overflow: visible; } /* athletics-scores-reflow-001: table forces the page to scroll sideways */
+.ath-scores-table { min-width: 52rem; }
+.a11y-fix-manual .ath-scores-wrap { overflow-x: auto; }
+.a11y-fix-manual .ath-scores-table { min-width: 0; }
+
+/* TeamPage */
+.ath-team .stats-band .stat-value { font-size: 1.6rem; }
+.ath-team .stats-band .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; } /* athletics-team-stats-small-001 */
+.a11y-fix-alerts .ath-team .stats-band .stat-label { font-size: 0.95rem; }
+.ath-schedule tr.is-conf td:first-child { box-shadow: inset 4px 0 0 var(--brand-gold); } /* athletics-team-conference-color-001 (color alone while defective) */
+.ath-conf-tag { margin-left: var(--space-2); padding: 0 var(--space-1); border: 1px solid var(--brand-gold); color: var(--brand-gold); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
+
+/* Athlete profile */
+.ath-profile-head { display: grid; gap: var(--space-5); grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); align-items: end; margin-bottom: var(--space-6); border-bottom: 4px solid var(--brand-gold); padding-bottom: var(--space-5); }
+.ath-profile-photo { width: 100%; height: auto; }
+.ath-profile-head h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1; font-style: italic; }
+.ath-profile-number { color: var(--brand-gold); }
+.ath-facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: var(--space-3); margin: var(--space-4) 0 0; }
+.ath-facts dt { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-muted); }
+.ath-facts dd { margin: 0; font-weight: 700; }
+@media (max-width: 40rem) { .ath-profile-head { grid-template-columns: minmax(0, 1fr); } }
