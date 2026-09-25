@@ -12,7 +12,8 @@
     "build:search": "node scripts/build-search-index.ts",
     "images:optimize": "node scripts/optimize-images.mjs",
     "test": "vitest run",
-    "images:contact": "node scripts/contact-sheet.mjs"
+    "images:contact": "node scripts/contact-sheet.mjs",
+    "check:scenarios": "node scripts/check-scenarios.ts"
   },
   "dependencies": {
     "@fontsource-variable/source-sans-3": "^5.3.0",

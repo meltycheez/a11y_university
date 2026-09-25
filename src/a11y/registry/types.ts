@@ -8,7 +8,7 @@ export interface ScenarioDef {
   title: string;
   description: string;
   fixDescription: string;
-  /** Route paths or patterns ("/news/:slug"); "*" means every university page. */
+  /** Route paths or patterns ("/news/:slug"); "*" means every page with the university header and footer (not portal or lab). */
   pages: string[];
   component: string;
   mechanism: "markup" | "css" | "behavior" | "document";
