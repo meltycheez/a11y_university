@@ -47,3 +47,21 @@ it("widget defect variants render broken markup until fixed", () => {
   expect(q('input[type="date"]')!.getAttribute("min")).toBe("2026-10-06");
   expect(q('[role="status"]')!.textContent).toContain("Saved");
 });
+
+it("Tabs: arrow/Home/End move focus once fixed, do nothing while broken-keys", () => {
+  const tabs = [{ label: "A", content: "a" }, { label: "B", content: "b" }, { label: "C", content: "c" }];
+  const { container } = render(<Tabs label="T" scenario={S} defect="broken-keys" tabs={tabs} />);
+  const buttons = () => [...container.querySelectorAll<HTMLButtonElement>(".tab")];
+  buttons()[0].focus();
+  fireEvent.keyDown(container.querySelector(".tab-list")!, { key: "ArrowRight" });
+  expect(document.activeElement).toBe(buttons()[0]); // broken: no key handler attached
+
+  act(() => a11yStore.set({ fixErrors: true }));
+  buttons()[0].focus();
+  fireEvent.keyDown(container.querySelector(".tab-list")!, { key: "ArrowRight" });
+  expect(document.activeElement).toBe(buttons()[1]);
+  fireEvent.keyDown(container.querySelector(".tab-list")!, { key: "End" });
+  expect(document.activeElement).toBe(buttons()[2]);
+  fireEvent.keyDown(container.querySelector(".tab-list")!, { key: "Home" });
+  expect(document.activeElement).toBe(buttons()[0]);
+});

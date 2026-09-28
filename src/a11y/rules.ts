@@ -31,7 +31,9 @@ export const rules = {
   "html-lang-missing": e(["3.1.1"], ["document"], ["html-has-lang"], ["language_missing"]),
   "page-title-missing": e(["2.4.2"], ["document", "navigation"], ["document-title"], ["title_invalid"]),
   "heading-empty": e(["1.3.1", "2.4.6"], ["headings"], ["empty-heading"], ["heading_empty"]),
-  "duplicate-id": e(["4.1.1"], ["aria"], ["duplicate-id-aria"]),
+  // axe-core's "duplicate-id" (any duplicate id) is disabled by default, and none of our duplicate ids are
+  // ARIA-referenced, so "duplicate-id-aria" never actually fires here — plan 09 found this WAVE/manual only.
+  "duplicate-id": e(["4.1.1"], ["aria"]),
   "aria-broken-reference": e(["1.3.1", "4.1.2"], ["aria"], ["aria-valid-attr-value"], ["aria_reference_broken"]),
   "aria-invalid-attr": e(["4.1.2"], ["aria"], ["aria-valid-attr"]),
   "aria-invalid-value": e(["4.1.2"], ["aria"], ["aria-valid-attr-value"]),

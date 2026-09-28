@@ -48,6 +48,15 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 | [041](#adr-041) | 2026-09-25 | Document-mechanism lab specimens are static code samples, not live toggles | Accepted | 08 |
 | [042](#adr-042) | 2026-09-25 | No new rule keys for the ARIA page's "misused roles" / "live regions" topics | Accepted | 08 |
 | [043](#adr-043) | 2026-09-25 | Lab index category filter and grouped tabs are one hand-rolled tablist, not the shared `Tabs` widget | Accepted | 08 |
+| [044](#adr-044) | 2026-09-26 | ESLint: `typescript-eslint`'s bare parser config plus `eslint-plugin-react-hooks`; no custom rule plugin | Accepted | 09 |
+| [045](#adr-045) | 2026-09-26 | Playwright serves the build on its own port (4319), separate from `npm run preview`'s 4173 | Accepted | 09 |
+| [046](#adr-046) | 2026-09-26 | `check:scenarios` and `coverage` scripts double as plan 09's registry-integrity and scenario-presence layers | Accepted | 09 |
+| [047](#adr-047) | 2026-09-26 | `duplicate-id` scenarios are WAVE/manual-only; a schedule-legend defect used the wrong element | Accepted | 07, 09 |
+| [048](#adr-048) | 2026-09-26 | React Router's own `sessionStorage` scroll-restoration key is excepted from the no-persistence check | Accepted | 02, 09 |
+| [049](#adr-049) | 2026-09-27 | `docs/SITE_MAP.md` generation reuses `coverage.ts`'s page-expansion logic, chained into `npm run build` | Accepted | 10 |
+| [050](#adr-050) | 2026-09-27 | `npm run scan` is a manual spot-check CLI, not a CI check; `toggle-axe.spec.ts` stays the source of truth | Accepted | 10 |
+| [051](#adr-051) | 2026-09-27 | GitHub Pages deploy is its own workflow, gated on push to `main` or manual dispatch | Accepted | 10 |
+| [052](#adr-052) | 2026-09-27 | WAVE's completion-gate pass is left as a human checklist; `npm run scan` supplies the automated axe evidence | Accepted | 10 |
 
 ---
 
@@ -179,3 +188,30 @@ Add new entries at the bottom; never renumber. To reverse a decision, add a new 
 
 ### ADR-043
 **Category filter and grouped tabs are one control.** Plan 08 asked for both a category filter and "grouped views… as tabs" on the lab index's scenario table. The shared `Tabs` widget (`components/Tabs.tsx`) has no controlled active-tab API, and simultaneously rendering 4 hidden per-category tables just to reuse it would be the wrong shape for filtered data. The index page hand-rolls a small ARIA tablist instead (mirroring `Tabs`' keyboard handling) whose active tab (All/Errors/Alerts/Manual) doubles as the category filter, feeding one `role="tabpanel"` alongside the area/WCAG/page/text filters.
+
+### ADR-044
+**No ESLint rule plugin beyond `react-hooks`.** Plan 09's static checks (no persistence, no `Math.random`/`Date.now` outside the fake-latency helper) are all expressible with core ESLint (`no-restricted-globals`, `no-restricted-properties`), so `eslint.config.js` uses `typescript-eslint`'s `configs.base` (parser only, no opinionated rule set) rather than pulling in `recommended`/`strict`, which would surface unrelated pre-existing findings across ~200 files that no one asked to fix. `eslint-plugin-react-hooks` was added because the codebase already had targeted `// eslint-disable-line react-hooks/exhaustive-deps` comments (from plans 05–06) that referenced a rule no config had ever defined.
+
+### ADR-045
+**A dedicated e2e port.** `playwright.config.ts`'s `webServer` runs `npx serve build/client -l 4319`, not `npm run preview` (which defaults to 4173): this machine already has an unrelated long-running process bound to 4173, and `serve` silently falls back to a random port when its requested one is busy, which would have pointed Playwright at the wrong server. 4319 is unused and dedicated to this repo's e2e run.
+
+### ADR-046
+**Scenario presence and registry integrity reuse the plan 07/08 scripts.** `scripts/check-scenarios.ts` (every scenario's `data-a11y-scenario` marker present in the prerendered HTML, and vice versa) and `scripts/coverage.ts` (every rule key used, coverage-area minimums) already prove exactly what plan 09's "Registry integrity" and "Scenario presence" bullets ask for, against real build output. `src/a11y/registry/integrity.test.ts` adds the checks those scripts can't make without a build (WCAG format, `pages` entries resolving to real routes, every rule key used — this last one duplicated as a fast Vitest check since `coverage.ts` also enforces per-area minimums, a plan 07 concern). CI runs both scripts as their own steps rather than reimplementing them as Playwright tests.
+
+### ADR-047
+**`duplicate-id` has no working axe id; one legend was actually broken.** Diffing real axe-core output against `rules.ts`'s "best effort" ids (plan 09's stated job) found two things: axe-core's generic `duplicate-id` check is disabled by default in the installed version, and `duplicate-id-aria` only fires when the duplicated id is ARIA-referenced, which none of this project's `duplicate-id` scenarios are — so the rule's `axe` field was dropped, leaving it WAVE/manual-only. Separately, `/athletics/schedule`'s defective legend (`ScheduleLegend`) rendered `<span>` items instead of `<li>`, which doesn't just hide it from axe's `listitem` rule — it isn't the "list items outside a list" defect the scenario describes at all. Changed to `<li>` inside the `<div>` (still no `<ul>`/`<ol>` ancestor), matching the fixed branch's `<ul><li>` pattern; no visual change.
+
+### ADR-048
+**The framework's own scroll-restoration key is not "persistence."** Plan 09's E2E no-persistence check (`e2e/reset.spec.ts`) found `sessionStorage["react-router-scroll-positions"]` after normal navigation — React Router's built-in scroll-restoration, not app state. It carries no scenario or form data and dies with the tab, which is what plan 02's "reload resets everything" is protecting; it's excepted by name in the test rather than treated as a violation. If a future dependency adds another framework-owned storage key, except it the same way rather than loosening the check generally.
+
+### ADR-049
+**`gen-sitemap-md.ts` mirrors `coverage.ts`, doesn't share code with it.** Both scripts need "expand a scenario's `pages` (exact path, `:slug` pattern, or `*`) into concrete routes, then count page-level scenarios per route." `coverage.ts` also computes area/rule aggregates `gen-sitemap-md.ts` doesn't need, so the shared ~10 lines were duplicated rather than extracted into a module — two working scripts stay simpler than a script plus a shared-logic file for one small function. `npm run gen:sitemap` is chained onto the end of `npm run build` (after `postbuild.mjs`) so `docs/SITE_MAP.md` regenerates on every build; it doesn't read `build/client` output, so its position in the chain doesn't matter.
+
+### ADR-050
+**`npm run scan` vs `toggle-axe.spec.ts`.** Plan 10 asked for a Playwright script that prints a before/after table for one page by hand. `e2e/toggle-axe.spec.ts` already asserts the same before/Fix-All/off-again/reload cycle against expected rule ids across 15 pages — that stays the CI-enforced source of truth. `scripts/scan.ts` is a separate, deliberately dumb CLI (launch chromium, scan, click **Fix All**, scan again, `console.table` the diff) against whatever the dev already has served on `BASE_URL` (default `:4173`, matching `npm run preview`) — for spot-checking a page nothing else covers yet, not for asserting anything.
+
+### ADR-051
+**GitHub Pages gets its own workflow.** `ci.yml` runs on every push/PR and doesn't build with `BASE_PATH` set, so its `build/client` isn't valid for GitHub Pages' subpath. `.github/workflows/deploy-pages.yml` is a second workflow (build with `BASE_PATH=/a11y_university/`, `actions/deploy-pages`), triggered on push to `main` or manual dispatch, so a Pages deploy doesn't happen on every feature-branch push or PR.
+
+### ADR-052
+**WAVE's own completion-gate pass stays a human step.** WAVE is a browser extension; it can't be scripted from a plan 10 automation pass. `docs/verification.md` runs `npm run scan` (axe-core) before/after **Fix All** on 10 pages spanning every tier as the automated stand-in, and lists the same 10 pages as a checklist for whoever does the real WAVE pass. That same pass surfaced `color-contrast` rising after Fix All on 4 of the 10 pages — noted in `docs/verification.md` as a follow-up for a future plan, not fixed here: plan 10 is docs and deployment, not a defect audit.

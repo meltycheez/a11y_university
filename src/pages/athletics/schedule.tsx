@@ -187,9 +187,9 @@ function ScheduleLegend({ fix, id, mark }: { fix: Fix; id: Id; mark: Mark }) {
           </ul>
         ) : (
           <div>
-            {items.map((it) => <span key={it.text}><img src={it.icon} alt="" width={14} height={14} /> {it.text}</span>)}
-            <span className="sch-swatch sch-swatch--w">Win</span>
-            <span className="sch-swatch sch-swatch--l">Loss</span>
+            {items.map((it) => <li key={it.text}><img src={it.icon} alt="" width={14} height={14} /> {it.text}</li>)}
+            <li className="sch-swatch sch-swatch--w">Win</li>
+            <li className="sch-swatch sch-swatch--l">Loss</li>
           </div>
         )}
       </div>

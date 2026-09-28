@@ -7,3 +7,7 @@ build/
 .DS_Store
 scripts/flow/run.js
 assets-src/flow-run.log
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
