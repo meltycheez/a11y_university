@@ -22,7 +22,7 @@
 .cmap-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .cmap-chip { font: inherit; font-size: 0.9rem; padding: var(--space-1) var(--space-3); border-radius: 999px; background: #fff; color: var(--color-text); border: 1px solid #d4d4d4; cursor: pointer; } /* campus-map-layers-contrast-001: ~1.5:1 */
 .cmap-chip.is-on { background: var(--brand-fern); border-color: var(--brand-fern); color: #fff; } /* campus-map-layers-state-001: color is the only state cue */
-.a11y-fix-manual .cmap-chip { border-color: var(--gray-600); }
+.a11y-fix-errors .cmap-chip { border-color: #8f8f8f; }
 .a11y-fix-manual .cmap-chip.is-on { border-color: var(--brand-fern); }
 .cmap-count { margin: var(--space-3) 0 0; font-size: 0.9rem; color: var(--color-text-muted); }
 
@@ -70,7 +70,7 @@ button.cmap-print { background: none; border: 0; padding: 0; color: var(--color-
 .cmap-b--services { fill: #b8b8b0; background: #b8b8b0; }
 .cmap-labels { pointer-events: none; }
 .cmap-label { font: 700 13px var(--font-sans); fill: #8fae93; } /* campus-map-labels-contrast-001: ~2.2:1 */
-.a11y-fix-manual .cmap-label { fill: var(--brand-fern-dark); }
+.a11y-fix-errors .cmap-label { fill: #4c7152; }
 
 .cmap-lot path { stroke: #fff; stroke-width: 2; opacity: 0.85; }
 .cmap-lot text { font: 800 16px var(--font-sans); fill: #fff; pointer-events: none; }

@@ -73,7 +73,7 @@ button.cal-day-num { font: inherit; font-weight: 700; font-size: 0.85rem; backgr
 .evc-thumb, .evc-item .img-placeholder { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; }
 .evc-title { font-size: 1.25rem; margin-bottom: var(--space-1); }
 .evc-meta { color: #93a3b8; font-size: 0.9rem; margin: 0; } /* events-category-meta-contrast-001: ~2.6:1 */
-.a11y-fix-manual .evc-meta { color: #4a5a70; }
+.a11y-fix-errors .evc-meta { color: #67778d; }
 .evc-more { font-weight: 700; font-size: 0.9rem; }
 
 /* Detail */

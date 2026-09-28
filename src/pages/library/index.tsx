@@ -13,7 +13,7 @@ export { inventoryMeta as meta } from "~/routes/meta";
 
 const QUICK_LINKS: { title: string; links: { label: string; href: string }[] }[] = [
   { title: "Find", links: [{ label: "OneSearch", href: "/library/search" }, { label: "Databases A–Z", href: "/library/databases" }, { label: "Research Guides", href: "/library/guides" }, { label: "Course reserves", href: "/library/search?q=reserves" }, { label: "Local History Archives", href: "/library/guides/local-history-archives" }] },
-  { title: "Borrow", links: [{ label: "My Library Account", href: "/library/account" }, { label: "Renew items", href: "/library/account" }, { label: "Loan periods", href: "/library/policies" }, { label: "Fines and fees", href: "/library/policies" }] },
+  { title: "Borrow", links: [{ label: "My Library Account", href: "/library/account" }, { label: "Loan periods", href: "/library/policies#borrowing-heading" }, { label: "Fines and fees", href: "/library/policies#fines-heading" }] },
   { title: "Spaces", links: [{ label: "Study Room Reservations", href: "/library/study-rooms" }, { label: "Library Hours", href: "/library/hours" }, { label: "Quiet floors", href: "/library/policies" }, { label: "Stacks Café", href: "/library/hours" }] },
   { title: "Help", links: [{ label: "Citing sources", href: "/library/guides/citation-guide" }, { label: "Nursing research", href: "/library/guides/nursing-evidence-based-practice" }, { label: "Academic advising", href: "/students/advising" }, { label: "Library policies", href: "/library/policies" }] },
 ];

@@ -6,12 +6,9 @@ type Sev = NonNullable<ScenarioDef["severity"]>;
 const d = (id: string, rule: RuleKey, mechanism: Mech, severity: Sev, title: string, description: string, fixDescription: string): ScenarioDef =>
   ({ id, rule, pages: ["/accessibility-lab/manual"], component: "ManualLab", mechanism, severity, title, description, fixDescription });
 
-// Manual Testing Specimens (plan 08): contrast, color-only, motion, reflow, and text-in-image.
+// Manual Testing Specimens (plan 08): color-only, motion, reflow, and text-in-image. Contrast moved to the
+// Errors specimens (lab-errors.ts): WAVE detects it as a red "Contrast Error", not a manual judgement call.
 export const labManualScenarios: ScenarioDef[] = [
-  d("contrast-text-low-manual-lab", "contrast-text-low", "css", "serious",
-    "Body text has low contrast", "This paragraph is set in light gray (#9a9a92) on white, about 2.5:1 — below the 4.5:1 minimum for body text.", "Uses a dark, near-black text color, about 16:1."),
-  d("contrast-ui-low-manual-lab", "contrast-ui-low", "css", "serious",
-    "Button border has low contrast", "This button's visible border is a very light gray (#d8d8d2) on white, about 1.2:1 — below the 3:1 minimum for UI components.", "Uses a dark border, about 8:1."),
   d("color-only-info-manual-lab", "color-only-info", "markup", "serious",
     "Scholarship status shown only by color", "\"Renewable\" scholarships are marked only with a green dot plus a color-key legend; the word itself never appears in the row.", "Adds the word \"Renewable\" to the row text and removes the color legend."),
   d("color-only-error-manual-lab", "color-only-error", "markup", "serious",

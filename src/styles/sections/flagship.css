@@ -15,7 +15,7 @@
 
 /* /about */
 .about-stats .stat-label { color: #6d9277; } /* about-overview-stat-contrast-001: ~3.3:1 on #1f4128 */
-.a11y-fix-manual .about-stats .stat-label { color: #f1f5f2; } /* ~10:1 */
+.a11y-fix-errors .about-stats .stat-label { color: #8fac95; } /* ~4.6:1 */
 
 /* /about/leadership */
 .leader-grid { list-style: none; padding: 0; display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
@@ -24,7 +24,7 @@
 .leader-body { padding: var(--space-4) var(--space-5) var(--space-5); display: grid; gap: var(--space-2); }
 .leader-name, .leader-body .fake-heading { font-size: 1.2rem; margin: 0; font-family: var(--font-serif); }
 .leader-title { margin: 0; color: #9a9a92; font-size: 0.95rem; } /* about-leadership-title-contrast-001: ~2.8:1 */
-.a11y-fix-manual .leader-title { color: var(--gray-600); }
+.a11y-fix-errors .leader-title { color: #767676; }
 .leader-actions { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-2); }
 .leader-trigger { font: inherit; font-weight: 650; font-size: 0.9rem; padding: 0.4rem 1rem; border-radius: 999px; border: 2px solid var(--brand-redwood); background: #fff; color: var(--brand-redwood); cursor: pointer; text-decoration: none; }
 .leader-trigger:hover { background: var(--brand-redwood); color: #fff; }
@@ -95,7 +95,7 @@
 
 /* /alumni */
 .alumni-badge { display: inline-block; vertical-align: middle; font-family: var(--font-sans); font-size: 0.8rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 999px; background: var(--brand-gold); color: #fff; } /* audience-alumni-badge-contrast-001: ~2.4:1 */
-.a11y-fix-manual .alumni-badge { color: var(--gray-900); } /* ~7.2:1 */
+.a11y-fix-errors .alumni-badge { color: #3a3a34; } /* ~4.7:1 */
 .alumni-features { list-style: none; padding: 0; display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
 .alumni-features .card-image-link { display: block; }
 .alumni-chapters { list-style: none; padding: 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
@@ -112,4 +112,4 @@
 
 /* /policies/privacy */
 .privacy-page p, .privacy-page li { color: #8c8c85; } /* utility-privacy-legal-contrast-001: ~3.4:1 */
-.a11y-fix-manual .privacy-page p, .a11y-fix-manual .privacy-page li { color: var(--color-text); }
+.a11y-fix-errors .privacy-page p, .a11y-fix-errors .privacy-page li { color: #767676; }

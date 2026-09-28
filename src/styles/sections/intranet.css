@@ -40,7 +40,7 @@
 .intranet-search { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); background: #eee; border: 1px solid #ccc; padding: var(--space-2) var(--space-3); }
 .intranet-search .btn { padding: 0.25rem 0.75rem; }
 .term-note { color: #aaaaaa; } /* employees-hr-negotiation-contrast-001: ~2.3:1 */
-.a11y-fix-manual .term-note { color: #555; } /* ~7.5:1 */
+.a11y-fix-errors .term-note { color: #767676; } /* ~4.5:1 */
 
 /* /employees/benefits */
 .benefits-year { display: flex; align-items: center; }
@@ -64,7 +64,7 @@
 
 /* /employees/policies */
 .revised-old { color: #b0b0b0; } /* employees-policies-revised-contrast-001: ~2.2:1 */
-.a11y-fix-manual .revised-old { color: inherit; }
+.a11y-fix-errors .revised-old { color: #767676; }
 .site--intranet .doc-list { padding-left: 1.1rem; }
 
 /* /employees/payroll */

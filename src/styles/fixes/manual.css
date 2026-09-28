@@ -1,3 +1,2 @@
 /* CSS fixes applied under .a11y-fix-manual on body. */
-.a11y-fix-manual .home-explore .card-meta { color: var(--gray-600); } /* home-card-meta-contrast-001: ~6.6:1 */
 .a11y-fix-manual .home-explore .card-title a:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; } /* home-card-focus-001 */

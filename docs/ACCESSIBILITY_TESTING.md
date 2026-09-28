@@ -14,7 +14,7 @@ persists (see [ADR-005](DECISIONS.md#adr-005), [ADR-048](DECISIONS.md#adr-048)).
 
 | Category | Switch | What it covers | Detected by |
 |---|---|---|---|
-| **Errors** | Fix Errors | Missing alt text, unlabeled form controls, empty buttons/links, missing `lang`/`<title>`, broken/invalid ARIA, missing iframe titles, empty headings, table header mistakes, missing required ARIA parents/children | Automated scanners flag these as errors/violations |
+| **Errors** | Fix Errors | Missing alt text, unlabeled form controls, empty buttons/links, missing `lang`/`<title>`, broken/invalid ARIA, missing iframe titles, empty headings, table header mistakes, missing required ARIA parents/children, low text/UI contrast | Automated scanners flag these as errors/violations |
 | **Alerts** | Fix Alerts | Suspicious or redundant alt text, skipped heading levels, tiny text, layout tables, "click here" links, device-dependent handlers, new-window links with no warning, placeholder-as-label | Automated scanners flag these for review, not as hard failures |
 | **Manual** | Fix Manual Testing Issues | Keyboard traps and unreachable controls, missing/incorrect focus indicators and order, hover-only menus, unannounced status changes and live regions, session timeouts | Requires a human (or Playwright) driving a keyboard/screen reader — scanners can't reliably catch these from static markup |
 
@@ -180,3 +180,9 @@ Basic passes against the portal, forms, and live regions, toggles OFF then ON:
   attribute for WAVE's `event_handler` alert to find, since React attaches listeners at the root and
   delegates — these scenarios are registered `manualOnly` rather than expected to trip that alert
   ([ADR-030](DECISIONS.md#adr-030)).
+- **`color-contrast` false "incomplete" noise**: a photo-overlay hero (axe can't resolve a background behind
+  a semi-opaque pseudo-element or CSS gradient), a decorative `aria-hidden` icon glyph ("content contains
+  only non-text characters"), or — specific to `e2e/toggle-axe.spec.ts`, which opens the floating
+  Accessibility Test Controls panel before scanning — whatever that panel happens to sit over. None of these
+  are real violations or tied to any scenario; they're excepted per page in that file's `EXCEPTIONS` map
+  ([ADR-056](DECISIONS.md#adr-056)).

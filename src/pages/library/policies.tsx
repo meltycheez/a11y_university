@@ -34,7 +34,7 @@ export default function LibraryPolicies() {
         </div>
       </section>
 
-      <Callout title={fines.heading}>
+      <Callout id="fines-heading" title={fines.heading}>
         {fines.paragraphs?.map((p) => <p key={p}>{p}</p>)}
       </Callout>
 

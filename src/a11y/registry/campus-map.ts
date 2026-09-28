@@ -219,7 +219,7 @@ export const campusMapScenarios: ScenarioDef[] = [
     id: "campus-map-layers-contrast-001", rule: "contrast-ui-low",
     title: "Layer chip borders are nearly invisible",
     description: "Unselected layer chips have a #d4d4d4 border on white (about 1.5:1).",
-    fixDescription: "Uses a #5c5c56 border (about 6.6:1).",
+    fixDescription: "Uses a #8f8f8f border, just above the 3:1 minimum.",
     component: "MapFilters", mechanism: "css", severity: "moderate",
   }),
   s({
@@ -233,7 +233,7 @@ export const campusMapScenarios: ScenarioDef[] = [
     id: "campus-map-labels-contrast-001", rule: "contrast-text-low",
     title: "Building code labels are pale on the map",
     description: "Building code labels are #8fae93 on the pale green map (about 2.2:1).",
-    fixDescription: "Uses #1f4128 (about 9:1).",
+    fixDescription: "Uses #4c7152, just above the 4.5:1 minimum.",
     component: "CampusMapSvg", mechanism: "css", severity: "serious",
   }),
   s({

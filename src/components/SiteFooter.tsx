@@ -27,7 +27,7 @@ export function SiteFooter() {
           <ul className="social-links">
             {social.map((s) => (
               <li key={s.label}>
-                <a href={`#social-${s.label.toLowerCase()}`}>
+                <a href={`https://${s.label.toLowerCase()}.example/redwoodstate`}>
                   <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d={s.path} fill="currentColor" /></svg>
                   <span className="visually-hidden">{brand.shortName} on {s.label}</span>
                 </a>

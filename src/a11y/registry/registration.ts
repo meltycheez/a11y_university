@@ -247,7 +247,7 @@ export const registrationScenarios: ScenarioDef[] = [
     rule: "contrast-text-low",
     title: "Credit limit note is pale gray",
     description: "The note about the credit maximum under the cart is #a3adb8 on white (about 2.3:1).",
-    fixDescription: "Uses #5b6673 (about 5.9:1).",
+    fixDescription: "Uses #6c7684, just above the 4.5:1 minimum.",
     component: "Cart", mechanism: "css", severity: "serious",
   }),
   r({

@@ -67,7 +67,7 @@
 .rg-cart a:focus, .rg-cart button:focus, .rg-cart input:focus { outline: none; } /* portal-reg-cart-focus-ring-001 */
 .a11y-fix-manual .rg-cart a:focus-visible, .a11y-fix-manual .rg-cart button:focus-visible, .a11y-fix-manual .rg-cart input:focus-visible { outline: 3px solid #0b5cad; outline-offset: 2px; }
 .rg-cart-note { font-size: 0.8rem; color: #a3adb8; margin-bottom: 0; } /* portal-reg-footnote-contrast-001: ~2.3:1 */
-.a11y-fix-manual .rg-cart-note { color: #5b6673; }
+.a11y-fix-errors .rg-cart-note { color: #6c7684; }
 .rg-meter-wrap { margin-bottom: var(--space-3); }
 .rg-meter-label { margin: 0 0 var(--space-1); font-size: 0.875rem; }
 .rg-meter { height: 0.6rem; background: #e6ebf1; border: 1px solid #8a96a3; border-radius: 2px; overflow: hidden; }

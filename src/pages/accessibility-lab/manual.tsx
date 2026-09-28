@@ -10,32 +10,6 @@ function Instructions({ children }: { children: React.ReactNode }) {
   return <p className="specimen-instructions">{children}</p>;
 }
 
-function ContrastText() {
-  const id = "contrast-text-low-manual-lab";
-  const fixed = useScenario(id);
-  return (
-    <>
-      <p className={fixed ? undefined : "lab-manual-contrast-text"} data-a11y-scenario={id}>
-        Redwood State's advising office is open weekdays from 8 a.m. to 5 p.m.
-      </p>
-      <Instructions>Check the text color against the background with a contrast checker; it should meet 4.5:1.</Instructions>
-    </>
-  );
-}
-
-function ContrastUi() {
-  const id = "contrast-ui-low-manual-lab";
-  const fixed = useScenario(id);
-  return (
-    <>
-      <button type="button" className={`btn btn--secondary${fixed ? "" : " lab-manual-contrast-ui"}`} data-a11y-scenario={id}>
-        View schedule
-      </button>
-      <Instructions>Check the control's border contrast against its background; it should meet 3:1.</Instructions>
-    </>
-  );
-}
-
 function ColorOnlyInfo() {
   const id = "color-only-info-manual-lab";
   const fixed = useScenario(id);
@@ -209,8 +183,6 @@ export default function ManualLab() {
         These issues need a human, not just a scanner: contrast, color-only meaning, motion, reflow at zoom, and text baked into
         images. Each specimen includes a short instruction for checking it by hand.
       </p>
-      <Specimen id="contrast-text-low-manual-lab"><ContrastText /></Specimen>
-      <Specimen id="contrast-ui-low-manual-lab"><ContrastUi /></Specimen>
       <Specimen id="color-only-info-manual-lab"><ColorOnlyInfo /></Specimen>
       <Specimen id="color-only-error-manual-lab"><ColorOnlyError /></Specimen>
       <Specimen id="motion-autorotate-no-pause-manual-lab"><MotionTicker /></Specimen>

@@ -124,7 +124,7 @@ export default function LegacyAidPage() {
 
   // ---------- 2006 building blocks ----------
   const small: React.CSSProperties = { fontFamily: "Verdana, Arial, Helvetica, sans-serif", fontSize: fix("text-small") ? undefined : "10px" };
-  const instructions: React.CSSProperties = { ...small, color: fix("intro-contrast") ? "#333333" : "#999999", textAlign: fix("justified") ? undefined : "justify" };
+  const instructions: React.CSSProperties = { ...small, color: fix("intro-contrast") ? "#6a6a6a" : "#999999", textAlign: fix("justified") ? undefined : "justify" };
   const reqFixed = fix("required-color");
   const ti = (n: number) => (fix("tabindex") ? {} : { tabIndex: n });
   const req = reqFixed ? { required: true } : {};

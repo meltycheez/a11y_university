@@ -38,8 +38,9 @@
 /* ---------- Fixes ---------- */
 .a11y-fix-alerts .old-catalog .catalog-intro { text-align: left; }
 .a11y-fix-alerts .old-catalog .catalog-desc { font-size: 1rem; }
-.a11y-fix-manual .old-catalog .catalog-desc { color: #595959; height: auto; overflow: visible; }
-.a11y-fix-manual .old-catalog .catalog-table th, .a11y-fix-manual .old-catalog .catalog-table td { border-bottom-color: #767676; }
+.a11y-fix-manual .old-catalog .catalog-desc { height: auto; overflow: visible; }
+.a11y-fix-errors .old-catalog .catalog-desc { color: #767676; }
+.a11y-fix-errors .old-catalog .catalog-table th, .a11y-fix-errors .old-catalog .catalog-table td { border-bottom-color: #8f8f8f; }
 .a11y-fix-manual .old-catalog .page-content { max-width: none; }
 .a11y-fix-manual .old-catalog a:focus-visible, .a11y-fix-manual .old-catalog button:focus-visible,
 .a11y-fix-manual .old-catalog select:focus-visible, .a11y-fix-manual .old-catalog input:focus-visible { outline: 2px solid #1a4480; outline-offset: 2px; }

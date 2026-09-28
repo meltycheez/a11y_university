@@ -202,7 +202,7 @@ export const eventsScenarios: ScenarioDef[] = [
     rule: "contrast-text-low",
     title: "Date, place and cost lines are pale blue-gray",
     description: "Event meta lines are #93a3b8 on white (about 2.6:1).",
-    fixDescription: "Uses #4a5a70 (about 7:1).",
+    fixDescription: "Uses #67778d, just above the 4.5:1 minimum.",
     pages: ["/events/category/:slug"],
     component: "EventsCategory",
     mechanism: "css",

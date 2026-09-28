@@ -93,7 +93,7 @@ test.describe("contrast (/about)", () => {
   };
 
   // .stat-label has no background of its own; the color comes from the .stats-band ancestor
-  // (src/styles/sections/flagship.css: "~3.3:1 on #1f4128" defective, "~10:1" fixed).
+  // (src/styles/sections/flagship.css: "~3.3:1 on #1f4128" defective, "~4.6:1" fixed).
   const contrastRatio = (page: import("@playwright/test").Page) =>
     page.locator(".about-stats .stat-label").first().evaluate((label) => {
       const color = getComputedStyle(label).color;
@@ -109,7 +109,7 @@ test.describe("contrast (/about)", () => {
   test("fixed: stat labels meet the 4.5:1 text contrast minimum", async ({ page }) => {
     await page.goto("/about");
     await openControl(page);
-    await page.getByRole("switch", { name: "Fix Manual Testing Issues" }).click();
+    await page.getByRole("switch", { name: "Fix Errors" }).click();
     expect(await contrastRatio(page)).toBeGreaterThanOrEqual(4.5);
   });
 });

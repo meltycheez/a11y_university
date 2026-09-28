@@ -57,7 +57,7 @@ export const employeesScenarios: ScenarioDef[] = [
     id: "employees-hr-negotiation-contrast-001", rule: "contrast-text-low", pages: ["/employees/hr"], component: "HrPage", mechanism: "css", severity: "serious",
     title: "\"In negotiation\" note is light gray",
     description: "The contract status note is #aaaaaa on white, about 2.3:1.",
-    fixDescription: "Uses #555 (about 7.5:1).",
+    fixDescription: "Uses #767676, just above the 4.5:1 minimum.",
   },
   {
     id: "employees-hr-email-title-001", rule: "title-redundant", pages: ["/employees/hr"], component: "HrPage", mechanism: "markup", severity: "minor",
@@ -153,7 +153,7 @@ export const employeesScenarios: ScenarioDef[] = [
     id: "employees-policies-revised-contrast-001", rule: "contrast-text-low", pages: ["/employees/policies"], component: "PoliciesPage", mechanism: "css", severity: "serious",
     title: "Old revision years are grayed out",
     description: "Revision years before 2020 are #b0b0b0 on white, about 2.2:1.",
-    fixDescription: "Uses the standard text color.",
+    fixDescription: "Uses #767676, just above the 4.5:1 minimum.",
   },
   {
     id: "employees-policies-clickhere-001", rule: "link-generic", pages: ["/employees/policies"], component: "PoliciesPage", mechanism: "markup", severity: "minor",

@@ -258,7 +258,7 @@ function MonthTables({ groups, thisMonth, fix, mark }: { groups: [string, Row[]]
             <p
               className="sch-note"
               id={idFixed ? `conf-note-${key}` : "conf-note"}
-              style={{ fontSize: smallFixed ? undefined : "10px", color: finePrintContrastFixed ? undefined : "#aaaaaa" }}
+              style={{ fontSize: smallFixed ? undefined : "10px", color: finePrintContrastFixed ? "#7f7f7f" : "#4f4f4f" }}
               data-a11y-scenario={mark("fine-print-small", "fine-print-contrast", "conf-note-id")["data-a11y-scenario"]}
             >
               All times Pacific.{i < 2 && " * Conference game (see legend above)."}

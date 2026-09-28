@@ -53,7 +53,7 @@
 
 /* Health: stu-health-closed-contrast-001 (~2.2:1) */
 .svc-closed { color: #b0b0a8; }
-.a11y-fix-manual .svc-closed { color: var(--color-text-muted); }
+.a11y-fix-errors .svc-closed { color: #767676; }
 
 /* Housing: stu-housing-table-clip-001 (no wrapping, overflow hidden) */
 .svc-halls-table { overflow: hidden; }
@@ -63,7 +63,7 @@
 
 /* Dining: stu-dining-header-contrast-001 (white on light green, ~2.0:1) */
 .svc-dining .table-scroll thead th { background: #8cc49a; color: #fff; }
-.a11y-fix-manual .svc-dining .table-scroll thead th { background: var(--brand-fern-dark); }
+.a11y-fix-errors .svc-dining .table-scroll thead th { background: #458055; }
 /* stu-dining-late-color-001: the purple tint is the only cue while defective */
 .svc-late > * { background: #efe4f7; }
 .svc-swatch { display: inline-block; width: 1rem; height: 1rem; border-radius: 3px; vertical-align: middle; }
@@ -82,12 +82,13 @@
 
 /* Transportation: stu-transit-route-contrast-001 (white on light green, ~2.0:1) */
 .svc-route { display: inline-block; padding: 0.1rem 0.6rem; border-radius: 999px; background: #8cc49a; color: #fff; font-weight: 700; }
-.a11y-fix-manual .svc-route { background: var(--brand-fern-dark); }
+.a11y-fix-errors .svc-route { background: #458055; }
 
 /* Safety: stu-safety-alert-motion-001 (endless pulse), stu-safety-alert-contrast-001 (white on coral, ~2.8:1) */
 @keyframes svc-pulse { 50% { opacity: 0.35; } }
 .svc-alert-banner { background: #ec7b68; color: #fff; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); animation: svc-pulse 1.2s ease-in-out infinite; }
-.a11y-fix-manual .svc-alert-banner { background: #9b1c12; animation: none; }
+.a11y-fix-manual .svc-alert-banner { animation: none; }
+.a11y-fix-errors .svc-alert-banner { background: #cb4534; }
 .svc-shield { display: block; width: 2.5rem; height: 2.5rem; background: var(--brand-fern); clip-path: polygon(50% 0, 100% 15%, 100% 55%, 50% 100%, 0 55%, 0 15%); }
 .svc-shield-heading { margin: 0; }
 
@@ -103,7 +104,7 @@
 .svc-org-meta { font-size: 0.9rem; color: var(--color-text-muted); }
 /* stu-orgs-members-contrast-001 (~2.4:1) */
 .svc-org-members { font-size: 0.85rem; color: #a8a8a0; }
-.a11y-fix-manual .svc-org-members { color: var(--color-text-muted); }
+.a11y-fix-errors .svc-org-members { color: #767676; }
 .svc-flyer-link { display: block; max-width: 20rem; }
 .svc-flyer-link img, .svc-flyer-link .img-placeholder { width: 100%; height: auto; }
 

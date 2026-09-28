@@ -5,7 +5,7 @@
 .home-audiences ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); }
 .home-audiences a { display: flex; flex-direction: column; height: 100%; padding: var(--space-3) var(--space-4); background: var(--brand-gold); color: #fff; text-decoration: none; border-radius: var(--radius-sm); } /* home-audience-contrast-001: ~2.8:1 */
 .home-audiences a:hover { background: #b8931f; }
-.a11y-fix-manual .home-audiences a { color: var(--gray-900); }
+.a11y-fix-errors .home-audiences a { color: #3a3a34; } /* home-audience-contrast-001: ~4.7:1 on gold */
 .home-audience-label { font-weight: 700; font-size: 1.05rem; }
 .home-audience-text { font-size: 0.9rem; }
 
@@ -28,3 +28,23 @@
 .home-event a { font-weight: 650; }
 .home-event-where { display: block; font-size: 0.9rem; color: var(--color-text-muted); }
 .home-tour { max-width: 52rem; }
+.tour-share-btn { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; margin-top: var(--space-2); border-radius: 50%; border: 1px solid var(--color-border); background: #fff; color: var(--color-text); cursor: pointer; }
+.tour-share-btn:hover { background: var(--color-surface); }
+
+/* Key dates table */
+.dates-filter { display: flex; gap: var(--space-2); margin-bottom: var(--space-3); }
+.dates-filter-pill { border: 1px solid var(--color-border); background: #fff; border-radius: 999px; padding: var(--space-1) var(--space-4); font-weight: 600; cursor: pointer; }
+.dates-filter-pill.is-active { background: var(--brand-redwood); border-color: var(--brand-redwood); color: #fff; }
+.dates-urgent-icon { vertical-align: -0.15em; margin-right: 0.25em; }
+.dates-detail-btn { width: 1.75rem; height: 1.75rem; border-radius: 50%; border: 1px solid var(--color-border); background: #fff; cursor: pointer; font-size: 1rem; line-height: 1; }
+.dates-detail-btn:hover { background: var(--color-surface); }
+
+/* Newsletter signup */
+.newsletter-box { max-width: 40rem; padding: var(--space-5); background: var(--color-surface); border-radius: var(--radius-md); }
+.newsletter-heading-image { height: 1.6em; margin: 0 0 var(--space-2); }
+.newsletter-heading-image::before { content: "Stay Connected"; font: inherit; font-size: 1.6rem; font-weight: 700; font-family: var(--font-serif); }
+.newsletter-form { display: flex; flex-wrap: wrap; align-items: end; gap: var(--space-3); margin-top: var(--space-3); }
+.newsletter-field { display: flex; flex-direction: column; gap: var(--space-1); }
+.newsletter-field label, .newsletter-frequency-caption { font-size: 0.85rem; font-weight: 600; }
+.newsletter-field input, .newsletter-field select { padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-sm); }
+.newsletter-submit-img { border: 0; cursor: pointer; border-radius: var(--radius-sm); }

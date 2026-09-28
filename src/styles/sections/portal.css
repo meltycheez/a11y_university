@@ -62,12 +62,12 @@
 .pt-dl dd { margin: 0; font-weight: 600; }
 .pt-dl--row { grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
 .pt-dl--row > div { grid-template-columns: minmax(0, 1fr); gap: 0; }
-.pt-btn { font-size: 0.9rem; padding: 0.4rem 0.9rem; background: #0b5cad; border-radius: 3px; }
+.pt-btn { font-size: 0.9rem; padding: 0.4rem 0.9rem; background: #0b5cad; color: #fff; border-radius: 3px; }
 .pt-btn:hover { background: #07407a; }
 
 /* Dashboard footnotes */
 .pt-foot { font-size: 0.8rem; color: #a3adb8; } /* portal-dash-asof-contrast-001: ~2.3:1 on white */
-.a11y-fix-manual .pt-foot { color: #5b6673; }
+.a11y-fix-errors .pt-foot { color: #69747e; }
 
 /* Data grids */
 .pt-grid { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
@@ -101,9 +101,9 @@
 .pt-progress { display: flex; height: 1rem; background: #e6ebf1; border-radius: 2px; overflow: hidden; max-width: 40rem; }
 .pt-progress-fill { background: #b9d3ee; } /* portal-audit-progress-contrast-001: ~1.3:1 against the track */
 .pt-progress-ip { background: repeating-linear-gradient(45deg, #d6e4f3 0 4px, #e6ebf1 4px 8px); }
-.a11y-fix-manual .pt-progress { border: 1px solid #5b6673; }
-.a11y-fix-manual .pt-progress-fill { background: #0b5cad; }
-.a11y-fix-manual .pt-progress-ip { background: repeating-linear-gradient(45deg, #0b5cad 0 4px, #fff 4px 8px); }
+.a11y-fix-errors .pt-progress { border: 1px solid #5b6673; }
+.a11y-fix-errors .pt-progress-fill { background: #5a8ab5; }
+.a11y-fix-errors .pt-progress-ip { background: repeating-linear-gradient(45deg, #5a8ab5 0 4px, #fff 4px 8px); }
 .pt-progress-text { margin: var(--space-1) 0 0; font-weight: 600; }
 .pt-audit { padding: var(--space-2) var(--space-4); }
 .pt-audit .accordion { border-top: 0; }
@@ -171,7 +171,7 @@
 .pt-inbox .pt-date { grid-column: 2; grid-row: 1; font-size: 0.8rem; }
 .pt-unread .pt-inbox-from, .pt-unread .pt-inbox-subject { font-weight: 700; }
 .pt-date { white-space: nowrap; color: #a3adb8; } /* portal-msg-date-contrast-001: ~2.3:1 on white */
-.a11y-fix-manual .pt-date { color: #5b6673; }
+.a11y-fix-errors .pt-date { color: #69747e; }
 .pt-message { border-top: 1px solid #e6ebf1; padding-top: var(--space-3); margin-top: var(--space-3); }
 .pt-message h3, .pt-message h4 { margin: 0 0 var(--space-1); }
 .pt-message-body { white-space: pre-line; max-width: 48rem; }

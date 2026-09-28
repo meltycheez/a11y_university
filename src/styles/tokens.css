@@ -6,6 +6,8 @@
   --brand-fern-dark: #1f4128;
   --brand-mist: #e8eef0;
   --brand-gold: #c9a227;
+  /* --brand-gold on --brand-redwood is only 3.87:1; this variant clears 4.5:1 for small text on that background. */
+  --brand-gold-on-dark: #e0c34a;
   --brand-bark: #3b2a22;
 
   --gray-50: #f7f7f5;

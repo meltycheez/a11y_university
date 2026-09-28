@@ -24,4 +24,4 @@
 
 /* search-page-snippet-contrast-001: #9a9a9a on white (~2.8:1) */
 .search-snippet { color: #9a9a9a; }
-.a11y-fix-manual .search-snippet { color: var(--color-text-muted); }
+.a11y-fix-errors .search-snippet { color: #767676; }

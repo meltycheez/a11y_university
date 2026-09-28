@@ -19,7 +19,10 @@
 
 /* ---------- Athletics pages (src/pages/athletics). Defects sit next to their .a11y-fix-* override (ADR-025). ---------- */
 .site--sports .data-table th, .site--sports .data-table td { border-bottom-color: var(--color-border); }
+.site--sports .data-table thead th, .site--sports .data-table thead td { background: var(--color-surface); color: var(--color-text); }
 .site--sports .data-table caption { font-family: var(--font-sans); font-weight: 900; text-transform: uppercase; }
+/* The shared .tab active state is a fixed light-theme color (--brand-redwood); on this dark background it's 1.99:1. */
+.site--sports .tab[aria-selected="true"], .site--sports .tab.is-active { color: var(--brand-gold); border-bottom-color: var(--brand-gold); }
 .site--sports .stats-band { background: #000; border-top: 4px solid var(--brand-gold); border-radius: 0; }
 .site--sports .stat-value { font-family: var(--font-sans); font-weight: 900; color: var(--brand-gold); }
 .site--sports .cta-band { background: var(--brand-redwood); color: #fff; }
@@ -51,7 +54,7 @@
 .ath-score--L { color: #f87171; }
 .ath-ticker-all { align-self: center; flex: none; padding: 0 var(--space-4); color: var(--brand-gold); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
 .ath-ticker-meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: #5a5a5a; } /* athletics-home-ticker-contrast-001: ~3.0:1 on #000 */
-.a11y-fix-manual .ath-ticker-meta { color: #b9b9b9; }
+.a11y-fix-errors .ath-ticker-meta { color: #767676; }
 .ath-ticker-item { height: 4.5rem; overflow: hidden; } /* athletics-home-ticker-clip-001 */
 .a11y-fix-manual .ath-ticker-item { height: auto; overflow: visible; }
 .ath-home .ath-ticker a:focus, .ath-home .ath-team-strip-link:focus { outline: none; } /* athletics-home-focus-001 */
@@ -90,7 +93,7 @@
 .ath-tile h3 a { color: #fff; text-decoration: none; }
 .ath-tile-links { display: flex; gap: var(--space-4); font-weight: 800; text-transform: uppercase; font-size: 0.85rem; }
 .ath-tile-meta { font-size: 0.9rem; color: #777; } /* athletics-teams-record-contrast-001: ~3.7:1 on #1e1e1e */
-.a11y-fix-manual .ath-tile-meta { color: #b9b9b9; }
+.a11y-fix-errors .ath-tile-meta { color: #868686; }
 
 /* /athletics/scores */
 .ath-filter { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }

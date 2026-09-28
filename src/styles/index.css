@@ -32,6 +32,7 @@
 
 /* Plan 08 Accessibility Lab specimens */
 @import "./features/lab-manual-forms.css";
+@import "./features/lab-errors.css";
 @import "./features/lab-keyboard.css";
 
 /* Fix layers applied under .a11y-fix-* body classes (plan 02). */

@@ -18,7 +18,7 @@ export const admissionsScenarios: ScenarioDef[] = [
   d("adm-home-video-title-001", "iframe-missing-title", "/admissions", "VideoEmbed", "markup", "serious",
     "Virtual tour video frame has no title", "The campus tour video iframe has no title attribute.", "Adds title=\"Redwood State campus tour video\"."),
   d("adm-home-stats-contrast-001", "contrast-text-low", "/admissions", "StatsBand", "css", "serious",
-    "Gold statistics on white have low contrast", "The big \"By the numbers\" figures are brand gold (#c9a227) on white, about 2.4:1.", "Uses the dark redwood color for the figures (about 9:1)."),
+    "Gold statistics on white have low contrast", "The big \"By the numbers\" figures are brand gold (#c9a227) on white, about 2.4:1.", "Uses #8f8f8f, just above the 3:1 minimum for this large bold text."),
   d("adm-home-card-clip-001", "reflow-clipped-text", "/admissions", "Card", "css", "moderate",
     "Path card text is clipped when zoomed", "Card descriptions sit in a fixed-height box with overflow hidden, so at 200% zoom the text is cut off.", "Removes the fixed height so the text wraps and grows."),
   d("adm-home-motion-001", "motion-ignores-reduced-motion", "/admissions", "AdmissionsHome", "css", "moderate",
@@ -26,7 +26,7 @@ export const admissionsScenarios: ScenarioDef[] = [
 
   // AudienceLanding template
   d("adm-audience-cta-contrast-001", "contrast-text-low", AUDIENCE, "AudienceLanding", "css", "serious",
-    "\"Start your application\" button text has low contrast", "The apply band's pill button is white text on a light coral gradient (#f08a65 to #f6a98a, 2.5:1 down to 1.9:1).", "Uses a dark redwood gradient behind the white text (above 7:1)."),
+    "\"Start your application\" button text has low contrast", "The apply band's pill button is white text on a light coral gradient (#f08a65 to #f6a98a, 2.5:1 down to 1.9:1).", "Uses a #bd5840-to-#b3543c gradient, just above the 4.5:1 minimum."),
   d("adm-audience-table-caption-001", "table-no-caption", ["/admissions/undergraduate", "/admissions/graduate", "/admissions/international"], "AudienceLanding", "markup", "minor",
     "Deadline tables have no caption", "The key dates and deadline tables have no <caption>, so their purpose isn't announced when a screen reader enters them.", "Adds a caption to each table."),
   d("adm-transfer-adt-heading-001", "heading-possible", "/admissions/transfer", "TransferAdmissions", "markup", "moderate",
@@ -60,7 +60,7 @@ export const admissionsScenarios: ScenarioDef[] = [
   d("adm-process-start-js-link-001", "link-javascript", "/admissions/process", "StartLink", "behavior", "moderate",
     "\"Start the application\" is an href=\"#\" link", "The Step 2 button is <a href=\"#\"> that navigates in a click handler, so it has no real destination to open, copy or bookmark.", "Uses a real link to /admissions/apply."),
   d("adm-process-number-contrast-001", "contrast-text-low", "/admissions/process", "AdmissionsProcess", "css", "serious",
-    "Step numbers have low contrast", "Step number circles are white text on light peach (#f2a383), about 2.0:1.", "Uses dark redwood circles (about 9:1)."),
+    "Step numbers have low contrast", "Step number circles are white text on light peach (#f2a383), about 2.0:1.", "Uses #c67c5c, just above the 3:1 minimum for this large bold text."),
 
   // /admissions/tuition
   d("adm-tuition-duplicate-link-001", "link-redundant", "/admissions/tuition", "Tuition", "markup", "minor",
@@ -104,7 +104,7 @@ export const admissionsScenarios: ScenarioDef[] = [
   d("adm-visit-schedule-caption-001", "table-no-caption", "/admissions/visit", "Table", "markup", "minor",
     "Tour schedule table has no caption", "The weekly tour schedule table has no <caption>.", "Adds a caption."),
   d("adm-visit-saturday-contrast-001", "contrast-text-low", "/admissions/visit", "Callout", "css", "serious",
-    "Saturday tours note is pale gray", "The Saturday tours callout text is light gray (#9a9a92) on cream, about 2.5:1.", "Uses the body text color."),
+    "Saturday tours note is pale gray", "The Saturday tours callout text is light gray (#9a9a92) on cream, about 2.5:1.", "Uses #6f6f68, just above the 4.5:1 minimum."),
   d("adm-visit-video-title-001", "iframe-missing-title", "/admissions/visit", "VideoEmbed", "markup", "serious",
     "Virtual tour video frame has no title", "The virtual tour iframe has no title attribute.", "Adds a title."),
   d("adm-visit-gallery-alt-001", "alt-suspicious", "/admissions/visit", "Visit", "markup", "minor",
@@ -116,7 +116,7 @@ export const admissionsScenarios: ScenarioDef[] = [
   d("adm-faq-heading-skip-001", "heading-skipped", "/admissions/faq", "Accordion", "markup", "moderate",
     "FAQ questions skip from h2 to h4", "Each accordion question heading is an <h4> under an <h2> category heading.", "Uses <h3> for the questions."),
   d("adm-faq-group-contrast-001", "contrast-text-low", "/admissions/faq", "AdmissionsFaq", "css", "serious",
-    "Category headings are light coral", "FAQ category headings are light coral (#e8957a) on white, about 2.3:1.", "Uses dark redwood."),
+    "Category headings are light coral", "FAQ category headings are light coral (#e8957a) on white, about 2.3:1.", "Uses #b55a40, just above the 4.5:1 minimum."),
   d("adm-faq-generic-link-001", "link-generic", "/admissions/faq", "AdmissionsFaq", "markup", "minor",
     "\"Click here\" email link", "The contact line's email link reads \"Click here\".", "Uses \"Email the Office of Admissions\"."),
 
@@ -124,7 +124,7 @@ export const admissionsScenarios: ScenarioDef[] = [
   d("aid-home-hero-alt-001", "alt-suspicious", "/financial-aid", "Hero", "markup", "minor",
     "Hero photo alt is a file name", "The hero photo's alt text is \"aid_hero_final_v2.jpg\".", "Marks the decorative hero photo alt=\"\"."),
   d("aid-home-deadline-contrast-001", "contrast-text-low", "/financial-aid", "FinancialAid", "css", "serious",
-    "Priority deadline banner has low contrast", "The priority deadline banner is white text on brand gold (#c9a227), about 2.4:1.", "Uses dark text on the gold background."),
+    "Priority deadline banner has low contrast", "The priority deadline banner is white text on brand gold (#c9a227), about 2.4:1.", "Uses #3a3a34, just above the 4.5:1 minimum."),
   d("aid-home-deadlines-caption-001", "table-no-caption", "/financial-aid", "Table", "markup", "minor",
     "Deadlines table has no caption", "The 2027–28 key deadlines table has no <caption>.", "Adds a caption."),
   d("aid-home-sap-justified-001", "text-justified", "/financial-aid", "FinancialAid", "css", "minor",

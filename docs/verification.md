@@ -46,26 +46,48 @@ WAVE is a browser extension; it can't be driven from here, so this is a checklis
 
 | Page | Tier | Axe rules flagged before → after |
 |---|---|---|
-| `/sitemap` | A | `button-name` 1→0, `color-contrast` 1→8*, `html-has-lang` 1→0 |
-| `/about/mission` | L | `button-name` 1→0, `color-contrast` 1→1, `html-has-lang` 1→0 |
+| `/sitemap` | A | `button-name` 1→0, `color-contrast` 0→8*, `html-has-lang` 1→0 |
+| `/about/mission` | L | `button-name` 1→0, `html-has-lang` 1→0 |
 | `/admissions/undergraduate` | L | `button-name` 1→0, `color-contrast` 15→15*, `html-has-lang` 1→0, `region` 1→1 |
-| `/about/leadership` | M | `button-name` 1→0, `color-contrast` 7→1, `html-has-lang` 1→0, `link-name` 6→0 |
-| `/academics` | M | `button-name` 1→0, `color-contrast` 8→1, `html-has-lang` 1→0, `region` 1→1 |
+| `/about/leadership` | M | `button-name` 1→0, `color-contrast` 6→0, `html-has-lang` 1→0, `link-name` 6→0 |
+| `/academics` | M | `button-name` 1→0, `color-contrast` 7→0, `html-has-lang` 1→0, `region` 1→1 |
 | `/` | H | `aria-valid-attr-value` 1→0, `button-name` 1→0, `color-contrast` 5→7*, `document-title` 1→0, `frame-title` 1→0, `heading-order` 1→0, `html-has-lang` 1→0, `image-alt` 1→0, `label` 1→0, `listitem` 4→0 |
 | `/admissions/apply` | H | `aria-valid-attr-value` 1→0, `button-name` 1→0, `color-contrast` 7→7*, `html-has-lang` 1→0, `label` 3→0, `region` 1→1 |
 | `/campus-map` | T | `aria-hidden-focus` 1→0, `aria-valid-attr-value` 2→0, `button-name` 5→0, `color-contrast` 39→43*, `empty-heading` 1→0, `html-has-lang` 1→0, `nested-interactive` 1→0, `select-name` 1→0, `svg-img-alt` 1→0, `tabindex` 3→0 |
-| `/academics/catalog` | T | `button-name` 1→0, `color-contrast` 297→6, `html-has-lang` 1→0, `image-alt` 1→0, `link-name` 16→0, `region` 1→1, `select-name` 1→0, `td-headers-attr` 32→0 |
-| `/athletics/schedule` | T | `button-name` 1→0, `color-contrast` 48→1, `heading-order` 1→0, `html-has-lang` 1→0, `image-alt` 1→0, `link-name` 37→0, `listitem` 4→0, `region` 1→1, `select-name` 1→0, `tabindex` 2→0, `td-headers-attr` 6→0 |
+| `/academics/catalog` | T | `button-name` 1→0, `color-contrast` 296→6, `html-has-lang` 1→0, `image-alt` 1→0, `link-name` 16→0, `region` 1→1, `select-name` 1→0, `td-headers-attr` 32→0 |
+| `/athletics/schedule` | T | `button-name` 1→0, `color-contrast` 47→1, `heading-order` 1→0, `html-has-lang` 1→0, `image-alt` 1→0, `link-name` 37→0, `listitem` 4→0, `region` 1→1, `select-name` 1→0, `tabindex` 2→0, `td-headers-attr` 6→0 |
 
 Every Errors-category rule (`button-name`, `html-has-lang`, `label`, `image-alt`, `link-name`,
 `td-headers-attr`, …) clears to 0 with **Fix All** on, as expected. `region` staying at 1 on 4 pages is
 `sr-results-no-live-region`-adjacent — an Alerts/Manual-only finding, not something Fix Errors touches, so
 it's expected to persist.
 
-\* **Observation, not a plan-10 fix:** `color-contrast` rises after Fix All on 4 of the 10 pages (`/`,
-`/admissions/undergraduate`, `/admissions/apply`, `/campus-map`) instead of dropping — some fixed-state
-markup (visible label/link text inserted where there was none, or newly-legible content) introduces new
-low-contrast text elsewhere. Worth a follow-up pass in a future plan; out of scope for docs & deployment.
+**Update (2026-09-28), after a real WAVE pass on `/`:** a human WAVE run against the fixed (**Fix All** on)
+home page found 3 findings axe never surfaces at all (`link-redundant`/`link-nearby-duplicate` are
+WAVE/manual-only per `docs/ACCESSIBILITY_TESTING.md`'s known tool differences), plus a confirmed
+`color-contrast` bug that axe's `incomplete` bucket had been quietly absorbing alongside real uncertainty.
+All three were unregistered chrome/content bugs, not scenarios — see [ADR-053](DECISIONS.md#adr-053) — and
+are now fixed:
+
+- **3 "Broken same-page link"**: `SiteFooter`'s social icons pointed at `#social-<network>` fragments with
+  no matching id anywhere. Fixed (now real, `.example`-TLD external URLs).
+- **3 "Redundant link"**: `HomeNews`'s title link and its "Read the story: …" link always pointed at the
+  same href, adjacent in the DOM — the registered `home-news-link-redundant-001` toggle only ever addressed
+  the photo link. Fixed (title becomes plain text once that toggle's on, leaving one link per teaser).
+- **1 confirmed `color-contrast` violation**: `.wordmark-sub` (`--brand-gold` on `--brand-redwood`) measured
+  3.87:1 against axe's own literal color math, in both toggle states — not one of the `incomplete`
+  "background could not be determined" entries. Fixed with a new `--brand-gold-on-dark` token, scoped to
+  that one selector. The table above is re-scanned against the fixed build; the wordmark fix alone fully
+  cleared `color-contrast` on 2 of the 10 pages (`/about/leadership`, `/academics`) and dropped `/about/mission`
+  to zero findings.
+
+\* **Still an open follow-up, unrelated to the above:** `color-contrast` still rises after Fix All on 4 of
+the 10 pages (`/`, `/sitemap`, `/admissions/undergraduate`, `/admissions/apply`, `/campus-map`). Checked
+during this pass: the two *new* nodes on `/` (a ticker Pause button and a carousel Pause icon, both created
+only once fixed) are axe `incomplete` — "background could not be determined" / "content contains only
+non-text characters" — not confirmed violations; `#fff` on the ticker's `--brand-fern-dark` background is
+actually ~11.4:1. The remaining pages' rises haven't been root-caused the same way yet. Worth a follow-up
+pass in a future plan.
 
 ## 5. Reload reset
 

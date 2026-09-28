@@ -55,4 +55,9 @@ export const labErrorsScenarios: ScenarioDef[] = [
     "Focusable button hidden from assistive tech", "A real, focusable button sits inside an aria-hidden=\"true\" container, so keyboard users can tab to a control screen readers never announce.", "Removes aria-hidden from the container."),
   d("label-for-mismatch", "markup", "critical",
     "Label points at the wrong id", "The \"Last name\" label's for attribute doesn't match the input's id.", "Fixes the for attribute to match."),
+  // WAVE detects both of these as red "Contrast Errors", not Alerts (ADR-055); moved here from lab-manual.ts.
+  d("contrast-text-low", "css", "serious",
+    "Body text has low contrast", "This paragraph is set in light gray (#9a9a92) on white, about 2.5:1 — below the 4.5:1 minimum for body text.", "Uses #767676, just above the 4.5:1 minimum."),
+  d("contrast-ui-low", "css", "serious",
+    "Button border has low contrast", "This button's visible border is a very light gray (#d8d8d2) on white, about 1.2:1 — below the 3:1 minimum for UI components.", "Uses #949494, just above the 3:1 minimum."),
 ];

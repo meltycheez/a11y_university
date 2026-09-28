@@ -14,7 +14,7 @@ export const aboutScenarios: ScenarioDef[] = [
     id: "about-overview-stat-contrast-001", rule: "contrast-text-low", pages: ["/about"], component: "StatsBand", mechanism: "css", severity: "serious",
     title: "Stat labels are faint on the green band",
     description: "The small labels under each figure in the stats band are pale green (#6d9277) on dark green, about 3.3:1.",
-    fixDescription: "Labels use near-white text (#f1f5f2), about 10:1.",
+    fixDescription: "Labels use #8fac95, just above the 4.5:1 minimum.",
   },
 
   // /about/leadership (M)
@@ -46,7 +46,7 @@ export const aboutScenarios: ScenarioDef[] = [
     id: "about-leadership-title-contrast-001", rule: "contrast-text-low", pages: ["/about/leadership"], component: "LeaderCard", mechanism: "css", severity: "serious",
     title: "Job titles are light gray",
     description: "Job titles on the leader cards are #9a9a92 on white, about 2.8:1.",
-    fixDescription: "Titles use the muted text token (#5c5c56, about 6.6:1).",
+    fixDescription: "Titles use #767676, just above the 4.5:1 minimum.",
   },
   {
     id: "about-leadership-trigger-focus-001", rule: "focus-indicator-missing", pages: ["/about/leadership"], component: "LeaderCard", mechanism: "css", severity: "serious",
@@ -245,7 +245,7 @@ export const aboutScenarios: ScenarioDef[] = [
     id: "audience-alumni-badge-contrast-001", rule: "contrast-text-low", pages: ["/alumni"], component: "AlumniPage", mechanism: "css", severity: "serious",
     title: "\"Free membership\" badge is white on gold",
     description: "The badge next to the association heading is white text on gold (#c9a227), about 2.4:1.",
-    fixDescription: "The badge uses dark text on gold, about 7.2:1.",
+    fixDescription: "The badge uses #3a3a34 on the gold, just above the 4.5:1 minimum.",
   },
 
   // /parents (L)
@@ -303,6 +303,6 @@ export const aboutScenarios: ScenarioDef[] = [
     id: "utility-privacy-legal-contrast-001", rule: "contrast-text-low", pages: ["/policies/privacy"], component: "PrivacyPage", mechanism: "css", severity: "serious",
     title: "Privacy statement body text is light gray",
     description: "The legal body copy is #8c8c85 on white, about 3.4:1.",
-    fixDescription: "Body text uses the standard text color.",
+    fixDescription: "Body text uses #767676, just above the 4.5:1 minimum.",
   },
 ];

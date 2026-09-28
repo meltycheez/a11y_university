@@ -76,7 +76,7 @@ export const donateScenarios: ScenarioDef[] = [
   d("chip-focus", "focus-indicator-missing", "DonateAmount", "css", "serious",
     "Amount chips show no focus", "The real radio inputs are hidden and the chip styles have no focus state.", "Chips show a focus ring when their radio is focused."),
   d("chip-caption-contrast", "contrast-text-low", "DonateAmount", "css", "serious",
-    "Amount impact captions are light gray", "The caption under each amount (\"a week of groceries\") is #b0b0a8 on white, about 2.1:1.", "Uses #5c5c56, about 6.6:1."),
+    "Amount impact captions are light gray", "The caption under each amount (\"a week of groceries\") is #b0b0a8 on white, about 2.1:1.", "Uses #6e6e68, just above the 4.5:1 minimum against the checked chip's #fbf3dc background too."),
   d("frequency-visual-state", "sr-visual-only-state", "DonateFrequency", "behavior", "serious",
     "Frequency buttons show the choice by color only", "One-time / Monthly / Annually are buttons whose selection is only a filled background; nothing exposes which is chosen.", "Uses a radio group in a fieldset."),
   d("tribute-focus-lost", "focus-lost-on-update", "DonateTribute", "behavior", "moderate",

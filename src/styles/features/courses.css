@@ -40,4 +40,4 @@
 .courses-plan-note { font-size: 0.8rem; font-style: italic; }
 
 /* ---------- Fixes (ADR-025) ---------- */
-.a11y-fix-manual .course-prereq { color: var(--gray-600); } /* courses-prereq-contrast-001 */
+.a11y-fix-errors .course-prereq { color: #767676; } /* courses-prereq-contrast-001: ~4.5:1 */

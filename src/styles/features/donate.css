@@ -38,7 +38,7 @@
 .donate-chip--small { min-width: 0; }
 .donate-chip--small .donate-chip-amount { font-size: 1rem; }
 .donate-chip-caption { font-size: 0.85rem; line-height: 1.3; color: #b0b0a8; } /* donate-chip-caption-contrast-001: ~2.1:1 */
-.a11y-fix-manual .donate-chip-caption { color: #5c5c56; }
+.a11y-fix-errors .donate-chip-caption { color: #6e6e68; } /* checked chips turn the caption's background #fbf3dc: 4.63:1 there, 5.13:1 on white */
 /* donate-chip-focus-001: nothing shows focus on the hidden radios. */
 .a11y-fix-manual .donate-chip:has(input:focus-visible) { outline: 3px solid var(--color-focus); outline-offset: 2px; }
 

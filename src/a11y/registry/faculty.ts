@@ -90,7 +90,7 @@ const profileDefs: Record<ProfileDefect, ProfileDef> = {
     rule: "contrast-text-low",
     title: "Contact card text has low contrast",
     description: "This profile's contact card uses a light gray (#a3a39b) for office, hours and phone, about 2.4:1 on the card background.",
-    fixDescription: "Uses the body text and muted text colors.",
+    fixDescription: "Uses #737373, just above the 4.5:1 minimum.",
     mechanism: "css",
     severity: "serious",
   },
@@ -145,7 +145,7 @@ export const facultyScenarios: ScenarioDef[] = [
       id: "faculty-dir-title-contrast-001", rule: "contrast-text-low", mechanism: "css", severity: "serious",
       title: "Faculty titles are light gray",
       description: "Academic titles (\"Associate Professor\") on the cards are #a0a09a on white, about 2.6:1.",
-      fixDescription: "Uses the muted text color (#5c5c56, about 6.6:1).",
+      fixDescription: "Uses #767676, just above the 4.5:1 minimum.",
     },
     {
       id: "faculty-dir-name-focus-001", rule: "focus-indicator-missing", mechanism: "css", severity: "serious",

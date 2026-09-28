@@ -169,6 +169,26 @@ function AriaHiddenFocusable() {
   );
 }
 
+function ContrastText() {
+  const id = "contrast-text-low-errors-lab";
+  const fixed = useScenario(id);
+  return (
+    <p className={`lab-errors-contrast-text${fixed ? " is-fixed" : ""}`} data-a11y-scenario={id}>
+      Redwood State's advising office is open weekdays from 8 a.m. to 5 p.m.
+    </p>
+  );
+}
+
+function ContrastUi() {
+  const id = "contrast-ui-low-errors-lab";
+  const fixed = useScenario(id);
+  return (
+    <button type="button" className={`btn btn--secondary lab-errors-contrast-ui${fixed ? " is-fixed" : ""}`} data-a11y-scenario={id}>
+      View schedule
+    </button>
+  );
+}
+
 export default function ErrorsLab() {
   return (
     <>
@@ -218,6 +238,8 @@ export default function ErrorsLab() {
       <Specimen id="label-for-mismatch-errors-lab">
         <Field scenario="label-for-mismatch-errors-lab" id="lab-lastname" label="Last name" defect="for-mismatch" />
       </Specimen>
+      <Specimen id="contrast-text-low-errors-lab"><ContrastText /></Specimen>
+      <Specimen id="contrast-ui-low-errors-lab"><ContrastUi /></Specimen>
     </>
   );
 }

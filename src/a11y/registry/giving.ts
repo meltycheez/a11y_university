@@ -26,7 +26,7 @@ export const givingScenarios: ScenarioDef[] = [
     id: "giving-home-stats-contrast-001", rule: "contrast-text-low", pages: ["/giving"], component: "StatsBand", mechanism: "css", severity: "serious",
     title: "White stats on a gold band",
     description: "The giving stats band is white text on the brand gold (#c9a227), about 2.4:1.",
-    fixDescription: "The band uses dark text on gold, about 7.2:1.",
+    fixDescription: "Uses #3a3a34, just above the 4.5:1 minimum.",
   },
   {
     id: "giving-home-tax-small-001", rule: "text-small", pages: ["/giving"], component: "GivingPage", mechanism: "css", severity: "minor",
@@ -122,7 +122,7 @@ export const givingScenarios: ScenarioDef[] = [
     id: "giving-scholarships-updated-contrast-001", rule: "contrast-text-low", pages: ["/giving/scholarships"], component: "ScholarshipsPage", mechanism: "css", severity: "moderate",
     title: "\"Updated\" note is pale gold",
     description: "The \"Updated Fall 2020\" note is #c8b98a on white, about 2:1.",
-    fixDescription: "Uses the muted text color.",
+    fixDescription: "Uses #767676, just above the 4.5:1 minimum.",
   },
 
   // /giving/campaigns (M)

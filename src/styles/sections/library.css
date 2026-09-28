@@ -48,7 +48,7 @@
 .lib-quicklinks a:focus, .lib-quicklinks a:focus-visible { outline: none; } /* library-home-quicklinks-focus-001 */
 .a11y-fix-manual .lib-quicklinks a:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
 .lib-hours-widget { background: #eef3f7; padding: var(--space-4); color: #8fa3b5; font-size: 0.9rem; } /* library-home-hours-contrast-001: ~2.3:1 */
-.a11y-fix-manual .lib-hours-widget { color: #33475b; }
+.a11y-fix-errors .lib-hours-widget { color: #5c7078; }
 .site--library .lib-hours-widget h2 { font-size: 1rem; }
 .lib-hours-widget dl { margin: 0 0 var(--space-3); }
 .lib-hours-widget dt { font-weight: 700; }
@@ -94,7 +94,7 @@
 .a11y-fix-manual .lib-db-entry { height: auto; overflow: visible; }
 .lib-db-name { margin: 0; font-weight: 700; display: flex; gap: var(--space-2); align-items: center; }
 .lib-db-desc, .lib-db-meta { margin: 0; font-size: 0.9rem; color: #a0a8b0; } /* library-db-desc-contrast-001: ~2.4:1 */
-.a11y-fix-manual .lib-db-desc, .a11y-fix-manual .lib-db-meta { color: #4b5560; }
+.a11y-fix-errors .lib-db-desc, .a11y-fix-errors .lib-db-meta { color: #69747e; }
 .lib-db-meta { font-size: 0.8rem; }
 
 /* Guides */
@@ -113,7 +113,7 @@
 .lib-box { border: 1px solid #d3dbe2; }
 .site--library .lib-box-title { margin: 0; padding: var(--space-2) var(--space-3); background: #1e2d3b; color: #fff; font-family: var(--font-sans); font-size: 1rem; }
 .lib-guide-boxes .lib-box-title { background: #7fb3c8; } /* library-guide-box-contrast-001: white on #7fb3c8, ~2.2:1 */
-.a11y-fix-manual .lib-guide-boxes .lib-box-title { background: #1e2d3b; }
+.a11y-fix-errors .lib-guide-boxes .lib-box-title { background: #5e7886; }
 .lib-box-body { padding: var(--space-3); }
 .lib-box-body > :last-child { margin-bottom: 0; }
 .lib-guide-dbs { list-style: none; margin: 0; display: grid; gap: var(--space-3); }

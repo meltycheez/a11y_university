@@ -46,6 +46,10 @@ export const rules = {
   "list-structure": e(["1.3.1"], ["navigation"], ["listitem"]),
   "aria-hidden-focusable": e(["4.1.2"], ["aria", "focus"], ["aria-hidden-focus"]),
   "label-for-mismatch": e(["1.3.1"], ["forms"], ["label"], ["label_missing"]),
+  // WAVE detects both as red "Contrast Errors", not Alerts — treat them as automated Errors, like WAVE does,
+  // not manual judgement calls.
+  "contrast-text-low": e(["1.4.3"], ["contrast"], ["color-contrast"]),
+  "contrast-ui-low": e(["1.4.11"], ["contrast"]),
 
   // ---------- Alerts (Fix Alerts) ----------
   "alt-suspicious": a(["1.1.1"], ["images"], ["alt_suspicious"]),
@@ -92,8 +96,6 @@ export const rules = {
   "sr-accordion-state": m(["4.1.2"], ["accordions"]),
   "sr-decorative-announced": m(["1.1.1"], ["images"]),
   "sr-visual-only-state": m(["1.3.1", "4.1.2"], ["custom-controls"]),
-  "contrast-text-low": m(["1.4.3"], ["contrast"], ["color-contrast"]),
-  "contrast-ui-low": m(["1.4.11"], ["contrast"]),
   "color-only-info": m(["1.4.1"], ["contrast"]),
   "color-only-required": m(["1.4.1", "3.3.2"], ["contrast", "forms"]),
   "color-only-error": m(["1.4.1", "3.3.1"], ["contrast", "forms"]),

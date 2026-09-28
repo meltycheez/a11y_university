@@ -128,10 +128,10 @@
 .site--cms:has(.cms-page) .section-sidebar a:not([aria-current="page"]) { color: #8c9aa3; } /* ~2.6:1 on #f3f1ea */
 
 /* ---------- Fixes (ADR-025) ---------- */
-.a11y-fix-manual .site--cms:has(.cms-page) .section-sidebar a:not([aria-current="page"]) { color: #1f4f7a; } /* academics-sidebar-contrast-001 */
-.a11y-fix-manual .cms-fac-title { color: var(--gray-600); } /* faculty-dir-title-contrast-001 */
+.a11y-fix-errors .site--cms:has(.cms-page) .section-sidebar a:not([aria-current="page"]) { color: #606c74; } /* academics-sidebar-contrast-001 */
+.a11y-fix-errors .cms-fac-title { color: #767676; } /* faculty-dir-title-contrast-001: ~4.5:1 */
 .a11y-fix-manual .cms-directory .fac-name-link:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; } /* faculty-dir-name-focus-001 */
-.a11y-fix-manual .cms-profile-contact--low .contact-card dt { color: var(--gray-600); } /* faculty-profile-contact-contrast-001 */
-.a11y-fix-manual .cms-profile-contact--low .contact-card dd { color: var(--color-text); }
+.a11y-fix-errors .cms-profile-contact--low .contact-card dt { color: #737373; } /* faculty-profile-contact-contrast-001: ~4.5:1 */
+.a11y-fix-errors .cms-profile-contact--low .contact-card dd { color: #737373; }
 .a11y-fix-alerts .cms-fac-contact { font-size: 0.875rem; } /* faculty-dir-phone-small-001 */
 .a11y-fix-alerts .cms-updated--small { font-size: 0.9rem; } /* faculty-profile-updated-small-001 */

@@ -17,7 +17,7 @@
 .logo .logo-mark circle:first-child { fill: var(--brand-redwood-dark); }
 .wordmark { display: flex; flex-direction: column; line-height: 1.05; font-family: var(--font-serif); }
 .wordmark-name { font-size: 1.45rem; font-weight: 700; letter-spacing: 0.01em; }
-.wordmark-sub { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.32em; color: var(--brand-gold); }
+.wordmark-sub { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.32em; color: var(--brand-gold-on-dark); }
 
 .site-search { display: flex; align-items: stretch; background: #fff; border-radius: 999px; overflow: hidden; min-width: 0; }
 .site-search input { border: 0; padding: 0.55rem 0.9rem; font: inherit; font-size: 0.95rem; width: 16rem; min-width: 0; color: var(--gray-900); }

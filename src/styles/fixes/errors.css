@@ -1,1 +1,2 @@
 /* CSS fixes applied under .a11y-fix-errors on body (plan 02). */
+.a11y-fix-errors .home-explore .card-meta { color: #767676; } /* home-card-meta-contrast-001: ~4.5:1 */

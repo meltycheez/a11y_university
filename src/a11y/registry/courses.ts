@@ -68,6 +68,6 @@ export const coursesScenarios: ScenarioDef[] = [
     id: "courses-prereq-contrast-001", rule: "contrast-text-low", ...page, component: "CourseRow", mechanism: "css", severity: "serious",
     title: "Prerequisite line is light gray",
     description: "The prerequisites line in each course's details is #9a9a94 on white, about 2.8:1.",
-    fixDescription: "Uses the muted text color (#5c5c56, about 6.6:1).",
+    fixDescription: "Uses #767676, just above the 4.5:1 minimum.",
   },
 ];

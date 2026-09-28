@@ -18,7 +18,7 @@
 
 /* /giving */
 .giving-stats .stats-band { background: var(--brand-gold); color: #fff; border: 0; } /* giving-home-stats-contrast-001: ~2.4:1 */
-.a11y-fix-manual .giving-stats .stats-band { color: var(--gray-900); } /* ~7.2:1 */
+.a11y-fix-errors .giving-stats .stats-band { color: #3a3a34; } /* just above 4.5:1 */
 .giving-tax-note { font-size: 10px; font-style: italic; } /* giving-home-tax-small-001 */
 .a11y-fix-alerts .giving-tax-note { font-size: 0.9rem; }
 .campaign-meter { height: 1.25rem; background: #eee6cc; border-radius: 999px; overflow: hidden; max-width: 40rem; }
@@ -54,7 +54,7 @@
 .a11y-fix-manual .scholarship-table { overflow-x: auto; }
 .a11y-fix-manual .scholarship-table table { min-width: 0; }
 .giving-updated { color: #c8b98a; } /* giving-scholarships-updated-contrast-001: ~2:1 */
-.a11y-fix-manual .giving-updated { color: var(--color-text-muted); }
+.a11y-fix-errors .giving-updated { color: #767676; }
 
 /* /giving/campaigns */
 .campaign-bars { list-style: none; padding: 0; display: grid; gap: var(--space-3); max-width: 44rem; }

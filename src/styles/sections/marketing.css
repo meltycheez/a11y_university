@@ -28,7 +28,7 @@
 /* adm-home-stats-contrast-001: gold figures on white (~2.4:1) */
 .adm-stats .stats-band { background: #fff; color: var(--color-text); border: 2px solid #f3e3d6; }
 .adm-stats .stat-value { color: var(--brand-gold); font-family: var(--font-sans); font-weight: 800; }
-.a11y-fix-manual .adm-stats .stat-value { color: var(--brand-redwood); }
+.a11y-fix-errors .adm-stats .stat-value { color: #8f8f8f; }
 
 /* adm-home-card-clip-001: fixed-height card text clips when zoomed */
 .adm-paths .card { border-radius: 24px; }
@@ -47,7 +47,7 @@
 .adm-audience .cta-band { background: #fbf1e9; color: var(--color-text); }
 .site--marketing .adm-audience .cta-band h2 { color: var(--brand-redwood); }
 .adm-audience .cta-band .btn--primary { background: linear-gradient(90deg, #f08a65, #f6a98a); color: #fff; }
-.a11y-fix-manual .adm-audience .cta-band .btn--primary { background: linear-gradient(90deg, var(--brand-redwood), #5a1f14); }
+.a11y-fix-errors .adm-audience .cta-band .btn--primary { background: linear-gradient(90deg, #bd5840, #b3543c); }
 
 /* adm-grad-updated-small-001: 10px updated note */
 .adm-grad .page-updated { font-size: 10px; }
@@ -66,7 +66,7 @@
 .adm-step h2, .adm-step h3 { margin-top: 0; font-size: 1.35rem; }
 /* adm-process-number-contrast-001: white on light peach (~2.0:1) */
 .adm-step-number { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background: #f2a383; color: #fff; font-weight: 800; font-size: 1.4rem; }
-.a11y-fix-manual .adm-step-number { background: var(--brand-redwood); }
+.a11y-fix-errors .adm-step-number { background: #c67c5c; }
 
 /* Tuition */
 /* adm-tuition-fineprint-small-001 */
@@ -106,18 +106,18 @@
 /* Visit */
 /* adm-visit-saturday-contrast-001: gray on cream (~2.5:1) */
 .adm-saturday .callout-body { color: #9a9a92; }
-.a11y-fix-manual .adm-saturday .callout-body { color: var(--color-text); }
+.a11y-fix-errors .adm-saturday .callout-body { color: #6f6f68; }
 
 /* FAQ */
 /* adm-faq-group-contrast-001: light coral category headings (~2.3:1) */
 .site--marketing .adm-faq-group > h2 { color: #e8957a; text-transform: uppercase; letter-spacing: 0.06em; font-size: 1.1rem; }
-.a11y-fix-manual .site--marketing .adm-faq-group > h2 { color: var(--brand-redwood); }
+.a11y-fix-errors .site--marketing .adm-faq-group > h2 { color: #b55a40; }
 
 /* Financial aid */
 /* aid-home-deadline-contrast-001: white on gold (~2.4:1) */
 .aid-deadline { background: var(--brand-gold); color: #fff; border-radius: 20px; padding: var(--space-4) var(--space-5); font-size: 1.1rem; }
 .aid-deadline p { margin: 0; }
-.a11y-fix-manual .aid-deadline { color: var(--gray-900); }
+.a11y-fix-errors .aid-deadline { color: #3a3a34; }
 /* aid-home-sap-justified-001 */
 .aid-sap { text-align: justify; }
 .a11y-fix-alerts .aid-sap { text-align: start; }

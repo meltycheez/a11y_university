@@ -26,7 +26,7 @@
 
 /* legacy-aid-input-contrast-001 */
 .legacy-input { border: 1px solid #dddddd; padding: 2px; font: 12px Verdana, Arial, sans-serif; }
-.a11y-fix-manual .legacy-input { border-color: #767676; }
+.a11y-fix-errors .legacy-input { border-color: #8f8f8f; }
 .legacy-aid select { font: 12px Verdana, Arial, sans-serif; }
 
 /* Layout-table fix (legacy-aid-layout-table-001): the same rows as CSS. */
