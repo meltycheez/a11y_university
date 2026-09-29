@@ -64,20 +64,23 @@ test.describe("positive tabindex order (/library/study-rooms)", () => {
   });
 });
 
-test.describe("carousel pause control (/)", () => {
-  test("defective: no pause control reachable", async ({ page }) => {
+test.describe("key dates filter focus (/)", () => {
+  const filter = (page: import("@playwright/test").Page) => page.getByRole("button", { name: "Financial aid", exact: true });
+
+  test("defective: choosing a filter throws focus into the table", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator(".carousel-pause")).toHaveCount(0);
+    await filter(page).click();
+    await expect(page.locator(".dates-table tbody button").first()).toBeFocused();
+    await expect(page.locator(".dates-row")).toHaveCount(2);
   });
 
-  test("fixed: pause control present and toggles play/pause", async ({ page }) => {
+  test("fixed: focus stays on the filter", async ({ page }) => {
     await page.goto("/");
     await openControl(page);
     await page.getByRole("switch", { name: "Fix Manual Testing Issues" }).click();
-    const pause = page.locator(".carousel-pause");
-    await expect(pause).toContainText("Pause");
-    await pause.click();
-    await expect(pause).toContainText("Play");
+    await filter(page).click();
+    await expect(filter(page)).toBeFocused();
+    await expect(filter(page)).toHaveAttribute("aria-pressed", "true");
   });
 });
 

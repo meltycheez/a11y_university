@@ -65,6 +65,7 @@ function ContactForm() {
   const selectFixed = useScenario("about-contact-topic-select-001");
   const radiosFixed = useScenario("about-contact-reply-fieldset-001");
   const statusFixed = useScenario("about-contact-sent-status-001");
+  const messageLabelFixed = useScenario("about-contact-message-label-001");
   const req = (label: string) => (requiredFixed ? `${label} (required)` : label);
 
   const radios = ["Email", "Phone"].map((r) => (
@@ -100,9 +101,10 @@ function ContactForm() {
             : <><span className="field-label">How should we reply?</span><div className="radio-group">{radios}</div></>}
         </div>
 
-        <div className="field">
-          <label htmlFor="contact-message">Message</label>
+        <div className="field" data-a11y-scenario="about-contact-message-label-001">
+          <label htmlFor="contact-message">{messageLabelFixed ? "Message (optional)" : "Message"}</label>
           <textarea id="contact-message" name="message" rows={6} />
+          {!messageLabelFixed && <label htmlFor="contact-message" className="field-hint">Optional</label>}
         </div>
 
         <Button type="submit">Send message</Button>

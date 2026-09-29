@@ -1,645 +1,496 @@
-import { useEffect, useRef, useState } from "react";
-import { Form, Link, useLoaderData } from "react-router";
+// The homepage: a clean, modern university front door (full-bleed hero, program finder, quick-action tiles,
+// stats, stories, a key-dates table, a campus map teaser and a visit band) that works perfectly for sighted
+// mouse users and is a nightmare for screen reader users. Every defect is a registered scenario
+// (src/a11y/registry/home.ts) and Fix All clears them all; `npm run wave -- /` checks both with the real WAVE.
+// CSS: styles/sections/home.css.
+import { createElement, useEffect, useRef, useState } from "react";
+import { Form, Link } from "react-router";
 import { ScenarioTitle } from "~/a11y/DocumentScenarios";
-import { SmartLink } from "~/a11y/helpers";
+import { Heading, IconButton, SmartLink } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
-import { ButtonLink } from "~/components/Button";
-import { Card, CardGrid } from "~/components/Card";
 import { Img } from "~/components/Img";
-import { StatsBand, VideoEmbed } from "~/components/blocks";
 import { brand } from "~/data/brand";
-import { eventsContent } from "~/data/content/events";
-import { newsContent } from "~/data/content/news";
-import imageSizes from "~/data/image-sizes.json";
-import { megaMenu } from "~/data/navigation";
-import { SITE_NOW, formatDate } from "~/data/site";
+import { MAP_H, MAP_W, buildings } from "./_campus-map-data";
 
-const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const base = import.meta.env.BASE_URL;
+const svg = (s: string) => `data:image/svg+xml,${encodeURIComponent(s)}`;
+const ARROW = <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>;
 
-// News and event copy is large; the loader runs at prerender time so only the teasers reach the page.
-export async function loader() {
-  return {
-    news: Object.values(newsContent)
-      .sort((a, b) => b.date.localeCompare(a.date))
-      .slice(0, 3)
-      .map(({ slug, title, dek, date, image }) => ({ slug, title, dek, date, image })),
-    events: Object.values(eventsContent)
-      .filter((e) => e.start.slice(0, 10) >= SITE_NOW)
-      .sort((a, b) => a.start.localeCompare(b.start))
-      .slice(0, 4)
-      .map(({ slug, title, start, location }) => ({ slug, title, start, location })),
-  };
-}
-
-// Title comes from ScenarioTitle (home-page-title-001), not meta().
 export default function HomePage() {
-  const { news, events } = useLoaderData<typeof loader>();
-  const headingFixed = useScenario("home-card-heading-skip-001");
-  // CSS scenarios: the defect lives in components.css, the fix in styles/fixes/*.css. Register only.
-  useScenario("home-intro-justified-001");
-  useScenario("home-card-meta-contrast-001");
-  useScenario("home-card-focus-001");
-
   return (
-    <>
+    <div className="home">
       <ScenarioTitle scenario="home-page-title-001" title={brand.name} />
       <SkipToDates />
-      <AnnouncementTicker />
-      <HeroCarousel />
+      <HomeHero />
+      <ProgramFinder />
+      <QuickTiles />
+      <ByTheNumbers />
+      <Stories />
+      <KeyDates />
+      <CampusMapTeaser />
+      <VisitBand />
+      <Tracking />
+    </div>
+  );
+}
 
-      <div className="page-content">
-        <AudiencePaths />
+function SkipToDates() {
+  const fixed = useScenario("home-skip-dates-001");
+  return <a className="skip-link" href={fixed ? "#key-dates-heading" : "#key-dates"} data-a11y-scenario="home-skip-dates-001">Skip to key dates</a>;
+}
 
-        <section aria-labelledby="welcome-heading" className="stack">
-          <h2 id="welcome-heading">Welcome to Redwood State</h2>
-          <p className="home-intro" data-a11y-scenario="home-intro-justified-001">
-            Since {brand.founded}, Redwood State has grown from a small teachers college into a comprehensive public university
-            with six colleges, more than 90 undergraduate and graduate programs, and a research forest that doubles as an outdoor classroom.
-            Whether you are planning a first visit, returning to finish a degree, or looking for a lab to join, you will find
-            a place here among the redwoods.
-          </p>
-        </section>
+// ---------- Hero ----------
 
-        <ProgramFinder />
-        <PopularLinks />
-
-        <div className="home-columns">
-          <HomeNews items={news} />
-          <HomeEvents items={events} />
+function HomeHero() {
+  useScenario("home-hero-contrast-001"); // CSS: the fix gives .home-hero a background color
+  useScenario("home-hero-lede-justified-001"); // CSS
+  const h1Fixed = useScenario("home-hero-h1-001");
+  const tabFixed = useScenario("home-hero-cta-tabindex-001");
+  const Title = h1Fixed ? "h1" : "p";
+  return (
+    <section className="home-hero home-bleed" aria-labelledby="home-hero-title" data-a11y-scenario="home-hero-contrast-001">
+      <Img image="home-hero-quad" scenario="home-hero-img-alt-001" className="home-hero-img" sizes="100vw" loading="eager" fetchPriority="high" />
+      <div className="container home-hero-inner">
+        <p className="home-kicker">Redwood State University · Arcadia Falls, California</p>
+        <Title id="home-hero-title" className="home-hero-title" data-a11y-scenario="home-hero-h1-001">
+          <span className="home-hero-line">Deep roots.</span> <span className="home-hero-line">Wide branches.</span>
+        </Title>
+        <p className="home-hero-lede" data-a11y-scenario="home-hero-lede-justified-001">
+          A public research university on California&rsquo;s redwood coast, where 18,000 students learn in the forest, on the shore and in the lab.
+        </p>
+        <div className="home-hero-actions">
+          <Link to="/admissions" className="btn btn--primary home-btn" tabIndex={tabFixed ? undefined : 1} data-a11y-scenario="home-hero-cta-tabindex-001">Apply to Redwood State</Link>
+          <Link to="/admissions/visit" className="btn home-btn home-btn--ghost">Plan a visit</Link>
         </div>
-
-        <StatsBand
-          label="Redwood State at a glance"
-          stats={[
-            { value: "17,940", label: "students enrolled, fall 2026" },
-            { value: "46%", label: "first-generation college students" },
-            { value: "19:1", label: "student-to-faculty ratio" },
-            { value: "1,200", label: "acres in the Tanoak Creek Research Forest" },
-            { value: "14", label: "Redwood Owls varsity teams" },
-          ]}
-        />
-
-        <KeyDatesTable />
-
-        <section aria-labelledby="tour-heading" className="stack home-tour">
-          <h2 id="tour-heading">Take the campus tour</h2>
-          <p>Walk Canopy Green, step inside Sequoia Engineering Hall, and head down to the tide pools at Gull Rock Point with student tour guides.</p>
-          <VideoEmbed title="Redwood State campus tour" caption="Student guides lead a four-minute tour of the Arcadia Falls campus." titleScenario="home-tour-iframe-title-001" />
-          <TourShareButton />
-        </section>
-
-        <section
-          aria-labelledby="explore-heading"
-          className="stack home-explore"
-          data-a11y-scenario="home-card-meta-contrast-001 home-card-focus-001 home-card-heading-skip-001"
-        >
-          <h2 id="explore-heading">Explore Redwood State</h2>
-          <CardGrid>
-            {megaMenu.map((s, i) => (
-              <Card
-                key={s.id}
-                title={s.feature.title}
-                href={s.feature.href}
-                text={s.feature.text}
-                image={s.feature.image}
-                imageAlt={`IMG_${2041 + i * 7}.jpg`}
-                imageScenario="home-card-img-alt-suspicious-001"
-                imageFixedAlt=""
-                meta={s.label}
-                headingLevel={headingFixed ? 3 : 4}
-              />
-            ))}
-          </CardGrid>
-        </section>
-
-        <NewsletterSignup />
       </div>
-    </>
+    </section>
   );
 }
 
-/** Scenario home-tour-share-svg-001: an icon-only share button next to the tour video. */
-function TourShareButton() {
-  const named = useScenario("home-tour-share-svg-001");
-  return (
-    <button type="button" className="tour-share-btn" aria-label={named ? "Share this video" : undefined} data-a11y-scenario="home-tour-share-svg-001">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" focusable="false" aria-hidden={named ? true : undefined}>
-        <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
-        <path d="M8.6 10.6 15.4 6.4M8.6 13.4 15.4 17.6" />
-      </svg>
-    </button>
-  );
-}
+// ---------- Program finder ----------
 
-/** Scenario home-program-finder-label-001: the visible prompt is a <p>, not a <label>. */
+const GO_ICON = svg(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#7a2e1f"/><path d="M15 24h17M25 16l8 8-8 8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`);
+const LEVELS = ["Undergraduate", "Graduate", "Certificate"];
+const POPULAR = [
+  { label: "Nursing", q: "nursing" }, { label: "Computer Science", q: "computer science" },
+  { label: "Environmental Studies", q: "environmental" }, { label: "Business", q: "business" },
+];
+
 function ProgramFinder() {
-  const fixed = useScenario("home-program-finder-label-001");
+  const labelFixed = useScenario("home-finder-search-label-001");
+  const hintFixed = useScenario("home-finder-hint-ref-001");
+  const keyFixed = useScenario("home-finder-accesskey-001");
+  const fieldsetFixed = useScenario("home-finder-level-fieldset-001");
+  const campusFixed = useScenario("home-finder-campus-label-001");
+  const onlineFixed = useScenario("home-finder-online-labels-001");
+  const submitFixed = useScenario("home-finder-submit-alt-001");
+  const popularFixed = useScenario("home-finder-popular-label-001");
+
+  const pills = LEVELS.map((l, i) => (
+    <label key={l} className="finder-pill">
+      <input type="radio" name="level" value={l.toLowerCase()} defaultChecked={i === 0} />
+      <span>{l}</span>
+    </label>
+  ));
+
   return (
-    <Form action="/academics/programs" method="get" className="program-finder" data-a11y-scenario="home-program-finder-label-001">
-      {fixed
-        ? <label htmlFor="program-finder-q" className="program-finder-prompt">Find your program</label>
-        : <p className="program-finder-prompt">Find your program</p>}
-      <div className="program-finder-row">
-        <input id="program-finder-q" name="q" type="search" autoComplete="off" />
-        <button type="submit" className="btn btn--primary">Search programs</button>
+    <Form action="/academics/programs" method="get" className="home-finder" role="search" aria-labelledby="finder-heading">
+      <h2 id="finder-heading" className="home-finder-title">Find your program</h2>
+      <div className="home-finder-row">
+        <div className="finder-search" data-a11y-scenario="home-finder-search-label-001 home-finder-hint-ref-001 home-finder-accesskey-001">
+          <label htmlFor="finder-q" className="finder-search-icon">{labelFixed && <span className="visually-hidden">Search programs</span>}</label>
+          <input
+            id="finder-q" name="q" type="search" autoComplete="off" placeholder="Search 90+ majors, minors and certificates"
+            aria-describedby={hintFixed ? "finder-hints" : "finder-hint"} accessKey={keyFixed ? undefined : "s"}
+          />
+        </div>
+        <div className="finder-controls">
+          <div data-a11y-scenario="home-finder-level-fieldset-001">
+            {fieldsetFixed
+              ? <fieldset className="finder-seg"><legend className="visually-hidden">Program level</legend>{pills}</fieldset>
+              : <div className="finder-seg">{pills}</div>}
+          </div>
+          <div className="finder-select" data-a11y-scenario="home-finder-campus-label-001">
+            {campusFixed ? <label htmlFor="finder-campus" className="finder-mini">Campus</label> : <span className="finder-mini">Campus</span>}
+            <select id="finder-campus" name="campus" defaultValue="">
+              <option value="">All locations</option>
+              <option value="arcadia-falls">Arcadia Falls</option>
+              <option value="online">Online</option>
+            </select>
+          </div>
+          <div className="finder-check" data-a11y-scenario="home-finder-online-labels-001">
+            <input id="finder-online" type="checkbox" name="online" value="1" />
+            <label htmlFor="finder-online">Online only</label>
+            {!onlineFixed && <label htmlFor="finder-online" className="visually-hidden">Filter</label>}
+          </div>
+          <input type="image" src={GO_ICON} width={48} height={48} className="finder-go" alt={submitFixed ? "Search programs" : undefined} data-a11y-scenario="home-finder-submit-alt-001" />
+        </div>
       </div>
+      <p id="finder-hints" className="finder-hints" data-a11y-scenario="home-finder-popular-label-001">
+        {popularFixed ? <span>Popular:</span> : <label>Popular:</label>}{" "}
+        {POPULAR.map((p) => <Link key={p.q} to={`/academics/programs?q=${encodeURIComponent(p.q)}`}>{p.label}</Link>)}
+      </p>
     </Form>
   );
 }
 
-/** home-skip-dates-001: a second skip link whose target id was renamed; it now goes nowhere. */
-function SkipToDates() {
-  const fixed = useScenario("home-skip-dates-001");
-  return (
-    <a className="skip-link" href={fixed ? "#key-dates-heading" : "#key-dates"} data-a11y-scenario="home-skip-dates-001">
-      Skip to key dates
-    </a>
-  );
-}
+// ---------- Start here ----------
 
-const popular = [
-  { label: "Apply", href: "/admissions/apply" },
-  { label: "Visit campus", href: "/admissions/visit" },
-  { label: "Tuition", href: "/admissions/tuition" },
-  { label: "Course search", href: "/academics/courses" },
-  { label: "Academic calendar", href: "/academics/calendar" },
+const TILES = [
+  { title: "Explore degrees", text: "90+ majors, minors and graduate programs", href: "/academics/programs", tone: "fern" },
+  { title: "Request info", text: "Get a guide to Redwood State made for you", href: "/admissions/request-info", tone: "redwood" },
+  { title: "Schedule a visit", text: "Tour Canopy Green and the research forest", href: "/admissions/visit", tone: "gold" },
+  { title: "Tuition & cost", text: "Estimate your cost and see how aid helps", href: "/admissions/tuition", tone: "mist" },
+  { title: "Colleges & schools", text: "Six colleges on one coastal campus", href: "/academics", tone: "bark" },
+  { title: "Apply", text: "Fall 2027 priority deadline: December 1", href: "/admissions/apply", tone: "redwood-dark" },
 ];
 
-/**
- * home-popular-menu-001: a plain row of links marked role="menu" with no role="menuitem" children, so a
- * screen reader announces an empty menu and switches to menu navigation keys that match nothing.
- */
-function PopularLinks() {
-  const fixed = useScenario("home-popular-menu-001");
+function QuickTiles() {
+  const headingFixed = useScenario("home-tiles-heading-empty-001");
+  const menuFixed = useScenario("home-tiles-menu-001");
+  useScenario("home-tiles-focus-001"); // CSS
   return (
-    <nav className="home-popular" aria-label="Popular links">
-      <span className="home-popular-label">Popular:</span>
-      <ul role={fixed ? undefined : "menu"} data-a11y-scenario="home-popular-menu-001">
-        {popular.map((p) => <li key={p.href}><Link to={p.href}>{p.label}</Link></li>)}
-      </ul>
-    </nav>
-  );
-}
-
-const audiences = [
-  { label: "Future students", text: "Admissions, visits and costs", href: "/admissions" },
-  { label: "Current students", text: "Services, advising and support", href: "/students" },
-  { label: "Parents & families", text: "Helping your student thrive", href: "/parents" },
-  { label: "Alumni", text: "Stay connected to the Owls", href: "/alumni" },
-  { label: "Visitors", text: "Directions, parking and events", href: "/visitors" },
-  { label: "Faculty & staff", text: "Resources for employees", href: "/faculty-staff" },
-];
-
-/** home-audience-aria-ref-001 (aria-labelledby typo) and home-audience-contrast-001 (CSS). */
-function AudiencePaths() {
-  const fixed = useScenario("home-audience-aria-ref-001");
-  useScenario("home-audience-contrast-001");
-  return (
-    <nav className="home-audiences" aria-labelledby={fixed ? "audience-heading" : "audiences-heading"} data-a11y-scenario="home-audience-aria-ref-001 home-audience-contrast-001">
-      <h2 id="audience-heading" className="visually-hidden">Find your path</h2>
-      <ul>
-        {audiences.map((a) => (
-          <li key={a.href}>
-            <Link to={a.href}><span className="home-audience-label">{a.label}</span><span className="home-audience-text">{a.text}</span></Link>
+    <section className="home-section" aria-labelledby="tiles-heading">
+      <h2 id="tiles-heading" className={headingFixed ? "home-h2" : "home-h2 home-h2--css"} data-a11y-scenario="home-tiles-heading-empty-001">
+        {headingFixed ? "Start here" : null}
+      </h2>
+      <ul className="home-tiles" role={menuFixed ? undefined : "menu"} data-a11y-scenario="home-tiles-menu-001 home-tiles-focus-001">
+        {TILES.map((t) => (
+          <li key={t.href} className={`home-tile home-tile--${t.tone}`}>
+            <Link to={t.href}>
+              <span className="home-tile-title">{t.title}</span>
+              <span className="home-tile-text">{t.text}</span>
+              <span className="home-tile-arrow">{ARROW}</span>
+            </Link>
           </li>
         ))}
       </ul>
-    </nav>
-  );
-}
-
-function HomeNews({ items }: { items: { slug: string; title: string; dek: string; date: string; image: string }[] }) {
-  const unlinked = useScenario("home-news-link-redundant-001");
-  const searchLabelFixed = useScenario("home-news-search-label-empty-001");
-  return (
-    <section aria-labelledby="home-news-heading" className="stack home-news" data-a11y-scenario="home-news-link-redundant-001">
-      <div className="home-section-head">
-        <h2 id="home-news-heading">News</h2>
-        {/* home-news-search-label-empty-001: the <label> holds only a CSS background icon, so it's empty. */}
-        <Form action="/search" method="get" className="home-news-search" data-a11y-scenario="home-news-search-label-empty-001">
-          <label htmlFor="home-news-q" className="home-news-search-icon">
-            {searchLabelFixed && <span className="visually-hidden">Search news</span>}
-          </label>
-          <input id="home-news-q" name="q" type="search" />
-        </Form>
-        <Link to="/news">All news</Link>
-      </div>
-      {items.map((n) => {
-        const href = `/news/${n.slug}`;
-        const photo = <Img image={n.image} alt={unlinked ? "" : n.title} sizes="(min-width: 60rem) 14rem, 40vw" aspect="4 / 3" />;
-        return (
-          <article key={n.slug} className="home-news-item">
-            {unlinked ? <div className="home-news-photo">{photo}</div> : <Link to={href} className="home-news-photo">{photo}</Link>}
-            <div>
-              <p className="home-news-date">{formatDate(n.date)}</p>
-              {/* Once unlinked, "Read the story" below is the only link to href, so the title stays plain text
-                  rather than forming a second redundant link to the same place. */}
-              <h3>{unlinked ? n.title : <Link to={href}>{n.title}</Link>}</h3>
-              <p>{n.dek}</p>
-              <SmartLink scenario="home-news-readmore-001" to={href} defect="Read more">Read the story: {n.title}</SmartLink>
-            </div>
-          </article>
-        );
-      })}
     </section>
   );
 }
 
-function HomeEvents({ items }: { items: { slug: string; title: string; start: string; location: string }[] }) {
-  const listFixed = useScenario("home-events-list-001");
-  const rows = items.map((e) => {
-    const [, m, d] = e.start.slice(0, 10).split("-").map(Number);
-    return (
-      <li key={e.slug} className="home-event">
-        <span className="home-event-date"><span>{MON[m - 1]}</span> <span>{d}</span></span>
-        <span>
-          <Link to={`/events/${e.slug}`}>{e.title}</Link>
-          <span className="home-event-where">{e.location}</span>
-        </span>
-      </li>
-    );
-  });
+// ---------- By the numbers ----------
+
+const icon = (paths: string) => svg(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="#2f5d3a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`);
+const STAT_ICONS = {
+  people: icon(`<circle cx="12" cy="11" r="4"/><circle cx="22" cy="12" r="3"/><path d="M4 26c0-4.4 3.6-8 8-8s8 3.6 8 8M20 19.5c4 0 8 2.5 8 6.5"/>`),
+  ratio: icon(`<path d="M6 7h20v13H14l-6 5v-5H6z"/><path d="M11 13h10"/>`),
+  tree: icon(`<path d="M16 4l7 10h-4l6 8H7l6-8H9z"/><path d="M16 22v6"/>`),
+  trophy: icon(`<path d="M10 5h12v6a6 6 0 0 1-12 0z"/><path d="M10 7H5v2a4 4 0 0 0 5 4M22 7h5v2a4 4 0 0 1-5 4M16 17v5M11 27h10l-1-5h-8z"/>`),
+};
+
+function ByTheNumbers() {
+  const listFixed = useScenario("home-stats-layout-table-001");
+  const blinkFixed = useScenario("home-stats-blink-001");
+  const dupFixed = useScenario("home-stats-icon-alt-dup-001");
+  const titleFixed = useScenario("home-stats-icon-title-001");
+  const rank = blinkFixed ? <span>#4</span> : createElement("blink", { "data-a11y-scenario": "home-stats-blink-001" }, "#4");
+  const stats = [
+    { img: <img src={STAT_ICONS.people} width={40} height={40} alt={dupFixed ? "" : "Highlight"} data-a11y-scenario="home-stats-icon-alt-dup-001" />, value: "18,000", label: "students from 50 states and 40 countries" },
+    { img: <img src={STAT_ICONS.ratio} width={40} height={40} alt={dupFixed ? "" : "Highlight"} data-a11y-scenario="home-stats-icon-alt-dup-001" />, value: "19:1", label: "student-to-faculty ratio" },
+    { img: <img src={STAT_ICONS.tree} width={40} height={40} alt="" />, value: "1,200", label: "acres of research forest on campus" },
+    { img: <img src={STAT_ICONS.trophy} width={40} height={40} {...(titleFixed ? { alt: "" } : { title: "Ranking" })} data-a11y-scenario="home-stats-icon-title-001" />, value: rank, label: "public university in the West for social mobility" },
+  ];
+  const cell = (s: (typeof stats)[number]) => <>{s.img}<span className="home-stat-value">{s.value}</span><span className="home-stat-label">{s.label}</span></>;
   return (
-    <section aria-labelledby="home-events-heading" className="stack home-events">
-      <div className="home-section-head">
-        <h2 id="home-events-heading">Events</h2>
-        <SmartLink scenario="home-events-calendar-window-001" to="/events" newWindow>Full calendar</SmartLink>
-      </div>
-      <div data-a11y-scenario="home-events-list-001">
-        {listFixed ? <ul className="home-event-list">{rows}</ul> : <div className="home-event-list">{rows}</div>}
+    <section className="home-stats-band home-bleed" aria-labelledby="stats-heading">
+      <div className="container">
+        <h2 id="stats-heading" className="home-h2">Redwood State by the numbers</h2>
+        <div data-a11y-scenario="home-stats-layout-table-001">
+          {listFixed
+            ? <ul className="home-stats">{stats.map((s) => <li key={s.label} className="home-stat">{cell(s)}</li>)}</ul>
+            : <table className="home-stats"><tbody><tr>{stats.map((s) => <td key={s.label} className="home-stat">{cell(s)}</td>)}</tr></tbody></table>}
+        </div>
       </div>
     </section>
   );
 }
 
-// ---------- Key dates table (styles/sections/home.css) ----------
-const WARNING_ICON =
-  "data:image/svg+xml;utf8," +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#b3541e" stroke-width="2"><path d="M12 3 2 20h20Z"/><path d="M12 10v4M12 17.5v.01"/></svg>',
-  );
+// ---------- Redwood State Today ----------
 
-const CALENDAR_ICON =
-  "data:image/svg+xml;utf8," +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#7a2e1f" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>',
-  );
+function Stories() {
+  const allFixed = useScenario("home-stories-all-link-001");
+  const imgAltFixed = useScenario("home-story-feature-img-link-001");
+  const unlinked = useScenario("home-story-feature-link-redundant-001");
+  const titleAttrFixed = useScenario("home-story-title-attr-001");
+  const longFixed = useScenario("home-story-img-alt-long-001");
+  const underlineFixed = useScenario("home-story-underline-001");
+  useScenario("home-story-date-small-001"); // CSS
 
-const KEY_DATES: { date: string; event: string; category: "academic" | "financial"; urgent?: boolean }[] = [
-  { date: "Dec 1, 2026", event: "Fall 2027 Priority Application Deadline", category: "academic", urgent: true },
-  { date: "Jan 12, 2027", event: "Spring Semester Begins", category: "academic" },
-  { date: "Mar 2, 2027", event: "FAFSA Priority Deadline", category: "financial" },
-  { date: "Mar 23, 2027", event: "Spring Break Begins", category: "academic" },
-  { date: "May 15, 2027", event: "Commencement", category: "academic" },
+  const feature = "/news/tide-pool-study-coastal-warming";
+  const featureImg = (
+    <Img
+      image="news-tide-pool-study-coastal-warming"
+      alt={imgAltFixed && !unlinked ? "Tide pool study tracks a warming coast" : ""}
+      className="story-img" sizes="(min-width: 60rem) 45vw, 100vw" aspect="4 / 3"
+      data-a11y-scenario="home-story-feature-img-link-001"
+    />
+  );
+  const title = (to: string, text: string, attr?: boolean) => (
+    <Heading scenario="home-stories-heading-skip-001" level={3} defect="skipped" defectLevel={4} className="story-title">
+      <Link to={to} title={attr && !titleAttrFixed ? text : undefined} data-a11y-scenario={attr ? "home-story-title-attr-001" : undefined}>{text}</Link>
+    </Heading>
+  );
+  const date = (text: string) => <span className="story-date" data-a11y-scenario="home-story-date-small-001">{text}</span>;
+
+  return (
+    <section className="home-section" aria-labelledby="stories-heading">
+      <div className="home-section-head">
+        <h2 id="stories-heading" className="home-h2">Redwood State Today</h2>
+        <Link to="/news" className="round-link" aria-label={allFixed ? "All news" : undefined} data-a11y-scenario="home-stories-all-link-001">{ARROW}</Link>
+      </div>
+      <div className="stories">
+        <article className="story story--feature">
+          {unlinked ? featureImg : <Link to={feature} className="story-img-link" data-a11y-scenario="home-story-feature-link-redundant-001">{featureImg}</Link>}
+          <div className="story-body">
+            {date("Research · September 22, 2026")}
+            {title(feature, "Tide pool study tracks a warming coast")}
+            <p className="story-dek" data-a11y-scenario="home-story-underline-001">
+              Biology students have logged water temperatures at Gull Rock Point every week since 2009, building{" "}
+              <span className={underlineFixed ? "story-em" : "story-underline"}>one of the longest shoreline records</span> on the North Coast.
+            </p>
+            <SmartLink scenario="home-story-readmore-001" to="/news/category/research" defect="Read more" className="story-more">More research news</SmartLink>
+          </div>
+        </article>
+        <article className="story">
+          <Img image="news-engineering-robotics-lab-opens" alt="DSC_0192.JPG" scenario="home-card-img-alt-suspicious-001" fixedAlt="" className="story-img" sizes="(min-width: 60rem) 22vw, 100vw" aspect="4 / 3" />
+          <div className="story-body">
+            {date("Campus · September 15, 2026")}
+            {title("/news/engineering-robotics-lab-opens", "Robotics lab opens in Sequoia Engineering Hall", true)}
+            <p className="story-dek">Students now build forest-monitoring drones in the new Robotics and Autonomous Systems Lab.</p>
+          </div>
+        </article>
+        <article className="story">
+          <Img
+            image="news-womens-soccer-conference-title"
+            alt={longFixed ? "" : "Photo of the Redwood State University Redwood Owls women's soccer team celebrating on Redwood Field after scoring the winning goal in the 2-1 victory over Cascade State that clinched the 2026 conference championship, taken on September 20, 2026"}
+            className="story-img" sizes="(min-width: 60rem) 22vw, 100vw" aspect="4 / 3"
+            data-a11y-scenario="home-story-img-alt-long-001"
+          />
+          <div className="story-body">
+            {date("Athletics · September 20, 2026")}
+            {title("/news/womens-soccer-conference-title", "Women's soccer clinches the conference title")}
+            <p className="story-dek">A late goal beats Cascade State 2–1 and extends the Owls&rsquo; unbeaten run to nine.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+// ---------- Key dates ----------
+
+type DateCat = "Admissions" | "Financial aid" | "Academic";
+const DATES: { month: string; day: string; title: string; who: string; cat: DateCat; details: string }[] = [
+  { month: "Oct", day: "15", title: "Spring 2027 class schedule published", who: "Current students", cat: "Academic", details: "Browse every spring section in the course search and plan your schedule with your advisor." },
+  { month: "Nov", day: "2", title: "Spring 2027 registration opens", who: "Current students", cat: "Academic", details: "Registration opens by time ticket; check RedwoodConnect for your appointment and any holds." },
+  { month: "Dec", day: "1", title: "Fall 2027 priority application deadline", who: "Future students", cat: "Admissions", details: "First-year and transfer applicants who apply by December 1 get priority for housing and scholarships." },
+  { month: "Jan", day: "12", title: "Spring semester begins", who: "Everyone", cat: "Academic", details: "The first day of spring classes. The add/drop period runs through January 23." },
+  { month: "Feb", day: "15", title: "Redwood Scholars application closes", who: "Future students", cat: "Financial aid", details: "One application covers every Redwood State merit scholarship for new students." },
+  { month: "Mar", day: "2", title: "FAFSA and CA Dream Act priority deadline", who: "All students", cat: "Financial aid", details: "Submit by March 2 to be considered for Cal Grants and the most institutional aid." },
 ];
-const DATE_FILTERS = ["All", "Academic", "Financial"] as const;
+const FILTERS = ["All", "Admissions", "Financial aid", "Academic"] as const;
+const COLS = ["Date", "Deadline", "For"];
 
-/**
- * Scenarios on this table: home-dates-table-headers-001 (column headers are empty <th>s; CSS draws their text),
- * home-dates-table-calendar-alt-001 (each row's "add to calendar" link is an image with no alt),
- * home-dates-table-region-typo-001 (aria-labeledby typo on the section), home-dates-table-sort-value-001
- * (invalid aria-sort value on the Date header), home-dates-table-action-dupid-001 (every row's "Details" button
- * shares one hardcoded id, so aria-labelledby resolves to the same row for all of them),
- * home-dates-table-filter-tab-001 (the filter pills use role="tab" with no role="tablist" parent) and
- * home-dates-table-urgent-icon-001 (the "act soon" icon on the nearest deadline has alt="").
- */
-function KeyDatesTable() {
-  const headersFixed = useScenario("home-dates-table-headers-001");
-  const calendarFixed = useScenario("home-dates-table-calendar-alt-001");
-  const regionFixed = useScenario("home-dates-table-region-typo-001");
-  const sortFixed = useScenario("home-dates-table-sort-value-001");
-  const idsFixed = useScenario("home-dates-table-action-dupid-001");
-  const tablistFixed = useScenario("home-dates-table-filter-tab-001");
-  const iconFixed = useScenario("home-dates-table-urgent-icon-001");
-  const [filter, setFilter] = useState<(typeof DATE_FILTERS)[number]>("All");
-  const rows = KEY_DATES.filter((d) => filter === "All" || d.category === filter.toLowerCase());
+function KeyDates() {
+  const marqueeFixed = useScenario("home-dates-marquee-001");
+  const captionFixed = useScenario("home-dates-caption-001");
+  const headersFixed = useScenario("home-dates-headers-001");
+  const hoverFixed = useScenario("home-dates-row-hover-001");
+  const focusFixed = useScenario("home-dates-filter-focus-001");
+  const pdfFixed = useScenario("home-dates-pdf-001");
+  const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
+  const [open, setOpen] = useState<string | null>(null);
+  const tableRef = useRef<HTMLTableElement>(null);
+  const rows = DATES.filter((d) => filter === "All" || d.cat === filter);
 
-  // Defective: the <th> is empty in the DOM and its visible label comes from CSS (content: attr(data-label)).
-  const head = (label: string) => (headersFixed ? label : null);
-  const headProps = (label: string) => (headersFixed ? {} : { "data-label": label, className: "dates-th-css" });
-  const regionProps = regionFixed ? { "aria-labelledby": "key-dates-heading" } : { "aria-labeledby": "key-dates-heading" };
+  // Defective: React can't render inline handler attributes, so set them on the live rows (WAVE reads attributes).
+  useEffect(() => {
+    for (const tr of tableRef.current?.querySelectorAll("tbody tr.dates-row") ?? []) {
+      if (hoverFixed) { tr.removeAttribute("onmouseover"); tr.removeAttribute("onmouseout"); continue; }
+      tr.setAttribute("onmouseover", "this.classList.add('is-hover')");
+      tr.setAttribute("onmouseout", "this.classList.remove('is-hover')");
+    }
+  });
+
+  const choose = (f: (typeof FILTERS)[number]) => {
+    setFilter(f);
+    setOpen(null);
+    if (!focusFixed) requestAnimationFrame(() => tableRef.current?.querySelector<HTMLButtonElement>("tbody button")?.focus());
+  };
+  const next = marqueeFixed
+    ? <p className="dates-next">Next up: spring registration opens Nov. 2</p>
+    : createElement("marquee", { className: "dates-next", behavior: "slide", scrollamount: "4000", scrolldelay: "0", truespeed: "", loop: "1", "data-a11y-scenario": "home-dates-marquee-001" }, "Next up: spring registration opens Nov. 2");
 
   return (
-    <section {...regionProps} className="stack" data-a11y-scenario="home-dates-table-region-typo-001">
-      <h2 id="key-dates-heading">Key Dates This Term</h2>
-      <div
-        className="dates-filter"
-        role={tablistFixed ? "tablist" : undefined}
-        aria-label="Filter key dates"
-        data-a11y-scenario="home-dates-table-filter-tab-001"
-      >
-        {DATE_FILTERS.map((f) => (
-          <button
-            key={f}
-            type="button"
-            role="tab"
-            aria-selected={filter === f}
-            className={`dates-filter-pill${filter === f ? " is-active" : ""}`}
-            onClick={() => setFilter(f)}
-          >
-            {f}
-          </button>
-        ))}
+    <section className="home-section" aria-labelledby="key-dates-heading">
+      <div className="home-section-head">
+        <h2 id="key-dates-heading" className="home-h2">Key dates</h2>
+        <div className="dates-filters" role="group" aria-label="Filter key dates" data-a11y-scenario="home-dates-filter-focus-001">
+          {FILTERS.map((f) => <button key={f} type="button" className="dates-filter" aria-pressed={filter === f} onClick={() => choose(f)}>{f}</button>)}
+        </div>
       </div>
-      <div className="table-wrap">
-        <table className="data-table">
-          <caption>Upcoming academic and financial deadlines</caption>
+      {next}
+      <div className="dates-wrap">
+        <table ref={tableRef} className="dates-table" data-a11y-scenario="home-dates-caption-001 home-dates-headers-001 home-dates-row-hover-001">
+          {captionFixed && <caption className="dates-term">2026–27 academic year</caption>}
           <thead>
             <tr>
-              <th scope="col" {...headProps("Date")} aria-sort={sortFixed ? "ascending" : ("asc" as "ascending")} data-a11y-scenario="home-dates-table-headers-001 home-dates-table-sort-value-001">{head("Date")}</th>
-              <th scope="col" {...headProps("Event")} data-a11y-scenario="home-dates-table-headers-001">{head("Event")}</th>
-              <th scope="col" {...headProps("Details")} data-a11y-scenario="home-dates-table-headers-001">{head("Details")}</th>
+              {COLS.map((c) => <th key={c} scope="col" className={headersFixed ? undefined : "th-css"} data-label={c}>{headersFixed ? c : null}</th>)}
+              <th scope="col">{headersFixed ? <span className="visually-hidden">Details</span> : null}</th>
             </tr>
           </thead>
           <tbody>
-            {rows.map((d, i) => (
-              <tr key={d.event}>
-                <td>
-                  {d.urgent && (
-                    <img
-                      src={WARNING_ICON}
-                      width="16"
-                      height="16"
-                      alt={iconFixed ? "Deadline is approaching" : ""}
-                      className="dates-urgent-icon"
-                      data-a11y-scenario="home-dates-table-urgent-icon-001"
+            {!captionFixed && <tr><td colSpan={4} className="dates-term">2026–27 academic year</td></tr>}
+            {rows.flatMap((d) => {
+              const expanded = open === d.title;
+              const row = (
+                <tr key={d.title} className="dates-row">
+                  <td className="dates-when"><span className="dates-month">{d.month}</span> <span className="dates-day">{d.day}</span></td>
+                  <td className="dates-what">{d.title}<span className={`dates-tag dates-tag--${d.cat.split(" ")[0].toLowerCase()}`}>{d.cat}</span></td>
+                  <td className="dates-who">{d.who}</td>
+                  <td className="dates-more">
+                    <IconButton
+                      scenario="home-dates-details-btn-001" label={`Details for ${d.title}`} className="dates-toggle"
+                      icon={<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round"><path d={expanded ? "M6 15l6-6 6 6" : "M6 9l6 6 6-6"} /></svg>}
+                      aria-expanded={expanded} onClick={() => setOpen(expanded ? null : d.title)}
                     />
-                  )}
-                  {" "}{d.date}
-                </td>
-                <td>{d.event}</td>
-                <td>
-                  <button
-                    type="button"
-                    className="dates-detail-btn"
-                    aria-labelledby={idsFixed ? `dates-row-detail-${i}` : "dates-row-detail"}
-                    data-a11y-scenario="home-dates-table-action-dupid-001"
-                  >
-                    <span aria-hidden="true">ⓘ</span>
-                  </button>
-                  <span id={idsFixed ? `dates-row-detail-${i}` : "dates-row-detail"} className="visually-hidden">
-                    Details for {d.event}
-                  </span>
-                  <Link
-                    to={`/academics/calendar?event=${d.event.toLowerCase().replace(/\W+/g, "-")}`}
-                    className="dates-cal-link"
-                    data-a11y-scenario="home-dates-table-calendar-alt-001"
-                  >
-                    <img src={CALENDAR_ICON} width="18" height="18" alt={calendarFixed ? `Add ${d.event} to your calendar` : undefined} />
-                  </Link>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              );
+              return expanded ? [row, <tr key={`${d.title}-details`} className="dates-details"><td colSpan={4}>{d.details}</td></tr>] : [row];
+            })}
           </tbody>
         </table>
       </div>
+      <div className="dates-foot">
+        <p className="dates-all" data-a11y-scenario="home-dates-pdf-001">
+          {pdfFixed
+            ? <Link to="/academics/calendar">View the full 2026–27 academic calendar</Link>
+            : <a href={`${base}documents/academic-calendar-2026-27.pdf`}>Download the full 2026–27 academic calendar</a>}
+          {ARROW}
+        </p>
+        <DeadlineReminders />
+      </div>
     </section>
   );
 }
 
-/**
- * home-newsletter-heading-empty-001 (heading rendered empty, replaced by a background-image wordmark),
- * home-newsletter-label-mismatch-001 (the visible "Email address" label points at the wrong input),
- * home-newsletter-frequency-select-001 (the frequency <select> has no associated label) and
- * home-newsletter-subscribe-image-001 (the submit control is an <input type="image"> with no alt).
- */
-function NewsletterSignup() {
-  const headingFixed = useScenario("home-newsletter-heading-empty-001");
-  const labelFixed = useScenario("home-newsletter-label-mismatch-001");
-  const selectFixed = useScenario("home-newsletter-frequency-select-001");
-  const submitFixed = useScenario("home-newsletter-subscribe-image-001");
-  const nameFixed = useScenario("home-newsletter-first-labels-001");
-  const privacyFixed = useScenario("home-newsletter-privacy-ref-001");
-
+/** home-dates-remind-label-001: the email field's only "label" is its placeholder. */
+function DeadlineReminders() {
+  const fixed = useScenario("home-dates-remind-label-001");
+  const [sent, setSent] = useState(false);
+  if (sent) return <p className="dates-remind-done" role="status">You&rsquo;re set. We&rsquo;ll email you a week before each deadline.</p>;
   return (
-    <section aria-labelledby={headingFixed ? "newsletter-heading" : undefined} className="stack newsletter-box">
-      {headingFixed
-        ? <h2 id="newsletter-heading">Stay Connected</h2>
-        : <h2 className="newsletter-heading-image" data-a11y-scenario="home-newsletter-heading-empty-001" />}
-      <p>Get campus news and event reminders by email.</p>
-      <Form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
-        <div className="newsletter-field" data-a11y-scenario="home-newsletter-first-labels-001">
-          <label htmlFor="newsletter-first">{nameFixed ? "First name (required)" : "First name"}</label>
-          <input id="newsletter-first" name="first" type="text" autoComplete="given-name" required />
-          {!nameFixed && <label htmlFor="newsletter-first" className="newsletter-req">Required</label>}
-        </div>
-        <div className="newsletter-field" data-a11y-scenario="home-newsletter-label-mismatch-001">
-          <label htmlFor={labelFixed ? "newsletter-email" : "newsletter-hp"}>Email address</label>
-          <input
-            id="newsletter-email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            aria-describedby={privacyFixed ? "newsletter-privacy-note" : "newsletter-privacy"}
-            data-a11y-scenario="home-newsletter-privacy-ref-001"
-          />
-          {!labelFixed && <input id="newsletter-hp" type="text" className="visually-hidden" tabIndex={-1} aria-hidden="true" />}
-        </div>
-        <div className="newsletter-field" data-a11y-scenario="home-newsletter-frequency-select-001">
-          {selectFixed && <label htmlFor="newsletter-frequency">How often?</label>}
-          {!selectFixed && <span className="newsletter-frequency-caption">How often?</span>}
-          <select id={selectFixed ? "newsletter-frequency" : undefined} name="frequency" defaultValue="weekly">
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-          </select>
-        </div>
-        {submitFixed ? (
-          <button type="submit" className="btn btn--primary">Subscribe</button>
-        ) : (
-          <input type="image" src={SUBSCRIBE_ICON} width="120" height="36" alt="" className="newsletter-submit-img" data-a11y-scenario="home-newsletter-subscribe-image-001" />
-        )}
-      </Form>
-      <p id="newsletter-privacy-note" className="newsletter-privacy">We never share your address. Unsubscribe anytime.</p>
-    </section>
+    <form className="dates-remind" onSubmit={(e) => { e.preventDefault(); setSent(true); }} data-a11y-scenario="home-dates-remind-label-001">
+      <span className="dates-remind-lead">Never miss a deadline</span>
+      {fixed && <label htmlFor="remind-email" className="visually-hidden">Email address for deadline reminders</label>}
+      <input id="remind-email" name="email" type="email" required autoComplete="email" placeholder="you@example.com" />
+      <button type="submit" className="btn btn--primary">Remind me</button>
+    </form>
   );
 }
 
-const SUBSCRIBE_ICON =
-  "data:image/svg+xml;utf8," +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 36"><rect width="120" height="36" rx="6" fill="#7a2e1f"/><text x="60" y="23" font-family="sans-serif" font-size="14" fill="#fff" text-anchor="middle">Subscribe</text></svg>',
-  );
+// ---------- Campus map ----------
 
-// ---------- Plan 06 #11: hero carousel and announcement ticker (styles/features/carousel.css) ----------
-// The first render shows slide 1 and an untouched ticker; timers start in effects only, so the prerendered HTML
-// equals the first client render.
-
-const altOf = (id: string) => (imageSizes as Record<string, { alt: string }>)[id]?.alt ?? "";
-const ROTATE_MS = 6000;
-
-interface Slide { image: string; kicker: string; title: string; lede: string; actions: { label: string; to: string }[] }
-const slides: Slide[] = [
-  {
-    image: "home-hero-quad", kicker: brand.name, title: "Deep roots. Wide branches.",
-    lede: "A public research university on California's redwood coast, where 18,000 students learn, discover, and grow.",
-    actions: [{ label: "Apply to Redwood State", to: "/admissions" }, { label: "Plan a visit", to: "/admissions/visit" }],
-  },
-  {
-    image: "home-slide-research", kicker: "Research", title: "A 1,200-acre forest for a laboratory",
-    lede: "Students and faculty study carbon, water and wildlife in the Tanoak Creek Research Forest, part of $38.9 million in external research funding last year.",
-    actions: [{ label: "Explore academics", to: "/academics" }],
-  },
-  {
-    image: "home-slide-arts", kicker: "Arts", title: "On stage this fall",
-    lede: "Concerts, exhibitions and student productions fill the calendar at Hartwell Fine Arts Center and across campus.",
-    actions: [{ label: "See upcoming events", to: "/events" }],
-  },
-  {
-    image: "home-slide-forest", kicker: "Learning outdoors", title: "Class meets under the canopy",
-    lede: "Field courses take students from Canopy Green into the research forest and down to the tide pools at Gull Rock Point.",
-    actions: [{ label: "Browse programs", to: "/academics/programs" }],
-  },
-  {
-    image: "home-slide-commencement", kicker: "Admissions", title: "Apply by December 1",
-    lede: "The priority application deadline for fall 2027 is December 1, 2026. First-year and transfer applicants are welcome.",
-    actions: [{ label: "Start your application", to: "/admissions/apply" }],
-  },
+const HOTSPOTS: { code: string; label: string; alt: string }[] = [
+  { code: "FDR", label: "Founders Hall", alt: "Founders Hall: Admissions and Financial Aid" },
+  { code: "LIB", label: "Sequoia Library", alt: "Sequoia Library" },
+  { code: "SU", label: "Student Union", alt: "Rowan Student Union" },
+  { code: "SEH", label: "Engineering", alt: "Sequoia Engineering Hall" },
+  { code: "OAC", label: "Owl Arena", alt: "Owl Arena" },
 ];
+const FILL: Record<string, string> = { academic: "#e4d9c8", housing: "#ddd1e4", "student-life": "#f0dcae", athletics: "#cddfe9", services: "#e1e1dc" };
+const hot = new Map(HOTSPOTS.map((h) => [h.code, h]));
+const MAP_IMG = svg(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${MAP_W} ${MAP_H}" font-family="Helvetica, Arial, sans-serif">
+<rect width="${MAP_W}" height="${MAP_H}" fill="#eef3ea"/>
+<rect x="24" y="24" width="952" height="592" rx="56" fill="none" stroke="#fff" stroke-width="20"/>
+<path d="M500 24V616M24 236H976" stroke="#fff" stroke-width="12"/>
+<rect x="410" y="245" width="180" height="140" rx="18" fill="#cfe2c3"/>
+<text x="500" y="322" text-anchor="middle" font-size="17" fill="#4d6b45" font-weight="700">Canopy Green</text>
+${buildings.map((b) => {
+  const [x, y, w, h] = b.box;
+  const spot = hot.get(b.code);
+  return spot
+    ? `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="#7a2e1f"/><text x="${x + w / 2}" y="${y + h / 2 + 6}" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">${spot.label}</text>`
+    : `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="${FILL[b.category]}"/><text x="${x + w / 2}" y="${y + h / 2 + 5}" text-anchor="middle" font-size="13" fill="#5c5c56">${b.code}</text>`;
+}).join("")}
+</svg>`);
 
-/**
- * home-carousel-pause-001 (no pause, ignores reduced motion), home-carousel-controls-kbd-001 (span controls) and
- * home-carousel-focus-001 (focus follows every slide change). Slide 1 keeps home-hero-img-alt-001.
- */
-function HeroCarousel() {
-  const pauseFixed = useScenario("home-carousel-pause-001");
-  const kbdFixed = useScenario("home-carousel-controls-kbd-001");
-  const focusFixed = useScenario("home-carousel-focus-001");
-  const ctaVisibleToAT = useScenario("home-hero-cta-hidden-001");
-  const [index, setIndex] = useState(0);
-  const [playing, setPlaying] = useState(true);
-  const [hold, setHold] = useState(false);
-  const [reduced, setReduced] = useState(false);
-  const slideEls = useRef<(HTMLDivElement | null)[]>([]);
-  const changed = useRef(false);
-  const n = slides.length;
+function CampusMapTeaser() {
+  const imgFixed = useScenario("home-map-img-alt-001");
+  const areaFixed = useScenario("home-map-area-alt-001");
+  const longdescFixed = useScenario("home-map-longdesc-001");
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [scale, setScale] = useState(0.56);
 
+  // <area> coords are in rendered pixels, so rescale them whenever the image resizes.
   useEffect(() => {
-    const mq = window.matchMedia?.("(prefers-reduced-motion: reduce)");
-    if (!mq) return;
-    const on = () => setReduced(mq.matches);
-    on();
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
+    const img = imgRef.current;
+    if (!img) return;
+    const update = () => setScale(img.clientWidth / MAP_W || 0.56);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(img);
+    return () => ro.disconnect();
   }, []);
-  // Fixed: never auto-rotate under reduced motion (the visitor can still press Play).
-  useEffect(() => { if (pauseFixed && reduced) setPlaying(false); }, [pauseFixed, reduced]);
 
-  const rotating = pauseFixed ? playing && !hold : true;
-  useEffect(() => {
-    if (!rotating) return;
-    const t = setInterval(() => { changed.current = true; setIndex((i) => (i + 1) % n); }, ROTATE_MS);
-    return () => clearInterval(t);
-  }, [rotating, n]);
-
-  // Defective: every slide change focuses the new slide (except while the tester is in the a11y control).
-  useEffect(() => {
-    if (!changed.current) return;
-    changed.current = false;
-    if (focusFixed || document.activeElement?.closest(".a11y-control")) return;
-    slideEls.current[index]?.focus({ preventScroll: true });
-  }, [index, focusFixed]);
-
-  const go = (i: number) => { changed.current = true; setIndex((i + n) % n); };
-  const control = (label: string, className: string, onClick: () => void, children: React.ReactNode, current?: boolean, key?: string) =>
-    kbdFixed
-      ? <button key={key} type="button" className={className} aria-label={label} aria-current={current ? "true" : undefined} onClick={onClick}>{children}</button>
-      : <span key={key} className={className} onClick={onClick}>{children}</span>;
-  const holdProps = pauseFixed ? {
-    onMouseEnter: () => setHold(true),
-    onMouseLeave: () => setHold(false),
-    onFocus: () => setHold(true),
-    onBlur: (e: React.FocusEvent) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setHold(false); },
-  } : {};
-
+  const spots = buildings.filter((b) => hot.has(b.code));
   return (
-    <section
-      className="home-carousel"
-      aria-roledescription="carousel"
-      aria-label="Featured stories"
-      data-a11y-scenario="home-carousel-pause-001 home-carousel-controls-kbd-001 home-carousel-focus-001"
-      {...holdProps}
-    >
-      <div className="home-carousel-slides" aria-live={pauseFixed && !rotating ? "polite" : "off"}>
-        {slides.map((s, i) => {
-          const H = i === 0 ? "h1" : "h2";
-          return (
-            <div
-              key={s.image}
-              ref={(el) => { slideEls.current[i] = el; }}
-              className={`hero hero--overlay hero--has-image home-slide${i === index ? " is-active" : ""}`}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${i + 1} of ${n}`}
-              inert={i !== index}
-              tabIndex={focusFixed ? undefined : -1}
-            >
-              <div className="hero-media">
-                {i === 0
-                  ? <Img image={s.image} scenario="home-hero-img-alt-001" loading="eager" fetchPriority="high" />
-                  : <Img image={s.image} alt={altOf(s.image)} />}
-              </div>
-              <div className="hero-body">
-                <p className="hero-kicker">{s.kicker}</p>
-                <H id={i === 0 ? "page-title" : undefined}>{s.title}</H>
-                <p className="hero-lede">{s.lede}</p>
-                <div className="hero-actions">
-                  {s.actions.map((a, j) => {
-                    const link = <ButtonLink to={a.to} variant={j ? "secondary" : "primary"}>{a.label}</ButtonLink>;
-                    // Scenario home-hero-cta-hidden-001: slide 1's secondary action is hidden from the
-                    // accessibility tree while it stays fully visible and clickable.
-                    return i === 0 && j === 1 ? (
-                      <span key={a.to} aria-hidden={ctaVisibleToAT ? undefined : "true"} data-a11y-scenario="home-hero-cta-hidden-001">{link}</span>
-                    ) : <span key={a.to}>{link}</span>;
-                  })}
-                </div>
-              </div>
-            </div>
-          );
-        })}
+    <section className="home-section home-map" aria-labelledby="map-heading">
+      <div className="home-map-text">
+        <p className="home-eyebrow">Campus</p>
+        <h2 id="map-heading" className="home-h2">Find your way around</h2>
+        <p>A walkable campus between the redwoods and the Pacific, with most of what you need five minutes from Canopy Green. Select a building to see what&rsquo;s inside, or open the full map for parking, entrances and accessible routes.</p>
+        <Link to="/campus-map" className="btn btn--primary home-btn">Open the campus map</Link>
       </div>
-      <div className="carousel-controls">
-        {pauseFixed && (
-          <button type="button" className="carousel-btn carousel-pause" onClick={() => setPlaying(!playing)}>
-            <span aria-hidden="true">{playing ? "❚❚" : "▶"}</span> {playing ? "Pause" : "Play"}<span className="visually-hidden"> slideshow</span>
-          </button>
-        )}
-        {control("Previous slide", "carousel-btn carousel-arrow", () => go(index - 1), <span aria-hidden="true">‹</span>)}
-        <span className="carousel-dots">
-          {slides.map((s, i) => control(`Slide ${i + 1} of ${n}: ${s.title}`, `carousel-dot${i === index ? " is-active" : ""}`, () => go(i), null, i === index, s.image))}
-        </span>
-        {control("Next slide", "carousel-btn carousel-arrow", () => go(index + 1), <span aria-hidden="true">›</span>)}
+      <div className="home-map-figure" data-a11y-scenario="home-map-img-alt-001 home-map-area-alt-001 home-map-longdesc-001">
+        <img
+          ref={imgRef} src={MAP_IMG} width={MAP_W} height={MAP_H} useMap="#home-campus-map" className="home-map-img"
+          alt={imgFixed ? "" : undefined} {...(longdescFixed ? {} : { longdesc: "Campus map showing Founders Hall, Sequoia Library, the Student Union, the Engineering Hall and Owl Arena around Canopy Green" })}
+        />
+        <map name="home-campus-map">
+          {spots.map((b) => {
+            const [x, y, w, h] = b.box.map((n) => Math.round(n * scale));
+            return <area key={b.code} shape="rect" coords={`${x},${y},${x + w},${y + h}`} href={`${base}campus-map`} alt={areaFixed ? hot.get(b.code)!.alt : undefined} />;
+          })}
+        </map>
       </div>
     </section>
   );
 }
 
-const announcements = [
-  { text: "Spring 2027 registration opens November 2 by time ticket.", to: "/students/registrar" },
-  { text: "Homecoming & Family Weekend is October 23–25.", to: "/events/homecoming-2026" },
-  { text: "Fall 2027 priority application deadline: December 1, 2026.", to: "/admissions/apply" },
-  { text: "Owls basketball opens at home against Cascade State on November 6.", to: "/events/basketball-home-opener" },
-  { text: "Madrone Hall and the Robotics and Autonomous Systems Lab opened in August.", to: "/news" },
-];
+// ---------- Plan your visit ----------
 
-/** home-ticker-motion-001: an endless CSS marquee. Fixed: Pause button, pauses on hover/focus, static under reduced motion. */
-function AnnouncementTicker() {
-  const fixed = useScenario("home-ticker-motion-001");
-  const [paused, setPaused] = useState(false);
-  const items = announcements.map((a) => <li key={a.to}><Link to={a.to}>{a.text}</Link></li>);
+function VisitBand() {
+  const altFixed = useScenario("home-visit-img-alt-redundant-001");
   return (
-    <section className={`home-ticker${fixed && paused ? " is-paused" : ""}`} aria-label="Campus announcements" data-a11y-scenario="home-ticker-motion-001">
-      <p className="home-ticker-label">Announcements</p>
-      <div className="home-ticker-window">
-        <div className="ticker-track">
-          <ul>{items}</ul>
-          <ul className="ticker-dup" aria-hidden="true" inert>{items}</ul>
+    <section className="home-visit home-bleed" aria-labelledby="visit-heading">
+      <div className="container home-visit-inner">
+        <div className="home-visit-text">
+          <p className="home-eyebrow home-eyebrow--light">Visit</p>
+          <h2 id="visit-heading" className="home-h2">Plan your visit</h2>
+          <p className="home-visit-lede">Walk the quad with a student guide, sit in on a class and eat in the Grove. Tours leave the Welcome Center weekdays at 10 a.m. and 2 p.m.</p>
+          <div className="home-hero-actions">
+            <Link to="/admissions/visit" className="btn btn--primary home-btn home-btn--light">Schedule a tour</Link>
+            <Link to="/visitors" className="btn home-btn home-btn--ghost">Directions and parking</Link>
+          </div>
         </div>
+        <Img image="admissions-hero-tour" alt={altFixed ? "" : "Plan your visit"} className="home-visit-img" sizes="(min-width: 60rem) 40vw, 100vw" aspect="16 / 9" data-a11y-scenario="home-visit-img-alt-redundant-001" />
       </div>
-      {fixed && (
-        <button type="button" className="ticker-pause" onClick={() => setPaused(!paused)}>
-          {paused ? "Play" : "Pause"}<span className="visually-hidden"> announcements</span>
-        </button>
-      )}
     </section>
+  );
+}
+
+// ---------- Tracking ----------
+
+function Tracking() {
+  const spacerFixed = useScenario("home-tracking-spacer-001");
+  const noscriptFixed = useScenario("home-tracking-noscript-001");
+  return (
+    <>
+      <img src={`${base}images/spacer.gif`} width={1} height={1} className="home-pixel" alt={spacerFixed ? "" : undefined} data-a11y-scenario="home-tracking-spacer-001" />
+      {!noscriptFixed && <noscript data-a11y-scenario="home-tracking-noscript-001">Turn on JavaScript to see the interactive campus map.</noscript>}
+    </>
   );
 }

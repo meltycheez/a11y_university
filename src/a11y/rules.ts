@@ -52,6 +52,14 @@ export const rules = {
   // not manual judgement calls.
   "contrast-text-low": e(["1.4.3"], ["contrast"], ["color-contrast"]),
   "contrast-ui-low": e(["1.4.11"], ["contrast"]),
+  // An explicit <label> that has no text: axe's "label" rule still passes when the field has a placeholder.
+  "label-empty": e(["1.3.1", "3.3.2", "4.1.2"], ["forms"], undefined, ["label_empty"]),
+  "img-spacer-missing-alt": e(["1.1.1"], ["images"], ["image-alt"], ["alt_spacer_missing"]),
+  "img-map-missing-alt": e(["1.1.1"], ["images"], ["image-alt"], ["alt_map_missing"]),
+  "area-missing-alt": e(["1.1.1", "2.4.4"], ["images", "links"], ["area-alt"], ["alt_area_missing"]),
+  "longdesc-invalid": e(["1.1.1"], ["images"], undefined, ["longdesc_invalid"]),
+  "blink-element": e(["2.2.2"], ["dynamic"], ["blink"], ["blink"]),
+  "marquee-element": e(["2.2.2"], ["dynamic"], ["marquee"], ["marquee"]),
 
   // ---------- Alerts (Fix Alerts) ----------
   "alt-suspicious": a(["1.1.1"], ["images"], ["alt_suspicious"]),
@@ -76,6 +84,12 @@ export const rules = {
   "link-nearby-duplicate": a(["2.4.4"], ["links"]),
   "fieldset-missing": a(["1.3.1"], ["forms"], ["fieldset_missing"]),
   "link-javascript": a(["2.1.1", "4.1.2"], ["links", "keyboard"], ["link_javascript"]),
+  "h1-missing": a(["1.3.1", "2.4.6"], ["headings"], ["h1_missing"], ["page-has-heading-one"]),
+  "alt-duplicate": a(["1.1.1"], ["images"], ["alt_duplicate"]),
+  "img-title-only": a(["1.1.1"], ["images"], ["image_title"]),
+  "table-caption-possible": a(["1.3.1"], ["tables"], ["table_caption_possible"]),
+  "accesskey-used": a(["2.1.4"], ["keyboard"], ["accesskey"]),
+  "noscript-element": a(["4.1.2"], ["document"], ["noscript"]),
 
   // ---------- Manual (Fix Manual Testing Issues) ----------
   "kbd-dropdown-inoperable": m(["2.1.1"], ["keyboard", "custom-controls"]),

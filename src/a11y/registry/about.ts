@@ -208,6 +208,12 @@ export const aboutScenarios: ScenarioDef[] = [
     description: "After Send, a thank-you message appears below the button, but it isn't in a live region, so screen reader users hear nothing.",
     fixDescription: "The confirmation is inside a role=\"status\" region.",
   },
+  {
+    id: "about-contact-message-label-001", rule: "label-multiple", pages: ["/contact"], component: "ContactForm", mechanism: "markup", severity: "serious",
+    title: "Message field has two labels",
+    description: "The message textarea has a \"Message\" <label> above it and a separate \"Optional\" <label> below it, both pointing at the same field, so screen readers read one, the other, or both depending on the browser.",
+    fixDescription: "One label: \"Message (optional)\".",
+  },
 
   // /alumni (M)
   {

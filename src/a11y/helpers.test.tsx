@@ -13,7 +13,7 @@ it("helpers switch markup with their scenario's toggle", () => {
     <>
       <SmartLink scenario="home-card-img-alt-suspicious-001" to="/documents/x.pdf" defect="Read more" fileInfo="PDF, 1 MB" newWindow>Tuition schedule</SmartLink>
       <IconButton scenario="home-hero-img-alt-001" label="Search" icon="🔍" />
-      <Field scenario="home-program-finder-label-001" id="q" label="Keyword" defect="placeholder" />
+      <Field scenario="home-stories-all-link-001" id="q" label="Keyword" defect="placeholder" />
       <Heading scenario="home-hero-img-alt-001" level={3} defect="skipped" defectLevel={5}>Title</Heading>
     </>,
   );

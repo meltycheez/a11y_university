@@ -66,16 +66,11 @@ for (const { path, nav } of PAGES) {
     const expected = expectedAxeRules(path).filter((id) => !(EXCEPTIONS[path] ?? []).includes(id));
     expect(expected.length, `${path} should register at least one error scenario`).toBeGreaterThan(0);
 
-    // The homepage's error-category img-alt scenario only lives on carousel slide 1; the carousel auto-rotates
-    // (a separate, manual-category defect) regardless of Fix Errors, so pin it back to slide 1 before every
-    // scan or a slow run risks scanning past it once it's `inert`.
-    const pinSlide1 = async () => { if (path === "/") await page.locator(".carousel-dot").first().click(); };
     // Search results (and the facet group with them) load asynchronously after hydration; wait for them so
     // the facet scenarios are actually in the DOM before each scan.
     const settle = async () => { if (path === "/search") await page.locator(".search-facets").waitFor(); };
 
     await page.goto(nav ?? path);
-    await pinSlide1();
     await settle();
     const off = await flaggedIds(page);
     for (const id of expected) expect(off.has(id), `${path}: expected axe finding "${id}" while defective`).toBe(true);
@@ -83,18 +78,15 @@ for (const { path, nav } of PAGES) {
     await openControl(page);
     await fixErrorsSwitch(page).click();
     await expect(fixErrorsSwitch(page)).toHaveAttribute("aria-checked", "true");
-    await pinSlide1();
     const on = await flaggedIds(page);
     for (const id of expected) expect(on.has(id), `${path}: axe finding "${id}" should be fixed`).toBe(false);
 
     await fixErrorsSwitch(page).click();
     await expect(fixErrorsSwitch(page)).toHaveAttribute("aria-checked", "false");
-    await pinSlide1();
     const offAgain = await flaggedIds(page);
     for (const id of expected) expect(offAgain.has(id), `${path}: axe finding "${id}" should return`).toBe(true);
 
     await page.reload();
-    await pinSlide1();
     await settle();
     const afterReload = await flaggedIds(page);
     for (const id of expected) expect(afterReload.has(id), `${path}: axe finding "${id}" should be back after reload`).toBe(true);
