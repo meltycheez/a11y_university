@@ -7,7 +7,7 @@
 import { cp, copyFile, readdir, rm } from "node:fs/promises";
 import path from "node:path";
 
-const clientDir = "build/client";
+const clientDir = `${process.env.BUILD_DIR ?? "build"}/client`;
 const base = (process.env.BASE_PATH ?? "/").replace(/^\/|\/$/g, "");
 
 if (base) {

@@ -10,7 +10,18 @@
 
 /* Brand bar */
 .brand-bar { background: var(--brand-redwood); color: #fff; }
-.brand-inner { display: flex; align-items: center; gap: var(--space-5); padding-block: var(--space-3); }
+.brand-inner { display: flex; align-items: center; gap: var(--space-5); padding-block: var(--space-4); }
+/* Header lockup: a large, prominent wordmark (the footer and portal use the mark alone at their own sizes). */
+.brand-bar .logo { gap: var(--space-4); }
+.brand-bar .logo-mark { width: clamp(3rem, 5vw, 4.25rem); height: auto; }
+.brand-bar .wordmark-name { font-size: clamp(1.6rem, 3.2vw, 2.4rem); letter-spacing: 0; }
+.brand-bar .wordmark-sub { font-size: clamp(0.8rem, 1.2vw, 1.05rem); letter-spacing: 0.38em; margin-top: 0.15em; }
+@media (max-width: 30rem) {
+  .brand-bar .logo { gap: var(--space-3); }
+  .brand-bar .logo-mark { width: 2.75rem; }
+  .brand-bar .wordmark-name { font-size: 1.45rem; }
+  .brand-bar .wordmark-sub { font-size: 0.75rem; letter-spacing: 0.32em; }
+}
 .brand-link { color: #fff; text-decoration: none; margin-right: auto; }
 .brand-link:hover { color: #fff; }
 .logo { display: inline-flex; align-items: center; gap: var(--space-3); }

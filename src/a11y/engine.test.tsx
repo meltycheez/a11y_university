@@ -1,6 +1,6 @@
-import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { Img } from "~/components/Img";
 import { A11yControl } from "./A11yControl";
 import { scenarios } from "./registry";
@@ -87,5 +87,30 @@ describe("A11yControl", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Reset All" }));
     expect(errors.getAttribute("aria-checked")).toBe("false");
+  });
+});
+
+describe("A11yControl highlights", () => {
+  it("outlines unfixed scenarios of a highlighted category and drops them once fixed", async () => {
+    vi.stubGlobal("ResizeObserver", class { observe() {} disconnect() {} });
+    const rect = vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(new DOMRect(10, 40, 200, 100));
+    inRouter(
+      <>
+        <Img image="home-hero-quad" scenario="home-hero-img-alt-001" />
+        <Img image="home-hero-quad" scenario="home-card-img-alt-suspicious-001" />
+        <A11yControl />
+      </>,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Accessibility Test Controls" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Highlight errors" }));
+    const outlines = () => [...document.querySelectorAll(".a11y-hl")];
+    await waitFor(() => expect(outlines().map((el) => el.className)).toEqual(["a11y-hl a11y-hl--error"])); // not the alert
+    expect(outlines()[0].textContent).toBe(scenarios.get("home-hero-img-alt-001")!.title);
+    expect(document.querySelector(".a11y-key")!.textContent).toContain("Error");
+
+    fireEvent.click(screen.getByRole("switch", { name: "Fix Errors" }));
+    await waitFor(() => expect(outlines()).toHaveLength(0));
+    rect.mockRestore();
+    vi.unstubAllGlobals();
   });
 });

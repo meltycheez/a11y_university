@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { scenarios } from "./registry";
+import { CATEGORY_LABEL, CategoryIcon, ScenarioHighlights } from "./ScenarioHighlights";
 import { a11yStore, toggleFor, useA11yState, type Category } from "./state";
 import { useMountedScenarios } from "./useScenario";
+
+const KEY_TEXT: Record<Category, string> = { error: "red dashed outline", alert: "yellow dashed outline", manual: "cyan dashed outline" };
 
 const toggles: { category: Category; label: string; noun: string }[] = [
   { category: "error", label: "Fix Errors", noun: "errors" },
@@ -19,6 +22,8 @@ export function A11yControl() {
   const mounted = useMountedScenarios();
   const [expanded, setExpanded] = useState(false);
   const [message, setMessage] = useState("");
+  // Viewing aid only: module memory like the fix toggles, reset on reload.
+  const [highlight, setHighlight] = useState<Record<Category, boolean>>({ error: false, alert: false, manual: false });
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   const onPage = (c: Category) => [...mounted].filter((id) => scenarios.get(id)?.category === c).length;
@@ -39,6 +44,11 @@ export function A11yControl() {
     const on = !state[toggleFor[c]];
     a11yStore.set({ [toggleFor[c]]: on });
     setMessage(`${label} ${on ? "on" : "off"}. ${onPage(c)} ${noun} ${on ? "corrected" : "restored"} on this page.`);
+  };
+
+  const flipHighlight = (c: Category, noun: string, on: boolean) => {
+    setHighlight((h) => ({ ...h, [c]: on }));
+    setMessage(on ? `Highlighting ${state[toggleFor[c]] ? 0 : onPage(c)} ${noun} on this page.` : `Stopped highlighting ${noun}.`);
   };
 
   return (
@@ -65,6 +75,18 @@ export function A11yControl() {
                   {label}
                 </button>
                 <span className="a11y-count">{on ? 0 : count} active / {count} on page</span>
+                <div className="a11y-highlight-row">
+                  <label className="a11y-highlight-check">
+                    <input type="checkbox" checked={highlight[category]} onChange={(e) => flipHighlight(category, noun, e.target.checked)} />
+                    Highlight <span className="visually-hidden">{noun}</span>
+                  </label>
+                  {highlight[category] && (
+                    <span className={`a11y-key a11y-hl--${category}`}>
+                      <span className="a11y-key-swatch"><CategoryIcon category={category} /></span>
+                      {CATEGORY_LABEL[category]}<span className="visually-hidden">, {KEY_TEXT[category]}</span>
+                    </span>
+                  )}
+                </div>
               </li>
             );
           })}
@@ -76,6 +98,7 @@ export function A11yControl() {
         <p><Link to="/accessibility-lab">Open the Accessibility Lab</Link></p>
       </div>
       <p role="status" className="visually-hidden">{message}</p>
+      <ScenarioHighlights show={highlight} />
     </aside>
   );
 }
