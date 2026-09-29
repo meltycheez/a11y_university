@@ -73,7 +73,7 @@ export default function LibraryHours() {
 
       {content && <ContentSection section={{ heading: "Fall semester schedule", table: content.sections[0].table }} />}
 
-      <ContactCard title="Questions about hours?" lines={[{ label: "Circulation Desk", value: "(707) 555-0271", href: "tel:+17075550271" }, { label: "Email", value: "askus@redwoodstate.example.edu", href: "mailto:askus@redwoodstate.example.edu" }]} />
+      <ContactCard title="Questions about hours?" lines={[{ label: "Circulation Desk", value: "(707) 555-0271", href: "tel:+17075550271" }, { label: "Email", value: "askus@redwoodstate.edu", href: "mailto:askus@redwoodstate.edu" }]} />
     </div>
   );
 }

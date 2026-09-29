@@ -3,8 +3,8 @@
 /* contrast-text-low: moved here from lab-manual-forms.css (ADR-055) — WAVE detects it as a red
    "Contrast Error", not a manual judgement call. */
 .lab-errors-contrast-text { color: #9a9a92; }
-.lab-errors-contrast-text.is-fixed { color: #767676; }
+.lab-errors-contrast-text.is-fixed { color: #717171; } /* 4.55:1 on the specimen box's #f7f7f5 */
 
 /* contrast-ui-low: same move. */
 .lab-errors-contrast-ui { border-color: #d8d8d2 !important; }
-.lab-errors-contrast-ui.is-fixed { border-color: #949494 !important; }
+.lab-errors-contrast-ui.is-fixed { border-color: #8c8c8c !important; } /* 3.13:1 on #f7f7f5 */

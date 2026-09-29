@@ -79,7 +79,7 @@ export default function RequestInfo() {
           title="Prefer to talk?"
           lines={[
             { label: "Phone", value: "(707) 555-0120", href: "tel:+17075550120" },
-            { label: "Email", value: "admissions@redwoodstate.example.edu", href: "mailto:admissions@redwoodstate.example.edu" },
+            { label: "Email", value: "admissions@redwoodstate.edu", href: "mailto:admissions@redwoodstate.edu" },
           ]}
         />
       </div>

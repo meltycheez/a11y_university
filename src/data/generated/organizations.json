@@ -6,7 +6,7 @@
     "description": "Associated Students of Redwood State represents students on university committees and funds hundreds of campus events each year. All students are welcome to join.",
     "meets": "First Thursday of the month, 12:00–1:00 p.m.",
     "location": "Student Union Multipurpose Room",
-    "email": "associatedstudentsof@redwoodstate.example.edu",
+    "email": "associatedstudentsof@redwoodstate.edu",
     "members": 166
   },
   {
@@ -16,7 +16,7 @@
     "description": "Residence Hall Association advocates for residents and plans hall programming across Madrone Hall and the other residence halls. All students are welcome to join.",
     "meets": "Fridays, 7:00–8:30 p.m.",
     "location": "ALD 159",
-    "email": "residencehallassociation@redwoodstate.example.edu",
+    "email": "residencehallassociation@redwoodstate.edu",
     "members": 107
   },
   {
@@ -26,7 +26,7 @@
     "description": "Graduate Student Council represents graduate students and runs the annual graduate research showcase. All students are welcome to join.",
     "meets": "Thursdays, 6:00–7:30 p.m.",
     "location": "Sequoia Library 204",
-    "email": "graduatestudentcouncil@redwoodstate.example.edu",
+    "email": "graduatestudentcouncil@redwoodstate.edu",
     "members": 54
   },
   {
@@ -36,7 +36,7 @@
     "description": "Computing Society hosts coding nights, tech talks, and the spring hackathon. All students are welcome to join.",
     "meets": "Wednesdays, 12:00–1:00 p.m.",
     "location": "Sequoia Library 207",
-    "email": "computingsociety@redwoodstate.example.edu",
+    "email": "computingsociety@redwoodstate.edu",
     "members": 100
   },
   {
@@ -46,7 +46,7 @@
     "description": "Women in Engineering and Computing builds community among women and nonbinary students in engineering and computer science. All students are welcome to join.",
     "meets": "Wednesdays, 7:00–8:30 p.m.",
     "location": "ALD 256",
-    "email": "womeninengineering@redwoodstate.example.edu",
+    "email": "womeninengineering@redwoodstate.edu",
     "members": 139
   },
   {
@@ -56,7 +56,7 @@
     "description": "Pre-Health Professions Society helps students prepare for medical, dental, and physician assistant programs. All students are welcome to join.",
     "meets": "Every other Wednesday, 7:00–8:30 p.m.",
     "location": "SU 219",
-    "email": "prehealthprofessions@redwoodstate.example.edu",
+    "email": "prehealthprofessions@redwoodstate.edu",
     "members": 111
   },
   {
@@ -66,7 +66,7 @@
     "description": "Student Nurses' Association supports nursing students with study groups, licensure exam preparation, and community health drives. All students are welcome to join.",
     "meets": "Thursdays, 5:00–6:00 p.m.",
     "location": "Student Union Multipurpose Room",
-    "email": "studentnursesassociation@redwoodstate.example.edu",
+    "email": "studentnursesassociation@redwoodstate.edu",
     "members": 62
   },
   {
@@ -76,7 +76,7 @@
     "description": "Psychology Club brings researchers and clinicians to campus and organizes graduate school workshops. All students are welcome to join.",
     "meets": "Mondays, 12:00–1:00 p.m.",
     "location": "SU 216",
-    "email": "psychologyclub@redwoodstate.example.edu",
+    "email": "psychologyclub@redwoodstate.edu",
     "members": 140
   },
   {
@@ -86,7 +86,7 @@
     "description": "History and Archives Collective volunteers with the Sequoia Library archives and plans local history walks. All students are welcome to join.",
     "meets": "Fridays, 7:00–8:30 p.m.",
     "location": "SU 222",
-    "email": "historyandarchives@redwoodstate.example.edu",
+    "email": "historyandarchives@redwoodstate.edu",
     "members": 27
   },
   {
@@ -96,7 +96,7 @@
     "description": "Math Circle meets weekly to tackle competition problems and puzzles over pizza. All students are welcome to join.",
     "meets": "Every other Wednesday, 6:00–7:30 p.m.",
     "location": "Sequoia Library 109",
-    "email": "mathcircle@redwoodstate.example.edu",
+    "email": "mathcircle@redwoodstate.edu",
     "members": 157
   },
   {
@@ -106,7 +106,7 @@
     "description": "Entrepreneurs Club connects student founders with local mentors and runs a pitch competition. All students are welcome to join.",
     "meets": "Fridays, 5:00–6:00 p.m.",
     "location": "Sequoia Library 304",
-    "email": "entrepreneursclub@redwoodstate.example.edu",
+    "email": "entrepreneursclub@redwoodstate.edu",
     "members": 118
   },
   {
@@ -116,7 +116,7 @@
     "description": "Robotics Team designs and builds robots for regional collegiate competitions. All students are welcome to join.",
     "meets": "Mondays, 6:00–7:30 p.m.",
     "location": "Online (CanopyMeet)",
-    "email": "roboticsteam@redwoodstate.example.edu",
+    "email": "roboticsteam@redwoodstate.edu",
     "members": 16
   },
   {
@@ -126,7 +126,7 @@
     "description": "Black Student Union celebrates Black culture and advocates for Black students at Redwood State. All students are welcome to join.",
     "meets": "Every other Wednesday, 5:00–6:00 p.m.",
     "location": "Student Union Multipurpose Room",
-    "email": "blackstudentunion@redwoodstate.example.edu",
+    "email": "blackstudentunion@redwoodstate.edu",
     "members": 163
   },
   {
@@ -136,7 +136,7 @@
     "description": "Latinx Student Alliance hosts cultural celebrations, mentorship, and family events for Latinx students. All students are welcome to join.",
     "meets": "Thursdays, 6:00–7:30 p.m.",
     "location": "Online (CanopyMeet)",
-    "email": "latinxstudentalliance@redwoodstate.example.edu",
+    "email": "latinxstudentalliance@redwoodstate.edu",
     "members": 71
   },
   {
@@ -146,7 +146,7 @@
     "description": "Native American Student Association organizes the spring powwow and supports Native students and community. All students are welcome to join.",
     "meets": "Mondays, 12:00–1:00 p.m.",
     "location": "SU 104",
-    "email": "nativeamericanstudent@redwoodstate.example.edu",
+    "email": "nativeamericanstudent@redwoodstate.edu",
     "members": 129
   },
   {
@@ -156,7 +156,7 @@
     "description": "Asian Pacific Islander Student Union shares API cultures through food, film, and the Lunar New Year festival. All students are welcome to join.",
     "meets": "First Thursday of the month, 7:00–8:30 p.m.",
     "location": "Sequoia Library 308",
-    "email": "asianpacificislander@redwoodstate.example.edu",
+    "email": "asianpacificislander@redwoodstate.edu",
     "members": 66
   },
   {
@@ -166,7 +166,7 @@
     "description": "Queer Student Union offers a welcoming space for LGBTQ+ students and allies. All students are welcome to join.",
     "meets": "First Thursday of the month, 5:00–6:00 p.m.",
     "location": "SU 129",
-    "email": "queerstudentunion@redwoodstate.example.edu",
+    "email": "queerstudentunion@redwoodstate.edu",
     "members": 14
   },
   {
@@ -176,7 +176,7 @@
     "description": "First-Generation Student Network connects first-generation college students with peers, faculty mentors, and resources. All students are welcome to join.",
     "meets": "Mondays, 6:00–7:30 p.m.",
     "location": "SU 219",
-    "email": "firstgenerationstudent@redwoodstate.example.edu",
+    "email": "firstgenerationstudent@redwoodstate.edu",
     "members": 168
   },
   {
@@ -186,7 +186,7 @@
     "description": "International Students Association welcomes international students and hosts the International Food Fair. All students are welcome to join.",
     "meets": "Wednesdays, 12:00–1:00 p.m.",
     "location": "SU 101",
-    "email": "internationalstudentsassociation@redwoodstate.example.edu",
+    "email": "internationalstudentsassociation@redwoodstate.edu",
     "members": 124
   },
   {
@@ -196,7 +196,7 @@
     "description": "Redwood Outdoors Club leads hiking, kayaking, and camping trips across the North Coast. All students are welcome to join.",
     "meets": "Fridays, 5:00–6:00 p.m.",
     "location": "Online (CanopyMeet)",
-    "email": "redwoodoutdoorsclub@redwoodstate.example.edu",
+    "email": "redwoodoutdoorsclub@redwoodstate.edu",
     "members": 38
   },
   {
@@ -206,7 +206,7 @@
     "description": "Climbing Club climbs at the campus wall and organizes weekend trips to local crags. All students are welcome to join.",
     "meets": "Every other Wednesday, 7:00–8:30 p.m.",
     "location": "Student Union Multipurpose Room",
-    "email": "climbingclub@redwoodstate.example.edu",
+    "email": "climbingclub@redwoodstate.edu",
     "members": 65
   },
   {
@@ -216,7 +216,7 @@
     "description": "Ultimate Frisbee competes in regional collegiate ultimate tournaments. All students are welcome to join.",
     "meets": "Wednesdays, 7:00–8:30 p.m.",
     "location": "Student Union Multipurpose Room",
-    "email": "ultimatefrisbee@redwoodstate.example.edu",
+    "email": "ultimatefrisbee@redwoodstate.edu",
     "members": 118
   },
   {
@@ -226,7 +226,7 @@
     "description": "Rugby Club fields men's and women's club rugby sides in the regional union. All students are welcome to join.",
     "meets": "Mondays, 6:00–7:30 p.m.",
     "location": "SU 139",
-    "email": "rugbyclub@redwoodstate.example.edu",
+    "email": "rugbyclub@redwoodstate.edu",
     "members": 148
   },
   {
@@ -236,7 +236,7 @@
     "description": "Surf Club surfs local breaks together and teaches beginners ocean safety. All students are welcome to join.",
     "meets": "First Thursday of the month, 6:00–7:30 p.m.",
     "location": "Online (CanopyMeet)",
-    "email": "surfclub@redwoodstate.example.edu",
+    "email": "surfclub@redwoodstate.edu",
     "members": 57
   },
   {
@@ -246,7 +246,7 @@
     "description": "Cycling Club rides the coastal highways and races in collegiate road and mountain events. All students are welcome to join.",
     "meets": "First Thursday of the month, 6:00–7:30 p.m.",
     "location": "Online (CanopyMeet)",
-    "email": "cyclingclub@redwoodstate.example.edu",
+    "email": "cyclingclub@redwoodstate.edu",
     "members": 175
   },
   {
@@ -256,7 +256,7 @@
     "description": "Redwood Chorale Society supports the Redwood Chorale and organizes student-led a cappella nights. All students are welcome to join.",
     "meets": "Mondays, 12:00–1:00 p.m.",
     "location": "SU 129",
-    "email": "redwoodchoralesociety@redwoodstate.example.edu",
+    "email": "redwoodchoralesociety@redwoodstate.edu",
     "members": 28
   },
   {
@@ -266,7 +266,7 @@
     "description": "Theatre Guild produces student-directed plays and a spring musical. All students are welcome to join.",
     "meets": "Tuesdays, 5:00–6:00 p.m.",
     "location": "ALD 117",
-    "email": "theatreguild@redwoodstate.example.edu",
+    "email": "theatreguild@redwoodstate.edu",
     "members": 60
   },
   {
@@ -276,7 +276,7 @@
     "description": "Film Society screens independent films weekly and runs a short film festival. All students are welcome to join.",
     "meets": "Tuesdays, 5:00–6:00 p.m.",
     "location": "ALD 200",
-    "email": "filmsociety@redwoodstate.example.edu",
+    "email": "filmsociety@redwoodstate.edu",
     "members": 23
   },
   {
@@ -286,7 +286,7 @@
     "description": "The Understory publishes student poetry, fiction, and art twice a year. All students are welcome to join.",
     "meets": "Thursdays, 7:00–8:30 p.m.",
     "location": "Sequoia Library 302",
-    "email": "theunderstory@redwoodstate.example.edu",
+    "email": "theunderstory@redwoodstate.edu",
     "members": 162
   },
   {
@@ -296,7 +296,7 @@
     "description": "Owl Radio 88.3 broadcasts student-run music and talk shows to the Arcadia Falls area. All students are welcome to join.",
     "meets": "First Thursday of the month, 7:00–8:30 p.m.",
     "location": "Sequoia Library 308",
-    "email": "owlradio88@redwoodstate.example.edu",
+    "email": "owlradio88@redwoodstate.edu",
     "members": 155
   },
   {
@@ -306,7 +306,7 @@
     "description": "The Redwood Ring covers campus news, sports, and opinion in print and online. All students are welcome to join.",
     "meets": "Mondays, 6:00–7:30 p.m.",
     "location": "SU 111",
-    "email": "theredwoodring@redwoodstate.example.edu",
+    "email": "theredwoodring@redwoodstate.edu",
     "members": 127
   },
   {
@@ -316,7 +316,7 @@
     "description": "Campus Sustainability Coalition runs the campus garden, bike repair clinics, and waste audits. All students are welcome to join.",
     "meets": "Tuesdays, 7:00–8:30 p.m.",
     "location": "SU 118",
-    "email": "campussustainabilitycoalition@redwoodstate.example.edu",
+    "email": "campussustainabilitycoalition@redwoodstate.edu",
     "members": 154
   },
   {
@@ -326,7 +326,7 @@
     "description": "Campus Home Builders builds affordable housing with local nonprofit partners. All students are welcome to join.",
     "meets": "Tuesdays, 6:00–7:30 p.m.",
     "location": "SU 204",
-    "email": "campushomebuilders@redwoodstate.example.edu",
+    "email": "campushomebuilders@redwoodstate.edu",
     "members": 100
   },
   {
@@ -336,7 +336,7 @@
     "description": "Owl Pantry Volunteers stocks and staffs the free Owl Pantry in the Student Union. All students are welcome to join.",
     "meets": "First Thursday of the month, 5:00–6:00 p.m.",
     "location": "Online (CanopyMeet)",
-    "email": "owlpantryvolunteers@redwoodstate.example.edu",
+    "email": "owlpantryvolunteers@redwoodstate.edu",
     "members": 22
   },
   {
@@ -346,7 +346,7 @@
     "description": "Disability Justice Collective advocates for access and disability culture on campus. All students are welcome to join.",
     "meets": "Every other Wednesday, 5:00–6:00 p.m.",
     "location": "SU 118",
-    "email": "disabilityjusticecollective@redwoodstate.example.edu",
+    "email": "disabilityjusticecollective@redwoodstate.edu",
     "members": 48
   },
   {
@@ -356,7 +356,7 @@
     "description": "Salmon Watch monitors local creeks and helps with habitat restoration projects. All students are welcome to join.",
     "meets": "Tuesdays, 6:00–7:30 p.m.",
     "location": "Online (CanopyMeet)",
-    "email": "salmonwatch@redwoodstate.example.edu",
+    "email": "salmonwatch@redwoodstate.edu",
     "members": 100
   },
   {
@@ -366,7 +366,7 @@
     "description": "Chess Club meets for casual games, lessons, and rated tournaments. All students are welcome to join.",
     "meets": "Wednesdays, 5:00–6:00 p.m.",
     "location": "Student Union Multipurpose Room",
-    "email": "chessclub@redwoodstate.example.edu",
+    "email": "chessclub@redwoodstate.edu",
     "members": 137
   },
   {
@@ -376,7 +376,7 @@
     "description": "Tabletop Gaming Guild gathers every week for board games and role-playing campaigns. All students are welcome to join.",
     "meets": "Fridays, 6:00–7:30 p.m.",
     "location": "ALD 211",
-    "email": "tabletopgamingguild@redwoodstate.example.edu",
+    "email": "tabletopgamingguild@redwoodstate.edu",
     "members": 46
   },
   {
@@ -386,7 +386,7 @@
     "description": "Interfaith Council brings together students of many faith traditions for dialogue and service. All students are welcome to join.",
     "meets": "Thursdays, 7:00–8:30 p.m.",
     "location": "Sequoia Library 303",
-    "email": "interfaithcouncil@redwoodstate.example.edu",
+    "email": "interfaithcouncil@redwoodstate.edu",
     "members": 156
   },
   {
@@ -396,7 +396,7 @@
     "description": "Catholic Student Community offers weekly gatherings, retreats, and service trips. All students are welcome to join.",
     "meets": "Every other Wednesday, 6:00–7:30 p.m.",
     "location": "ALD 101",
-    "email": "catholicstudentcommunity@redwoodstate.example.edu",
+    "email": "catholicstudentcommunity@redwoodstate.edu",
     "members": 21
   }
 ]

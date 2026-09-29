@@ -77,7 +77,7 @@ const DOCS: [string, string, string[]][] = [
     "Reports are reviewed by the Office of Student Conduct. Students receive written notice,",
     "an opportunity to respond, and a written decision. Decisions may be appealed within 10",
     "business days to the Vice President for Student Affairs.",
-    "Office of Student Conduct, Student Union 214, conduct@redwoodstate.example.edu",
+    "Office of Student Conduct, Student Union 214, conduct@redwoodstate.edu",
   ]],
   ["academic-calendar-2026-27.pdf", "Academic Calendar 2026-2027", [
     "# Fall 2026",
@@ -133,7 +133,7 @@ const DOCS: [string, string, string[]][] = [
     "Redwood State may release name, major, dates of attendance, degrees and awards, and",
     "participation in athletics without consent. Students may restrict release by filing a",
     "request with the Office of the Registrar.",
-    "Office of the Registrar, Founders Hall 130, registrar@redwoodstate.example.edu",
+    "Office of the Registrar, Founders Hall 130, registrar@redwoodstate.edu",
   ]],
   ["benefits-summary-2026.pdf", "2026 Employee Benefits Summary", [
     "For benefits-eligible faculty and staff appointed at 50 percent time or more.",
@@ -199,7 +199,7 @@ const DOCS: [string, string, string[]][] = [
     "Neither parent or guardian completed a four-year degree. Enrolled full time at Redwood State.",
     "# Application",
     "Name: ______________________   Student ID: ____________   Major: ______________________",
-    "Expected graduation term: ____________   Email: ______________________@redwoodstate.example.edu",
+    "Expected graduation term: ____________   Email: ______________________@redwoodstate.edu",
     "In 250 words or less, describe a goal you hope to reach at Redwood State.",
     "# Program benefits",
     "Peer and faculty mentors, priority registration for two semesters, a $3,000 annual award, and summer bridge.",

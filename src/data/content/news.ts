@@ -274,7 +274,7 @@ const details: Record<string, ArticleDetails> = {
     ],
     related: ["engineering-robotics-lab-opens", "tide-pool-study-coastal-warming", "green-chemistry-grant"],
     links: [
-      { label: "View the live smoke map", href: "https://smokemap.redwoodstate.example.edu" },
+      { label: "View the live smoke map", href: "https://smokemap.redwoodstate.edu" },
       { label: "Read more", href: "/academics/departments/computer-science" },
     ],
   },

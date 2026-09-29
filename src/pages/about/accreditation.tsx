@@ -62,7 +62,7 @@ export default function AccreditationPage() {
           lines={[
             { label: "Office", value: "Founders Hall 410" },
             { label: "Phone", value: "(707) 555-0112", href: "tel:7075550112" },
-            { label: "Email", value: "assessment@redwoodstate.example.edu", href: "mailto:assessment@redwoodstate.example.edu" },
+            { label: "Email", value: "assessment@redwoodstate.edu", href: "mailto:assessment@redwoodstate.edu" },
           ]}
         />
         {content.updated && <p className="page-updated">{content.updated}</p>}

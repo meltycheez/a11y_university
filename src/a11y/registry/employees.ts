@@ -153,7 +153,7 @@ export const employeesScenarios: ScenarioDef[] = [
     id: "employees-policies-revised-contrast-001", rule: "contrast-text-low", pages: ["/employees/policies"], component: "PoliciesPage", mechanism: "css", severity: "serious",
     title: "Old revision years are grayed out",
     description: "Revision years before 2020 are #b0b0b0 on white, about 2.2:1.",
-    fixDescription: "Uses #767676, just above the 4.5:1 minimum.",
+    fixDescription: "Uses #707070, just above the 4.5:1 minimum against the striped rows too.",
   },
   {
     id: "employees-policies-clickhere-001", rule: "link-generic", pages: ["/employees/policies"], component: "PoliciesPage", mechanism: "markup", severity: "minor",

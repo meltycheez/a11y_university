@@ -171,7 +171,7 @@
 .pt-inbox .pt-date { grid-column: 2; grid-row: 1; font-size: 0.8rem; }
 .pt-unread .pt-inbox-from, .pt-unread .pt-inbox-subject { font-weight: 700; }
 .pt-date { white-space: nowrap; color: #a3adb8; } /* portal-msg-date-contrast-001: ~2.3:1 on white */
-.a11y-fix-errors .pt-date { color: #69747e; }
+.a11y-fix-errors .pt-date { color: #646e78; } /* 4.52:1 on the unread row's #e8f0fb, 5.19:1 on white */
 .pt-message { border-top: 1px solid #e6ebf1; padding-top: var(--space-3); margin-top: var(--space-3); }
 .pt-message h3, .pt-message h4 { margin: 0 0 var(--space-1); }
 .pt-message-body { white-space: pre-line; max-width: 48rem; }

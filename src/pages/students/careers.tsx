@@ -25,7 +25,7 @@ export default function Careers() {
         </ul>
         <p>
           Find jobs, internships and Work-Study positions on{" "}
-          <SmartLink scenario="stu-careers-owllink-new-window-001" to="https://owllink.redwoodstate.example.edu" newWindow>OwlLink Careers</SmartLink>.
+          <SmartLink scenario="stu-careers-owllink-new-window-001" to="https://owllink.redwoodstate.edu" newWindow>OwlLink Careers</SmartLink>.
         </p>
       </section>
 

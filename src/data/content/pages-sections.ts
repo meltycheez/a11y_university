@@ -178,7 +178,7 @@ export const sectionPages: Record<string, PageContent> = {
     summary: "Stories of research, campus life, athletics, and alumni from Redwood State.",
     sections: [
       {
-        paragraphs: ["RSU News is published by the Office of University Communications. Media inquiries: (707) 555-0105 or news@redwoodstate.example.edu."],
+        paragraphs: ["RSU News is published by the Office of University Communications. Media inquiries: (707) 555-0105 or news@redwoodstate.edu."],
         links: [
           { label: "Research", href: "/news/category/research" },
           { label: "Campus Life", href: "/news/category/campus" },
@@ -285,7 +285,7 @@ export const sectionPages: Record<string, PageContent> = {
       },
       {
         heading: "Contact the Office of Advancement",
-        list: ["Founders Hall 320", "(707) 555-0190", "giving@redwoodstate.example.edu"],
+        list: ["Founders Hall 320", "(707) 555-0190", "giving@redwoodstate.edu"],
       },
     ],
   },
@@ -440,7 +440,7 @@ export const sectionPages: Record<string, PageContent> = {
         list: [
           "Founders Hall 210",
           "(707) 555-0180",
-          "hr@redwoodstate.example.edu",
+          "hr@redwoodstate.edu",
           "HR Service Center: Monday–Friday, 8 a.m. to 4:30 p.m.",
           "Director of Human Resources: Hector Pacheco",
         ],
@@ -556,7 +556,7 @@ export const sectionPages: Record<string, PageContent> = {
     sections: [
       {
         paragraphs: [
-          "Monthly salaried employees are paid on the last working day of the month. Hourly employees and student assistants are paid semi-monthly. Payroll Services is located in Founders Hall 220, (707) 555-0182, payroll@redwoodstate.example.edu.",
+          "Monthly salaried employees are paid on the last working day of the month. Hourly employees and student assistants are paid semi-monthly. Payroll Services is located in Founders Hall 220, (707) 555-0182, payroll@redwoodstate.edu.",
         ],
       },
       {

@@ -31,7 +31,7 @@ export interface ProgramContent {
 const contacts = (office: string, ext: string, email: string, extra: Contact[] = []): Contact[] => [
   { label: "Office", value: office },
   { label: "Phone", value: `(707) 555-${ext}` },
-  { label: "Email", value: `${email}@redwoodstate.example.edu` },
+  { label: "Email", value: `${email}@redwoodstate.edu` },
   ...extra,
 ];
 

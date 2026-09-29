@@ -49,10 +49,10 @@ function SectionBar({ config, withLinks }: { config: SectionConfig; withLinks: b
   return (
     <div className={`section-bar section-bar--${config.variant}`}>
       <div className="container section-bar-inner">
-        <p className="section-bar-name">
+        <h2 className="section-bar-name">
           <Link to={config.siteHref ?? "/"}>{config.siteName}</Link>
           {config.tagline && <span className="section-bar-tagline">{config.tagline}</span>}
-        </p>
+        </h2>
         {withLinks && config.links && (
           <nav aria-label={`${config.siteName} sections`} className="section-bar-nav">
             <ul>

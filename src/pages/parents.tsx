@@ -43,7 +43,7 @@ export default function ParentsPage() {
           title="Contact Family Programs"
           lines={[
             { label: "Phone", value: "(707) 555-0145", href: "tel:7075550145" },
-            { label: "Email", value: "families@redwoodstate.example.edu", href: "mailto:families@redwoodstate.example.edu" },
+            { label: "Email", value: "families@redwoodstate.edu", href: "mailto:families@redwoodstate.edu" },
           ]}
         />
 

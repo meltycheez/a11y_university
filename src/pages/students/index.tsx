@@ -10,8 +10,8 @@ export { inventoryMeta as meta } from "~/routes/meta";
 
 const QUICK = [
   { label: "RedwoodConnect", href: "/portal", icon: "▦" },
-  { label: "Canopy Learn", href: "https://learn.redwoodstate.example.edu", icon: "✎" },
-  { label: "Student email", href: "https://mail.redwoodstate.example.edu", icon: "✉" },
+  { label: "Canopy Learn", href: "https://learn.redwoodstate.edu", icon: "✎" },
+  { label: "Student email", href: "https://mail.redwoodstate.edu", icon: "✉" },
   { label: "Campus Map", href: "/campus-map", icon: "⌖" },
 ];
 

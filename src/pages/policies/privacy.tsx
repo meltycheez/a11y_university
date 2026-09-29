@@ -36,7 +36,7 @@ export default function PrivacyPage() {
           lines={[
             { label: "Office", value: "Information Security Office" },
             { label: "Phone", value: "(707) 555-0109", href: "tel:7075550109" },
-            { label: "Email", value: "privacy@redwoodstate.example.edu", href: "mailto:privacy@redwoodstate.example.edu" },
+            { label: "Email", value: "privacy@redwoodstate.edu", href: "mailto:privacy@redwoodstate.edu" },
           ]}
         />
         <RelatedLinks title="Related" links={[{ label: "Accessibility at Redwood State", href: "/accessibility" }, { label: "Parents & Families (FERPA)", href: "/parents" }]} />

@@ -64,7 +64,7 @@
 
 /* /employees/policies */
 .revised-old { color: #b0b0b0; } /* employees-policies-revised-contrast-001: ~2.2:1 */
-.a11y-fix-errors .revised-old { color: #767676; }
+.a11y-fix-errors .revised-old { color: #707070; } /* 4.58:1 on the striped #f6f6f6 rows, 4.95:1 on white */
 .site--intranet .doc-list { padding-left: 1.1rem; }
 
 /* /employees/payroll */

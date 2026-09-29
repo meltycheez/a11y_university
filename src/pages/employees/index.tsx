@@ -57,7 +57,7 @@ export default function EmployeesPage() {
           lines={[
             { label: "Location", value: "Founders Hall 210" },
             { label: "Phone", value: "(707) 555-0180", href: "tel:7075550180" },
-            { label: "Email", value: "hr@redwoodstate.example.edu", href: "mailto:hr@redwoodstate.example.edu" },
+            { label: "Email", value: "hr@redwoodstate.edu", href: "mailto:hr@redwoodstate.edu" },
             { label: "Hours", value: "Monday–Friday, 8 a.m. to 4:30 p.m." },
           ]}
         />

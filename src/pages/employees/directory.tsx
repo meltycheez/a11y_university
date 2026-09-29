@@ -101,7 +101,7 @@ export default function DirectoryPage() {
           title="Directory corrections"
           lines={[
             { label: "Human Resources", value: "(707) 555-0180", href: "tel:7075550180" },
-            { label: "Email", value: "hr@redwoodstate.example.edu", href: "mailto:hr@redwoodstate.example.edu" },
+            { label: "Email", value: "hr@redwoodstate.edu", href: "mailto:hr@redwoodstate.edu" },
           ]}
         />
       </div>

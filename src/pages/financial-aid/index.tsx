@@ -53,7 +53,7 @@ export default function FinancialAid() {
               ]}
             />
             <p className="aid-icon-links">
-              <a href="mailto:finaid@redwoodstate.example.edu" className="aid-icon-link" data-a11y-scenario="aid-home-email-icon-link-001">
+              <a href="mailto:finaid@redwoodstate.edu" className="aid-icon-link" data-a11y-scenario="aid-home-email-icon-link-001">
                 <span aria-hidden="true">✉</span>
                 {iconFixed && <span className="visually-hidden">Email the Financial Aid Office</span>}
               </a>

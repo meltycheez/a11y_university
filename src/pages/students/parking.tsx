@@ -54,7 +54,7 @@ export default function Parking() {
 
       <Callout title={citations.heading} tone="warning">
         <p>{citations.paragraphs![0]}</p>
-        <p><SmartLink scenario="stu-parking-appeal-new-window-001" to="https://parking.redwoodstate.example.edu/appeals" newWindow>Appeal a citation online</SmartLink></p>
+        <p><SmartLink scenario="stu-parking-appeal-new-window-001" to="https://parking.redwoodstate.edu/appeals" newWindow>Appeal a citation online</SmartLink></p>
       </Callout>
 
       <section className="stack" aria-labelledby="maps-heading">

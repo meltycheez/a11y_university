@@ -333,7 +333,7 @@ export default function LegacyAidPage() {
                   { to: "/financial-aid/types", text: "Types of Aid" },
                   { to: "/admissions/scholarships", text: "Scholarships" },
                   { to: "/admissions/tuition", text: "Tuition & Fees" },
-                  { to: "mailto:finaid@redwoodstate.example.edu", text: "Contact Us" },
+                  { to: "mailto:finaid@redwoodstate.edu", text: "Contact Us" },
                 ].map((l) => (
                   <li key={l.to}>
                     <img src={ARROW} width={7} height={9} alt={fix("nav-arrows") ? "" : "arrow"} />{" "}

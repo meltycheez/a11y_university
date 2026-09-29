@@ -60,7 +60,7 @@ export default function PrioritiesPage() {
           <p>Unrestricted gifts to the Student Success Fund go wherever the need is greatest that year.</p>
         </Callout>
 
-        <CtaBand title="Plan a larger gift" text="Talk with the Office of Advancement about naming opportunities and multi-year pledges." action={{ label: "Contact the Office of Advancement", href: "mailto:giving@redwoodstate.example.edu" }} />
+        <CtaBand title="Plan a larger gift" text="Talk with the Office of Advancement about naming opportunities and multi-year pledges." action={{ label: "Contact the Office of Advancement", href: "mailto:giving@redwoodstate.edu" }} />
       </div>
     </>
   );

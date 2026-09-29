@@ -43,6 +43,7 @@ export default function HomePage() {
   return (
     <>
       <ScenarioTitle scenario="home-page-title-001" title={brand.name} />
+      <SkipToDates />
       <AnnouncementTicker />
       <HeroCarousel />
 
@@ -60,6 +61,7 @@ export default function HomePage() {
         </section>
 
         <ProgramFinder />
+        <PopularLinks />
 
         <div className="home-columns">
           <HomeNews items={news} />
@@ -145,6 +147,40 @@ function ProgramFinder() {
   );
 }
 
+/** home-skip-dates-001: a second skip link whose target id was renamed; it now goes nowhere. */
+function SkipToDates() {
+  const fixed = useScenario("home-skip-dates-001");
+  return (
+    <a className="skip-link" href={fixed ? "#key-dates-heading" : "#key-dates"} data-a11y-scenario="home-skip-dates-001">
+      Skip to key dates
+    </a>
+  );
+}
+
+const popular = [
+  { label: "Apply", href: "/admissions/apply" },
+  { label: "Visit campus", href: "/admissions/visit" },
+  { label: "Tuition", href: "/admissions/tuition" },
+  { label: "Course search", href: "/academics/courses" },
+  { label: "Academic calendar", href: "/academics/calendar" },
+];
+
+/**
+ * home-popular-menu-001: a plain row of links marked role="menu" with no role="menuitem" children, so a
+ * screen reader announces an empty menu and switches to menu navigation keys that match nothing.
+ */
+function PopularLinks() {
+  const fixed = useScenario("home-popular-menu-001");
+  return (
+    <nav className="home-popular" aria-label="Popular links">
+      <span className="home-popular-label">Popular:</span>
+      <ul role={fixed ? undefined : "menu"} data-a11y-scenario="home-popular-menu-001">
+        {popular.map((p) => <li key={p.href}><Link to={p.href}>{p.label}</Link></li>)}
+      </ul>
+    </nav>
+  );
+}
+
 const audiences = [
   { label: "Future students", text: "Admissions, visits and costs", href: "/admissions" },
   { label: "Current students", text: "Services, advising and support", href: "/students" },
@@ -174,10 +210,18 @@ function AudiencePaths() {
 
 function HomeNews({ items }: { items: { slug: string; title: string; dek: string; date: string; image: string }[] }) {
   const unlinked = useScenario("home-news-link-redundant-001");
+  const searchLabelFixed = useScenario("home-news-search-label-empty-001");
   return (
     <section aria-labelledby="home-news-heading" className="stack home-news" data-a11y-scenario="home-news-link-redundant-001">
       <div className="home-section-head">
         <h2 id="home-news-heading">News</h2>
+        {/* home-news-search-label-empty-001: the <label> holds only a CSS background icon, so it's empty. */}
+        <Form action="/search" method="get" className="home-news-search" data-a11y-scenario="home-news-search-label-empty-001">
+          <label htmlFor="home-news-q" className="home-news-search-icon">
+            {searchLabelFixed && <span className="visually-hidden">Search news</span>}
+          </label>
+          <input id="home-news-q" name="q" type="search" />
+        </Form>
         <Link to="/news">All news</Link>
       </div>
       {items.map((n) => {
@@ -232,7 +276,13 @@ function HomeEvents({ items }: { items: { slug: string; title: string; start: st
 const WARNING_ICON =
   "data:image/svg+xml;utf8," +
   encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23b3541e" stroke-width="2"><path d="M12 3 2 20h20Z"/><path d="M12 10v4M12 17.5v.01"/></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#b3541e" stroke-width="2"><path d="M12 3 2 20h20Z"/><path d="M12 10v4M12 17.5v.01"/></svg>',
+  );
+
+const CALENDAR_ICON =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#7a2e1f" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>',
   );
 
 const KEY_DATES: { date: string; event: string; category: "academic" | "financial"; urgent?: boolean }[] = [
@@ -245,15 +295,17 @@ const KEY_DATES: { date: string; event: string; category: "academic" | "financia
 const DATE_FILTERS = ["All", "Academic", "Financial"] as const;
 
 /**
- * Four scenarios share this table: home-dates-table-headers-001 (header row is <td>, not <th>),
- * home-dates-table-region-typo-001 (aria-labeledby typo on the wrapping region), home-dates-table-sort-value-001
- * (invalid aria-sort value on the Date header) and home-dates-table-action-dupid-001 (every row's "Details"
- * button shares one hardcoded id, so aria-labelledby resolves to the same row for all of them). Plus
+ * Scenarios on this table: home-dates-table-headers-001 (column headers are empty <th>s; CSS draws their text),
+ * home-dates-table-calendar-alt-001 (each row's "add to calendar" link is an image with no alt),
+ * home-dates-table-region-typo-001 (aria-labeledby typo on the section), home-dates-table-sort-value-001
+ * (invalid aria-sort value on the Date header), home-dates-table-action-dupid-001 (every row's "Details" button
+ * shares one hardcoded id, so aria-labelledby resolves to the same row for all of them),
  * home-dates-table-filter-tab-001 (the filter pills use role="tab" with no role="tablist" parent) and
  * home-dates-table-urgent-icon-001 (the "act soon" icon on the nearest deadline has alt="").
  */
 function KeyDatesTable() {
   const headersFixed = useScenario("home-dates-table-headers-001");
+  const calendarFixed = useScenario("home-dates-table-calendar-alt-001");
   const regionFixed = useScenario("home-dates-table-region-typo-001");
   const sortFixed = useScenario("home-dates-table-sort-value-001");
   const idsFixed = useScenario("home-dates-table-action-dupid-001");
@@ -262,7 +314,9 @@ function KeyDatesTable() {
   const [filter, setFilter] = useState<(typeof DATE_FILTERS)[number]>("All");
   const rows = KEY_DATES.filter((d) => filter === "All" || d.category === filter.toLowerCase());
 
-  const HeadCell = headersFixed ? "th" : "td";
+  // Defective: the <th> is empty in the DOM and its visible label comes from CSS (content: attr(data-label)).
+  const head = (label: string) => (headersFixed ? label : null);
+  const headProps = (label: string) => (headersFixed ? {} : { "data-label": label, className: "dates-th-css" });
   const regionProps = regionFixed ? { "aria-labelledby": "key-dates-heading" } : { "aria-labeledby": "key-dates-heading" };
 
   return (
@@ -292,9 +346,9 @@ function KeyDatesTable() {
           <caption>Upcoming academic and financial deadlines</caption>
           <thead>
             <tr>
-              <HeadCell scope={headersFixed ? "col" : undefined} aria-sort={sortFixed ? "ascending" : ("asc" as "ascending")} data-a11y-scenario="home-dates-table-headers-001 home-dates-table-sort-value-001">Date</HeadCell>
-              <HeadCell scope={headersFixed ? "col" : undefined} data-a11y-scenario="home-dates-table-headers-001">Event</HeadCell>
-              <HeadCell scope={headersFixed ? "col" : undefined} data-a11y-scenario="home-dates-table-headers-001">Details</HeadCell>
+              <th scope="col" {...headProps("Date")} aria-sort={sortFixed ? "ascending" : ("asc" as "ascending")} data-a11y-scenario="home-dates-table-headers-001 home-dates-table-sort-value-001">{head("Date")}</th>
+              <th scope="col" {...headProps("Event")} data-a11y-scenario="home-dates-table-headers-001">{head("Event")}</th>
+              <th scope="col" {...headProps("Details")} data-a11y-scenario="home-dates-table-headers-001">{head("Details")}</th>
             </tr>
           </thead>
           <tbody>
@@ -326,6 +380,13 @@ function KeyDatesTable() {
                   <span id={idsFixed ? `dates-row-detail-${i}` : "dates-row-detail"} className="visually-hidden">
                     Details for {d.event}
                   </span>
+                  <Link
+                    to={`/academics/calendar?event=${d.event.toLowerCase().replace(/\W+/g, "-")}`}
+                    className="dates-cal-link"
+                    data-a11y-scenario="home-dates-table-calendar-alt-001"
+                  >
+                    <img src={CALENDAR_ICON} width="18" height="18" alt={calendarFixed ? `Add ${d.event} to your calendar` : undefined} />
+                  </Link>
                 </td>
               </tr>
             ))}
@@ -347,6 +408,8 @@ function NewsletterSignup() {
   const labelFixed = useScenario("home-newsletter-label-mismatch-001");
   const selectFixed = useScenario("home-newsletter-frequency-select-001");
   const submitFixed = useScenario("home-newsletter-subscribe-image-001");
+  const nameFixed = useScenario("home-newsletter-first-labels-001");
+  const privacyFixed = useScenario("home-newsletter-privacy-ref-001");
 
   return (
     <section aria-labelledby={headingFixed ? "newsletter-heading" : undefined} className="stack newsletter-box">
@@ -355,9 +418,21 @@ function NewsletterSignup() {
         : <h2 className="newsletter-heading-image" data-a11y-scenario="home-newsletter-heading-empty-001" />}
       <p>Get campus news and event reminders by email.</p>
       <Form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
+        <div className="newsletter-field" data-a11y-scenario="home-newsletter-first-labels-001">
+          <label htmlFor="newsletter-first">{nameFixed ? "First name (required)" : "First name"}</label>
+          <input id="newsletter-first" name="first" type="text" autoComplete="given-name" required />
+          {!nameFixed && <label htmlFor="newsletter-first" className="newsletter-req">Required</label>}
+        </div>
         <div className="newsletter-field" data-a11y-scenario="home-newsletter-label-mismatch-001">
           <label htmlFor={labelFixed ? "newsletter-email" : "newsletter-hp"}>Email address</label>
-          <input id="newsletter-email" name="email" type="email" autoComplete="email" />
+          <input
+            id="newsletter-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            aria-describedby={privacyFixed ? "newsletter-privacy-note" : "newsletter-privacy"}
+            data-a11y-scenario="home-newsletter-privacy-ref-001"
+          />
           {!labelFixed && <input id="newsletter-hp" type="text" className="visually-hidden" tabIndex={-1} aria-hidden="true" />}
         </div>
         <div className="newsletter-field" data-a11y-scenario="home-newsletter-frequency-select-001">
@@ -374,6 +449,7 @@ function NewsletterSignup() {
           <input type="image" src={SUBSCRIBE_ICON} width="120" height="36" alt="" className="newsletter-submit-img" data-a11y-scenario="home-newsletter-subscribe-image-001" />
         )}
       </Form>
+      <p id="newsletter-privacy-note" className="newsletter-privacy">We never share your address. Unsubscribe anytime.</p>
     </section>
   );
 }
@@ -381,7 +457,7 @@ function NewsletterSignup() {
 const SUBSCRIBE_ICON =
   "data:image/svg+xml;utf8," +
   encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 36"><rect width="120" height="36" rx="6" fill="%237a2e1f"/><text x="60" y="23" font-family="sans-serif" font-size="14" fill="%23fff" text-anchor="middle">Subscribe</text></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 36"><rect width="120" height="36" rx="6" fill="#7a2e1f"/><text x="60" y="23" font-family="sans-serif" font-size="14" fill="#fff" text-anchor="middle">Subscribe</text></svg>',
   );
 
 // ---------- Plan 06 #11: hero carousel and announcement ticker (styles/features/carousel.css) ----------

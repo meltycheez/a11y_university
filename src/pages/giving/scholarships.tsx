@@ -66,7 +66,7 @@ export default function ScholarshipsPage() {
           lines={[
             { label: "Office", value: "Office of Advancement, Founders Hall 320" },
             { label: "Phone", value: "(707) 555-0190", href: "tel:7075550190" },
-            { label: "Email", value: "giving@redwoodstate.example.edu", href: "mailto:giving@redwoodstate.example.edu" },
+            { label: "Email", value: "giving@redwoodstate.edu", href: "mailto:giving@redwoodstate.edu" },
           ]}
         />
         <p className="page-updated giving-updated" data-a11y-scenario="giving-scholarships-updated-contrast-001">{content.updated}</p>

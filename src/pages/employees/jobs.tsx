@@ -69,7 +69,7 @@ export default function JobsPage() {
               </details>
               <SmartLink
                 scenario="employees-jobs-apply-generic-001"
-                to={`mailto:jobs@redwoodstate.example.edu?subject=${encodeURIComponent(`Application: ${j.title} (${j.id})`)}`}
+                to={`mailto:jobs@redwoodstate.edu?subject=${encodeURIComponent(`Application: ${j.title} (${j.id})`)}`}
                 defect="Apply here"
               >
                 Apply for {j.title} (#{j.id})
@@ -83,7 +83,7 @@ export default function JobsPage() {
           lines={[
             { label: "Talent Acquisition", value: "Founders Hall 210" },
             { label: "Phone", value: "(707) 555-0180", href: "tel:7075550180" },
-            { label: "Email", value: "jobs@redwoodstate.example.edu", href: "mailto:jobs@redwoodstate.example.edu" },
+            { label: "Email", value: "jobs@redwoodstate.edu", href: "mailto:jobs@redwoodstate.edu" },
           ]}
         />
         <p>{main.links!.map((l) => <AnyLink key={l.href} href={l.href}>{l.label}</AnyLink>)} for eligible positions.</p>

@@ -12,7 +12,7 @@ const all = databases as LibraryDatabase[];
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const SUBJECTS = [...new Set(all.flatMap((d) => d.subjects))].sort();
 const FULLTEXT_ICON = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect x="2" y="1" width="12" height="14" rx="1" fill="#0f5a8a"/><path d="M5 5h6M5 8h6M5 11h4" stroke="#fff" stroke-width="1.5"/></svg>')}`;
-const proxy = (slug: string) => `https://proxy.redwoodstate.example.edu/login?url=https://db.example.com/${slug}`;
+const proxy = (slug: string) => `https://proxy.redwoodstate.edu/login?url=https://db.example.com/${slug}`;
 
 export default function DatabasesAZ() {
   const [subject, setSubject] = useState("");

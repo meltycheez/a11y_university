@@ -16,7 +16,7 @@ export const categoryName = (slug: string) => newsCategories.find((c) => c.slug 
 export const newsContact = [
   { label: "Office", value: "University Communications, Founders Hall" },
   { label: "Phone", value: "(707) 555-0105", href: "tel:+17075550105" },
-  { label: "Email", value: "news@redwoodstate.example.edu", href: "mailto:news@redwoodstate.example.edu" },
+  { label: "Email", value: "news@redwoodstate.edu", href: "mailto:news@redwoodstate.edu" },
 ];
 
 const GENERIC = /^(read more|learn more|click here)\b/i;

@@ -77,7 +77,7 @@ export default function PayrollPage() {
           lines={[
             { label: "Office", value: "Founders Hall 220" },
             { label: "Phone", value: "(707) 555-0182", href: "tel:7075550182" },
-            { label: "Email", value: "payroll@redwoodstate.example.edu", href: "mailto:payroll@redwoodstate.example.edu" },
+            { label: "Email", value: "payroll@redwoodstate.edu", href: "mailto:payroll@redwoodstate.edu" },
           ]}
         />
       </div>

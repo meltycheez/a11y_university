@@ -68,7 +68,7 @@ export default function GuidePage() {
             <ul className="lib-box-body lib-guide-dbs">
               {guide.databases.map((s) => dbBySlug.get(s)).filter((d) => d !== undefined).map((d) => (
                 <li key={d.slug}>
-                  <SmartLink scenario="library-guide-db-newwindow-001" to={`https://proxy.redwoodstate.example.edu/login?url=https://db.example.com/${d.slug}`} newWindow>{d.name}</SmartLink>
+                  <SmartLink scenario="library-guide-db-newwindow-001" to={`https://proxy.redwoodstate.edu/login?url=https://db.example.com/${d.slug}`} newWindow>{d.name}</SmartLink>
                   <span className="lib-small"> {d.description}</span>
                 </li>
               ))}

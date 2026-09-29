@@ -10,4 +10,6 @@ export default {
     concurrency: 4,
   },
   basename: process.env.BASE_PATH ?? "/",
+  // Windows can't delete build/client while a local static server has it open; build elsewhere and copy in.
+  buildDirectory: process.env.BUILD_DIR ?? "build",
 } satisfies Config;

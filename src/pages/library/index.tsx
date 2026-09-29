@@ -119,7 +119,7 @@ export default function LibraryHome() {
             lines={[
               { label: "Research Help Desk", value: "1st floor, Sequoia Library" },
               { label: "Phone", value: "(707) 555-0170", href: "tel:+17075550170" },
-              { label: "Email", value: "askus@redwoodstate.example.edu", href: "mailto:askus@redwoodstate.example.edu" },
+              { label: "Email", value: "askus@redwoodstate.edu", href: "mailto:askus@redwoodstate.edu" },
             ]}
           />
         </section>
@@ -134,7 +134,7 @@ export default function LibraryHome() {
 function ChatLauncher() {
   const fixed = useScenario("library-home-chat-empty-001");
   return (
-    <a className="lib-chat" href="mailto:askus@redwoodstate.example.edu?subject=Library%20chat" data-a11y-scenario="library-home-chat-empty-001">
+    <a className="lib-chat" href="mailto:askus@redwoodstate.edu?subject=Library%20chat" data-a11y-scenario="library-home-chat-empty-001">
       <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false">
         <path d="M4 4h16v11H9l-5 4z" fill="currentColor" />
       </svg>

@@ -427,11 +427,11 @@ export default function DonatePage() {
           ]} />
           <p>
             Need help with your gift?{" "}
-            <SmartLink scenario="donate-help-link-generic-001" to="mailto:giving@redwoodstate.example.edu" defect="Click here">Contact the Office of Advancement</SmartLink>
+            <SmartLink scenario="donate-help-link-generic-001" to="mailto:giving@redwoodstate.edu" defect="Click here">Contact the Office of Advancement</SmartLink>
           </p>
           <p>
             Gifts of stock, planned gifts and payroll deduction are handled by the{" "}
-            <SmartLink scenario="donate-contact-title-redundant-001" to="mailto:giving@redwoodstate.example.edu" defectTitle="Office of Advancement">Office of Advancement</SmartLink>.
+            <SmartLink scenario="donate-contact-title-redundant-001" to="mailto:giving@redwoodstate.edu" defectTitle="Office of Advancement">Office of Advancement</SmartLink>.
           </p>
           <p><SmartLink scenario="donate-ways-new-window-001" to="/giving" newWindow>Other ways to give</SmartLink></p>
         </aside>

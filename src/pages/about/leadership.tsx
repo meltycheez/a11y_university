@@ -44,7 +44,7 @@ export default function LeadershipPage() {
             lines={[
               { label: "Office", value: "Founders Hall 300, 1400 Canopy Drive, Arcadia Falls, CA 95579" },
               { label: "Phone", value: "(707) 555-0101", href: "tel:7075550101" },
-              { label: "Email", value: "president@redwoodstate.example.edu", href: "mailto:president@redwoodstate.example.edu" },
+              { label: "Email", value: "president@redwoodstate.edu", href: "mailto:president@redwoodstate.edu" },
             ]}
           />
           <RelatedLinks

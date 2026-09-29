@@ -80,7 +80,7 @@
 .data-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
 .data-table caption { text-align: left; font-weight: 700; font-family: var(--font-serif); font-size: 1.15rem; padding-bottom: var(--space-2); }
 .data-table th, .data-table td { padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--color-border); text-align: left; vertical-align: top; }
-.data-table thead th, .data-table thead td { background: var(--color-surface); border-bottom: 2px solid var(--gray-400); font-weight: 700; }
+.data-table thead th { background: var(--color-surface); border-bottom: 2px solid var(--gray-400); }
 .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
 
 /* Pagination */
@@ -150,7 +150,8 @@
 .contact-card dt { font-weight: 650; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); }
 .contact-card dd { margin: 0; }
 .cta-band { background: var(--brand-redwood); color: #fff; border-radius: var(--radius-md); padding: var(--space-6); margin-block: var(--space-6); text-align: center; }
-.cta-band h2 { color: #fff; margin-top: 0; }
+/* .site raises specificity over section themes that recolor every h2 (e.g. .site--cms h2), which put dark text on the red band. */
+.site .cta-band h2 { color: #fff; margin-top: 0; }
 .cta-band .btn--primary { background: #fff; color: var(--brand-redwood); }
 
 /* Scenario helpers (a11y/helpers.tsx) */

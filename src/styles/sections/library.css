@@ -150,7 +150,7 @@
 .lib-account-summary { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .lib-account-summary li { border: 1px solid #d3dbe2; background: #f7f9fb; padding: var(--space-2) var(--space-4); }
 .lib-due--overdue { color: #c0392b; font-weight: 700; }
-.lib-due--soon { color: #b36b00; font-weight: 700; }
+.lib-due--soon { color: #ab6600; font-weight: 700; }
 .lib-renew-bar { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; margin-top: var(--space-4); }
 .lib-renew-msg { margin: 0; font-weight: 600; }
 

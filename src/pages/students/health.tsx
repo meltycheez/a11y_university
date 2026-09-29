@@ -14,7 +14,7 @@ export default function Health() {
   const jsFixed = useScenario("stu-health-portal-js-001");
   const uFixed = useScenario("stu-health-nurse-underline-001");
   useScenario("stu-health-closed-contrast-001"); // CSS scenario (services.css)
-  const portal = "https://patientportal.redwoodstate.example.edu";
+  const portal = "https://patientportal.redwoodstate.edu";
 
   return (
     <ServicePage

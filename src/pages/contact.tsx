@@ -28,7 +28,7 @@ export default function ContactPage() {
               { label: "Address", value: "1400 Canopy Drive, Arcadia Falls, CA 95579" },
               { label: "Phone", value: "(707) 555-0100", href: "tel:7075550100" },
               { label: "Hours", value: "Monday through Friday, 8 a.m. to 5 p.m." },
-              { label: "Email", value: "info@redwoodstate.example.edu", href: "mailto:info@redwoodstate.example.edu" },
+              { label: "Email", value: "info@redwoodstate.edu", href: "mailto:info@redwoodstate.edu" },
             ]}
           />
         </div>

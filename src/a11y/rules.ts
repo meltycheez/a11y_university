@@ -46,6 +46,8 @@ export const rules = {
   "list-structure": e(["1.3.1"], ["navigation"], ["listitem"]),
   "aria-hidden-focusable": e(["4.1.2"], ["aria", "focus"], ["aria-hidden-focus"]),
   "label-for-mismatch": e(["1.3.1"], ["forms"], ["label"], ["label_missing"]),
+  "label-multiple": e(["1.3.1", "3.3.2"], ["forms"], undefined, ["label_multiple"]),
+  "skip-link-broken": e(["2.4.1"], ["navigation", "links"], undefined, ["link_skip_broken"]),
   // WAVE detects both as red "Contrast Errors", not Alerts — treat them as automated Errors, like WAVE does,
   // not manual judgement calls.
   "contrast-text-low": e(["1.4.3"], ["contrast"], ["color-contrast"]),

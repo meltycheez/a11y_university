@@ -9,7 +9,7 @@ export const brand = {
   mascot: "Redwood Owls",
   address: { street: "1400 Canopy Drive", city: "Arcadia Falls", state: "CA", zip: "95579" },
   phone: "(707) 555-0100",
-  email: "info@redwoodstate.example.edu",
+  email: "info@redwoodstate.edu",
   portalName: "RedwoodConnect",
   libraryName: "Sequoia Library",
 } as const;

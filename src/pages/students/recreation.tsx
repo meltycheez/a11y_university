@@ -35,7 +35,7 @@ export default function Recreation() {
               <h2>{programs.heading}</h2>
               <ul>{programs.list!.map((p) => <li key={p}>{p}</li>)}</ul>
               <p>
-                <SmartLink scenario="stu-rec-outdoor-new-window-001" to="https://rec.redwoodstate.example.edu/outdoor" newWindow>Sign up for an Outdoor Adventures trip</SmartLink>
+                <SmartLink scenario="stu-rec-outdoor-new-window-001" to="https://rec.redwoodstate.edu/outdoor" newWindow>Sign up for an Outdoor Adventures trip</SmartLink>
               </p>
             </section>
           ),

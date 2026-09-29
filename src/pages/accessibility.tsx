@@ -23,7 +23,7 @@ export default function AccessibilityPage() {
           <ContactCard
             title="Web Accessibility Coordinator"
             lines={[
-              { label: "Email", value: "accessibility@redwoodstate.example.edu", href: "mailto:accessibility@redwoodstate.example.edu" },
+              { label: "Email", value: "accessibility@redwoodstate.edu", href: "mailto:accessibility@redwoodstate.edu" },
               { label: "Phone", value: "(707) 555-0108", href: "tel:7075550108" },
             ]}
           />

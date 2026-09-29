@@ -66,9 +66,9 @@ export interface Guide {
   related: { label: string; href: string }[];
 }
 
-const keisha = { name: "Keisha Wu", title: "Research & Instruction Librarian", email: "keisha.wu@redwoodstate.example.edu", phone: "(707) 555-0298", room: "LIB 235" };
-const julian = { name: "Julian Osei", title: "Health Sciences Librarian", email: "julian.osei@redwoodstate.example.edu", phone: "(707) 555-0172", room: "LIB 246" };
-const graham = { name: "Graham Chen", title: "Archivist and Special Collections Librarian", email: "graham.chen@redwoodstate.example.edu", phone: "(707) 555-0189", room: "LIB 219" };
+const keisha = { name: "Keisha Wu", title: "Research & Instruction Librarian", email: "keisha.wu@redwoodstate.edu", phone: "(707) 555-0298", room: "LIB 235" };
+const julian = { name: "Julian Osei", title: "Health Sciences Librarian", email: "julian.osei@redwoodstate.edu", phone: "(707) 555-0172", room: "LIB 246" };
+const graham = { name: "Graham Chen", title: "Archivist and Special Collections Librarian", email: "graham.chen@redwoodstate.edu", phone: "(707) 555-0189", room: "LIB 219" };
 
 export const guides: Record<string, Guide> = {
   "citation-guide": {

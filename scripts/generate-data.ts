@@ -21,7 +21,7 @@ const { brand } = await import("../src/data/brand");
 
 const SEED = 20260924;
 const OUT = new URL("../src/data/generated/", import.meta.url);
-const DOMAIN = "redwoodstate.example.edu";
+const DOMAIN = "redwoodstate.edu";
 
 function mulberry32(a: number) {
   return () => {

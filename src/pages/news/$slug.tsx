@@ -80,7 +80,7 @@ const networks = [
 /** Share links render icon glyphs only while defective (news-article-share-empty-001). */
 function ShareBar({ title, slug }: { title: string; slug: string }) {
   const fixed = useScenario("news-article-share-empty-001");
-  const page = encodeURIComponent(`https://www.redwoodstate.example.edu/news/${slug}`);
+  const page = encodeURIComponent(`https://www.redwoodstate.edu/news/${slug}`);
   const links = [
     ...networks.map((n) => ({ label: `Share on ${n.name}`, href: n.url + page, glyph: n.glyph })),
     { label: "Share by email", href: `mailto:?subject=${encodeURIComponent(title)}&body=${page}`, glyph: "M3 6h18v12H3z M3 6l9 7 9-7" },

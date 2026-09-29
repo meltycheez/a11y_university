@@ -30,7 +30,7 @@ export default function AccountPage() {
           <p className="pt-big">{money(account.balance)}</p>
           <p>Next installment: <strong>{money(account.nextDue.amount)}</strong> due {erpDate(account.nextDue.date)}. Payments after the due date are subject to a $25 late fee.</p>
           <p className="pt-actions">
-            <SmartLink scenario="portal-acct-epay-window-001" to="https://epay.redwoodstate.example.edu/" newWindow className="btn btn--primary pt-btn">Make a payment</SmartLink>
+            <SmartLink scenario="portal-acct-epay-window-001" to="https://epay.redwoodstate.edu/" newWindow className="btn btn--primary pt-btn">Make a payment</SmartLink>
           </p>
         </section>
         <section className="pt-card" aria-labelledby="acct-term">

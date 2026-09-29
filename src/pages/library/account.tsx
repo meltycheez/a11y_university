@@ -133,7 +133,7 @@ export default function LibraryAccount() {
         ]}
       />
 
-      <ContactCard title="Account questions" lines={[{ label: "Circulation Desk", value: "(707) 555-0271", href: "tel:+17075550271" }, { label: "Email", value: "askus@redwoodstate.example.edu", href: "mailto:askus@redwoodstate.example.edu" }]} />
+      <ContactCard title="Account questions" lines={[{ label: "Circulation Desk", value: "(707) 555-0271", href: "tel:+17075550271" }, { label: "Email", value: "askus@redwoodstate.edu", href: "mailto:askus@redwoodstate.edu" }]} />
     </div>
   );
 }

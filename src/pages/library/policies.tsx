@@ -52,7 +52,7 @@ export default function LibraryPolicies() {
       </section>
 
       <div className="lib-two-col">
-        <ContactCard title="Access Services" lines={[{ label: "Supervisor", value: "Paloma Ramirez" }, { label: "Phone", value: "(707) 555-0271", href: "tel:+17075550271" }, { label: "Email", value: "paloma.ramirez@redwoodstate.example.edu", href: "mailto:paloma.ramirez@redwoodstate.example.edu" }]} />
+        <ContactCard title="Access Services" lines={[{ label: "Supervisor", value: "Paloma Ramirez" }, { label: "Phone", value: "(707) 555-0271", href: "tel:+17075550271" }, { label: "Email", value: "paloma.ramirez@redwoodstate.edu", href: "mailto:paloma.ramirez@redwoodstate.edu" }]} />
         <RelatedLinks title="Related" links={[{ label: "Study Room Reservations", href: "/library/study-rooms" }, { label: "Library Hours", href: "/library/hours" }]} />
       </div>
     </div>

@@ -25,6 +25,17 @@ export const academicsScenarios: ScenarioDef[] = [
     mechanism: "css",
     severity: "serious",
   },
+  {
+    id: "academics-header-contrast-001",
+    rule: "contrast-text-low",
+    title: "Academics section header has low contrast",
+    description: "The large green \"Academics\" section header is gray (#a0a0a0) on the fern-green section bar (#2f5d3a), about 2.92:1, just under the 3:1 minimum for large text.",
+    fixDescription: "Uses #a4a4a4, just above the 3:1 minimum.",
+    pages: cmsPages,
+    component: "UniversityLayout / SectionBar",
+    mechanism: "css",
+    severity: "serious",
+  },
 
   // ---------- /academics ----------
   {

@@ -42,7 +42,7 @@ export default function GuidesIndex() {
       {shown.length === 0 && <p>No guides match “{filter}”. Ask a librarian to recommend sources.</p>}
 
       <div className="lib-two-col">
-        <ContactCard title="Request a course guide" lines={[{ label: "Research & Instruction", value: "Keisha Wu, LIB 235" }, { label: "Email", value: "keisha.wu@redwoodstate.example.edu", href: "mailto:keisha.wu@redwoodstate.example.edu" }]} />
+        <ContactCard title="Request a course guide" lines={[{ label: "Research & Instruction", value: "Keisha Wu, LIB 235" }, { label: "Email", value: "keisha.wu@redwoodstate.edu", href: "mailto:keisha.wu@redwoodstate.edu" }]} />
         <RelatedLinks title="Find sources" links={[{ label: "Databases A–Z", href: "/library/databases" }, { label: "Library Search", href: "/library/search" }]} />
       </div>
     </div>

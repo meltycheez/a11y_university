@@ -39,7 +39,7 @@ export default function AdmissionsFaq() {
           <h2>Still have questions?</h2>
           <p>
             Your regional admissions counselor is happy to help.{" "}
-            <SmartLink scenario="adm-faq-generic-link-001" to="mailto:admissions@redwoodstate.example.edu" defect="Click here">Email the Office of Admissions</SmartLink>{" "}
+            <SmartLink scenario="adm-faq-generic-link-001" to="mailto:admissions@redwoodstate.edu" defect="Click here">Email the Office of Admissions</SmartLink>{" "}
             or call (707) 555-0120.
           </p>
         </section>

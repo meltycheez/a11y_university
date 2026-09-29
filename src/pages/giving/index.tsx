@@ -10,7 +10,7 @@ export { inventoryMeta as meta } from "~/routes/meta";
 const content = copyFor("/giving");
 const [intro, ways] = content.sections;
 const [taxBefore, taxNote] = intro.paragraphs![0].split(/(?=The Redwood State University Foundation is)/);
-const MAIL = "mailto:giving@redwoodstate.example.edu";
+const MAIL = "mailto:giving@redwoodstate.edu";
 
 // Title, destination and descriptive link text (once fixed) for each "Ways to give" item, in content order.
 const wayLinks: [string, string, string][] = [
@@ -97,7 +97,7 @@ export default function GivingPage() {
           lines={[
             { label: "Office", value: "Founders Hall 320" },
             { label: "Phone", value: "(707) 555-0190", href: "tel:7075550190" },
-            { label: "Email", value: "giving@redwoodstate.example.edu", href: MAIL },
+            { label: "Email", value: "giving@redwoodstate.edu", href: MAIL },
           ]}
         />
 

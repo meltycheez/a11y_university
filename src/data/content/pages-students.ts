@@ -88,7 +88,7 @@ export const studentPages: Record<string, PageContent> = {
       },
       {
         heading: "Contact",
-        list: ["Founders Hall 130", "(707) 555-0130", "registrar@redwoodstate.example.edu", "Counter hours: M–F 9:00–4:00 (closed 12:00–1:00)"],
+        list: ["Founders Hall 130", "(707) 555-0130", "registrar@redwoodstate.edu", "Counter hours: M–F 9:00–4:00 (closed 12:00–1:00)"],
       },
     ],
   },
@@ -135,7 +135,7 @@ export const studentPages: Record<string, PageContent> = {
       },
       {
         heading: "Contact",
-        list: ["Rowan Student Union 210", "(707) 555-0148", "careers@redwoodstate.example.edu"],
+        list: ["Rowan Student Union 210", "(707) 555-0148", "careers@redwoodstate.edu"],
       },
     ],
   },
@@ -508,7 +508,7 @@ export const studentPages: Record<string, PageContent> = {
         paragraphs: [
           "Get help by chat, email, or in person at the Research Help Desk on the first floor. Subject librarians are available for 30-minute research consultations.",
         ],
-        list: ["Phone: (707) 555-0170", "Email: askus@redwoodstate.example.edu"],
+        list: ["Phone: (707) 555-0170", "Email: askus@redwoodstate.edu"],
       },
       {
         heading: "News from the library",
@@ -535,7 +535,7 @@ export const studentPages: Record<string, PageContent> = {
     sections: [
       {
         paragraphs: [
-          "Databases are licensed for current RSU students, faculty, and staff. Walk-in users may access most databases from library computers. Some vendors limit simultaneous users. Report access problems to eresources@redwoodstate.example.edu.",
+          "Databases are licensed for current RSU students, faculty, and staff. Walk-in users may access most databases from library computers. Some vendors limit simultaneous users. Report access problems to eresources@redwoodstate.edu.",
         ],
         links: [{ label: "Research Guides", href: "/library/guides" }],
       },

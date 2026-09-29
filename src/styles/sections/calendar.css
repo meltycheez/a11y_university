@@ -10,7 +10,7 @@
 .site--calendar .btn { border-radius: 4px; }
 
 /* ---------- Events pages (src/pages/events). Defects and their .a11y-fix-* overrides side by side (ADR-025). ---------- */
-.site--calendar { --cal-academic: #1b5fa8; --cal-arts: #8e3fa8; --cal-athletics: #c0392b; --cal-student-life: #1e8a5a; }
+.site--calendar { --cal-academic: #1b5fa8; --cal-arts: #8e3fa8; --cal-athletics: #c0392b; --cal-student-life: #1d8658; }
 .cal-widget { border: 1px solid #d5deea; border-radius: 6px; padding: var(--space-4); background: #fff; font-family: var(--font-sans); }
 .cal-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-4); }
 .cal-chip { font: inherit; font-size: 0.85rem; border: 1px solid #c6d4e8; background: #fff; color: #1b5fa8; border-radius: 999px; padding: 0.25rem 0.85rem; cursor: pointer; }

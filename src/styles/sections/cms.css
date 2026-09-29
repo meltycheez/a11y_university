@@ -126,9 +126,11 @@
 /* Section template defect: low-contrast sidebar (academics-sidebar-contrast-001). The sidebar is rendered by
    the shared layout; :has(.cms-page) limits the defect to pages built on these templates. */
 .site--cms:has(.cms-page) .section-sidebar a:not([aria-current="page"]) { color: #8c9aa3; } /* ~2.6:1 on #f3f1ea */
+.site--cms:has(.cms-page) .section-bar-name { color: #a0a0a0; } /* academics-header-contrast-001: ~2.92:1 on #2f5d3a (large text) */
 
 /* ---------- Fixes (ADR-025) ---------- */
 .a11y-fix-errors .site--cms:has(.cms-page) .section-sidebar a:not([aria-current="page"]) { color: #606c74; } /* academics-sidebar-contrast-001 */
+.a11y-fix-errors .site--cms:has(.cms-page) .section-bar-name { color: #a4a4a4; } /* academics-header-contrast-001: ~3.07:1 */
 .a11y-fix-errors .cms-fac-title { color: #767676; } /* faculty-dir-title-contrast-001: ~4.5:1 */
 .a11y-fix-manual .cms-directory .fac-name-link:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; } /* faculty-dir-name-focus-001 */
 .a11y-fix-errors .cms-profile-contact--low .contact-card dt { color: #737373; } /* faculty-profile-contact-contrast-001: ~4.5:1 */

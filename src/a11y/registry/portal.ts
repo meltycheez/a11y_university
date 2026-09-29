@@ -55,7 +55,7 @@ export const portalScenarios: ScenarioDef[] = [
     rule: "contrast-text-low",
     title: "Widget footnotes are pale gray",
     description: "\"As of\" and \"due\" footnotes in the widgets are #a3adb8 on white (about 2.3:1).",
-    fixDescription: "Uses #69747e, just above the 4.5:1 minimum.",
+    fixDescription: "Uses #646e78, just above the 4.5:1 minimum against the unread row's #e8f0fb too.",
     component: "DashboardWidget",
     mechanism: "css",
     severity: "serious",

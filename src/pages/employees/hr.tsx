@@ -10,7 +10,7 @@ export { inventoryMeta as meta } from "~/routes/meta";
 
 const content = copyFor("/employees/hr");
 const [overview, contact] = content.sections;
-const EMAIL = "hr@redwoodstate.example.edu";
+const EMAIL = "hr@redwoodstate.edu";
 
 const units = [
   { title: "Talent Acquisition", content: <p>Posts positions, coordinates search committees and background checks, and runs new employee orientation every other Monday.</p> },

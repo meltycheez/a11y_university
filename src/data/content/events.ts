@@ -42,7 +42,7 @@ const details: Record<string, EventDetails> = {
     ],
     capacity: 3000,
     registration: { required: false },
-    contact: { name: "Office of Student Involvement", email: "involvement@redwoodstate.example.edu", phone: "(707) 555-0160" },
+    contact: { name: "Office of Student Involvement", email: "involvement@redwoodstate.edu", phone: "(707) 555-0160" },
     accessibilityNote: "Canopy Green is accessible from the Rowan Student Union plaza via paved paths. An accessible viewing area is located to the left of the main stage. ASL interpretation will be provided for the main stage 5:00–8:00 p.m. To request other accommodations, contact the Office of Student Involvement by October 9.",
   },
 
@@ -66,7 +66,7 @@ const details: Record<string, EventDetails> = {
       ],
       deadline: "2026-10-23T23:59:00-07:00",
     },
-    contact: { name: "Office of Undergraduate Research", email: "urso@redwoodstate.example.edu", phone: "(707) 555-0161" },
+    contact: { name: "Office of Undergraduate Research", email: "urso@redwoodstate.edu", phone: "(707) 555-0161" },
   },
 
   "homecoming-2026": {
@@ -91,7 +91,7 @@ const details: Record<string, EventDetails> = {
       ],
       deadline: "2026-10-16T17:00:00-07:00",
     },
-    contact: { name: "Office of Alumni Relations", email: "alumni@redwoodstate.example.edu", phone: "(707) 555-0162" },
+    contact: { name: "Office of Alumni Relations", email: "alumni@redwoodstate.edu", phone: "(707) 555-0162" },
     accessibilityNote: "Accessible parking is available in Lots A and C. Golf cart shuttles will run between the Rowan Student Union, Redwood Field and Owl Arena on Saturday. The Tanoak Creek grove walk follows an unpaved trail with steep sections.",
   },
 
@@ -116,7 +116,7 @@ const details: Record<string, EventDetails> = {
       ],
       deadline: "2026-10-02T17:00:00-07:00",
     },
-    contact: { name: "Career Services", email: "careers@redwoodstate.example.edu", phone: "(707) 555-0163" },
+    contact: { name: "Career Services", email: "careers@redwoodstate.edu", phone: "(707) 555-0163" },
   },
 
   "fall-choral-concert": {
@@ -137,7 +137,7 @@ const details: Record<string, EventDetails> = {
         { id: "student", label: "Students (any school, with ID)", price: 0 },
       ],
     },
-    contact: { name: "Department of Music Box Office", email: "boxoffice@redwoodstate.example.edu", phone: "(707) 555-0164" },
+    contact: { name: "Department of Music Box Office", email: "boxoffice@redwoodstate.edu", phone: "(707) 555-0164" },
   },
 
   "faculty-art-exhibition": {
@@ -151,7 +151,7 @@ const details: Record<string, EventDetails> = {
     ],
     capacity: 120,
     registration: { required: false },
-    contact: { name: "Burl Gallery", email: "gallery@redwoodstate.example.edu" },
+    contact: { name: "Burl Gallery", email: "gallery@redwoodstate.edu" },
   },
 
   "basketball-home-opener": {
@@ -173,7 +173,7 @@ const details: Record<string, EventDetails> = {
         { id: "reserved", label: "Reserved courtside seat", price: 25 },
       ],
     },
-    contact: { name: "Owls Ticket Office", email: "tickets@redwoodstate.example.edu", phone: "(707) 555-0165" },
+    contact: { name: "Owls Ticket Office", email: "tickets@redwoodstate.edu", phone: "(707) 555-0165" },
     accessibilityNote: "Wheelchair-accessible and companion seating is available on the concourse level in sections 102, 108 and 114. Assistive listening devices are available at Guest Services near the main entrance.",
   },
 
@@ -197,7 +197,7 @@ const details: Record<string, EventDetails> = {
       ],
       deadline: "2026-11-10T23:59:00-08:00",
     },
-    contact: { name: "Office of Admissions", email: "admissions@redwoodstate.example.edu", phone: "(707) 555-0166" },
+    contact: { name: "Office of Admissions", email: "admissions@redwoodstate.edu", phone: "(707) 555-0166" },
   },
 
   "wellness-week": {
@@ -211,7 +211,7 @@ const details: Record<string, EventDetails> = {
     ],
     capacity: 1500,
     registration: { required: false },
-    contact: { name: "Student Health and Counseling Center", email: "wellness@redwoodstate.example.edu", phone: "(707) 555-0167" },
+    contact: { name: "Student Health and Counseling Center", email: "wellness@redwoodstate.edu", phone: "(707) 555-0167" },
   },
 
   "redwood-lecture-climate": {
@@ -232,7 +232,7 @@ const details: Record<string, EventDetails> = {
       ],
       deadline: "2026-10-27T17:00:00-07:00",
     },
-    contact: { name: "Office of the Provost, Redwood Lecture Series", email: "redwoodlecture@redwoodstate.example.edu", phone: "(707) 555-0168" },
+    contact: { name: "Office of the Provost, Redwood Lecture Series", email: "redwoodlecture@redwoodstate.edu", phone: "(707) 555-0168" },
     accessibilityNote: "Live captioning will be displayed on screen. Lecture Hall 101 has wheelchair seating in the front and rear rows and a hearing loop.",
   },
 };

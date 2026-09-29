@@ -102,7 +102,7 @@ PhotoPine (photos), ReelWave (video), WorkCircle (professional). Icons are gener
 
 - **News bylines:** Laurel Whitcomb, Adaeze Okonkwo, Lena Marsh, Priya Sandoval, Grete Lindahl, Desmond Farrow, Tunde Adebayo, Claire Morel, Corinne Hale, Dana Whitaker (plus the earlier Jenna Albright, Colin Reyes, Megan Fairweather).
 - **Publishers and journals:** Fernhaven Valley Media (regional publisher), *Journal of Western Hydrology*.
-- **Placeholder domains:** photopine.example (and photopine.example.com), reelwave.example, workcircle.example, oajournals.example.org, proxy.redwoodstate.example.edu (library proxy).
+- **Placeholder domains:** photopine.example (and photopine.example.com), reelwave.example, workcircle.example, oajournals.example.org, proxy.redwoodstate.edu (library proxy).
 - **Athletics:** coaches Terrence Vail (men's basketball), Andrea Whitlock (women's soccer, since 2021), Graham Torres (cross country and track); Arcadia Falls Community Forest (home cross country course).
 - **Staff named in copy (from the generated directory):** Yara Sullivan (Dean of the Library), Hector Pacheco (Director of Human Resources).
 - **Plans and campaigns:** *Strategic Plan 2030: Rooted in Place* (adopted June 2024). *Wide Branches: The Campaign for Redwood State* ($250 million by June 2030). They are separate; don't call either one "Deep Roots, Wide Branches", which is the motto.

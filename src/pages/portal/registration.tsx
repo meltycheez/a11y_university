@@ -148,7 +148,7 @@ export default function RegistrationPage() {
           Add classes to your cart, drag them into priority order, then select Register. Registration dates are listed in the{" "}
           <SmartLink scenario="portal-reg-calendar-pdf-001" to="/documents/academic-calendar-2026-27.pdf" fileInfo="PDF, 2 KB">academic calendar</SmartLink>.
           Look up required books at the{" "}
-          <SmartLink scenario="portal-reg-store-window-001" to="https://bookstore.redwoodstate.example.edu/textbooks" newWindow>RSU Bookstore</SmartLink>.
+          <SmartLink scenario="portal-reg-store-window-001" to="https://bookstore.redwoodstate.edu/textbooks" newWindow>RSU Bookstore</SmartLink>.
         </p>
         <div className="rg-term">
           <Dropdown label="Term" scenario="portal-reg-term-dropdown-001" defect="mouse-only" value={term} onChange={(v) => setTerm(v as Term)} options={TERMS.map((t) => ({ value: t, label: t === "Fall 2026" ? "Fall 2026 (late add)" : t }))} />

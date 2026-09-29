@@ -26,7 +26,7 @@ const faq: [string, string][] = [
   ["Does RSU accept credit by exam?", "Yes. Qualifying scores on most college-level exams taken in high school earn college credit, and so do dual-enrollment courses. See the General Catalog for the full credit table."],
   ["Can I change my major after I am admitted?", "Most students can change majors at any time by submitting a Change of Major form. Impacted majors, such as Nursing and Computer Science, require an application and have limited space."],
   ["Is there an honors program?", "Yes. The Sequoia Honors College admits about 150 first-year students each year and offers small seminars, priority registration, and honors housing in Madrone Hall. Apply through the admission application."],
-  ["Who can I talk to about my application?", "Your regional admissions counselor. Call (707) 555-0120, email admissions@redwoodstate.example.edu, or visit Founders Hall 110 Monday through Friday, 8 a.m. to 5 p.m."],
+  ["Who can I talk to about my application?", "Your regional admissions counselor. Call (707) 555-0120, email admissions@redwoodstate.edu, or visit Founders Hall 110 Monday through Friday, 8 a.m. to 5 p.m."],
 ];
 
 export const admissionsPages: Record<string, PageContent> = {
@@ -479,7 +479,7 @@ export const admissionsPages: Record<string, PageContent> = {
         list: [
           "Founders Hall 120",
           "Phone: (707) 555-0125",
-          "Email: finaid@redwoodstate.example.edu",
+          "Email: finaid@redwoodstate.edu",
           "Walk-in hours: Monday–Thursday, 9 a.m. to 4 p.m.",
         ],
         links: [

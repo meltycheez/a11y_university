@@ -21,11 +21,11 @@ const features = [
 ];
 
 const chapters = [
-  { name: "Westmere", email: "westmere.chapter@redwoodstate.example.edu", note: "Monthly mixers and a spring networking night." },
-  { name: "Kestrel Bay", email: "kestrelbay.chapter@redwoodstate.example.edu", note: "Coastal cleanups and a summer picnic." },
-  { name: "San Aurelio", email: "sanaurelio.chapter@redwoodstate.example.edu", note: "Career panels with alumni in tech and health care." },
-  { name: "The state capital", email: "capital.chapter@redwoodstate.example.edu", note: "Public service alumni and legislative internship mentors." },
-  { name: "Pacific Northwest", email: "pnw.chapter@redwoodstate.example.edu", note: "Owls in Oregon and Washington; game-watch parties." },
+  { name: "Westmere", email: "westmere.chapter@redwoodstate.edu", note: "Monthly mixers and a spring networking night." },
+  { name: "Kestrel Bay", email: "kestrelbay.chapter@redwoodstate.edu", note: "Coastal cleanups and a summer picnic." },
+  { name: "San Aurelio", email: "sanaurelio.chapter@redwoodstate.edu", note: "Career panels with alumni in tech and health care." },
+  { name: "The state capital", email: "capital.chapter@redwoodstate.edu", note: "Public service alumni and legislative internship mentors." },
+  { name: "Pacific Northwest", email: "pnw.chapter@redwoodstate.edu", note: "Owls in Oregon and Washington; game-watch parties." },
 ];
 
 const social = [

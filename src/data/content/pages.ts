@@ -186,7 +186,7 @@ const universityPages: Record<string, PageContent> = {
         list: [
           "Founders Hall 300, 1400 Canopy Drive, Arcadia Falls, CA 95579",
           "Phone: (707) 555-0101",
-          "Email: president@redwoodstate.example.edu",
+          "Email: president@redwoodstate.edu",
         ],
         links: [{ label: "Strategic Plan 2030", href: "/about/strategic-plan" }],
       },
@@ -355,7 +355,7 @@ const universityPages: Record<string, PageContent> = {
         list: [
           "Redwood State University, 1400 Canopy Drive, Arcadia Falls, CA 95579",
           "Phone: (707) 555-0100, Monday through Friday, 8 a.m. to 5 p.m.",
-          "Email: info@redwoodstate.example.edu",
+          "Email: info@redwoodstate.edu",
         ],
       },
       {
@@ -364,18 +364,18 @@ const universityPages: Record<string, PageContent> = {
           caption: "Campus office directory",
           columns: ["Office", "Phone", "Email", "Location"],
           rows: [
-            ["Admissions", "(707) 555-0120", "admissions@redwoodstate.example.edu", "Founders Hall 110"],
-            ["Financial Aid", "(707) 555-0125", "finaid@redwoodstate.example.edu", "Founders Hall 120"],
-            ["Registrar", "(707) 555-0130", "registrar@redwoodstate.example.edu", "Founders Hall 130"],
-            ["Student Accounts", "(707) 555-0132", "studentaccounts@redwoodstate.example.edu", "Founders Hall 140"],
-            ["Housing & Residential Life", "(707) 555-0140", "housing@redwoodstate.example.edu", "Madrone Hall 101"],
-            ["Student Health Center", "(707) 555-0150", "health@redwoodstate.example.edu", "Wellness Center 110"],
-            ["Campus Safety (non-emergency)", "(707) 555-0160", "safety@redwoodstate.example.edu", "Corporation Yard"],
-            ["Sequoia Library", "(707) 555-0170", "library@redwoodstate.example.edu", "Sequoia Library"],
-            ["Human Resources", "(707) 555-0180", "hr@redwoodstate.example.edu", "Founders Hall 210"],
-            ["Advancement and Giving", "(707) 555-0190", "giving@redwoodstate.example.edu", "Founders Hall 320"],
-            ["Athletics", "(707) 555-0195", "owls@redwoodstate.example.edu", "Owl Arena"],
-            ["Media Relations", "(707) 555-0105", "news@redwoodstate.example.edu", "Founders Hall 305"],
+            ["Admissions", "(707) 555-0120", "admissions@redwoodstate.edu", "Founders Hall 110"],
+            ["Financial Aid", "(707) 555-0125", "finaid@redwoodstate.edu", "Founders Hall 120"],
+            ["Registrar", "(707) 555-0130", "registrar@redwoodstate.edu", "Founders Hall 130"],
+            ["Student Accounts", "(707) 555-0132", "studentaccounts@redwoodstate.edu", "Founders Hall 140"],
+            ["Housing & Residential Life", "(707) 555-0140", "housing@redwoodstate.edu", "Madrone Hall 101"],
+            ["Student Health Center", "(707) 555-0150", "health@redwoodstate.edu", "Wellness Center 110"],
+            ["Campus Safety (non-emergency)", "(707) 555-0160", "safety@redwoodstate.edu", "Corporation Yard"],
+            ["Sequoia Library", "(707) 555-0170", "library@redwoodstate.edu", "Sequoia Library"],
+            ["Human Resources", "(707) 555-0180", "hr@redwoodstate.edu", "Founders Hall 210"],
+            ["Advancement and Giving", "(707) 555-0190", "giving@redwoodstate.edu", "Founders Hall 320"],
+            ["Athletics", "(707) 555-0195", "owls@redwoodstate.edu", "Owl Arena"],
+            ["Media Relations", "(707) 555-0105", "news@redwoodstate.edu", "Founders Hall 305"],
           ],
         },
       },
@@ -428,7 +428,7 @@ const universityPages: Record<string, PageContent> = {
       },
       {
         heading: "Contact Family Programs",
-        list: ["Phone: (707) 555-0145", "Email: families@redwoodstate.example.edu"],
+        list: ["Phone: (707) 555-0145", "Email: families@redwoodstate.edu"],
       },
     ],
   },
@@ -491,7 +491,7 @@ const universityPages: Record<string, PageContent> = {
         paragraphs: [
           "If you encounter content you cannot access, contact the Web Accessibility Coordinator. Please include the page address and a description of the problem. We will respond within five business days.",
         ],
-        list: ["Email: accessibility@redwoodstate.example.edu", "Phone: (707) 555-0108"],
+        list: ["Email: accessibility@redwoodstate.edu", "Phone: (707) 555-0108"],
       },
       {
         heading: "Student accommodations",
@@ -509,7 +509,7 @@ const universityPages: Record<string, PageContent> = {
       {
         heading: "Information we collect",
         paragraphs: [
-          "When you visit redwoodstate.example.edu, our servers automatically log standard information such as your IP address, browser type, the pages you visit, and the date and time of your visit. This information is used in aggregate to maintain and improve the site. We use cookies to remember preferences and to support analytics.",
+          "When you visit redwoodstate.edu, our servers automatically log standard information such as your IP address, browser type, the pages you visit, and the date and time of your visit. This information is used in aggregate to maintain and improve the site. We use cookies to remember preferences and to support analytics.",
           "Information you submit in forms, such as a request for information or an application, is used only for the purpose for which it was collected and is handled in accordance with the California Information Practices Act of 1977.",
         ],
       },
@@ -522,7 +522,7 @@ const universityPages: Record<string, PageContent> = {
       },
       {
         heading: "Questions",
-        paragraphs: ["Contact the Information Security Office at (707) 555-0109 or privacy@redwoodstate.example.edu."],
+        paragraphs: ["Contact the Information Security Office at (707) 555-0109 or privacy@redwoodstate.edu."],
       },
     ],
   },

@@ -65,7 +65,6 @@ export const sections: Record<Section, SectionConfig> = {
     siteHref: "/academics",
     heroImage: "academics-hero-lecture",
     links: [
-      { label: "Colleges & Schools", href: "/academics" },
       { label: "Degree Programs", href: "/academics/programs" },
       { label: "Minors", href: "/academics/minors" },
       { label: "Certificates", href: "/academics/certificates" },
@@ -81,7 +80,6 @@ export const sections: Record<Section, SectionConfig> = {
     siteHref: "/academics",
     links: [
       { label: "Faculty Directory", href: "/faculty" },
-      { label: "Colleges & Schools", href: "/academics" },
       { label: "Degree Programs", href: "/academics/programs" },
       { label: "Course Search", href: "/academics/courses" },
     ],
