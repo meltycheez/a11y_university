@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const openControl = async (page: import("@playwright/test").Page) =>
-  page.getByRole("button", { name: "Accessibility Test Controls" }).click();
+  page.getByRole("button", { name: "Pope Tech Accessibility Lab" }).click();
 
 test.describe("mega menu keyboard disclosure", () => {
   test("defective: hover-only, no keyboard-reachable trigger", async ({ page }) => {

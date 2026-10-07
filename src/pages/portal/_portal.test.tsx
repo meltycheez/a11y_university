@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { scenarios } from "~/a11y/registry";
 import { registrationScenarios } from "~/a11y/registry/registration";
 import { a11yStore } from "~/a11y/state";
+import { endRun, startRun } from "~/ctf/store";
 import * as dashboard from "./index";
 import * as schedule from "./schedule";
 import * as grades from "./grades";
@@ -45,7 +46,9 @@ const markers = (el: Element) =>
 describe("portal pages", () => {
   it.each(Object.keys(pages))("%s renders every registered marker, and the fixed state", async (path) => {
     const { container } = await open(path);
-    const expected = [...scenarios.values()].filter((s) => s.pages.includes(path)).map((s) => s.id);
+    // PortalShell scenarios render in the layout, which these page-only renders leave out; check:scenarios
+    // verifies them in the prerendered HTML.
+    const expected = [...scenarios.values()].filter((s) => s.pages.includes(path) && s.component !== "PortalShell").map((s) => s.id);
     expect(expected.filter((id) => !markers(container).has(id))).toEqual([]);
     const unregistered = [...markers(container)].filter((id) => !scenarios.get(id)?.pages.includes(path));
     expect(unregistered).toEqual([]);
@@ -87,6 +90,7 @@ describe("registration SPA", () => {
     expect(document.activeElement?.id).toBe("rg-cart-heading");
 
     fireEvent.click(screen.getByRole("button", { name: "Register" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirm registration" }));
     expect(container.ownerDocument.querySelector("dialog.rg-processing[open]")).toBeTruthy();
     await waitFor(() => expect(container.querySelector("#rg-results-heading")).toBeTruthy(), { timeout: 2000 });
     expect(document.activeElement?.id).toBe("rg-results-heading");
@@ -109,6 +113,29 @@ describe("registration SPA", () => {
     fireEvent.submit(input.form!);
     expect(container.querySelector("#rg-crn-error")!.textContent).toMatch(/5-digit CRN/);
     expect(input.getAttribute("aria-describedby")).toBe("rg-crn-error");
+  });
+});
+
+describe("voice control CTF", () => {
+  it("needs exactly the three classes in priority order, then shows the flag", async () => {
+    localStorage.clear();
+    const { container } = await open("/portal/registration");
+    act(() => { startRun("registration-voice", "tester"); });
+    const input = container.querySelector<HTMLInputElement>("#rg-crn")!;
+    const quickAdd = (crn: string) => { fireEvent.change(input, { target: { value: crn } }); fireEvent.submit(input.form!); };
+    const register = async () => {
+      fireEvent.click(screen.getByRole("button", { name: "Submit enrollment request" })); // visible text: "Register"
+      fireEvent.click(container.querySelector(".rg-confirm-icon")!); // the unnamed check-mark
+      await waitFor(() => expect(container.querySelector("#rg-results-heading")).toBeTruthy(), { timeout: 2000 });
+    };
+    expect(screen.getByRole("button", { name: "Enroll" }).textContent).toBe("Add");
+    quickAdd("43772"); // HIST 111-80: not part of the task (and full, so it's waitlisted)
+    await register();
+    await waitFor(() => expect(screen.getByText(/Challenge not complete yet/)).toBeTruthy(), { timeout: 2000 });
+    for (const crn of ["44458", "45934", "43099"]) quickAdd(crn);
+    await register();
+    await waitFor(() => expect(container.querySelector(".ctf-complete .ctf-flag")?.textContent).toMatch(/^RSU\{registration-voice-[0-9a-f]{8}\}$/), { timeout: 2000 });
+    endRun();
   });
 });
 

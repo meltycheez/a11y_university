@@ -7,6 +7,11 @@ import { expect, test, type Page } from "@playwright/test";
 // can only be found by class here (this file never toggles Fix Errors).
 const addFirstCourse = (page: Page) => page.locator(".course-add").first().click();
 
+// The application's step titles are bold text and its Next button an unnamed arrow (apply-fake-heading-001,
+// apply-next-name-001), so these are located by class rather than role.
+const stepTitle = (page: Page, name: RegExp) => page.locator(".apply-step-title").filter({ hasText: name });
+const nextButton = (page: Page) => page.locator('.apply-nav button[type="submit"]');
+
 async function fillApplyStepOne(page: Page) {
   await page.locator("#first").fill("Casey");
   await page.locator("#last").fill("Rivera");
@@ -17,7 +22,7 @@ async function fillApplyStepOne(page: Page) {
   await page.locator("#street").fill("100 Redwood Way");
   await page.locator("#city").fill("Arcadia Falls");
   await page.locator("#zip").fill("95521");
-  await page.selectOption("#citizenship", { label: "U.S. citizen" });
+  await page.locator("#citizenship").check(); // U.S. citizen (apply-citizenship-radios-001: radios named by codes)
 }
 
 test("course plan resets on reload (/academics/courses)", async ({ page }) => {
@@ -31,13 +36,13 @@ test("course plan resets on reload (/academics/courses)", async ({ page }) => {
 
 test("application step resets on reload (/admissions/apply)", async ({ page }) => {
   await page.goto("/admissions/apply");
-  await expect(page.getByRole("heading", { name: /Step 1 of 5/ })).toBeVisible();
+  await expect(stepTitle(page, /Step 1 of 3/)).toBeVisible();
   await fillApplyStepOne(page);
-  await page.getByRole("button", { name: "Next" }).click();
-  await expect(page.getByRole("heading", { name: /Step 2 of 5/ })).toBeVisible();
+  await nextButton(page).click();
+  await expect(stepTitle(page, /Step 2 of 3/)).toBeVisible();
 
   await page.reload();
-  await expect(page.getByRole("heading", { name: /Step 1 of 5/ })).toBeVisible();
+  await expect(stepTitle(page, /Step 1 of 3/)).toBeVisible();
 });
 
 test("event registration resets on reload (/events/research-symposium-2026)", async ({ page }) => {
@@ -82,7 +87,7 @@ test("no persistence: none of the above interactions touch storage or cookies", 
   await addFirstCourse(page);
   await page.goto("/admissions/apply");
   await fillApplyStepOne(page);
-  await page.getByRole("button", { name: "Next" }).click();
+  await nextButton(page).click();
   await page.goto("/portal/todo");
   await page.locator('input[type="checkbox"]').first().check();
 

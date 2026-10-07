@@ -2,6 +2,7 @@
 // Class search, a shopping cart held in a module store (survives navigation, resets on reload), time-conflict
 // checks against Jordan's schedule and the cart, priority reordering, and a fake Register with latency that ends
 // in registered / waitlisted / error results. Every defect is registered in a11y/registry/registration.ts.
+// Also the voice control CTF (plan 11 §6): register CTF_ORDER in that priority order to reveal the flag.
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLoaderData } from "react-router";
 import { Field, Heading, IconButton, SmartLink } from "~/a11y/helpers";
@@ -11,6 +12,9 @@ import { Dropdown, Toast } from "~/components/widgets";
 import courses from "~/data/generated/courses.json";
 import portal from "~/data/generated/portal.json";
 import type { Course, CourseSection, PortalStudent, Term } from "~/data/types";
+import { ChallengeBanner } from "~/ctf/ChallengeBanner";
+import { ChallengeComplete } from "~/ctf/ChallengeComplete";
+import { isRunning, revealFlag } from "~/ctf/store";
 import { createStore, latency } from "~/lib/interactive";
 import { PortalPage, erpDate, time12 } from "./_PortalPage";
 
@@ -43,8 +47,11 @@ interface Result { crn: string; status: Status; message: string }
 const regStore = createStore({
   cart: [] as string[],
   registered: [] as { crn: string; status: "registered" | "waitlisted" }[],
-  results: null as { term: Term; items: Result[] } | null,
+  results: null as { term: Term; items: Result[]; flag?: string; ctfNote?: string } | null,
 });
+
+// CTF target: MATH 101-02, CHEM 101-02, ENGL 111-01 (Spring 2027), registered in exactly this priority order.
+const CTF_ORDER = ["44458", "45934", "43099"];
 
 const TERMS: Term[] = ["Spring 2027", "Fall 2026"];
 const when = (s: Sec) => (s.days ? `${s.days} ${time12(s.start)}–${time12(s.end)}` : "Online, asynchronous");
@@ -73,6 +80,8 @@ const statusIcon: Record<Status, { src: string; label: string }> = {
   error: { src: svg('<circle cx="8" cy="8" r="8" fill="#b42318"/><path d="m5 5 6 6M11 5l-6 6" stroke="#fff" stroke-width="2"/>'), label: "Not registered" },
 };
 const plus = <svg viewBox="0 0 16 16" width="14" height="14" focusable="false"><path d="M7 2h2v5h5v2H9v5H7V9H2V7h5Z" fill="currentColor" /></svg>;
+const check = <svg viewBox="0 0 16 16" width="16" height="16" focusable="false" aria-hidden="true"><path d="m3 8 3 3 7-7" stroke="currentColor" strokeWidth="2.2" fill="none" /></svg>;
+const cross = <svg viewBox="0 0 16 16" width="16" height="16" focusable="false" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" stroke="currentColor" strokeWidth="2.2" /></svg>;
 const warn = <svg viewBox="0 0 16 16" width="14" height="14" focusable="false" aria-hidden="true"><path d="M8 1 15 14H1Z" fill="#b42318" /><path d="M7.2 5.5h1.6v4.5H7.2zM7.2 11h1.6v1.6H7.2z" fill="#fff" /></svg>;
 
 export default function RegistrationPage() {
@@ -120,10 +129,16 @@ export default function RegistrationPage() {
     await latency(`reg-submit-${cart.map((s) => s.crn).join("-")}`);
     const items = runRegistration(cart, enrolled, d.maxCredits);
     const kept = items.filter((r) => r.status !== "error");
+    let flag: string | undefined, ctfNote: string | undefined;
+    if (isRunning("registration-voice")) {
+      const done = cart.map((s) => s.crn).join() === CTF_ORDER.join() && items.every((r) => r.status === "registered");
+      if (done) flag = revealFlag("registration-voice", CTF_ORDER) ?? undefined;
+      else ctfNote = "Challenge not complete yet: register exactly the three classes in the instructions, in that priority order, and nothing else.";
+    }
     regStore.set((st) => ({
       cart: st.cart.filter((c) => !kept.some((r) => r.crn === c)),
       registered: [...st.registered, ...kept.map((r) => ({ crn: r.crn, status: r.status as "registered" | "waitlisted" }))],
-      results: { term, items },
+      results: { term, items, flag, ctfNote },
     }));
     setProcessing(false);
     setFinished((n) => n + 1);
@@ -139,6 +154,7 @@ export default function RegistrationPage() {
 
   return (
     <PortalPage title="Registration" subtitle={`${term} · Class search and shopping cart`}>
+      <ChallengeBanner id="registration-voice" />
       <section className="pt-card rg-intro">
         <p>
           Spring 2027 time ticket: <strong>{erpDate(ticketDate)} {time12(ticketTime)}</strong> · Maximum <strong>{d.maxCredits}</strong> credits ·{" "}
@@ -146,7 +162,7 @@ export default function RegistrationPage() {
         </p>
         <p>
           Add classes to your cart, drag them into priority order, then select Register. Registration dates are listed in the{" "}
-          <SmartLink scenario="portal-reg-calendar-pdf-001" to="/documents/academic-calendar-2026-27.pdf" fileInfo="PDF, 2 KB">academic calendar</SmartLink>.
+          <SmartLink scenario="portal-reg-calendar-pdf-001" to="/documents/academic-calendar-2026-27.pdf" fixedTo="/academics/calendar">academic calendar</SmartLink>.
           Look up required books at the{" "}
           <SmartLink scenario="portal-reg-store-window-001" to="https://bookstore.redwoodstate.edu/textbooks" newWindow>RSU Bookstore</SmartLink>.
         </p>
@@ -194,6 +210,10 @@ function Cart({ term, cart, enrolled, max, sections, processing, headingRef, onA
   const colorFixed = useScenario("portal-reg-conflict-color-001");
   const announceFixed = useScenario("portal-reg-conflict-announce-001");
   const removeFixed = useScenario("portal-reg-remove-js-001");
+  const confirmFixed = useScenario("portal-reg-confirm-name-001");
+  const namesFixed = useScenario("portal-reg-name-mismatch-001");
+  useScenario("portal-reg-target-size-001");
+  const [confirming, setConfirming] = useState(false);
   useScenario("portal-reg-cart-focus-ring-001");
   useScenario("portal-reg-footnote-contrast-001");
   const dragFrom = useRef(-1);
@@ -209,7 +229,7 @@ function Cart({ term, cart, enrolled, max, sections, processing, headingRef, onA
     <section
       className="pt-card rg-cart"
       aria-labelledby="rg-cart-heading"
-      data-a11y-scenario="portal-reg-cart-focus-001 portal-reg-drag-001 portal-reg-conflict-color-001 portal-reg-conflict-announce-001 portal-reg-remove-js-001 portal-reg-cart-focus-ring-001 portal-reg-footnote-contrast-001 portal-reg-processing-trap-001 portal-reg-processing-restore-001 portal-reg-spinner-motion-001"
+      data-a11y-scenario="portal-reg-cart-focus-001 portal-reg-drag-001 portal-reg-conflict-color-001 portal-reg-conflict-announce-001 portal-reg-remove-js-001 portal-reg-cart-focus-ring-001 portal-reg-footnote-contrast-001 portal-reg-processing-trap-001 portal-reg-processing-restore-001 portal-reg-spinner-motion-001 portal-reg-confirm-name-001 portal-reg-name-mismatch-001 portal-reg-target-size-001"
     >
       <H id="rg-cart-heading" ref={headingRef} tabIndex={-1} className="rg-cart-heading" data-a11y-scenario="portal-reg-cart-heading-skip-001">
         Shopping Cart: {term} ({cart.length})
@@ -264,8 +284,27 @@ function Cart({ term, cart, enrolled, max, sections, processing, headingRef, onA
         </ol>
       )}
       {cart.length > 1 && <p className="pt-muted">{dragFixed ? "Use the arrow buttons or drag classes to set priority." : "Drag classes to set priority."} Higher priority classes are processed first.</p>}
-      {cart.length > 0 && (
-        <p><button type="button" className="btn pt-btn" onClick={onRegister} disabled={processing}>Register</button></p>
+      {cart.length > 0 && !confirming && (
+        <p>
+          <button type="button" className="btn pt-btn" onClick={() => setConfirming(true)} disabled={processing}
+            aria-label={namesFixed ? undefined : "Submit enrollment request"}>Register</button>
+        </p>
+      )}
+      {cart.length > 0 && confirming && (
+        <div className="rg-confirm">
+          <p>Submit registration for {cart.length} {cart.length === 1 ? "class" : "classes"} in this priority order?</p>
+          {confirmFixed ? (
+            <p className="rg-confirm-actions">
+              <button type="button" className="btn pt-btn" onClick={() => { setConfirming(false); onRegister(); }}>Confirm registration</button>
+              <button type="button" className="pt-linkbtn" onClick={() => setConfirming(false)}>Cancel</button>
+            </p>
+          ) : (
+            <p className="rg-confirm-actions">
+              <button type="button" className="rg-confirm-icon" onClick={() => { setConfirming(false); onRegister(); }}>{check}</button>
+              <button type="button" className="rg-confirm-icon" onClick={() => setConfirming(false)}>{cross}</button>
+            </p>
+          )}
+        </div>
       )}
       <QuickAdd term={term} sections={sections} onAdd={onAdd} />
       <p className="rg-cart-note">Credit totals include classes you are already enrolled in. Registering for more than {max} credits requires approval from your college dean.</p>
@@ -295,6 +334,7 @@ function CreditMeter({ enrolled, cart, max }: { enrolled: Sec[]; cart: Sec[]; ma
 
 function QuickAdd({ term, sections, onAdd }: { term: Term; sections: Sec[]; onAdd: (s: Sec) => void }) {
   const fixed = useScenario("portal-reg-crn-vague-001");
+  const namesFixed = useScenario("portal-reg-name-mismatch-001");
   const [crn, setCrn] = useState("");
   const [error, setError] = useState("");
   const submit = (e: React.FormEvent) => {
@@ -317,7 +357,7 @@ function QuickAdd({ term, sections, onAdd }: { term: Term; sections: Sec[]; onAd
         scenario="portal-reg-crn-label-001" id="rg-crn" label="Add by CRN" defect="missing" inputMode="numeric" autoComplete="off"
         value={crn} onChange={(e) => setCrn(e.target.value)} aria-invalid={fixed && error ? true : undefined} aria-describedby={fixed && error ? "rg-crn-error" : undefined}
       />
-      <button type="submit" className="btn pt-btn">Add</button>
+      <button type="submit" className="btn pt-btn" aria-label={namesFixed ? undefined : "Enroll"}>Add</button>
       <p id="rg-crn-error" className="rg-error" role="alert">{error}</p>
     </form>
   );
@@ -333,6 +373,7 @@ function ClassSearch({ term, sections, subjects, statusOf, onAdd }: SearchProps)
   const liveFixed = useScenario("portal-reg-results-live-001");
   const expandFixed = useScenario("portal-reg-adv-expandable-001");
   const hiddenFixed = useScenario("portal-reg-adv-hidden-focus-001");
+  const namesFixed = useScenario("portal-reg-name-mismatch-001");
   useScenario("portal-reg-seats-note-small-001");
   const [form, setForm] = useState(initialQuery);
   const [query, setQuery] = useState(initialQuery);
@@ -373,7 +414,7 @@ function ClassSearch({ term, sections, subjects, statusOf, onAdd }: SearchProps)
         </div>
         <Field scenario="portal-reg-keyword-placeholder-001" id="rg-keyword" label="Keyword, course number or instructor" defect="placeholder" value={form.keyword} onChange={(e) => set({ keyword: e.target.value })} autoComplete="off" />
         <div className="rg-search-actions">
-          <button type="submit" className="btn pt-btn">Search</button>
+          <button type="submit" className="btn pt-btn" aria-label={namesFixed ? undefined : "Find"}>Search</button>
           <button type="button" className="pt-linkbtn" onClick={() => setAdvOpen((o) => !o)} {...expand} data-a11y-scenario="portal-reg-adv-expandable-001">
             {advOpen ? "Fewer search options" : "More search options"}
           </button>
@@ -507,7 +548,7 @@ function CurrentSchedule({ term, enrolled, waitlisted }: { term: Term; enrolled:
   );
 }
 
-function Results({ results, byCrn, headingRef }: { results: { term: Term; items: Result[] } | null; byCrn: Map<string, Sec>; headingRef: React.RefObject<HTMLHeadingElement | null> }) {
+function Results({ results, byCrn, headingRef }: { results: { term: Term; items: Result[]; flag?: string; ctfNote?: string } | null; byCrn: Map<string, Sec>; headingRef: React.RefObject<HTMLHeadingElement | null> }) {
   const altFixed = useScenario("portal-reg-result-icon-alt-001");
   return (
     <div className="rg-results" data-a11y-scenario="portal-reg-result-icon-alt-001">
@@ -533,6 +574,8 @@ function Results({ results, byCrn, headingRef }: { results: { term: Term; items:
               </tbody>
             </table>
           </div>
+          {results.flag && <ChallengeComplete id="registration-voice" onRetry={() => regStore.set({ cart: [], registered: [], results: null })} />}
+          {results.ctfNote && <p className="rg-error">{results.ctfNote}</p>}
           <p>Registered and waitlisted classes appear under Current Schedule and on your <Link to="/portal/schedule">class schedule</Link> after the nightly update.</p>
         </section>
       )}

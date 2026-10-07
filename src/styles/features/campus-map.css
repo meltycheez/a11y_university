@@ -119,3 +119,25 @@ button.cmap-print { background: none; border: 0; padding: 0; color: var(--color-
 .cmap-list-btn[aria-current] { font-weight: 700; }
 
 @media print { .cmap-tools, .cmap-toolbar { display: none; } .cmap-viewport { width: 100%; } }
+
+/* Plan 11 eye tracking CTF. */
+/* campus-map-zoom-target-001: 12 px map buttons. */
+.cmap-zoom-btn { width: 12px; height: 12px; padding: 0; }
+.cmap-zoom-btn svg { width: 10px; height: 10px; }
+.a11y-fix-manual .cmap-zoom-btn { width: 2.25rem; height: 2.25rem; }
+.a11y-fix-manual .cmap-zoom-btn svg { width: 20px; height: 20px; }
+/* campus-map-banner-shift-001: slides open and shut, moving everything below it. */
+.cmap-parking-alert { overflow: hidden; margin: 0 0 var(--space-3); padding: 0 var(--space-3); background: #fff4d6; border-left: 4px solid #b98900; animation: cmap-banner-shift 6s ease-in-out infinite; }
+@keyframes cmap-banner-shift { 0%, 20% { max-height: 0; padding-block: 0; } 40%, 80% { max-height: 6rem; padding-block: var(--space-2); } 100% { max-height: 0; padding-block: 0; } }
+.a11y-fix-manual .cmap-parking-alert { animation: none; max-height: none; padding-block: var(--space-2); }
+/* campus-map-timeout-001 */
+.cmap-timeout { position: relative; margin: var(--space-2) 0; padding: var(--space-3) var(--space-4) var(--space-5); background: #fff; border: 2px solid var(--gray-800); border-radius: var(--radius-sm); }
+.cmap-timeout p { margin: 0; font-weight: 600; }
+.cmap-timeout-btn { position: absolute; right: 4px; bottom: 4px; height: 18px; padding: 0 4px; font: 600 10px/1 var(--font-sans); background: #fff; border: 1px solid var(--gray-400); cursor: pointer; }
+.cmap-checkin { margin-top: var(--space-4); }
+.cmap-checkin h2 { font-size: 1.2rem; margin: 0 0 var(--space-2); }
+.cmap-checkin label { display: block; font-weight: 650; margin-bottom: var(--space-1); }
+.cmap-checkin-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.cmap-checkin-row input { font: inherit; padding: 0.5rem 0.75rem; border: 1px solid var(--gray-600); border-radius: var(--radius-sm); width: 10rem; }
+.cmap-checkin-msg:empty { display: none; }
+.cmap-checkin-msg { margin-top: var(--space-2); font-weight: 600; word-break: break-word; }

@@ -20,6 +20,8 @@
 /* Plan 06 interactive features */
 @import "./features/courses.css";
 @import "./features/registration.css";
+@import "./features/start.css";
+@import "./features/leaderboard.css";
 @import "./features/search.css";
 @import "./features/visit.css";
 @import "./features/apply.css";

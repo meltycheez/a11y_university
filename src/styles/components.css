@@ -89,11 +89,21 @@
 .pagination button[aria-current="page"] { background: var(--color-accent); color: #fff; border-color: var(--color-accent); }
 .pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* Accessibility Test Controls (infrastructure: must stay accessible, isolated from section themes) */
+/* Pope Tech Accessibility Lab widget (formerly Accessibility Test Controls). Infrastructure: must stay accessible, isolated from section themes. */
 .a11y-control { position: fixed; right: 1rem; bottom: 1rem; z-index: 9999; font: 600 0.9rem/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; color: #111; }
-.a11y-control-toggle { background: #111; color: #fff; border: 2px solid #fff; border-radius: 999px; padding: 0.6rem 1rem; font: inherit; cursor: pointer; box-shadow: 0 4px 14px rgb(0 0 0 / 0.3); }
-.a11y-control-toggle:focus-visible { outline: 3px solid #ffbf47; outline-offset: 2px; }
-.a11y-control-panel { position: absolute; right: 0; bottom: calc(100% + 0.5rem); width: 18rem; background: #fff; border: 2px solid #111; border-radius: 8px; padding: 1rem; font-weight: 400; box-shadow: 0 8px 24px rgb(0 0 0 / 0.25); }
+.a11y-control-toggle { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 52px; padding: 6px 1rem 6px 6px; background: #fff; border: 2px solid #123342; border-radius: 999px; color: #123342; font: 700 0.95rem/1.2 system-ui, -apple-system, "Segoe UI", sans-serif; cursor: pointer; box-shadow: 0 4px 14px rgb(0 0 0 / 0.3); }
+.a11y-control-toggle img { display: block; width: 36px; height: 36px; }
+.a11y-control-toggle:hover { background: #eef3f5; }
+.a11y-control-toggle:focus-visible { outline: 3px solid #ffbf47; outline-offset: 2px; box-shadow: 0 0 0 6px #111; }
+.a11y-control-panel { position: absolute; right: 0; bottom: calc(100% + 0.5rem); width: min(24rem, calc(100vw - 2rem)); max-height: calc(100vh - 6rem); overflow-y: auto; background: #fff; border: 2px solid #111; border-radius: 8px; padding: 1rem; font-weight: 400; box-shadow: 0 8px 24px rgb(0 0 0 / 0.25); }
+.a11y-control .ptw-title { margin: 0 0 0.5rem; font: 700 1.05rem/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; color: #123342; }
+.a11y-control .tab-list { border-bottom: 2px solid #ccc; }
+.a11y-control .tab { padding: 0.4rem 0.75rem; font: 600 0.9rem/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; color: #444; }
+.a11y-control .tab[aria-selected="true"] { color: #123342; border-bottom-color: #123342; }
+.a11y-control .tab-panel { padding-block: 0.75rem 0; }
+.a11y-control .tab-panel:focus-visible, .a11y-control .tab:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
+.ptw-disclaimer { margin: 0 0 0.6rem; font-size: 0.8rem; color: #444; }
+.ptw-warning { margin: 0 0 0.75rem; padding: 0.5rem 0.6rem; border-left: 4px solid #b35c00; background: #fff4e5; font-size: 0.85rem; }
 .a11y-control-panel a { color: #0b4f9c; }
 .a11y-control-panel p:last-child { margin: 0; }
 .a11y-control button:focus-visible, .a11y-control a:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
@@ -108,6 +118,58 @@
 .a11y-control-actions button { flex: 1; padding: 0.4rem 0.6rem; font: 600 0.85rem/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; color: #111; background: #fff; border: 2px solid #111; border-radius: 6px; cursor: pointer; }
 .a11y-control-actions button:hover { background: #eee; }
 @media (prefers-reduced-motion: reduce) { .a11y-switch-track, .a11y-switch-track::after { transition: none; } }
+
+/* Pope Tech Accessibility Lab widget: CTF Challenges tab, its modals, and the on-page banner (plan 11). Infrastructure too. */
+.ctf-panel, .ctf-banner, .ctf-source, .ctf-board { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #111; }
+.ctf-panel p { margin: 0 0 0.6rem; }
+.ctf-h { margin: 0 0 0.4rem; font: 700 1rem/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; color: #123342; }
+.ctf-h:focus { outline: none; }
+.ctf-h:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
+.ctf-h4 { margin: 0.75rem 0 0.3rem; font: 700 0.9rem/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; }
+.ctf-meta { font-size: 0.8rem; color: #444; }
+.ctf-list { list-style: none; margin: 0 0 0.75rem; padding: 0; display: grid; gap: 0.5rem; }
+.ctf-list a { font-weight: 700; }
+.ctf-list .ctf-meta { display: block; }
+.ctf-instructions, .ctf-hints, .ctf-scoring ul { margin: 0 0 0.6rem; padding-left: 1.25rem; font-size: 0.85rem; display: grid; gap: 0.25rem; }
+.ctf-hints { background: #f2f6f8; padding: 0.5rem 0.5rem 0.5rem 1.75rem; border-radius: 6px; }
+.ctf-score { font-weight: 700; font-size: 1rem; }
+.ctf-start { display: grid; gap: 0.3rem; margin-bottom: 0.6rem; }
+.ctf-start label { font-weight: 700; }
+.ctf-start input { font: inherit; padding: 0.45rem 0.6rem; border: 2px solid #595959; border-radius: 6px; }
+.ctf-start input:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 1px; }
+.ctf-start input[aria-invalid="true"] { border-color: #b00020; }
+.ctf-error { color: #b00020; font-weight: 700; font-size: 0.85rem; }
+.ctf-btn { min-height: 2.5rem; padding: 0.45rem 0.9rem; font: 700 0.9rem/1.2 system-ui, -apple-system, "Segoe UI", sans-serif; color: #fff; background: #123342; border: 2px solid #123342; border-radius: 6px; cursor: pointer; }
+.ctf-btn:hover { background: #284e61; }
+.ctf-btn--quiet { color: #123342; background: #fff; }
+a.ctf-btn { display: inline-flex; align-items: center; text-decoration: none; }
+.ctf-btn--quiet:hover { background: #eef3f5; }
+.ctf-btn--danger { color: #fff; background: #a3001b; border-color: #a3001b; }
+.ctf-btn--danger:hover { background: #7d0015; }
+.ctf-btn:focus-visible, .ctf-panel a:focus-visible, .ctf-scoring summary:focus-visible, .ctf-source pre:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
+.ctf-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.6rem 0; }
+.ctf-footer { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #ccc; display: grid; gap: 0.5rem; justify-items: start; }
+.ctf-scoring summary { cursor: pointer; font-weight: 700; font-size: 0.85rem; }
+.ctf-flag { display: inline-block; padding: 0.15rem 0.4rem; background: #123342; color: #fff; border-radius: 4px; font: 700 0.95rem/1.4 ui-monospace, Consolas, monospace; word-break: break-all; }
+.ctf-table { width: 100%; border-collapse: collapse; margin: 0 0 0.6rem; font-size: 0.85rem; }
+.ctf-table th, .ctf-table td { padding: 0.25rem 0.4rem; border-bottom: 1px solid #ddd; text-align: left; }
+.ctf-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.ctf-total th, .ctf-total td { font-weight: 800; border-bottom: 0; }
+.ctf-board caption { text-align: left; font-weight: 700; margin-bottom: 0.4rem; }
+.modal:has(.ctf-source) { width: min(64rem, calc(100vw - 2rem)); }
+.ctf-source pre { max-height: 50vh; overflow: auto; margin: 0 0 1rem; padding: 0.75rem; background: #f6f8fa; border: 1px solid #ccc; border-radius: 6px; font: 0.8rem/1.45 ui-monospace, Consolas, monospace; white-space: pre; }
+.ctf-banner { margin: 0 0 1.5rem; padding: 1rem 1.25rem; background: #eef3f5; border: 2px solid #123342; border-radius: 8px; max-width: 54rem; }
+.ctf-banner p { margin: 0 0 0.6rem; }
+.ctf-banner-head { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.75rem; margin-bottom: 0.75rem; }
+.ctf-banner-head img { flex: none; }
+.ctf-banner .ctf-banner-title { margin: 0; font: 700 1.15rem/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; color: #123342; }
+.ctf-banner .ctf-banner-at { margin: 0 0 0 auto; padding: 0.15rem 0.6rem; background: #123342; color: #fff; border-radius: 999px; font-size: 0.85rem; }
+.ctf-banner-body { padding-bottom: 0.5rem; }
+.ctf-banner-tools { padding-top: 0.75rem; border-top: 1px solid #b9c7cf; }
+.ctf-start-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ctf-start-row input { flex: 1 1 12rem; max-width: 20rem; }
+.ctf-banner a { color: #0b4f9c; }
+.ctf-banner a:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
 
 /* Highlight toggles and the overlay they draw (a11y/ScenarioHighlights.tsx) */
 .a11y-hl--error { --hl: #c8102e; --hl-fg: #fff; }
@@ -212,3 +274,38 @@ dialog.modal[open]:not(:modal) { position: fixed; inset: 0; margin: auto; height
 .toast { display: flex; gap: var(--space-4); align-items: center; background: var(--gray-900); color: #fff; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); box-shadow: var(--shadow-md); }
 .toast-dismiss { background: none; border: 1px solid #fff; color: #fff; border-radius: var(--radius-sm); padding: var(--space-1) var(--space-2); font: inherit; cursor: pointer; }
 .modal-backdrop[hidden] { display: none; }
+
+/* CTF rules chips (challenge bar) and confirm dialog. */
+.ctf-rules { display: grid; gap: 0.5rem; margin: 0 0 0.75rem; padding: 0.75rem; background: #fff; border: 1px solid #b9c7cf; border-radius: 6px; }
+.ctf-rule-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; }
+.ctf-banner .ctf-rule-title { flex: 0 0 7.5rem; margin: 0; font: 700 0.85rem/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; color: #111; }
+.ctf-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0; padding: 0; list-style: none; }
+.ctf-chip { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.2rem 0.65rem 0.2rem 0.45rem; border: 1px solid; border-radius: 999px; font: 600 0.85rem/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; }
+.ctf-chip-icon { display: inline-grid; place-items: center; width: 1.1rem; height: 1.1rem; border-radius: 50%; color: #fff; font-size: 0.7rem; font-weight: 800; }
+.ctf-rule-group--yes .ctf-chip { background: #e8f5ec; border-color: #1b6e3a; color: #124d28; }
+.ctf-rule-group--yes .ctf-chip-icon { background: #1b6e3a; }
+.ctf-rule-group--no .ctf-chip { background: #fdecee; border-color: #a3001b; color: #7d0015; }
+.ctf-rule-group--no .ctf-chip-icon { background: #a3001b; }
+.ctf-rule-group--cost .ctf-chip { background: #fff4e5; border-color: #8a4b00; color: #6b3a00; }
+.ctf-rule-group--cost .ctf-chip-icon { background: #8a4b00; }
+.ctf-rules-more summary { cursor: pointer; font: 700 0.85rem/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; color: #123342; }
+.ctf-rules-more summary:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
+.ctf-rule-list { margin: 0; display: grid; gap: 0.4rem; font-size: 0.85rem; }
+.ctf-rule-list dt { font-weight: 700; }
+.ctf-rule-list dd { margin: 0 0 0 1rem; }
+.ctf-confirm { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #111; }
+.ctf-confirm p { margin: 0 0 1rem; }
+.ctf-fixes { max-width: 24rem; }
+.ctf-banner .ctf-banner-title:focus { outline: none; }
+.ctf-banner .ctf-banner-title:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
+/* ChallengeComplete: the congratulations on a challenge page when its task finishes. */
+.ctf-complete { margin: 1.25rem 0; padding: 1.25rem 1.5rem; border: 2px solid #1b6e3a; border-radius: 14px; background: #eef8f1; color: #1a1a18; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+.ctf-complete h3 { margin: 0 0 0.5rem; font: 800 1.35rem/1.25 system-ui, -apple-system, "Segoe UI", sans-serif; color: #14532d; }
+.ctf-complete p { margin: 0 0 0.75rem; }
+.ctf-complete h3:focus-visible, .ctf-complete .ctf-btn:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
+.ctf-banner .ctf-flag-note { padding: 0.5rem 0.6rem; border-left: 4px solid #123342; background: #fff; font-size: 0.9rem; }
+.ctf-btn--icon { display: inline-flex; align-items: center; gap: 0.5rem; }
+.ctf-start-go { margin-top: 0.75rem; }
+.ctf-start-go .ptw-warning { font-size: 0.95rem; }
+.ctf-link-btn { padding: 0; margin-left: 0.4rem; border: 0; background: none; font: inherit; color: #0b4f9c; text-decoration: underline; cursor: pointer; }
+.ctf-link-btn:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }

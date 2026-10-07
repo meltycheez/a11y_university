@@ -81,7 +81,7 @@ export const campusMapScenarios: ScenarioDef[] = [
     id: "campus-map-lots-hidden-focus-001", rule: "aria-hidden-focusable",
     title: "Parking lot links are focusable inside aria-hidden",
     description: "The parking layer is wrapped in aria-hidden=\"true\" to quiet the map, but each lot is a focusable link, so keyboard users land on links that say nothing.",
-    fixDescription: "Removes aria-hidden and names each lot link (\"Lot A, visitor and daily parking\").",
+    fixDescription: "Removes aria-hidden; each lot becomes a named, non-focusable map shape (\"Lot A, Visitor and daily parking\") instead of one of eight identical links.",
     component: "CampusMapSvg", mechanism: "markup", severity: "serious",
   }),
   s({
@@ -111,7 +111,7 @@ export const campusMapScenarios: ScenarioDef[] = [
     id: "campus-map-parking-pdf-001", rule: "link-document",
     title: "Printable parking map doesn't say it's a PDF",
     description: "\"Printable parking map\" downloads a PDF with no file type or size.",
-    fixDescription: "The link reads \"Parking Map (PDF, 3 KB)\".",
+    fixDescription: "Links to the web version instead: \"Parking maps and lot guide\" on the Parking Services page (no PDF to download).",
     component: "CampusMapPage", mechanism: "markup", severity: "minor",
   }),
   s({
@@ -263,6 +263,35 @@ export const campusMapScenarios: ScenarioDef[] = [
     description: "The map viewport is a fixed 52rem (832 px) wide, so small screens and 400% zoom scroll the whole page sideways.",
     fixDescription: "The map scales to the width of its column.",
     component: "CampusMap", mechanism: "css", severity: "serious",
+  }),
+  // Plan 11 eye tracking CTF.
+  s({
+    id: "campus-map-tip-persist-001", rule: "hover-content-not-persistent",
+    title: "Building tooltips vanish before you can read them",
+    description: "A building's tooltip closes after 2 seconds, or as soon as the pointer drifts a few pixels, so gaze and head pointers lose it immediately.",
+    fixDescription: "The tooltip stays open for as long as the pointer is over the building.",
+    component: "CampusMapSvg", mechanism: "behavior", severity: "serious",
+  }),
+  s({
+    id: "campus-map-zoom-target-001", rule: "target-size-small",
+    title: "Zoom buttons are 12-pixel targets",
+    description: "The zoom in, zoom out and reset buttons are 12 by 12 pixels, packed edge to edge.",
+    fixDescription: "Each map button is at least 36 by 36 pixels.",
+    component: "MapToolbar", mechanism: "css", severity: "serious",
+  }),
+  s({
+    id: "campus-map-timeout-001", rule: "form-timeout-no-warning",
+    title: "\"Are you still there?\" resets the map every minute",
+    description: "Every 60 seconds a prompt asks \"Are you still there?\"; unless its tiny Continue button is pressed within 15 seconds the map resets its view and clears the check-in box.",
+    fixDescription: "No time limit: the prompt never appears.",
+    component: "CampusMap", mechanism: "behavior", severity: "serious",
+  }),
+  s({
+    id: "campus-map-banner-shift-001", rule: "motion-animated-announcement",
+    title: "Parking update banner keeps sliding open and shut",
+    description: "The \"Parking update\" banner above the map expands and collapses every few seconds, pushing the map and everything below it up and down.",
+    fixDescription: "The banner is static.",
+    component: "CampusMap", mechanism: "css", severity: "moderate",
   }),
   s({
     id: "campus-map-marker-motion-001", rule: "motion-ignores-reduced-motion",

@@ -23,6 +23,14 @@ export const registrationScenarios: ScenarioDef[] = [
     component: "QuickAdd", mechanism: "markup", severity: "critical",
   }),
   r({
+    id: "portal-reg-confirm-name-001",
+    rule: "button-empty",
+    title: "Registration confirm and cancel buttons are unnamed icons",
+    description: "After Register, the \"Submit registration?\" prompt offers only a check-mark and an X icon button, neither with an accessible name.",
+    fixDescription: "The buttons read \"Confirm registration\" and \"Cancel\".",
+    component: "Cart", mechanism: "markup", severity: "critical",
+  }),
+  r({
     id: "portal-reg-add-empty-001",
     rule: "button-empty",
     title: "\"Add to cart\" buttons are unnamed plus icons",
@@ -133,7 +141,7 @@ export const registrationScenarios: ScenarioDef[] = [
     rule: "link-document",
     title: "Academic calendar link doesn't say it's a PDF",
     description: "\"academic calendar\" downloads a PDF with no file type or size.",
-    fixDescription: "Adds the file type and size.",
+    fixDescription: "Links to the web academic calendar instead of the PDF.",
     component: "RegistrationIntro", mechanism: "markup", severity: "minor",
   }),
   r({
@@ -161,6 +169,23 @@ export const registrationScenarios: ScenarioDef[] = [
     description: "The tabs have tab roles, but only the selected tab is in the Tab order and Arrow, Home and End keys do nothing, so keyboard users can't reach Current Schedule.",
     fixDescription: "Arrow keys, Home and End move between tabs (APG tabs pattern).",
     component: "RegistrationTabs", mechanism: "behavior", severity: "serious",
+  }),
+  // Plan 11 voice control CTF.
+  r({
+    id: "portal-reg-name-mismatch-001",
+    rule: "label-in-name-mismatch",
+    title: "Button names don't match their visible text",
+    description: "The visible \"Search\", \"Add\" (by CRN) and \"Register\" buttons are named \"Find\", \"Enroll\" and \"Submit enrollment request\", so saying what you see does nothing.",
+    fixDescription: "Removes the aria-label overrides: each button's name is its visible text.",
+    component: "Cart", mechanism: "markup", severity: "serious",
+  }),
+  r({
+    id: "portal-reg-target-size-001",
+    rule: "target-size-small",
+    title: "Cart and add controls are tiny targets",
+    description: "The Remove links are 11px text with no padding, and the section add buttons are 14px squares packed next to each other.",
+    fixDescription: "Every cart and add control is at least 24 by 24 pixels.",
+    component: "Cart", mechanism: "css", severity: "serious",
   }),
   r({
     id: "portal-reg-drag-001",

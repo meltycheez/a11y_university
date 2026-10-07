@@ -19,7 +19,7 @@ const counts = (results: Awaited<ReturnType<typeof scan>>) => {
 };
 
 const before = counts(await scan());
-await page.getByRole("button", { name: "Accessibility Test Controls" }).click();
+await page.getByRole("button", { name: "Pope Tech Accessibility Lab" }).click();
 await page.getByRole("button", { name: "Fix All" }).click();
 const after = counts(await scan());
 await browser.close();

@@ -130,6 +130,12 @@ export const rules = {
   "form-ungrouped-controls": m(["1.3.1"], ["forms"]),
   "form-no-structure": m(["1.3.1", "2.4.6"], ["forms", "headings"]),
   "form-timeout-no-warning": m(["2.2.1"], ["forms", "dynamic"]),
+  // Plan 11 (assistive technology CTFs).
+  // An aria-label that replaces or contradicts the visible label: speech users can't say what they see.
+  "label-in-name-mismatch": m(["2.5.3", "4.1.2"], ["forms", "custom-controls"]),
+  "sr-live-region-noisy": m(["4.1.3", "2.2.4"], ["dynamic"]),
+  "target-size-small": m(["2.5.8"], ["custom-controls"]),
+  "hover-content-not-persistent": m(["1.4.13"], ["dynamic", "custom-controls"]),
 } satisfies Record<string, Rule>;
 
 export type RuleKey = keyof typeof rules;

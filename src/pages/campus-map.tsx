@@ -1,12 +1,16 @@
 // /campus-map (tier T, plan 06 #10): a hand-built SVG campus map with clickable buildings, a building type filter,
 // layer chips, a detail panel, zoom and pan. The widget looks like a vendor map dropped into the flagship template.
 // 37 scenarios live in a11y/registry/campus-map.ts; CSS defects and fixes in styles/features/campus-map.css.
+// Also the eye tracking CTF (plan 11 §7): find Hawthorne Observatory, read its code from the tooltip, check in.
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { Field, IconButton, SmartLink } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
 import { Hero } from "~/components/Hero";
 import { Img } from "~/components/Img";
+import { ChallengeBanner } from "~/ctf/ChallengeBanner";
+import { ChallengeComplete } from "~/ctf/ChallengeComplete";
+import { revealFlag } from "~/ctf/store";
 import { pageContent } from "~/data/content/pages";
 import {
   ADDRESS, MAP_H, MAP_W, buildings, categories, doorPoint, entrances, lots, permits, rectPath,
@@ -24,10 +28,14 @@ const clampView = ({ x, y, s }: View): View => {
   return { s, x: Math.min(Math.max(x, 0), MAP_W - w), y: Math.min(Math.max(y, 0), MAP_H - h) };
 };
 
+// The map opens zoomed in on "You are here"; Reset returns here too.
+const DEFAULT_VIEW = clampView({ s: 1.6, x: 375 - MAP_W / 3.2, y: 600 - MAP_H / 3.2 });
+const OBSERVATORY_CODE = buildings.find((b) => b.accessCode)!.accessCode!;
+
 // Registered on the page root: CSS scenarios and the layout-level focus order.
 const ROOT_SCENARIOS = [
   "campus-map-footnote-small-001", "campus-map-focus-indicator-001", "campus-map-reflow-001", "campus-map-focus-order-001",
-  "campus-map-close-focus-001", "campus-map-detail-announce-001",
+  "campus-map-close-focus-001", "campus-map-detail-announce-001", "campus-map-timeout-001", "campus-map-banner-shift-001",
 ];
 
 export default function CampusMapPage() {
@@ -38,11 +46,26 @@ export default function CampusMapPage() {
   const announceFixed = useScenario("campus-map-detail-announce-001");
   const restoreFixed = useScenario("campus-map-close-focus-001");
   const listFixed = useScenario("campus-map-building-keyboard-001");
+  const timeoutFixed = useScenario("campus-map-timeout-001");
+  useScenario("campus-map-banner-shift-001");
 
   const [selected, setSelected] = useState<string | null>(null);
   const [category, setCategory] = useState<"all" | Category>("all");
   const [layers, setLayers] = useState({ parking: true, entrances: true });
-  const [view, setView] = useState<View>({ x: 0, y: 0, s: 1 });
+  const [view, setView] = useState<View>(DEFAULT_VIEW);
+  const [checkin, setCheckin] = useState("");
+  const [round, setRound] = useState(0); // bumped by "Try again with all issues fixed" to reset the check-in
+
+  // campus-map-timeout-001: every 60 s, "Are you still there?"; 15 s without Continue resets the map.
+  const [stillThere, setStillThere] = useState(false);
+  useEffect(() => {
+    if (timeoutFixed) { setStillThere(false); return; }
+    const t = setTimeout(() => {
+      if (!stillThere) return setStillThere(true);
+      setView(DEFAULT_VIEW); setSelected(null); setCheckin(""); setStillThere(false);
+    }, stillThere ? 15_000 : 60_000);
+    return () => clearTimeout(t);
+  }, [timeoutFixed, stillThere]);
 
   // Focus work runs after the render that shows or removes the panel content.
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -74,7 +97,7 @@ export default function CampusMapPage() {
     return clampView({ s, x: cx - MAP_W / s / 2, y: cy - MAP_H / s / 2 });
   });
   const pan = (dx: number, dy: number) => setView((v) => clampView({ ...v, x: v.x + (dx * MAP_W) / v.s, y: v.y + (dy * MAP_H) / v.s }));
-  const reset = () => setView({ x: 0, y: 0, s: 1 });
+  const reset = () => setView(DEFAULT_VIEW);
 
   const visible = category === "all" ? buildings : buildings.filter((b) => b.category === category);
   const building = buildings.find((b) => b.slug === selected);
@@ -91,21 +114,31 @@ export default function CampusMapPage() {
     <>
       <Hero variant="banner" title="Campus Map" kicker="About Redwood State" lede={content.summary} />
       <div className="page-content cmap-page" data-a11y-scenario={ROOT_SCENARIOS.join(" ")}>
+        <ChallengeBanner id="map-eyes" />
         <section className="stack cmap-intro">
           {intro.paragraphs?.map((p) => <p key={p}>{p}</p>)}
           <ul className="link-list">
-            <li><SmartLink scenario="campus-map-parking-pdf-001" to="/documents/parking-map.pdf" defect="Printable parking map" fileInfo="PDF, 3 KB">Parking Map</SmartLink></li>
+            <li><SmartLink scenario="campus-map-parking-pdf-001" to="/documents/parking-map.pdf" fixedTo="/students/parking#maps-heading" defect="Printable parking map">Parking maps and lot guide</SmartLink></li>
             <li><SmartLink scenario="campus-map-parking-window-001" to="/students/parking" newWindow>Parking Services</SmartLink></li>
             <li><Link to="/visitors">Visitor information</Link></li>
           </ul>
         </section>
 
+        <p className="cmap-parking-alert"><strong>Parking update:</strong> Lot J is closed for resurfacing October 5–9. Use Lot D or the Canopy Drive shuttle.</p>
         <div className="cmap">
           {orderFixed && tools}
           <div className="cmap-main">
             <MapToolbar zoom={zoom} pan={pan} reset={reset} />
             <CampusMapSvg visible={visible} selected={selected} onSelect={select} layers={layers} view={view} setView={setView} zoom={zoom} pan={pan} reset={reset} />
             <p className="cmap-footnote">Not to scale. {content.updated}. Blue dots mark accessible entrances.</p>
+            {stillThere && (
+              <div className="cmap-timeout">
+                <p>Are you still there? The map resets in 15 seconds.</p>
+                <button type="button" className="cmap-timeout-btn" onClick={() => setStillThere(false)}>Continue</button>
+              </div>
+            )}
+            <CheckIn key={round} value={checkin} setValue={setCheckin}
+              onRetry={() => { setView(DEFAULT_VIEW); setSelected(null); setCheckin(""); setRound((n) => n + 1); }} />
           </div>
           <BuildingDetail building={building} onClose={close} headingRef={headingRef} />
           {!orderFixed && tools}
@@ -129,6 +162,29 @@ export default function CampusMapPage() {
         <BuildingDirectory />
       </div>
     </>
+  );
+}
+
+/** Observatory after-hours check-in: the eye tracking CTF's finish line. Not a scenario: plain and accessible. */
+function CheckIn({ value, setValue, onRetry }: { value: string; setValue: (v: string) => void; onRetry: () => void }) {
+  const [message, setMessage] = useState("");
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (value.replace(/\D/g, "") !== OBSERVATORY_CODE) { setMessage("That code doesn't match. The after-hours code is shown when you point at Hawthorne Observatory on the map."); return; }
+    const flag = revealFlag("map-eyes", [OBSERVATORY_CODE]);
+    setMessage(flag ? "Checked in at Hawthorne Observatory." : "Checked in at Hawthorne Observatory. Clear skies!");
+  };
+  return (
+    <form className="cmap-checkin" onSubmit={submit} noValidate>
+      <h2>Observatory check-in</h2>
+      <label htmlFor="cmap-checkin-code">Hawthorne Observatory after-hours access code</label>
+      <div className="cmap-checkin-row">
+        <input id="cmap-checkin-code" inputMode="numeric" autoComplete="off" value={value} onChange={(e) => setValue(e.target.value)} />
+        <button type="submit" className="btn btn--primary">Check in</button>
+      </div>
+      <p role="status" className="cmap-checkin-msg">{message}</p>
+      <ChallengeComplete id="map-eyes" onRetry={onRetry} />
+    </form>
   );
 }
 
@@ -229,6 +285,7 @@ function MapToolbar({ zoom, pan, reset }: { zoom: (f: number) => void; pan: (dx:
   const tabFixed = useScenario("campus-map-zoom-tabindex-001");
   const panFixed = useScenario("campus-map-pan-drag-001");
   const printFixed = useScenario("campus-map-print-link-001");
+  useScenario("campus-map-zoom-target-001");
   const btn = (label: string, icon: React.ReactNode, onClick: () => void, always = false) => (
     <button type="button" className="cmap-zoom-btn" onClick={onClick} tabIndex={tabFixed || always ? undefined : 1} aria-label={named || always ? label : undefined}>
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" focusable="false" aria-hidden={named || always ? true : undefined}>{icon}</svg>
@@ -236,7 +293,7 @@ function MapToolbar({ zoom, pan, reset }: { zoom: (f: number) => void; pan: (dx:
   );
   const print = (e?: React.MouseEvent) => { e?.preventDefault(); window.print(); };
   return (
-    <div className="cmap-toolbar" data-a11y-scenario="campus-map-zoom-name-001 campus-map-zoom-tabindex-001 campus-map-print-link-001">
+    <div className="cmap-toolbar" data-a11y-scenario="campus-map-zoom-name-001 campus-map-zoom-tabindex-001 campus-map-print-link-001 campus-map-zoom-target-001">
       <div className="cmap-zoom">
         {btn("Zoom in", icons.in, () => zoom(1.5))}
         {btn("Zoom out", icons.out, () => zoom(1 / 1.5))}
@@ -266,11 +323,28 @@ function CampusMapSvg({ visible, selected, onSelect, layers, view, setView, zoom
   const lotsFixed = useScenario("campus-map-lots-hidden-focus-001");
   const idsFixed = useScenario("campus-map-duplicate-id-001");
   const tipFixed = useScenario("campus-map-tooltip-hover-001");
+  const persistFixed = useScenario("campus-map-tip-persist-001");
   const kbdFixed = useScenario("campus-map-building-keyboard-001");
   const panFixed = useScenario("campus-map-pan-drag-001");
   useScenario("campus-map-labels-contrast-001");
   useScenario("campus-map-marker-motion-001");
   const [tip, setTip] = useState<string | null>(null);
+  // campus-map-tip-persist-001: the tooltip closes after 2 s or once the pointer drifts 8 px from where it opened.
+  const tipStart = useRef<{ x: number; y: number } | null>(null);
+  const tipTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const hideTip = () => { clearTimeout(tipTimer.current); tipStart.current = null; setTip(null); };
+  const showTip = (slug: string, e?: React.MouseEvent) => {
+    setTip(slug);
+    clearTimeout(tipTimer.current);
+    if (persistFixed || !e) return;
+    tipStart.current = { x: e.clientX, y: e.clientY };
+    tipTimer.current = setTimeout(hideTip, 2000);
+  };
+  const driftTip = (e: React.MouseEvent) => {
+    const at = tipStart.current;
+    if (!persistFixed && at && Math.hypot(e.clientX - at.x, e.clientY - at.y) > 8) hideTip();
+  };
+  useEffect(() => () => clearTimeout(tipTimer.current), []);
   const svgRef = useRef<SVGSVGElement>(null);
   const dragged = useRef(false);
 
@@ -301,7 +375,7 @@ function CampusMapSvg({ visible, selected, onSelect, layers, view, setView, zoom
   const svgKbd = panFixed ? { tabIndex: 0, onKeyDown: onMapKey, "aria-describedby": "cmap-instructions" } : {};
 
   return (
-    <div className="cmap-viewport" data-a11y-scenario="campus-map-building-name-001 campus-map-svg-role-001 campus-map-lots-hidden-focus-001 campus-map-duplicate-id-001 campus-map-tooltip-hover-001 campus-map-building-keyboard-001 campus-map-pan-drag-001 campus-map-labels-contrast-001 campus-map-marker-motion-001">
+    <div className="cmap-viewport" data-a11y-scenario="campus-map-tip-persist-001 campus-map-building-name-001 campus-map-svg-role-001 campus-map-lots-hidden-focus-001 campus-map-duplicate-id-001 campus-map-tooltip-hover-001 campus-map-building-keyboard-001 campus-map-pan-drag-001 campus-map-labels-contrast-001 campus-map-marker-motion-001">
       <Img image="map-aerial-illustration" scenario="campus-map-aerial-alt-001" alt="campus_aerial_FINAL_v3.jpg" fixedAlt="" className="cmap-aerial" sizes="(min-width: 60rem) 52rem, 100vw" />
       <svg
         ref={svgRef}
@@ -325,12 +399,16 @@ function CampusMapSvg({ visible, selected, onSelect, layers, view, setView, zoom
 
         {layers.parking && (
           <g className="cmap-lots" aria-hidden={lotsFixed ? undefined : true}>
-            {lots.map((l) => (
-              <Link key={l.id} to="/students/parking" className="cmap-lot" aria-label={lotsFixed ? `Lot ${l.id}, ${permits[l.permit].label}` : undefined}>
+            {lots.map((l) => {
+              const shape = <>
                 <path d={rectPath(l.box)} fill={permits[l.permit].color} />
-                <text x={l.box[0] + l.box[2] / 2} y={l.box[1] + l.box[3] / 2 + 6} textAnchor="middle">{l.id}</text>
-              </Link>
-            ))}
+                <text x={l.box[0] + l.box[2] / 2} y={l.box[1] + l.box[3] / 2 + 6} textAnchor="middle" aria-hidden={lotsFixed || undefined}>{l.id}</text>
+              </>;
+              // Fixed: a named shape, not eight identical links to the parking page (WAVE "redundant link").
+              return lotsFixed
+                ? <g key={l.id} className="cmap-lot" role="img" aria-label={`Lot ${l.id}, ${permits[l.permit].label}`}>{shape}</g>
+                : <Link key={l.id} to="/students/parking" className="cmap-lot">{shape}</Link>;
+            })}
           </g>
         )}
 
@@ -342,8 +420,9 @@ function CampusMapSvg({ visible, selected, onSelect, layers, view, setView, zoom
               d={rectPath(b.box)}
               className={`cmap-bldg cmap-b--${b.category}${b.slug === selected ? " is-selected" : ""}`}
               onClick={() => { if (!dragged.current) onSelect(b.slug); }}
-              onMouseEnter={() => setTip(b.slug)}
-              onMouseLeave={() => setTip(null)}
+              onMouseEnter={(e) => showTip(b.slug, e)}
+              onMouseMove={driftTip}
+              onMouseLeave={hideTip}
               aria-label={nameFixed ? `${b.name} (${b.code})` : undefined}
               {...(kbdFixed ? {
                 role: "button",
@@ -353,7 +432,7 @@ function CampusMapSvg({ visible, selected, onSelect, layers, view, setView, zoom
                   if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); onSelect(b.slug); }
                 },
               } : {})}
-              {...(tipFixed ? { onFocus: () => setTip(b.slug), onBlur: () => setTip(null) } : {})}
+              {...(tipFixed ? { onFocus: () => showTip(b.slug), onBlur: hideTip } : {})}
             />
           ))}
         </g>
@@ -375,12 +454,21 @@ function CampusMapSvg({ visible, selected, onSelect, layers, view, setView, zoom
           <text x="12" y="-10">You are here</text>
         </g>
 
-        {tipB && (
-          <g className="cmap-tip" aria-hidden="true" transform={`translate(${tipB.box[0] + tipB.box[2] / 2} ${tipB.box[1] - 8})`}>
-            <rect x={-(tipB.name.length * 4 + 10)} y="-26" width={tipB.name.length * 8 + 20} height="24" rx="4" />
-            <text y="-9" textAnchor="middle">{tipB.name}</text>
-          </g>
-        )}
+        {tipB && (() => {
+          const extra = tipB.accessCode ? `After-hours code: ${tipB.accessCode}` : "";
+          const w = Math.max(tipB.name.length, extra.length) * 8 + 20, h = extra ? 42 : 24;
+          // Buildings at the top edge get the tooltip below them, so it stays inside the map.
+          const below = tipB.box[1] < 60;
+          const y = below ? tipB.box[1] + tipB.box[3] + 8 + h : tipB.box[1] - 8;
+          const x = Math.max(w / 2 + 4, tipB.box[0] + tipB.box[2] / 2);
+          return (
+            <g className="cmap-tip" aria-hidden="true" transform={`translate(${x} ${y})`}>
+              <rect x={-w / 2} y={-h - 2} width={w} height={h} rx="4" />
+              <text y={extra ? -27 : -9} textAnchor="middle">{tipB.name}</text>
+              {extra && <text y="-9" textAnchor="middle">{extra}</text>}
+            </g>
+          );
+        })()}
       </svg>
       {panFixed && <p id="cmap-instructions" className="cmap-hint">Select the map, then use the arrow keys to pan and + or − to zoom. Every building is also listed below the map.</p>}
     </div>

@@ -34,9 +34,9 @@ async function runWave(context: BrowserContext, sw: Worker, fixAll: boolean): Pr
   const page = await context.newPage();
   await page.goto(url, { waitUntil: "networkidle" });
   if (fixAll) {
-    await page.getByRole("button", { name: "Accessibility Test Controls" }).click();
+    await page.getByRole("button", { name: "Pope Tech Accessibility Lab" }).click();
     await page.getByRole("button", { name: "Fix All" }).click();
-    await page.getByRole("button", { name: "Accessibility Test Controls" }).click(); // collapse the panel again
+    await page.getByRole("button", { name: "Pope Tech Accessibility Lab" }).click(); // collapse the panel again
   }
   await page.evaluate(() => {
     document.addEventListener("waveResults", (e) => { (window as never as { __wave: unknown }).__wave = (e as CustomEvent).detail; }, { once: true });

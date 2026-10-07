@@ -2,9 +2,10 @@
 // real in the DOM, and the Fix toggles switch to the accessible map.
 import { act, cleanup, fireEvent, render } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router";
-import { afterEach, expect, it } from "vitest";
+import { afterEach, expect, it, vi } from "vitest";
 import { campusMapScenarios } from "~/a11y/registry/campus-map";
 import { a11yStore } from "~/a11y/state";
+import { endRun, startRun } from "~/ctf/store";
 import CampusMapPage from "./campus-map";
 
 afterEach(() => { cleanup(); act(() => a11yStore.resetAll()); });
@@ -110,7 +111,39 @@ it("finds a building by name or code", () => {
   fireEvent.change(c.querySelector("#cmap-q")!, { target: { value: "oac" } });
   fireEvent.submit(c.querySelector(".cmap-search")!);
   expect(c.querySelector(".cmap-detail h2")!.textContent).toContain("Owl Arena");
-  fireEvent.change(c.querySelector("#cmap-q")!, { target: { value: "observatory" } });
+  fireEvent.change(c.querySelector("#cmap-q")!, { target: { value: "planetarium" } });
   fireEvent.submit(c.querySelector(".cmap-search")!);
   expect(c.querySelector(".cmap-search-msg")!.textContent).toContain("No building matches");
+});
+
+it("eye tracking CTF: the observatory's code is only in its fleeting tooltip, and check-in ends the run", async () => {
+  localStorage.clear();
+  vi.useFakeTimers();
+  const c = renderMap();
+  act(() => { startRun("map-eyes", "tester"); });
+  // The map opens zoomed in, with the observatory (top-left corner) out of view.
+  const [, y] = c.querySelector("svg.cmap-svg")!.getAttribute("viewBox")!.split(" ").map(Number);
+  expect(y).toBeGreaterThan(85); // the observatory spans y 30–85
+  const obs = c.querySelector("path#hawthorne-observatory")!;
+  fireEvent.mouseEnter(obs, { clientX: 10, clientY: 10 });
+  expect(c.querySelector(".cmap-tip")!.textContent).toContain("After-hours code: 7731");
+  fireEvent.mouseMove(obs, { clientX: 30, clientY: 10 }); // drifted: gone
+  expect(c.querySelector(".cmap-tip")).toBeNull();
+  fireEvent.mouseLeave(obs);
+  fireEvent.mouseEnter(obs, { clientX: 10, clientY: 10 });
+  act(() => { vi.advanceTimersByTime(2100); }); // timed out
+  expect(c.querySelector(".cmap-tip")).toBeNull();
+  // "Are you still there?" after a minute, then the map resets and clears the check-in box.
+  fireEvent.change(c.querySelector("#cmap-checkin-code")!, { target: { value: "12" } });
+  act(() => { vi.advanceTimersByTime(60_000); });
+  expect(c.querySelector(".cmap-timeout")).not.toBeNull();
+  act(() => { vi.advanceTimersByTime(15_000); });
+  expect(c.querySelector(".cmap-timeout")).toBeNull();
+  expect((c.querySelector("#cmap-checkin-code") as HTMLInputElement).value).toBe("");
+  vi.useRealTimers();
+
+  fireEvent.change(c.querySelector("#cmap-checkin-code")!, { target: { value: "7731" } });
+  fireEvent.submit(c.querySelector(".cmap-checkin")!);
+  expect(c.querySelector(".ctf-complete .ctf-flag")!.textContent).toMatch(/^RSU\{map-eyes-[0-9a-f]{8}\}$/);
+  endRun();
 });

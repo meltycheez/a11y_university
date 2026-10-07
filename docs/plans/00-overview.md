@@ -16,6 +16,7 @@ This folder breaks the PRD into ten phased plans. Each plan lists its goal, the 
 | 08 | [Accessibility Lab](08-accessibility-lab.md) | `/accessibility-lab` and its seven controlled test pages | ✅ Done (2026-09-25) |
 | 09 | [Testing](09-testing.md) | Unit, component, and Playwright + axe tests that prove the toggles work | ✅ Done (2026-09-26) |
 | 10 | [Docs & Deployment](10-docs-deploy.md) | README, ACCESSIBILITY_TESTING.md, SITE_MAP.md, static hosting | ✅ Done (2026-09-27) |
+| 11 | [Pope Tech Widget & AT CTF](11-ctf-pope-tech-widget.md) | Rebrand the widget, add three assistive technology CTFs, scoring, source viewer, local leaderboard | ✅ Done (2026-10-01) |
 
 Decisions made while building are logged in the [ADR register](../DECISIONS.md).
 

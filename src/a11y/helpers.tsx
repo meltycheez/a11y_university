@@ -22,12 +22,15 @@ interface SmartLinkProps {
   fileInfo?: string;
   /** `title` attribute shown only while defective (title-redundant / img-title-attr patterns). */
   defectTitle?: string;
+  /** Once fixed, link here instead (e.g. a document's web version, so no WAVE "Link to PDF" alert remains). */
+  fixedTo?: string;
   className?: string;
 }
 
 /** Generic, new-window, document and redundant-title link defects. */
-export function SmartLink({ scenario, to, children, defect, newWindow, fileInfo, defectTitle, className }: SmartLinkProps) {
+export function SmartLink({ scenario, to: defectTo, children, defect, newWindow, fileInfo, defectTitle, fixedTo, className }: SmartLinkProps) {
   const fixed = useScenario(scenario);
+  const to = fixed && fixedTo ? fixedTo : defectTo;
   const text = fixed || defect === undefined ? children : defect;
   const extra = fixed && (newWindow || fileInfo)
     ? <> <span className="link-meta">({[fileInfo, newWindow && "opens in a new tab"].filter(Boolean).join(", ")})</span></>

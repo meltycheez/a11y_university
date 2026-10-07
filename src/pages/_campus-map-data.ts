@@ -29,6 +29,8 @@ export interface Building {
   /** Side with the accessible (level, power-assisted) entrance. */
   door: Side;
   link: { href: string; label: string };
+  /** Shown in the hover tooltip only (the eye tracking CTF, plan 11 §7). */
+  accessCode?: string;
 }
 
 const ACADEMIC = "Monday–Friday 7:00 a.m. – 10:00 p.m.; Saturday 8:00 a.m. – 5:00 p.m.";
@@ -68,6 +70,9 @@ export const buildings: Building[] = [
   b("AFH", "Alder Family Housing", "housing", [40, 445, 110, 60], "Family and graduate housing", "east", housing),
   b("SGA", "Spruce Grove Apartments", "housing", [170, 340, 95, 55], "Apartment-style housing", "east", housing),
   b("FGA", "Fern Glen Apartments", "housing", [170, 420, 100, 50], "Apartment-style housing", "east", housing),
+  // Off screen when the map opens (zoomed on "You are here"): the eye tracking CTF's target.
+  { ...b("OBS", "Hawthorne Observatory", "academic", [30, 30, 100, 55], "Teaching telescope, rooftop viewing deck, Astronomy Club", "south",
+    { href: "/academics/colleges/science", label: "College of Science" }, "Clear nights 8:00 p.m. – midnight; after hours by access code"), accessCode: "7731" },
   b("CY", "Corporation Yard", "services", [880, 560, 100, 40], "Facilities, University Police, parking office, lost and found", "west", { href: "/students/safety", label: "Campus safety" }, "Parking office: Monday–Friday 8:00 a.m. – 4:30 p.m.; University Police: 24 hours"),
 ];
 

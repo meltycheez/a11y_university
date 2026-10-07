@@ -22,7 +22,7 @@ const PAGES: { path: string; nav?: string }[] = [
 // can ever fix: a hero photo behind a semi-opaque gradient (axe can't resolve a flat background through a
 // pseudo-element), a decorative aria-hidden icon glyph ("content contains only non-text characters"), a
 // background gradient (same "can't resolve a flat color" limitation), or — an artifact of this test opening
-// the floating Accessibility Test Controls panel before scanning — whatever it happens to sit over on a
+// the floating Pope Tech Accessibility Lab panel before scanning — whatever it happens to sit over on a
 // given page ("background could not be determined because it is overlapped"). None of these are the
 // page's own registered scenario; they're genuine, permanent axe limitations, so "color-contrast" is
 // excepted wherever this scan hits one.
@@ -42,6 +42,8 @@ const EXCEPTIONS: Record<string, string[]> = {
   // The "current month" badge only exists inside whichever tab (Upcoming/Results) that month's games fall
   // in; when this month's games are already past, the badge sits in the "Results" tab, inert by default.
   "/athletics/schedule": ["aria-valid-attr-value"],
+  // apply-certify-hidden-001's checkbox is on the last step of the form, not on page load.
+  "/admissions/apply": ["aria-hidden-focus"],
   "/": ["color-contrast"],
   "/news": ["color-contrast"],
   "/athletics": ["color-contrast"],
@@ -58,8 +60,15 @@ const flaggedIds = async (page: Page) => {
   const results = await new AxeBuilder({ page }).analyze();
   return new Set([...results.violations, ...results.incomplete].map((v) => v.id));
 };
-const openControl = async (page: Page) => page.getByRole("button", { name: "Accessibility Test Controls" }).click();
+const openControl = async (page: Page) => page.getByRole("button", { name: "Pope Tech Accessibility Lab" }).click();
 const fixErrorsSwitch = (page: Page) => page.getByRole("switch", { name: "Fix Errors" });
+// Flip Fix Errors, then collapse the widget again so its open panel can't sit over (and skew) what axe scans.
+const flipFixErrors = async (page: Page, checked: "true" | "false") => {
+  await openControl(page);
+  await fixErrorsSwitch(page).click();
+  await expect(fixErrorsSwitch(page)).toHaveAttribute("aria-checked", checked);
+  await openControl(page);
+};
 
 for (const { path, nav } of PAGES) {
   test(`toggle diff with axe: ${path}`, async ({ page }) => {
@@ -75,14 +84,11 @@ for (const { path, nav } of PAGES) {
     const off = await flaggedIds(page);
     for (const id of expected) expect(off.has(id), `${path}: expected axe finding "${id}" while defective`).toBe(true);
 
-    await openControl(page);
-    await fixErrorsSwitch(page).click();
-    await expect(fixErrorsSwitch(page)).toHaveAttribute("aria-checked", "true");
+    await flipFixErrors(page, "true");
     const on = await flaggedIds(page);
     for (const id of expected) expect(on.has(id), `${path}: axe finding "${id}" should be fixed`).toBe(false);
 
-    await fixErrorsSwitch(page).click();
-    await expect(fixErrorsSwitch(page)).toHaveAttribute("aria-checked", "false");
+    await flipFixErrors(page, "false");
     const offAgain = await flaggedIds(page);
     for (const id of expected) expect(offAgain.has(id), `${path}: axe finding "${id}" should return`).toBe(true);
 

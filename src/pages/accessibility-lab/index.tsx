@@ -95,7 +95,7 @@ export default function AccessibilityLabIndex() {
       <h1>Accessibility Lab</h1>
       <p>
         Redwood State's public pages ship with intentional, cataloged accessibility defects, plus their fixes. The floating{" "}
-        <strong>Accessibility Test Controls</strong> (bottom of every page, or Alt+Shift+A) toggle three categories on and off: Fix Errors,
+        <strong>Pope Tech Accessibility Lab</strong> widget (the button at the bottom of every page, or Alt+Shift+A) toggle three categories on and off: Fix Errors,
         Fix Alerts, and Fix Manual Testing Issues. This page lists every registered scenario, generated from the same registry the site
         renders from, so it can never drift from what a scanner or a manual tester actually finds. See{" "}
         <Link to="/accessibility">Accessibility at Redwood State</Link> for the visitor-facing statement.

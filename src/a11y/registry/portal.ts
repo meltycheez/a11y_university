@@ -19,6 +19,18 @@ export const portalScenarios: ScenarioDef[] = [
     severity: "critical",
   },
 
+  {
+    id: "portal-shell-product-redundant-001",
+    rule: "link-redundant",
+    title: "App bar name and Dashboard both link to the dashboard",
+    description: "The \"RedwoodConnect\" name in the app bar and the \"Dashboard\" item next to it in the side rail are adjacent links to the same page.",
+    fixDescription: "The app bar name is plain text; the rail's Dashboard link stays.",
+    pages: PORTAL_PAGES,
+    component: "PortalShell",
+    mechanism: "markup",
+    severity: "minor",
+  },
+
   // ---------- /portal (dashboard, tier M) ----------
   s({
     id: "portal-dash-alert-live-001",
@@ -161,7 +173,7 @@ export const portalScenarios: ScenarioDef[] = [
     rule: "link-document",
     title: "Academic calendar link doesn't say it's a PDF",
     description: "\"Academic calendar\" downloads a PDF with no file type or size.",
-    fixDescription: "Adds the file type and size.",
+    fixDescription: "Links to the web academic calendar instead of the PDF.",
     component: "GradesPage",
     mechanism: "markup",
     severity: "minor",

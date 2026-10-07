@@ -6,7 +6,7 @@ export default {
   // No runtime server: every route is pre-rendered to static HTML at build time.
   ssr: false,
   prerender: {
-    paths: () => [...allRoutePaths(), "/404"],
+    paths: () => [...allRoutePaths(), "/404", "/start", "/leaderboard"],
     concurrency: 4,
   },
   basename: process.env.BASE_PATH ?? "/",

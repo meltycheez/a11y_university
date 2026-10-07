@@ -96,3 +96,17 @@
 @keyframes rg-spin { to { transform: rotate(360deg); } }
 /* portal-reg-spinner-motion-001: the spinner ignores reduced motion until fixed. */
 @media (prefers-reduced-motion: reduce) { .a11y-fix-manual .rg-spinner { animation: none; border-top-color: #0b5cad; border-right-color: #0b5cad; } }
+
+/* Plan 11 voice control CTF. */
+.rg-confirm { border: 1px solid #9fb6d0; border-radius: 3px; padding: var(--space-2) var(--space-3); margin-bottom: var(--space-3); background: #f4f8fc; font-size: 0.9rem; }
+.rg-confirm p { margin: 0 0 var(--space-2); }
+.rg-confirm-actions { display: flex; gap: var(--space-2); align-items: center; }
+.rg-confirm-icon { display: inline-grid; place-items: center; width: 1.25rem; height: 1.25rem; padding: 0; border: 1px solid #9fb6d0; border-radius: 3px; background: #fff; color: #0b5cad; cursor: pointer; }
+/* portal-reg-target-size-001: tiny, tightly packed targets. */
+.rg-cart-actions a, .rg-cart-actions .pt-linkbtn { font-size: 11px; line-height: 1; padding: 0; }
+.rg-grid .rg-add { width: 14px; height: 14px; min-width: 0; padding: 0; }
+.rg-grid .rg-add svg { width: 10px; height: 10px; }
+.a11y-fix-manual .rg-cart-actions a, .a11y-fix-manual .rg-cart-actions .pt-linkbtn { display: inline-flex; align-items: center; min-height: 24px; padding: 0 0.25rem; font-size: 0.85rem; }
+.a11y-fix-manual .rg-grid .rg-add { width: 1.9rem; height: 1.9rem; }
+.a11y-fix-manual .rg-grid .rg-add svg { width: 14px; height: 14px; }
+.a11y-fix-manual .rg-confirm-icon { width: 2rem; height: 2rem; }

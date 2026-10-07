@@ -7,8 +7,10 @@ against the site.
 
 ## The three categories
 
-The floating **Accessibility Test Controls** (bottom corner of every page, `Alt+Shift+A` to jump to it)
-has one switch per category. Each loads **OFF**; turning a switch **ON** corrects that category's defects
+The floating **Pope Tech Accessibility Lab** widget ("Accessibility Lab" with the Pope Tech logo, bottom corner of every page, `Alt+Shift+A` to
+jump to it; formerly "Accessibility Test Controls") has one switch per category on its **Fixes** tab. Its
+**Challenges** tab lists the assistive technology CTFs ([CTF.md](CTF.md)), which run from a challenge bar on
+their own pages. Each loads **OFF**; turning a switch **ON** corrects that category's defects
 on the current page; turning it back off restores them. Reloading resets all three to OFF — nothing
 persists (see [ADR-005](DECISIONS.md#adr-005), [ADR-048](DECISIONS.md#adr-048)).
 
@@ -111,7 +113,7 @@ const fixed = useScenario("about-history-team-photo-alt-001");
 1. Install the [WAVE browser extension](https://wave.webaim.org/extension/).
 2. Load the page with every toggle OFF (the default) and run WAVE. It reads the live DOM, so whatever the
    toggles currently show is what it scans — there's nothing to "rescan from source."
-3. Open **Accessibility Test Controls**, turn on **Fix Errors**, and run WAVE again on the same page without
+3. Open the **Pope Tech Accessibility Lab** widget, choose its **Fixes** tab, turn on **Fix Errors**, and run WAVE again on the same page without
    reloading. The Errors count should drop to (near) zero; Alerts/Manual are unaffected until their own
    switches flip.
 4. Turn the switch back off and run WAVE a third time to confirm the defects returned.
@@ -183,6 +185,6 @@ Basic passes against the portal, forms, and live regions, toggles OFF then ON:
 - **`color-contrast` false "incomplete" noise**: a photo-overlay hero (axe can't resolve a background behind
   a semi-opaque pseudo-element or CSS gradient), a decorative `aria-hidden` icon glyph ("content contains
   only non-text characters"), or — specific to `e2e/toggle-axe.spec.ts`, which opens the floating
-  Accessibility Test Controls panel before scanning — whatever that panel happens to sit over. None of these
+  Pope Tech Accessibility Lab widget panel before scanning — whatever that panel happens to sit over. None of these
   are real violations or tied to any scenario; they're excepted per page in that file's `EXCEPTIONS` map
   ([ADR-056](DECISIONS.md#adr-056)).

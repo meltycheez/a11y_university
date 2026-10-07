@@ -50,6 +50,8 @@ However:
 
 Do not use persistent storage for application state.
 
+(Amendment, plan 11 / ADR-061: the CTF leaderboard is the one exception. It lives in `localStorage` so scores outlive reloads on a shared event laptop. Nothing on the site reads it, so a reload still resets the site.)
+
 Avoid:
 
 * localStorage
@@ -418,7 +420,7 @@ Place it in a corner of the viewport.
 
 Call it something like:
 
-**Accessibility Test Controls**
+**Accessibility Test Controls** (since plan 11 / ADR-063: the **Pope Tech Accessibility Lab** widget, which adds an assistive technology CTF mode; see `docs/CTF.md`)
 
 It must contain three independent toggles:
 
@@ -1061,7 +1063,7 @@ Someone should be able to:
 2. Run WAVE.
 3. See realistic errors and alerts.
 4. Perform manual accessibility testing and find additional problems.
-5. Enable one or more Accessibility Test Controls.
+5. Enable one or more Accessibility Test Controls (the Pope Tech Accessibility Lab widget's Fixes tab).
 6. Run the tests again.
 7. Observe that the corresponding accessibility problems have actually been corrected.
 

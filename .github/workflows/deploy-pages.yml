@@ -27,6 +27,8 @@ jobs:
       - run: npm run build
         env:
           BASE_PATH: /a11y_university/
+          # Shared CTF leaderboard (src/ctf/remote.ts). A repository variable, not a secret: the URL ships in the page's JS.
+          VITE_LEADERBOARD_URL: ${{ vars.VITE_LEADERBOARD_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build/client

@@ -1,6 +1,6 @@
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import type { Route } from "./+types/root";
-import { A11yControl } from "./a11y/A11yControl";
+import { PopeTechWidget } from "./a11y/PopeTechWidget";
 import { HtmlLang } from "./a11y/DocumentScenarios";
 import { useHighlight } from "./a11y/useHighlight";
 import { usePathname } from "./routes/usePathname";
@@ -13,10 +13,15 @@ export const links: Route.LinksFunction = () => [
   { rel: "icon", href: `${import.meta.env.BASE_URL}favicon.svg`, type: "image/svg+xml" },
 ];
 
+/** Pope Tech demo pages outside the university layout (routes.ts): no widget. */
+const STANDALONE = ["/start", "/leaderboard"];
+
 export function Layout({ children }: { children: React.ReactNode }) {
   // University pages ship without `lang` (scenario global-html-lang-001, handled by HtmlLang).
-  // The Accessibility Lab is infrastructure and always declares it.
-  const lab = usePathname().startsWith("/accessibility-lab");
+  // The Accessibility Lab and the standalone demo pages are infrastructure and always declare it.
+  const path = usePathname();
+  const standalone = STANDALONE.includes(path);
+  const lab = path.startsWith("/accessibility-lab") || standalone;
   useHighlight();
   return (
     <html lang={lab ? "en" : undefined}>
@@ -30,7 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         {!lab && <HtmlLang />}
         {children}
-        <A11yControl />
+        {!standalone && <PopeTechWidget />}
         <ScrollRestoration />
         <Scripts />
       </body>

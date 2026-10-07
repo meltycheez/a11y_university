@@ -1,0 +1,106 @@
+/* /leaderboard. Builds on .start (styles/features/start.css): page background, tokens, header and .start-cta. */
+.lb > * { max-width: 74rem; margin-left: auto; margin-right: auto; }
+.lb .start-head { margin-bottom: clamp(2rem, 4vw, 3rem); }
+.lb-source { display: inline-flex; align-items: center; gap: 0.5rem; margin: 1.25rem 0 0; font-size: 0.9rem; color: var(--pt-muted); }
+.lb-dot { width: 9px; height: 9px; border-radius: 50%; background: #9aa5ad; }
+.lb-dot--shared { background: #1f9d6b; box-shadow: 0 0 0 4px rgb(31 157 107 / 0.18); }
+.lb-dot--offline { background: #b42318; }
+.lb-h2 { margin: 0 0 1.25rem; font-family: var(--font-sans); font-weight: 800; font-size: clamp(1.4rem, 2.4vw, 1.75rem); letter-spacing: -0.02em; color: var(--pt-navy); }
+
+/* ---------- Podium ---------- */
+.lb-podium-wrap { margin-bottom: clamp(2rem, 4vw, 3rem); text-align: center; }
+.lb-podium { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+@media (min-width: 46rem) {
+  .lb-podium { grid-template-columns: repeat(3, 1fr); align-items: end; max-width: 56rem; margin: 0 auto; }
+  .lb-podium-item--gold { order: 2; }
+  .lb-podium-item--silver { order: 1; }
+  .lb-podium-item--bronze { order: 3; }
+}
+.lb-podium-item { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+.lb-medal {
+  display: grid; place-items: center; width: 4.25rem; height: 4.25rem; margin-bottom: 0.4rem; border-radius: 50%;
+  font-size: 1.6rem; font-weight: 800; color: #fff; text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+  box-shadow: 0 12px 28px -10px rgb(15 31 42 / 0.45), inset 0 -4px 0 rgb(0 0 0 / 0.15);
+}
+.lb-podium-item--gold .lb-medal { width: 5.25rem; height: 5.25rem; font-size: 2rem; background: #8a6508 linear-gradient(145deg, #b8860b, #7a5906); }
+.lb-podium-item--silver .lb-medal { background: #5c6873 linear-gradient(145deg, #7b8794, #4f5a64); }
+.lb-podium-item--bronze .lb-medal { background: #8a4422 linear-gradient(145deg, #a0522d, #7d3d1e); }
+.lb-podium-name { max-width: 100%; overflow-wrap: anywhere; font-size: 1.25rem; font-weight: 800; color: var(--pt-navy); }
+.lb-podium-score { font-size: 1.05rem; font-weight: 700; color: var(--pt-ink); }
+.lb-podium-score small { font-size: 0.9rem; font-weight: 500; color: var(--pt-muted); }
+.lb-podium-step {
+  width: 100%; margin-top: 0.75rem; border-radius: 20px 20px 6px 6px;
+  border: 1px solid var(--pt-line); box-shadow: 0 18px 40px -22px rgb(15 31 42 / 0.3);
+}
+.lb-podium-item--gold .lb-podium-step { height: 9rem; background: linear-gradient(180deg, #fff3cc, #fff 85%); }
+.lb-podium-item--silver .lb-podium-step { height: 6.5rem; background: linear-gradient(180deg, #eaeff3, #fff 85%); }
+.lb-podium-item--bronze .lb-podium-step { height: 5rem; background: linear-gradient(180deg, #fbe7da, #fff 85%); }
+@media (max-width: 45.99rem) { .lb-podium-step { display: none; } }
+
+/* ---------- Cards ---------- */
+.lb-card, .lb-ch, .lb-empty {
+  border: 1px solid var(--pt-line); border-radius: 28px; background: #fff;
+  box-shadow: 0 1px 2px rgb(15 31 42 / 0.04), 0 18px 48px -20px rgb(15 31 42 / 0.22);
+}
+.lb-card { margin-bottom: clamp(2rem, 4vw, 3rem); padding: clamp(1.25rem, 3vw, 2rem); }
+
+/* ---------- Overall table ---------- */
+.lb-table-wrap { position: relative; overflow-x: auto; border-radius: 12px; } /* relative: keeps the visually-hidden cells from widening the page */
+.lb-table-wrap:focus-visible, .lb a:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+.lb-table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+.lb-table th, .lb-table td { padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid var(--pt-line); white-space: nowrap; }
+.lb-table thead th { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--pt-muted); background: #f5f7f9; }
+.lb-table thead th:first-child { border-radius: 12px 0 0 12px; }
+.lb-table thead th:last-child { border-radius: 0 12px 12px 0; }
+.lb-table thead th:nth-child(n + 3) { text-align: right; }
+.lb-table tbody th { font-weight: 700; color: var(--pt-navy); }
+.lb-table tbody tr:last-child > * { border-bottom: 0; }
+.lb-table tbody tr:hover { background: #fafbfc; }
+.lb-table .lb-num { text-align: right; }
+.lb-num { font-variant-numeric: tabular-nums; }
+.lb-total { font-weight: 800; color: var(--pt-navy); }
+.lb-rank {
+  display: inline-grid; place-items: center; flex: none; min-width: 2rem; height: 2rem; padding: 0 0.4rem; border-radius: 999px;
+  font-weight: 800; font-size: 0.9rem; color: var(--pt-navy); background: #eef2f5;
+}
+.lb-rank--gold { color: #fff; background: #8a6508; }
+.lb-rank--silver { color: #fff; background: #5c6873; }
+.lb-rank--bronze { color: #fff; background: #8a4422; }
+
+/* ---------- Per-challenge cards ---------- */
+.lb-challenges { list-style: none; padding: 0; display: grid; gap: clamp(1.25rem, 2.5vw, 2rem); margin-top: 0; margin-bottom: clamp(2rem, 4vw, 3rem); }
+@media (min-width: 60rem) { .lb-challenges { grid-template-columns: repeat(3, 1fr); } }
+.lb-ch { display: flex; flex-direction: column; overflow: hidden; }
+.lb-ch-head { display: flex; align-items: center; gap: 1rem; padding: 1.5rem 1.5rem 1.25rem; }
+.lb-ch--apply-sr .lb-ch-head { background: linear-gradient(150deg, #f3efff, #e6defe); }
+.lb-ch--registration-voice .lb-ch-head { background: linear-gradient(150deg, #e9f7f3, #d2eee6); }
+.lb-ch--map-eyes .lb-ch-head { background: linear-gradient(150deg, #fdf1e7, #f8dfca); }
+.lb-ch-head h2 { margin: 0; font-family: var(--font-sans); font-weight: 800; font-size: 1.25rem; color: var(--pt-navy); }
+.lb-ch-head p { margin: 0.1rem 0 0; font-size: 0.9rem; color: var(--pt-muted); }
+.lb-icon { display: grid; place-items: center; flex: none; width: 3rem; height: 3rem; border-radius: 14px; color: #fff; box-shadow: 0 10px 22px -10px rgb(15 31 42 / 0.5); }
+.lb-icon--apply-sr { background: var(--at-apply-sr); }
+.lb-icon--registration-voice { background: var(--at-registration-voice); }
+.lb-icon--map-eyes { background: var(--at-map-eyes); }
+.lb-ch-list { list-style: none; margin: 0; padding: 0.75rem 1.5rem; display: grid; }
+.lb-ch-list li { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--pt-line); }
+.lb-ch-list li:last-child { border-bottom: 0; }
+.lb-ch-name { flex: 1; min-width: 0; font-weight: 700; color: var(--pt-navy); overflow-wrap: anywhere; }
+.lb-badge { padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; color: #0b5e44; background: #e3f4ec; }
+.lb-ch-list .lb-num { font-weight: 800; }
+.lb-ch-empty { margin: 0; padding: 1.25rem 1.5rem; color: var(--pt-muted); }
+.lb-ch-play { display: inline-flex; align-items: center; gap: 0.5rem; margin: auto 1.5rem 1.5rem; padding-top: 0.75rem; font-weight: 700; color: var(--pt-navy); }
+
+/* ---------- Empty state ---------- */
+.lb-empty { margin-bottom: 3rem; padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 3rem); text-align: center; background: linear-gradient(180deg, #f6f3ff, #fff 70%); }
+.lb-empty-art { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
+.lb-empty-art .lb-icon { width: 4rem; height: 4rem; border-radius: 18px; }
+.lb-empty-art .lb-icon svg { width: 30px; height: 30px; }
+.lb-empty-art .lb-icon:nth-child(1) { transform: rotate(-8deg) translateY(6px); }
+.lb-empty-art .lb-icon:nth-child(3) { transform: rotate(8deg) translateY(6px); }
+.lb-empty h2 { margin: 0 0 0.5rem; font-family: var(--font-sans); font-weight: 800; font-size: 1.75rem; color: var(--pt-navy); }
+.lb-empty p { margin: 0 0 1.5rem; color: var(--pt-muted); font-size: 1.1rem; }
+.lb-empty-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+
+.lb-loading { text-align: center; color: var(--pt-muted); margin: 0 0 3rem; }
+.lb-back { text-align: center; margin-bottom: 0; }
+.lb-back a { font-weight: 700; color: var(--pt-navy); }

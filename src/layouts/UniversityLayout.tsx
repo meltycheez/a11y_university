@@ -4,6 +4,7 @@ import { NavItem } from "~/components/NavItem";
 import { LogoMark } from "~/components/Logo";
 import { SiteFooter } from "~/components/SiteFooter";
 import { SiteHeader } from "~/components/SiteHeader";
+import { useScenario } from "~/a11y/useScenario";
 import { brand } from "~/data/brand";
 import { getEntry, type Section } from "~/routes/inventory";
 import { usePathname } from "~/routes/usePathname";
@@ -69,6 +70,7 @@ function SectionBar({ config, withLinks }: { config: SectionConfig; withLinks: b
 
 /** Enterprise-style student portal shell (vendor ERP look), still branded RSU. */
 function PortalShell({ config }: { config: SectionConfig }) {
+  const productFixed = useScenario("portal-shell-product-redundant-001");
   return (
     <div className="site site--portal" data-section="portal">
       <a className="skip-link" href="#main-content">Skip to main content</a>
@@ -77,7 +79,9 @@ function PortalShell({ config }: { config: SectionConfig }) {
           <LogoMark size={30} />
           <span className="visually-hidden">{brand.name} home</span>
         </Link>
-        <Link to="/portal" className="portal-product">{config.siteName}</Link>
+        {productFixed
+          ? <span className="portal-product" data-a11y-scenario="portal-shell-product-redundant-001">{config.siteName}</span>
+          : <Link to="/portal" className="portal-product" data-a11y-scenario="portal-shell-product-redundant-001">{config.siteName}</Link>}
         <span className="portal-term">Fall 2026</span>
         <span className="portal-user">
           <span className="portal-avatar" aria-hidden="true">JA</span>

@@ -33,7 +33,7 @@ export default function GradesPage() {
           <div><dt>{term}</dt><dd>In progress</dd></div>
         </dl>
         <p>Final grades for Fall 2026 will be available December 23. See the{" "}
-          <SmartLink scenario="portal-grades-calendar-pdf-001" to="/documents/academic-calendar-2026-27.pdf" fileInfo="PDF, 2 KB">Academic calendar</SmartLink>{" "}
+          <SmartLink scenario="portal-grades-calendar-pdf-001" to="/documents/academic-calendar-2026-27.pdf" fixedTo="/academics/calendar">Academic calendar</SmartLink>{" "}
           for grading deadlines.
         </p>
       </section>

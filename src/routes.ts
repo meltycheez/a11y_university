@@ -15,6 +15,9 @@ function moduleFor(path: string, fallback: string): string {
 
 // Routes are generated from the inventory so paths, prerendering and breadcrumbs never drift apart.
 export default [
+  // Pope Tech demo pages, outside the university chrome (STANDALONE in root.tsx).
+  route("start", "pages/start.tsx", { id: "start" }),
+  route("leaderboard", "pages/leaderboard.tsx", { id: "leaderboard" }),
   layout("layouts/UniversityLayout.tsx", [
     ...routeDefs.map((d) =>
       d.path === "/" ? index(d.module, { id: d.id }) : route(d.path, moduleFor(d.path, d.module), { id: d.id }),

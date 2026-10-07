@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" width="360" height="120">
+  <rect width="360" height="120" rx="10" fill="#fbf4ea" stroke="#7a2e1f" stroke-width="3"/>
+  <path d="M0 96 Q90 76 180 96 T360 96 V120 H0Z" fill="#f0dcc4"/>
+  <text x="20" y="30" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#7a2e1f" letter-spacing="2">REDWOOD STATE ADMISSIONS</text>
+  <text x="20" y="52" font-family="Arial, sans-serif" font-size="13" fill="#3d3d3d">Your application referral code</text>
+  <text x="20" y="92" font-family="Consolas, 'Courier New', monospace" font-size="34" font-weight="700" fill="#1f1f1f" letter-spacing="3">RSU-7Q4K</text>
+</svg>
