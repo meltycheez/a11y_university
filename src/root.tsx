@@ -14,7 +14,7 @@ export const links: Route.LinksFunction = () => [
 ];
 
 /** Pope Tech demo pages outside the university layout (routes.ts): no widget. */
-const STANDALONE = ["/start", "/leaderboard"];
+const STANDALONE = ["/start", "/leaderboard", "/ctf"];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   // University pages ship without `lang` (scenario global-html-lang-001, handled by HtmlLang).

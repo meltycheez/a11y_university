@@ -71,7 +71,7 @@ export default function StartPage() {
       <header className="start-head">
         <div className="start-kicker"><img src={`${BASE}brand/pope-tech-mark.svg`} alt="" width="28" height="28" />Pope Tech</div>
         <h1>Accessibility, hands on.</h1>
-        <p className="start-lede">Explore a university website built with accessibility issues on purpose, take on the assistive technology challenges, then see how Pope Tech finds and fixes issues like these.</p>
+        <p className="start-lede">Explore a university website built with accessibility issues on purpose, take on the assistive technology challenges, then see how Pope Tech finds and helps you fix issues like these.</p>
       </header>
 
       <ul className="start-grid">
@@ -106,6 +106,7 @@ export default function StartPage() {
                 </li>
               ))}
             </ul>
+            <Link className="start-cta" to="/ctf">See all the challenges {arrow}</Link>
           </div>
         </li>
 

@@ -1,0 +1,76 @@
+/* /ctf. Builds on .start (start.css) and the leaderboard's .lb-icon, .lb-rank, .lb-loading and .lb-back (leaderboard.css). */
+.cp > * { max-width: 74rem; margin-left: auto; margin-right: auto; }
+.cp a:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+.cp-h2 { margin: 0 0 1.75rem; text-align: center; font-family: var(--font-sans); font-weight: 800; font-size: clamp(1.75rem, 3.5vw, 2.6rem); letter-spacing: -0.03em; color: var(--pt-navy); }
+.cp section { margin-bottom: clamp(3.5rem, 8vw, 6rem); }
+
+/* ---------- Hero ---------- */
+.cp-hero { max-width: 54rem; }
+.cp-hero h1 span { display: block; }
+.cp-hero .start-lede { max-width: 40rem; margin: 0 auto; font-size: clamp(1.15rem, 2vw, 1.4rem); }
+.cp-hero-art { display: flex; justify-content: center; gap: clamp(1rem, 4vw, 2.5rem); margin-top: clamp(2.5rem, 6vw, 3.5rem); }
+.cp-hero-art .lb-icon { width: clamp(4rem, 9vw, 5.5rem); height: clamp(4rem, 9vw, 5.5rem); border-radius: 24px; box-shadow: 0 24px 40px -18px rgb(15 31 42 / 0.55); }
+.cp-hero-art .lb-icon svg { width: 45%; height: 45%; }
+.cp-hero-art .lb-icon:nth-child(1) { transform: rotate(-8deg) translateY(10px); }
+.cp-hero-art .lb-icon:nth-child(3) { transform: rotate(8deg) translateY(10px); }
+@media (prefers-reduced-motion: no-preference) {
+  .cp-hero-art .lb-icon { animation: cp-float 4s ease-in-out infinite; }
+  .cp-hero-art .lb-icon:nth-child(2) { animation-delay: -1.3s; }
+  .cp-hero-art .lb-icon:nth-child(3) { animation-delay: -2.6s; }
+  @keyframes cp-float { 50% { translate: 0 -10px; } }
+}
+
+/* ---------- Challenge cards ---------- */
+.cp-challenges { scroll-margin-top: 2rem; }
+.cp-cards { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(1.25rem, 2.5vw, 2rem); }
+@media (min-width: 58rem) { .cp-cards { grid-template-columns: repeat(3, 1fr); } }
+.cp-card {
+  display: flex; flex-direction: column; overflow: hidden;
+  border: 1px solid var(--pt-line); border-radius: 28px; background: #fff;
+  box-shadow: 0 1px 2px rgb(15 31 42 / 0.04), 0 18px 48px -20px rgb(15 31 42 / 0.22);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cp-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .cp-card:hover { transform: translateY(-6px); box-shadow: 0 1px 2px rgb(15 31 42 / 0.04), 0 30px 60px -24px rgb(15 31 42 / 0.32); }
+}
+/* Header: the leaderboard's .lb-ch-head, tinted per challenge. */
+.cp-card--apply-sr .lb-ch-head { background: linear-gradient(150deg, #f3efff, #e6defe); }
+.cp-card--registration-voice .lb-ch-head { background: linear-gradient(150deg, #e9f7f3, #d2eee6); }
+.cp-card--map-eyes .lb-ch-head { background: linear-gradient(150deg, #fdf1e7, #f8dfca); }
+.cp-card-title { flex: 1; min-width: 0; }
+.cp-card-title h3 { margin: 0; font-family: var(--font-sans); font-weight: 800; font-size: 1.25rem; color: var(--pt-navy); }
+.cp-card-title p { margin: 0.1rem 0 0; font-size: 0.9rem; color: var(--pt-muted); }
+.cp-face { margin-top: auto; padding: 1rem 1.1rem; border-radius: 18px; background: #f5f7f9; }
+.cp-face h4 { margin: 0 0 0.5rem; font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pt-muted); }
+.cp-face > ul:not(.cp-card-count) { margin: 0 0 1rem; padding-left: 1.15rem; display: grid; gap: 0.3rem; line-height: 1.4; color: var(--pt-ink); }
+.cp-card-count { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.cp-card-count li { display: flex; align-items: center; gap: 0.55rem; padding: 0.55rem 0.7rem; border-radius: 12px; background: #fff; border: 1px solid var(--pt-line); }
+.cp-card-count span { font-weight: 600; color: var(--pt-ink); }
+.cp-card-count b { margin-right: 0.15rem; font-size: 1.2rem; font-weight: 800; color: var(--pt-navy); font-variant-numeric: tabular-nums; }
+.cp-card-body { display: flex; flex-direction: column; gap: 1.25rem; flex: 1; padding: 1.5rem; }
+.cp-card-body p { margin: 0; font-size: 1.05rem; line-height: 1.55; color: var(--pt-muted); }
+.cp-card-body strong { display: block; margin-bottom: 0.3rem; font-size: 1.2rem; line-height: 1.3; color: var(--pt-navy); }
+.cp-card-body .start-cta { align-self: flex-start; }
+
+/* ---------- How it works ---------- */
+.cp-how ol { list-style: none; counter-reset: cp; margin: 0; padding: 0; display: grid; gap: 1rem; }
+@media (min-width: 50rem) { .cp-how ol { grid-template-columns: repeat(3, 1fr); } }
+.cp-how li { counter-increment: cp; display: flex; flex-direction: column; gap: 0.4rem; padding: 1.5rem; border-radius: 22px; background: #f5f7f9; }
+.cp-how li::before {
+  content: counter(cp); display: grid; place-items: center; width: 2.5rem; height: 2.5rem; margin-bottom: 0.4rem;
+  border-radius: 50%; background: var(--pt-navy); color: #fff; font-weight: 800;
+}
+.cp-how b { font-size: 1.25rem; color: var(--pt-navy); }
+.cp-how span { line-height: 1.5; color: var(--pt-muted); }
+
+/* ---------- Leaderboard teaser ---------- */
+.cp-board { max-width: 36rem; text-align: center; }
+.cp-top { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; gap: 0.6rem; text-align: left; }
+.cp-top li {
+  display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1.1rem;
+  border: 1px solid var(--pt-line); border-radius: 18px; background: #fff; box-shadow: 0 10px 30px -22px rgb(15 31 42 / 0.4);
+}
+.cp-top-name { flex: 1; min-width: 0; overflow-wrap: anywhere; font-weight: 800; font-size: 1.1rem; color: var(--pt-navy); }
+.cp-top-score { font-weight: 700; color: var(--pt-ink); font-variant-numeric: tabular-nums; }
+.cp-board-empty { margin: 0 0 1.5rem; font-size: 1.15rem; color: var(--pt-muted); }
+.cp-board .lb-loading { margin-bottom: 1.5rem; }

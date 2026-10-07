@@ -127,7 +127,7 @@ export default function LeaderboardPage() {
         </>
       )}
 
-      <p className="lb-back"><Link to="/start">Back to the demo home</Link></p>
+      <p className="lb-back"><Link to="/ctf">About the challenges</Link> · <Link to="/start">Back to the demo home</Link></p>
     </main>
   );
 }

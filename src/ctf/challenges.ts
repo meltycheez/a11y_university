@@ -82,7 +82,7 @@ export const challenges: Challenge[] = [
     basePoints: 500,
     brief: "Register for three classes in a set priority order to reveal the flag. Keep your hands off the keyboard and mouse: speak every action.",
     instructions: [
-      "Add MATH 101-02, CHEM 101-02 and ENGL 111-01 to your cart.",
+      "Add CHEM 101-02, MATH 101-02, and ENGL 111-01 to your cart.",
       "Order the cart by priority: MATH 101-02 first, then CHEM 101-02, then ENGL 111-01.",
       "Register. If the classes and their order are right, the challenge completes and your flag is entered for you.",
       "Reloading the page ends the run and uses up the attempt.",

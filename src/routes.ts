@@ -18,6 +18,7 @@ export default [
   // Pope Tech demo pages, outside the university chrome (STANDALONE in root.tsx).
   route("start", "pages/start.tsx", { id: "start" }),
   route("leaderboard", "pages/leaderboard.tsx", { id: "leaderboard" }),
+  route("ctf", "pages/ctf.tsx", { id: "ctf" }),
   layout("layouts/UniversityLayout.tsx", [
     ...routeDefs.map((d) =>
       d.path === "/" ? index(d.module, { id: d.id }) : route(d.path, moduleFor(d.path, d.module), { id: d.id }),
