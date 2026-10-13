@@ -37,7 +37,7 @@ export function AudienceLanding({ path, image, imageAlt, imageScenario, imageFix
         />
       </div>
       <div data-a11y-scenario="adm-audience-cta-contrast-001">
-        <CtaBand title="Ready to apply?" text="The online Application for Admission takes about 45 minutes. Check the deadline for your term before you begin." action={{ label: "Start your application", href: "/admissions/apply" }} />
+        <CtaBand title="Ready to apply?" text="The online Application for Admission takes about 15 minutes. Check the deadline for your term before you begin." action={{ label: "Start your application", href: "/admissions/apply" }} />
       </div>
       {c.updated && <p className="page-updated" data-a11y-scenario={updatedScenario}>{c.updated}</p>}
     </div>

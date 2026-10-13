@@ -1,7 +1,7 @@
 // /campus-map (tier T, plan 06 #10): a hand-built SVG campus map with clickable buildings, a building type filter,
 // layer chips, a detail panel, zoom and pan. The widget looks like a vendor map dropped into the flagship template.
 // 37 scenarios live in a11y/registry/campus-map.ts; CSS defects and fixes in styles/features/campus-map.css.
-// Also the eye tracking CTF (plan 11 §7): find Hawthorne Observatory, read its code from the tooltip, check in.
+// Also the head pointer CTF (plan 11 §7, plan 12): find Hawthorne Observatory, read its code (tooltip or details panel), check in.
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { Field, IconButton, SmartLink } from "~/a11y/helpers";
@@ -10,7 +10,7 @@ import { Hero } from "~/components/Hero";
 import { Img } from "~/components/Img";
 import { ChallengeBanner } from "~/ctf/ChallengeBanner";
 import { ChallengeComplete } from "~/ctf/ChallengeComplete";
-import { revealFlag } from "~/ctf/store";
+import { ctfStore, revealFlag } from "~/ctf/store";
 import { pageContent } from "~/data/content/pages";
 import {
   ADDRESS, MAP_H, MAP_W, buildings, categories, doorPoint, entrances, lots, permits, rectPath,
@@ -47,6 +47,20 @@ export default function CampusMapPage() {
   const restoreFixed = useScenario("campus-map-close-focus-001");
   const listFixed = useScenario("campus-map-building-keyboard-001");
   const timeoutFixed = useScenario("campus-map-timeout-001");
+  // The head pointer CTF already asks for slow, precise pointing: no surprise map reset during a run (plan 12).
+  const { run } = ctfStore.use();
+  const noTimeout = timeoutFixed || run?.id === "map-eyes";
+  // Starting a run scrolls down to the map, so a head pointer user doesn't begin with a long scroll past the
+  // challenge bar (the instructions stay pinned beside the page). After the bar's own focus move.
+  const runStart = run?.id === "map-eyes" ? run.startedAt : 0;
+  useEffect(() => {
+    if (!runStart) return;
+    const t = setTimeout(() => {
+      const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      document.querySelector(".cmap-search")?.scrollIntoView?.({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    }, 100);
+    return () => clearTimeout(t);
+  }, [runStart]);
   useScenario("campus-map-banner-shift-001");
 
   const [selected, setSelected] = useState<string | null>(null);
@@ -59,13 +73,13 @@ export default function CampusMapPage() {
   // campus-map-timeout-001: every 60 s, "Are you still there?"; 15 s without Continue resets the map.
   const [stillThere, setStillThere] = useState(false);
   useEffect(() => {
-    if (timeoutFixed) { setStillThere(false); return; }
+    if (noTimeout) { setStillThere(false); return; }
     const t = setTimeout(() => {
       if (!stillThere) return setStillThere(true);
       setView(DEFAULT_VIEW); setSelected(null); setCheckin(""); setStillThere(false);
     }, stillThere ? 15_000 : 60_000);
     return () => clearTimeout(t);
-  }, [timeoutFixed, stillThere]);
+  }, [noTimeout, stillThere]);
 
   // Focus work runs after the render that shows or removes the panel content.
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -165,12 +179,12 @@ export default function CampusMapPage() {
   );
 }
 
-/** Observatory after-hours check-in: the eye tracking CTF's finish line. Not a scenario: plain and accessible. */
+/** Observatory after-hours check-in: the head pointer CTF's finish line. Not a scenario: plain and accessible. */
 function CheckIn({ value, setValue, onRetry }: { value: string; setValue: (v: string) => void; onRetry: () => void }) {
   const [message, setMessage] = useState("");
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (value.replace(/\D/g, "") !== OBSERVATORY_CODE) { setMessage("That code doesn't match. The after-hours code is shown when you point at Hawthorne Observatory on the map."); return; }
+    if (value.replace(/\D/g, "") !== OBSERVATORY_CODE) { setMessage("That code doesn't match. The after-hours code is in Hawthorne Observatory's details: select it on the map or search for OBS."); return; }
     const flag = revealFlag("map-eyes", [OBSERVATORY_CODE]);
     setMessage(flag ? "Checked in at Hawthorne Observatory." : "Checked in at Hawthorne Observatory. Clear skies!");
   };
@@ -503,6 +517,7 @@ function BuildingDetail({ building, onClose, headingRef }: { building?: Building
           <p className="cmap-detail-address">{building.name}, {ADDRESS}</p>
           <H>Hours</H>
           <p>{building.hours}</p>
+          {building.accessCode && <p>After-hours access code: <strong>{building.accessCode}</strong></p>}
           <H>Entrances</H>
           <ul className="cmap-entrances">
             {entrances(building).map((en) => (

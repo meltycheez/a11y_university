@@ -77,12 +77,3 @@
 .apply-referral img { max-width: 100%; height: auto; }
 .apply-next-icon { font-size: 1.3rem; line-height: 1; }
 
-/* Screen reader CTF: during a run the form fades out over 5 s. Opacity only, so it stays in the accessibility tree and focusable. */
-.apply-card--blind { animation: apply-blind 5s linear forwards; }
-@keyframes apply-blind { to { opacity: 0; } }
-.apply-countdown {
-  position: fixed; left: 50%; bottom: 1.5rem; z-index: 50; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 1.1rem 0.6rem 1.25rem;
-  border-radius: 999px; background: #123342; color: #fff; font-weight: 700; box-shadow: 0 10px 30px rgb(0 0 0 / 0.3);
-}
-.apply-countdown b { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: #fff; color: #123342; font-size: 1.25rem; }

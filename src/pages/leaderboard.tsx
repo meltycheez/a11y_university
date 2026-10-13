@@ -4,7 +4,7 @@
 // CSS: styles/features/leaderboard.css.
 import { useEffect, useState } from "react";
 import { Link, type MetaFunction } from "react-router";
-import { challenges } from "~/ctf/challenges";
+import { allChallenges, challenges } from "~/ctf/challenges";
 import { arrow, AT_ICONS } from "~/ctf/icons";
 import * as board from "~/ctf/leaderboard";
 
@@ -29,7 +29,7 @@ export default function LeaderboardPage() {
   }, []);
 
   const overall = board.rankOverall(entries ?? []);
-  const perChallenge = new Map(challenges.map((c) => [c.id, board.rankChallenge(entries ?? [], c.id)]));
+  const perChallenge = new Map(allChallenges.map((c) => [c.id, board.rankChallenge(entries ?? [], c.id)]));
   const best = (handle: string, id: (typeof challenges)[number]["id"]) => perChallenge.get(id)!.find((r) => key(r.handle) === key(handle))?.score;
 
   return (
@@ -37,7 +37,7 @@ export default function LeaderboardPage() {
       <header className="start-head">
         <div className="start-kicker"><img src={`${BASE}brand/pope-tech-mark.svg`} alt="" width="28" height="28" />Pope Tech Challenges</div>
         <h1>Leaderboard</h1>
-        <p className="start-lede">The best scores from the assistive technology challenges. Each name's total is the sum of its best run on every challenge.</p>
+        <p className="start-lede">The best scores from the assistive technology challenges. Each name's total is the sum of its best run on each of the three booth challenges. The harder version has its own board.</p>
         <p className="lb-source">
           <span className={`lb-dot lb-dot--${source}`} aria-hidden="true" />
           {source === "shared" ? "Shared scores from every device" : source === "offline" ? "Couldn't reach the shared scores. Showing this device only." : "Scores from this device"}
@@ -99,13 +99,13 @@ export default function LeaderboardPage() {
           </section>
 
           <ul className="lb-challenges">
-            {challenges.map((c) => {
+            {allChallenges.map((c) => {
               const rows = perChallenge.get(c.id)!;
               return (
                 <li key={c.id} className={`lb-ch lb-ch--${c.id}`}>
                   <div className="lb-ch-head">
                     <span className={`lb-icon lb-icon--${c.id}`}>{AT_ICONS[c.id]}</span>
-                    <div><h2>{c.title}</h2><p>{c.at}</p></div>
+                    <div><h2>{c.title}</h2><p>{c.at}{c.advanced && " · harder version, not in the total"}</p></div>
                   </div>
                   {rows.length ? (
                     <ol className="lb-ch-list">

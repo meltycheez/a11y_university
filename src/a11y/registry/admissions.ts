@@ -93,6 +93,9 @@ export const admissionsScenarios: ScenarioDef[] = [
     "Student type radios aren't grouped", "The \"I am a…\" radio buttons have no <fieldset>/<legend>, so the question isn't announced with each option.", "Wraps them in a fieldset with a legend."),
   d("adm-reqinfo-required-color-001", "color-only-required", "/admissions/request-info", "RequestInfo", "markup", "serious",
     "Required fields shown only in red", "Required fields are marked only by red label text (\"Fields in red are required\") and aren't marked required in code.", "Adds \"(required)\" to the labels and the required attribute."),
+  // Screen reader CTF (plan 12): the booth challenge's jumping Tab, like the application's apply-tab-order-001.
+  d("adm-reqinfo-tab-order-001", "focus-order-mismatch", "/admissions/request-info", "RequestInfo", "behavior", "serious",
+    "Tab order jumps around the form", "A script reorders Tab between the fields: First name → Email → Last name → Mobile phone → the start term list, skipping the I am a buttons. Focus enters and leaves the form normally, and Send me information is still reached.", "Tab follows the visual order of the fields."),
   d("adm-reqinfo-status-001", "sr-status-not-announced", "/admissions/request-info", "RequestInfo", "behavior", "moderate",
     "Thank-you message isn't announced", "After submitting, the confirmation appears silently; screen readers aren't told the form was sent.", "Puts the confirmation in a role=\"status\" live region."),
 

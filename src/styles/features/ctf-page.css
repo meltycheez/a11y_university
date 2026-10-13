@@ -34,7 +34,7 @@
   .cp-card:hover { transform: translateY(-6px); box-shadow: 0 1px 2px rgb(15 31 42 / 0.04), 0 30px 60px -24px rgb(15 31 42 / 0.32); }
 }
 /* Header: the leaderboard's .lb-ch-head, tinted per challenge. */
-.cp-card--apply-sr .lb-ch-head { background: linear-gradient(150deg, #f3efff, #e6defe); }
+.cp-card--apply-sr .lb-ch-head, .cp-card--reqinfo-sr .lb-ch-head { background: linear-gradient(150deg, #f3efff, #e6defe); }
 .cp-card--registration-voice .lb-ch-head { background: linear-gradient(150deg, #e9f7f3, #d2eee6); }
 .cp-card--map-eyes .lb-ch-head { background: linear-gradient(150deg, #fdf1e7, #f8dfca); }
 .cp-card-title { flex: 1; min-width: 0; }

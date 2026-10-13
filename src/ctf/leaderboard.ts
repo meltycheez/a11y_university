@@ -2,7 +2,7 @@
 // the same laptop, so the board only needs to outlive reloads on that browser. Nothing else reads this key, so
 // a reload still resets the site itself. Every access is wrapped: private windows, blocked storage and the
 // prerender step all just see an empty board.
-import { challenges, type ChallengeId } from "./challenges";
+import { allChallenges, challengeById, type ChallengeId } from "./challenges";
 import * as remote from "./remote";
 
 const KEY = "rsu-ctf-leaderboard";
@@ -89,7 +89,7 @@ export function rankChallenge(entries: Entry[], id: ChallengeId): Row[] {
 export function rankOverall(entries: Entry[]): Row[] {
   const totals = new Map<string, Row>();
   for (const e of entries) {
-    if (!e.best) continue;
+    if (!e.best || challengeById.get(e.challengeId)?.advanced) continue; // harder challenges have their own board only
     const key = e.handle.trim().toLowerCase();
     const row = totals.get(key) ?? { handle: e.handle, score: 0 };
     row.score += e.best.score;
@@ -101,7 +101,7 @@ export function rankOverall(entries: Entry[]): Row[] {
 const cell = (v: string | number | boolean) => `"${String(v).replace(/"/g, '""')}"`;
 
 export function toCsv(entries: Entry[]): string {
-  const title = new Map(challenges.map((c) => [c.id, c.title]));
+  const title = new Map(allChallenges.map((c) => [c.id, c.title]));
   const rows = entries.map((e) => [e.handle, title.get(e.challengeId) ?? e.challengeId, e.attempts, e.best?.score ?? "", e.best?.flag ?? "", e.best?.finishedAt ?? "", e.best ? e.best.noMouse : ""]);
   return [["Name", "Challenge", "Attempts", "Best score", "Flag", "Finished at", "No mouse"], ...rows].map((r) => r.map(cell).join(",")).join("\n");
 }

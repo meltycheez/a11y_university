@@ -72,13 +72,13 @@
 @media (min-width: 60rem) { .lb-challenges { grid-template-columns: repeat(3, 1fr); } }
 .lb-ch { display: flex; flex-direction: column; overflow: hidden; }
 .lb-ch-head { display: flex; align-items: center; gap: 1rem; padding: 1.5rem 1.5rem 1.25rem; }
-.lb-ch--apply-sr .lb-ch-head { background: linear-gradient(150deg, #f3efff, #e6defe); }
+.lb-ch--apply-sr .lb-ch-head, .lb-ch--reqinfo-sr .lb-ch-head { background: linear-gradient(150deg, #f3efff, #e6defe); }
 .lb-ch--registration-voice .lb-ch-head { background: linear-gradient(150deg, #e9f7f3, #d2eee6); }
 .lb-ch--map-eyes .lb-ch-head { background: linear-gradient(150deg, #fdf1e7, #f8dfca); }
 .lb-ch-head h2 { margin: 0; font-family: var(--font-sans); font-weight: 800; font-size: 1.25rem; color: var(--pt-navy); }
 .lb-ch-head p { margin: 0.1rem 0 0; font-size: 0.9rem; color: var(--pt-muted); }
 .lb-icon { display: grid; place-items: center; flex: none; width: 3rem; height: 3rem; border-radius: 14px; color: #fff; box-shadow: 0 10px 22px -10px rgb(15 31 42 / 0.5); }
-.lb-icon--apply-sr { background: var(--at-apply-sr); }
+.lb-icon--apply-sr, .lb-icon--reqinfo-sr { background: var(--at-apply-sr); }
 .lb-icon--registration-voice { background: var(--at-registration-voice); }
 .lb-icon--map-eyes { background: var(--at-map-eyes); }
 .lb-ch-list { list-style: none; margin: 0; padding: 0.75rem 1.5rem; display: grid; }

@@ -166,7 +166,7 @@ export const admissionsPages: Record<string, PageContent> = {
     sections: [
       {
         paragraphs: [
-          "The application takes about 45 minutes. You can save your progress and return later. Have your high school or college coursework, grades, and a list of activities ready before you begin.",
+          "The application takes about 15 minutes. You can save your progress and return later. Have your high school GPA ready before you begin.",
           "Need help? Call the Office of Admissions at (707) 555-0120.",
         ],
         links: [{ label: "Admissions FAQ", href: "/admissions/faq" }],

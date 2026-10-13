@@ -1,13 +1,13 @@
 // Optional shared leaderboard in a Google Sheet, through the Apps Script web app in scripts/leaderboard-sheet.gs.
 // Off unless VITE_LEADERBOARD_URL is set at build time; then every finish is also sent there and the leaderboard
 // is read from the sheet alone (leaderboard.loadBoard). Attempts stay per browser (leaderboard.ts).
-import { challenges, type ChallengeId } from "./challenges";
+import { allChallenges, type ChallengeId } from "./challenges";
 import type { Best, Entry } from "./leaderboard";
 
 const URL_: string | undefined = import.meta.env.VITE_LEADERBOARD_URL;
 export const enabled = Boolean(URL_);
 
-const ids = new Set<string>(challenges.map((c) => c.id));
+const ids = new Set<string>(allChallenges.map((c) => c.id));
 
 /** Fire and forget: a failed send only means the finish isn't shared. text/plain avoids a CORS preflight. */
 export function push(handle: string, challengeId: ChallengeId, best: Best) {

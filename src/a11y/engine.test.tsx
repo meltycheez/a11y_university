@@ -108,7 +108,7 @@ describe("PopeTechWidget highlights", () => {
       </>,
     );
     fireEvent.click(screen.getByRole("button", { name: "Pope Tech Accessibility Lab" }));
-    fireEvent.click(screen.getByRole("checkbox", { name: "Highlight errors" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Highlight errors on the page" }));
     const outlines = () => [...document.querySelectorAll(".a11y-hl")];
     await waitFor(() => expect(outlines().map((el) => el.className)).toEqual(["a11y-hl a11y-hl--error"])); // not the alert
     expect(outlines()[0].textContent).toBe(scenarios.get("home-hero-img-alt-001")!.title);
@@ -116,7 +116,7 @@ describe("PopeTechWidget highlights", () => {
 
     fireEvent.click(screen.getByRole("switch", { name: "Fix Errors" }));
     await waitFor(() => expect(outlines()).toHaveLength(0));
-    fireEvent.click(screen.getByRole("checkbox", { name: "Highlight errors" })); // highlights are module memory, like the fixes
+    fireEvent.click(screen.getByRole("checkbox", { name: "Highlight errors on the page" })); // highlights are module memory, like the fixes
     rect.mockRestore();
     vi.unstubAllGlobals();
   });
@@ -193,7 +193,7 @@ describe("PopeTechWidget challenges", () => {
     fireEvent.change(bar.getByLabelText("Your name"), { target: { value: "ada" } });
     fireEvent.click(bar.getByRole("button", { name: "Continue" }));
     const chips = (title: string) => within(bar.getByRole("heading", { name: title, level: 3 }).nextElementSibling as HTMLElement).getAllByRole("listitem").map((li) => li.textContent);
-    expect(chips("Allowed")).toContain("✓Gaze and dwell");
+    expect(chips("Allowed")).toContain("✓Head or gaze pointing");
     expect(chips("Discouraged")).toEqual(expect.arrayContaining(["✕Physical keyboard", "✕Voice control"]));
     expect(chips("Costs points")).toContain("−Fix switches −150");
     expect(bar.getByText("More about what's allowed and what isn't").closest("details")!.textContent).toContain("including the arrow keys to pan the map");

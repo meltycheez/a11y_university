@@ -117,7 +117,7 @@
 .start-at-icon { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 16px; color: #fff; }
 .start-at-icon svg { width: 28px; height: 28px; }
 .start-at-pts { font-size: 0.75rem; font-weight: 700; color: var(--pt-muted); }
-.start-at-tile--apply-sr .start-at-icon, .start-chip.start-at-tile--apply-sr { background: var(--at-apply-sr); }
+.start-at-tile--apply-sr .start-at-icon, .start-chip.start-at-tile--apply-sr, .start-at-tile--reqinfo-sr .start-at-icon, .start-chip.start-at-tile--reqinfo-sr { background: var(--at-apply-sr); }
 .start-at-tile--registration-voice .start-at-icon, .start-chip.start-at-tile--registration-voice { background: var(--at-registration-voice); }
 .start-at-tile--map-eyes .start-at-icon, .start-chip.start-at-tile--map-eyes { background: var(--at-map-eyes); }
 

@@ -12,9 +12,9 @@ export interface TabItem { label: string; content: React.ReactNode }
 export type TabsDefect = "broken-keys" | "no-roles" | "bad-children";
 
 /** Accessible tabs (WAI-ARIA APG, automatic activation) with optional defect variants. */
-export function Tabs({ tabs, label, scenario, defect }: { tabs: TabItem[]; label: string; scenario?: string; defect?: TabsDefect }) {
+export function Tabs({ tabs, label, scenario, defect, initial = 0 }: { tabs: TabItem[]; label: string; scenario?: string; defect?: TabsDefect; initial?: number }) {
   const id = useId();
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(initial);
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const fixed = useScenario(scenario);
   const broken = scenario && !fixed ? defect : undefined;

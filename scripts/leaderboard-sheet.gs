@@ -4,7 +4,8 @@
 // Anyone with the URL can post a score: fine for a demo booth, not for prizes.
 
 const HEADERS = ["handle", "challengeId", "score", "flag", "finishedAt", "noMouse"];
-const CHALLENGES = ["apply-sr", "registration-voice", "map-eyes"];
+// Keep in step with src/ctf/challenges.ts (allChallenges). After changing this, paste and redeploy the web app.
+const CHALLENGES = ["reqinfo-sr", "registration-voice", "map-eyes", "apply-sr"];
 
 function sheet_() {
   const s = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];

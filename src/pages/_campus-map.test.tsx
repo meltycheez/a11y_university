@@ -116,7 +116,7 @@ it("finds a building by name or code", () => {
   expect(c.querySelector(".cmap-search-msg")!.textContent).toContain("No building matches");
 });
 
-it("eye tracking CTF: the observatory's code is only in its fleeting tooltip, and check-in ends the run", async () => {
+it("head pointer CTF: the observatory's code is in its tooltip and its details, no timeout, and check-in ends the run", async () => {
   localStorage.clear();
   vi.useFakeTimers();
   const c = renderMap();
@@ -133,14 +133,14 @@ it("eye tracking CTF: the observatory's code is only in its fleeting tooltip, an
   fireEvent.mouseEnter(obs, { clientX: 10, clientY: 10 });
   act(() => { vi.advanceTimersByTime(2100); }); // timed out
   expect(c.querySelector(".cmap-tip")).toBeNull();
-  // "Are you still there?" after a minute, then the map resets and clears the check-in box.
-  fireEvent.change(c.querySelector("#cmap-checkin-code")!, { target: { value: "12" } });
-  act(() => { vi.advanceTimersByTime(60_000); });
-  expect(c.querySelector(".cmap-timeout")).not.toBeNull();
-  act(() => { vi.advanceTimersByTime(15_000); });
+  // No "Are you still there?" during a run.
+  act(() => { vi.advanceTimersByTime(120_000); });
   expect(c.querySelector(".cmap-timeout")).toBeNull();
-  expect((c.querySelector("#cmap-checkin-code") as HTMLInputElement).value).toBe("");
   vi.useRealTimers();
+  // Searching for its directory code opens its details, with the code under Hours.
+  fireEvent.change(c.querySelector("#cmap-q")!, { target: { value: "OBS" } });
+  fireEvent.submit(c.querySelector(".cmap-search")!);
+  expect(c.querySelector(".cmap-detail")!.textContent).toContain("After-hours access code: 7731");
 
   fireEvent.change(c.querySelector("#cmap-checkin-code")!, { target: { value: "7731" } });
   fireEvent.submit(c.querySelector(".cmap-checkin")!);

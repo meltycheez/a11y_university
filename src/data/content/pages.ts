@@ -341,6 +341,7 @@ const universityPages: Record<string, PageContent> = {
             ["Alder Hall", "ALD", "College of Business"],
             ["Laurel Hall", "LAU", "College of Education"],
             ["Tanoak Hall", "TNK", "Mathematics"],
+            ["Hawthorne Observatory", "OBS", "Teaching telescope, rooftop viewing deck, Astronomy Club"],
           ],
         },
       },

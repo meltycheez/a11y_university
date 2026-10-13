@@ -101,6 +101,7 @@
 .adm-radio { display: flex; gap: var(--space-2); align-items: center; }
 /* adm-reqinfo-required-color-001: red labels are the only required cue while defective (the fix adds text) */
 .adm-form .is-required label, .adm-form .is-required .field-label, .adm-form-note { color: #c0392b; }
+.adm-form .is-required .adm-radio { color: inherit; } /* only the question is red, not each answer */
 .adm-form-thanks { background: #e7f3ea; border-radius: 14px; padding: var(--space-3) var(--space-4); font-weight: 650; }
 
 /* Visit */

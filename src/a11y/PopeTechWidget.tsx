@@ -100,7 +100,8 @@ const highlightStore = createStore<Record<Category, boolean>>({ error: false, al
 export function FixControls() {
   const state = useA11yState();
   const mounted = useMountedScenarios();
-  const { run } = ctfStore.use();
+  const { run: anyRun } = ctfStore.use();
+  const run = anyRun?.compare ? null : anyRun; // only a scored run charges: a comparison run is free
   const highlight = highlightStore.use();
   const [message, setMessage] = useState("");
 
@@ -116,7 +117,8 @@ export function FixControls() {
   const flipHighlight = (c: Category, noun: string, on: boolean) => {
     highlightStore.set((h) => ({ ...h, [c]: on }));
     const charged = on && noteHighlight(c);
-    setMessage((on ? `Highlighting ${state[toggleFor[c]] ? 0 : onPage(c)} ${noun} on this page.` : `Stopped highlighting ${noun}.`)
+    const fixed = state[toggleFor[c]];
+    setMessage((on ? (fixed ? `Nothing to highlight: ${noun} are fixed on this page.` : `Highlighting ${onPage(c)} ${noun} on this page.`) : `Stopped highlighting ${noun}.`)
       + (charged ? ` Challenge penalty: minus ${HIGHLIGHT_PENALTY} points.` : ""));
   };
 
@@ -143,9 +145,10 @@ export function FixControls() {
               <div className="a11y-highlight-row">
                 <label className="a11y-highlight-check">
                   <input type="checkbox" checked={highlight[category]} onChange={(e) => flipHighlight(category, noun, e.target.checked)} />
-                  Highlight <span className="visually-hidden">{noun}</span>
+                  Highlight {noun} on the page
                 </label>
-                {highlight[category] && (
+                {highlight[category] && on && <span className="a11y-key">Nothing to highlight: {label} is on</span>}
+                {highlight[category] && !on && (
                   <span className={`a11y-key a11y-hl--${category}`}>
                     <span className="a11y-key-swatch"><CategoryIcon category={category} /></span>
                     {CATEGORY_LABEL[category]}<span className="visually-hidden">, {KEY_TEXT[category]}</span>

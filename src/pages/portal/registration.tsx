@@ -5,7 +5,7 @@
 // Also the voice control CTF (plan 11 §6): register CTF_ORDER in that priority order to reveal the flag.
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLoaderData } from "react-router";
-import { Field, Heading, IconButton, SmartLink } from "~/a11y/helpers";
+import { Field, Heading, SmartLink } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
 import { Tabs } from "~/components/Tabs";
 import { Dropdown, Toast } from "~/components/widgets";
@@ -50,8 +50,8 @@ const regStore = createStore({
   results: null as { term: Term; items: Result[]; flag?: string; ctfNote?: string } | null,
 });
 
-// CTF target: MATH 101-02, CHEM 101-02, ENGL 111-01 (Spring 2027), registered in exactly this priority order.
-const CTF_ORDER = ["44458", "45934", "43099"];
+// CTF target: MATH 101-02 then ENGL 111-01 (Spring 2027), registered in exactly this priority order.
+const CTF_ORDER = ["44458", "43099"];
 
 const TERMS: Term[] = ["Spring 2027", "Fall 2026"];
 const when = (s: Sec) => (s.days ? `${s.days} ${time12(s.start)}–${time12(s.end)}` : "Online, asynchronous");
@@ -133,7 +133,7 @@ export default function RegistrationPage() {
     if (isRunning("registration-voice")) {
       const done = cart.map((s) => s.crn).join() === CTF_ORDER.join() && items.every((r) => r.status === "registered");
       if (done) flag = revealFlag("registration-voice", CTF_ORDER) ?? undefined;
-      else ctfNote = "Challenge not complete yet: register exactly the three classes in the instructions, in that priority order, and nothing else.";
+      else ctfNote = "Challenge not complete yet: register exactly the two classes in the instructions, in that priority order, and nothing else.";
     }
     regStore.set((st) => ({
       cart: st.cart.filter((c) => !kept.some((r) => r.crn === c)),
@@ -183,7 +183,8 @@ export default function RegistrationPage() {
             defect="broken-keys"
             tabs={[
               { label: "Find Classes", content: <ClassSearch term={term} sections={d.sections} subjects={d.subjects} statusOf={statusOf} onAdd={add} /> },
-              { label: `Current Schedule (${enrolled.length + waitlisted.length})`, content: <CurrentSchedule term={term} enrolled={enrolled} waitlisted={waitlisted} /> },
+              // No count in the tab's name: "Current Schedule" is easy to say by voice. The count is in the panel heading.
+              { label: "Current Schedule", content: <CurrentSchedule term={term} enrolled={enrolled} waitlisted={waitlisted} /> },
             ]}
           />
         </div>
@@ -254,7 +255,7 @@ function Cart({ term, cart, enrolled, max, sections, processing, headingRef, onA
                 <span className="rg-grip" aria-hidden="true" title="Drag to reorder" />
                 <span className="rg-prio">{i + 1}</span>
                 <div className="rg-cart-body">
-                  <strong>{s.code}-{s.section}</strong> {s.title}
+                  <strong id={`rg-cart-${s.crn}`}>{s.code}-{s.section}</strong> {s.title}
                   <span className="rg-cart-when">{when(s)} · {s.credits} cr · CRN {s.crn}</span>
                   {/* Present from the start so role="alert" announces the text when a conflict appears. */}
                   <p className="rg-conflict-msg" role={announceFixed ? "alert" : undefined}>
@@ -264,16 +265,18 @@ function Cart({ term, cart, enrolled, max, sections, processing, headingRef, onA
                 <div className="rg-cart-actions">
                   {dragFixed && (
                     <>
-                      <button type="button" id={`rg-move-up-${s.crn}`} className="rg-move" aria-disabled={i === 0} onClick={() => i > 0 && move(i, -1, s.crn)}>
-                        <span aria-hidden="true">↑</span><span className="visually-hidden">Move {s.code}-{s.section} up</span>
+                      {/* Named exactly what they show, so voice users can say it ("Click Up", then pick a number); the
+                          class code is the description, so screen readers still hear which class. Same for Remove. */}
+                      <button type="button" id={`rg-move-up-${s.crn}`} className="rg-move" aria-disabled={i === 0} aria-describedby={`rg-cart-${s.crn}`} onClick={() => i > 0 && move(i, -1, s.crn)}>
+                        <span aria-hidden="true">↑</span> Up
                       </button>
-                      <button type="button" id={`rg-move-down-${s.crn}`} className="rg-move" aria-disabled={i === cart.length - 1} onClick={() => i < cart.length - 1 && move(i, 1, s.crn)}>
-                        <span aria-hidden="true">↓</span><span className="visually-hidden">Move {s.code}-{s.section} down</span>
+                      <button type="button" id={`rg-move-down-${s.crn}`} className="rg-move" aria-disabled={i === cart.length - 1} aria-describedby={`rg-cart-${s.crn}`} onClick={() => i < cart.length - 1 && move(i, 1, s.crn)}>
+                        <span aria-hidden="true">↓</span> Down
                       </button>
                     </>
                   )}
                   {removeFixed ? (
-                    <button type="button" className="pt-linkbtn" onClick={() => onRemove(s)}>Remove<span className="visually-hidden"> {s.code}-{s.section}</span></button>
+                    <button type="button" className="pt-linkbtn" aria-describedby={`rg-cart-${s.crn}`} onClick={() => onRemove(s)}>Remove</button>
                   ) : (
                     <a href="#" onClick={(e) => { e.preventDefault(); onRemove(s); }}>Remove</a>
                   )}
@@ -283,7 +286,7 @@ function Cart({ term, cart, enrolled, max, sections, processing, headingRef, onA
           })}
         </ol>
       )}
-      {cart.length > 1 && <p className="pt-muted">{dragFixed ? "Use the arrow buttons or drag classes to set priority." : "Drag classes to set priority."} Higher priority classes are processed first.</p>}
+      {cart.length > 1 && <p className="pt-muted">{dragFixed ? "Use the Up and Down buttons or drag classes to set priority." : "Drag classes to set priority."} Higher priority classes are processed first.</p>}
       {cart.length > 0 && !confirming && (
         <p>
           <button type="button" className="btn pt-btn" onClick={() => setConfirming(true)} disabled={processing}
@@ -409,7 +412,8 @@ function ClassSearch({ term, sections, subjects, statusOf, onAdd }: SearchProps)
           {subjectFixed ? <label htmlFor="rg-subject">Subject</label> : <span className="field-label">Subject</span>}
           <select id="rg-subject" value={form.subject} onChange={(e) => set({ subject: e.target.value })}>
             <option value="">All subjects</option>
-            {subjects.map(([code, name]) => <option key={code} value={code}>{name} ({code})</option>)}
+            {/* Just the name: "English" is easy to say by voice, "English (ENGL)" isn't. */}
+            {subjects.map(([code, name]) => <option key={code} value={code}>{name}</option>)}
           </select>
         </div>
         <Field scenario="portal-reg-keyword-placeholder-001" id="rg-keyword" label="Keyword, course number or instructor" defect="placeholder" value={form.keyword} onChange={(e) => set({ keyword: e.target.value })} autoComplete="off" />
@@ -460,6 +464,7 @@ function SectionGrid({ secs, statusOf, onAdd }: { secs: Sec[]; statusOf: SearchP
   const gridFixed = useScenario("portal-reg-grid-children-001");
   const seatsFixed = useScenario("portal-reg-seats-color-001");
   const controlsFixed = useScenario("portal-reg-details-controls-001");
+  const addFixed = useScenario("portal-reg-add-empty-001");
   const [open, setOpen] = useState<string[]>([]);
   // Vendor grid: role="grid" on nested <div>s with no row/gridcell roles. Fixed: a plain data table.
   const [Grid, Head, Body, Row, Th, Td]: React.ElementType[] = gridFixed
@@ -492,17 +497,24 @@ function SectionGrid({ secs, statusOf, onAdd }: { secs: Sec[]; statusOf: SearchP
                 <Td className="rg-cell">{s.room || s.mode}</Td>
                 <Td className="rg-cell">
                   <button
-                    type="button" className="pt-linkbtn" aria-expanded={isOpen}
+                    type="button" className="pt-linkbtn" aria-expanded={isOpen} aria-describedby={`rg-sec-${s.crn}-name`}
                     // Defective: points at the id the old template used; the details row is rg-sec-<crn>-details.
                     aria-controls={controlsFixed ? detailsId : `details-${s.crn}`}
                     onClick={() => setOpen((o) => (isOpen ? o.filter((c) => c !== s.crn) : [...o, s.crn]))}
                   >
-                    Details<span className="visually-hidden"> for {s.code}-{s.section}</span>
+                    Details
                   </button>
+                  {/* The section's name: the description of its Details and Add buttons (names stay the visible word). */}
+                  <span id={`rg-sec-${s.crn}-name`} className="visually-hidden">{s.code}-{s.section}</span>
                 </Td>
                 <Td className="rg-cell">
                   {status ? <span className="rg-in">{status}</span> : (
-                    <IconButton scenario="portal-reg-add-empty-001" label={`Add ${s.code}-${s.section} to cart`} icon={plus} className="rg-add" onClick={() => onAdd(s)} />
+                    // Fixed: named "Add", exactly what it shows, so voice users can say it; the section is the description.
+                    <button type="button" className={`icon-button rg-add${addFixed ? " rg-add--text" : ""}`} data-a11y-scenario="portal-reg-add-empty-001"
+                      aria-describedby={addFixed ? `rg-sec-${s.crn}-name` : undefined} onClick={() => onAdd(s)}>
+                      <span aria-hidden="true">{plus}</span>
+                      {addFixed && " Add"}
+                    </button>
                   )}
                 </Td>
               </Row>,
@@ -526,7 +538,7 @@ function CurrentSchedule({ term, enrolled, waitlisted }: { term: Term; enrolled:
   const rows = [...enrolled.map((s) => ({ s, status: "Enrolled" })), ...waitlisted.map((s) => ({ s, status: "Waitlisted" }))];
   return (
     <div>
-      <h2>Current Schedule</h2>
+      <h2>Current Schedule ({rows.length})</h2>
       {rows.length === 0 && <p>You are not enrolled in any {term} classes yet.</p>}
       <div className="table-wrap">
         <table className="pt-grid" data-a11y-scenario="portal-reg-schedule-caption-001">

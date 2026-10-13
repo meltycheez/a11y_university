@@ -19,9 +19,7 @@ async function fillApplyStepOne(page: Page) {
   await page.locator("#dob-d").fill("15");
   await page.locator("#dob-y").fill("2008");
   await page.locator("#email").fill("casey.rivera@example.com");
-  await page.locator("#street").fill("100 Redwood Way");
   await page.locator("#city").fill("Arcadia Falls");
-  await page.locator("#zip").fill("95521");
   await page.locator("#citizenship").check(); // U.S. citizen (apply-citizenship-radios-001: radios named by codes)
 }
 
@@ -36,13 +34,13 @@ test("course plan resets on reload (/academics/courses)", async ({ page }) => {
 
 test("application step resets on reload (/admissions/apply)", async ({ page }) => {
   await page.goto("/admissions/apply");
-  await expect(stepTitle(page, /Step 1 of 3/)).toBeVisible();
+  await expect(stepTitle(page, /Step 1 of 2/)).toBeVisible();
   await fillApplyStepOne(page);
   await nextButton(page).click();
-  await expect(stepTitle(page, /Step 2 of 3/)).toBeVisible();
+  await expect(stepTitle(page, /Step 2 of 2/)).toBeVisible();
 
   await page.reload();
-  await expect(stepTitle(page, /Step 1 of 3/)).toBeVisible();
+  await expect(stepTitle(page, /Step 1 of 2/)).toBeVisible();
 });
 
 test("event registration resets on reload (/events/research-symposium-2026)", async ({ page }) => {

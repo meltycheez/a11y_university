@@ -29,29 +29,28 @@ test("apply CTF: completed with the keyboard and screen-reader-style activation,
   await start(page, "e2e-sr");
 
   const next = async () => { await page.locator('.apply-nav button[type="submit"]').focus(); await page.keyboard.press("Enter"); };
-  const step = (n: number) => expect(page.locator(".apply-step-title")).toContainText(`Step ${n} of 3`);
+  const step = (n: number) => expect(page.locator(".apply-step-title")).toContainText(`Step ${n} of 2`);
+  // The instructions stay pinned to the side of the screen during the run.
+  await expect(page.getByRole("region", { name: "Application for Admission: instructions" })).toBeVisible();
+  expect(await widgetViolations(page, ".ctf-dock"), "instructions dock").toEqual([]);
   for (const [id, v] of [["first", "Casey"], ["last", "Rivera"], ["dob-m", "6"], ["dob-d", "15"], ["dob-y", "2008"], ["email", "casey@example.com"],
-    ["street", "100 Redwood Way"], ["city", "Arcadia Falls"], ["zip", "95521"]]) await page.locator(`#${id}`).fill(v);
+    ["city", "Arcadia Falls"]]) await page.locator(`#${id}`).fill(v);
   await page.locator("#citizenship").focus();
   await page.keyboard.press("Space");
   await next();
   await step(2);
-  for (const [id, v] of [["school", "Arcadia High"], ["school-city", "Arcadia Falls, CA"], ["grad-m", "6"], ["grad-d", "1"], ["grad-y", "2026"], ["gpa", "3.5"]])
-    await page.locator(`#${id}`).fill(v);
+  await page.locator("#gpa").fill("3.5");
   await page.locator("#term").focus();
   await page.keyboard.press("Space");
   // The major menu ignores the keyboard (apply-major-dropdown-001); a screen reader's browse mode clicks it.
   await page.locator(".fake-select-value").click();
   await page.locator(".fake-select-option", { hasText: "Undeclared (exploring)" }).click();
+  await page.locator("#essay1").fill("The redwoods.");
+  await page.locator("#certify").focus();
+  await page.keyboard.press("Space");
   await next();
   await step(2); // the referral code is required during a run
   await page.locator("#referral").fill("RSU-7Q4K");
-  await next();
-  await step(3);
-  await page.locator("#essay1").fill("I learned to ask for help.");
-  await page.locator("#essay2").fill("Because I love it.");
-  await page.locator("#certify").focus();
-  await page.keyboard.press("Space");
   await next();
 
   // Finishing completes the run: the page congratulates (and takes focus), the bar shows the score.
@@ -65,7 +64,17 @@ test("apply CTF: completed with the keyboard and screen-reader-style activation,
   await page.getByRole("button", { name: "Try again with all issues fixed" }).click();
   await expect(bar(page).locator(".ctf-banner-title")).toBeFocused();
   await expect(bar(page).getByText("Comparison run:")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Step 1 of 3: Personal information" })).toBeVisible(); // fixed: a real h2
+  await expect(page.getByRole("heading", { name: "Step 1 of 2: About you" })).toBeVisible(); // fixed: a real h2
+  // Starting it keeps every fix on and is free, and the form hides again like the first run.
+  await bar(page).getByRole("button", { name: "Start comparison run" }).click(); // the bar is still at its ready stage
+  await expect(bar(page).getByRole("heading", { name: "Comparison run" })).toBeFocused();
+  await expect(page.getByRole("heading", { name: "Step 1 of 2: About you" })).toBeAttached();
+  await expect(page.locator(".ctf-blind")).toHaveCount(1, { timeout: 3000 });
+  await expect(bar(page).getByRole("button", { name: "Get a hint", exact: true })).toBeVisible();
+  await bar(page).getByRole("button", { name: "Show the form", exact: true }).click(); // free: no price, no confirmation
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(page.locator(".ctf-blind")).toHaveCount(0);
+  await expect(bar(page).getByRole("switch", { name: "Fix Errors" })).toHaveAttribute("aria-checked", "true");
 });
 
 test("a Fix switch mid-run costs points; the leaderboard survives a reload while every fix resets", async ({ page }) => {
@@ -80,6 +89,11 @@ test("a Fix switch mid-run costs points; the leaderboard survives a reload while
   await page.getByRole("button", { name: "Check in" }).click();
   await expect(page.locator(".ctf-complete .ctf-flag")).toContainText("RSU{map-eyes-");
   await expect(bar(page).getByRole("heading", { name: "Challenge complete" })).toBeVisible();
+  // The leaderboard opens in place from the congratulations, no page change.
+  await page.locator(".ctf-complete").getByRole("button", { name: "View leaderboard" }).click();
+  await expect(page.getByRole("dialog", { name: "CTF Leaderboard" })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page).toHaveURL(/\/campus-map$/);
 
   await page.reload();
   await widget(page).click();
@@ -102,7 +116,7 @@ test("the widget, the challenge bar and their modals have no axe violations", as
   await page.keyboard.press("Escape");
   await expect(panel(page)).toBeVisible(); // Esc closed only the modal
 
-  for (const path of ["/admissions/apply", "/portal/registration", "/campus-map"]) {
+  for (const path of ["/admissions/request-info", "/admissions/apply", "/portal/registration", "/campus-map"]) {
     await page.goto(path);
     expect(await widgetViolations(page, ".ctf-banner"), `${path} collapsed`).toEqual([]);
     await bar(page).getByRole("button", { name: "Start Challenge", exact: true }).click();
@@ -138,7 +152,7 @@ test("the widget, the challenge bar and their modals have no axe violations", as
 // WAVE also reports hidden markup (closed <dialog>s included), which axe skips: with every fix on, the
 // widget, the challenge bar and their modals must not leave a single unnamed button anywhere in the DOM.
 test("with Fix All on, no button anywhere in the DOM is unnamed (what WAVE checks)", async ({ page }) => {
-  for (const path of ["/", "/admissions/apply", "/portal/registration", "/campus-map"]) {
+  for (const path of ["/", "/admissions/request-info", "/admissions/apply", "/portal/registration", "/campus-map"]) {
     await page.goto(path);
     await widget(page).click();
     await panel(page).getByRole("button", { name: "Fix All" }).click();

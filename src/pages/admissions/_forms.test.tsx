@@ -12,6 +12,7 @@ import { ctfStore, endRun, revealPage, startRun } from "~/ctf/store";
 import DonatePage from "../giving/donate";
 import LegacyAidPage from "../financial-aid/legacy-application";
 import ApplyPage, { INVALID_PAUSE_MS, validateStep } from "./apply";
+import RequestInfoPage from "./request-info";
 
 Object.assign(HTMLDialogElement.prototype, {
   showModal(this: HTMLDialogElement) { this.open = true; },
@@ -102,28 +103,31 @@ it("donate: the session expires silently at 4:00, and warns at 3:00 once fixed",
   expect(document.querySelector("dialog[open]")).toBeNull();
 });
 
+/** Fills the About you step (the store keeps answers between tests, so every field is set). */
+const fillStep1 = () => {
+  for (const [id, v] of [["first", "Ada"], ["last", "Quill"], ["dob-m", "4"], ["dob-d", "12"], ["dob-y", "2008"], ["email", "ada@example.com"], ["city", "Arcadia Falls"]]) type(id, v);
+  fireEvent.click(document.getElementById("citizenship")!);
+};
 it("apply: validates a step, moves on, and keeps data in the store", () => {
   renderAt("/admissions/apply", ApplyPage);
-  expect(screen.getByText(/Step 1 of 3/)).toBeTruthy();
+  expect(screen.getByText(/Step 1 of 2/)).toBeTruthy();
   // apply-next-name-001: the defective Next button has no name, only an arrow icon.
   const next = () => fireEvent.click(document.querySelector('.apply-nav button[type="submit"]')!);
   next();
   expect(screen.getAllByText("Invalid").length).toBeGreaterThan(3);
-  for (const [id, v] of [["first", "Ada"], ["last", "Quill"], ["dob-m", "4"], ["dob-d", "12"], ["dob-y", "2008"], ["email", "ada@example.com"],
-    ["street", "1 Grove Way"], ["city", "Arcadia Falls"], ["zip", "95579"]]) type(id, v);
-  fireEvent.click(document.getElementById("citizenship")!);
+  fillStep1();
   next();
-  expect(screen.getByText(/Step 2 of 3/)).toBeTruthy();
+  expect(screen.getByText(/Step 2 of 2/)).toBeTruthy();
   expect(document.querySelector('[aria-current="step"]')).toBeNull();
   act(() => a11yStore.fixAll());
-  expect(document.querySelector('[aria-current="step"]')!.textContent).toContain("Academics and program");
+  expect(document.querySelector('[aria-current="step"]')!.textContent).toContain("Program and submit");
   fireEvent.click(screen.getByText("Back"));
   expect((document.getElementById("first") as HTMLInputElement).value).toBe("Ada");
-  expect(document.activeElement?.textContent).toContain("Step 1 of 3");
+  expect(document.activeElement?.textContent).toContain("Step 1 of 2");
 });
 
 it("apply: date errors point at the wrong part; month and day take 1 or 01", () => {
-  const base = { first: "a", last: "b", email: "a@b.co", street: "s", city: "c", zip: "95521", citizenship: "x", "dob-m": "01", "dob-d": "5", "dob-y": "2008" };
+  const base = { first: "a", last: "b", email: "a@b.co", city: "c", citizenship: "x", "dob-m": "01", "dob-d": "5", "dob-y": "2008" };
   const dob = (patch: Record<string, string>) => validateStep(0, { ...base, ...patch }).find((e) => e.field.startsWith("dob-"));
   expect(dob({})).toBeUndefined();
   expect(dob({ "dob-m": "1", "dob-d": "05" })).toBeUndefined();
@@ -155,12 +159,12 @@ it("apply: on step 2 an invalid major moves focus to the (mouse-only) major menu
   vi.useFakeTimers();
   renderAt("/admissions/apply", ApplyPage);
   const next = () => fireEvent.click(document.querySelector('.apply-nav button[type="submit"]')!);
-  for (const [id, v] of [["first", "Ada"], ["last", "Quill"], ["dob-m", "4"], ["dob-d", "12"], ["dob-y", "2008"], ["email", "ada@example.com"],
-    ["street", "1 Grove Way"], ["city", "Arcadia Falls"], ["zip", "95579"]]) type(id, v);
-  fireEvent.click(document.getElementById("citizenship")!);
+  fillStep1();
   next();
-  for (const [id, v] of [["school", "Arcadia High"], ["school-city", "Arcadia Falls, CA"], ["grad-m", "6"], ["grad-d", "1"], ["grad-y", "2026"], ["gpa", "3.5"]]) type(id, v);
+  type("gpa", "3.5");
+  type("essay1", "The redwoods.");
   fireEvent.click(document.getElementById("term")!);
+  if (!(document.getElementById("certify") as HTMLInputElement).checked) fireEvent.click(document.getElementById("certify")!);
   next(); // no major chosen
   expect(document.activeElement?.textContent).toBe("This step has 1 problem. Moving you to the first one.");
   act(() => { vi.advanceTimersByTime(INVALID_PAUSE_MS); });
@@ -174,15 +178,15 @@ it("apply CTF: starting counts down while the form fades, then focuses the first
   localStorage.clear();
   renderAt("/admissions/apply", ApplyPage);
   act(() => { startRun("apply-sr", "tester"); });
-  expect(document.querySelector(".apply-card--blind")).toBeNull(); // first the form scrolls into view
-  expect(document.querySelector(".apply-countdown")).toBeNull();
+  expect(document.querySelector(".ctf-blind")).toBeNull(); // first the form scrolls into view
+  expect(document.querySelector(".ctf-countdown")).toBeNull();
   act(() => { vi.advanceTimersByTime(700); });
-  expect(document.querySelector(".apply-card--blind")).not.toBeNull();
-  expect(document.querySelector(".apply-countdown")!.textContent).toBe("Form hides in 5");
+  expect(document.querySelector(".ctf-blind")).not.toBeNull();
+  expect(document.querySelector(".ctf-countdown")!.textContent).toBe("Form hides in 5");
   act(() => { vi.advanceTimersByTime(2000); });
-  expect(document.querySelector(".apply-countdown")!.textContent).toBe("Form hides in 3");
+  expect(document.querySelector(".ctf-countdown")!.textContent).toBe("Form hides in 3");
   act(() => { vi.advanceTimersByTime(3000); });
-  expect(document.querySelector(".apply-countdown")).toBeNull();
+  expect(document.querySelector(".ctf-countdown")).toBeNull();
   expect(document.activeElement?.id).toBe("first");
   act(() => { endRun(); });
 });
@@ -191,25 +195,22 @@ it("apply CTF: a run needs the referral code and ends with the flag", async () =
   localStorage.clear();
   renderAt("/admissions/apply", ApplyPage);
   act(() => { startRun("apply-sr", "tester"); });
-  await waitFor(() => expect(document.querySelector(".apply-card--blind")).not.toBeNull()); // fades out after scrolling into view
+  await waitFor(() => expect(document.querySelector(".ctf-blind")).not.toBeNull()); // fades out after scrolling into view
   act(() => { revealPage(); });
-  expect(document.querySelector(".apply-card--blind")).toBeNull(); // until the player pays to show it
+  expect(document.querySelector(".ctf-blind")).toBeNull(); // until the player pays to show it
   const next = () => fireEvent.click(document.querySelector('.apply-nav button[type="submit"]')!);
-  for (const [id, v] of [["first", "Ada"], ["last", "Quill"], ["dob-m", "4"], ["dob-d", "12"], ["dob-y", "2008"], ["email", "ada@example.com"],
-    ["street", "1 Grove Way"], ["city", "Arcadia Falls"], ["zip", "95579"]]) type(id, v);
-  fireEvent.click(document.getElementById("citizenship")!);
+  fillStep1();
   next();
-  for (const [id, v] of [["school", "Arcadia High"], ["school-city", "Arcadia Falls, CA"], ["grad-m", "6"], ["grad-d", "1"], ["grad-y", "2026"], ["gpa", "3.5"]]) type(id, v);
+  type("gpa", "3.5");
   fireEvent.click(document.getElementById("term")!);
   fireEvent.click(document.querySelector(".fake-select-value")!);
   fireEvent.click([...document.querySelectorAll(".fake-select-option")].find((o) => o.textContent === "Undeclared (exploring)")!);
+  type("essay1", "The redwoods.");
+  if (!(document.getElementById("certify") as HTMLInputElement).checked) fireEvent.click(document.getElementById("certify")!);
+  type("referral", "");
   next();
-  expect(screen.getByText(/Step 2 of 3/)).toBeTruthy(); // the referral code is required during a run
+  expect(screen.getByText(/Step 2 of 2/)).toBeTruthy(); // the referral code is required during a run
   type("referral", "rsu 7q4k");
-  next();
-  type("essay1", "I learned to ask for help.");
-  type("essay2", "Because I love it.");
-  fireEvent.click(document.getElementById("certify")!);
   next();
   await waitFor(() => expect(screen.getByText("Application submitted")).toBeTruthy(), { timeout: 2000 });
   expect(screen.getByRole("heading", { name: "Congratulations! You completed the challenge!" })).toBeTruthy();
@@ -218,7 +219,7 @@ it("apply CTF: a run needs the referral code and ends with the flag", async () =
   fireEvent.click(screen.getByText("Try again with all issues fixed"));
   expect(ctfStore.get().result).toBeNull();
   expect(a11yStore.get()).toMatchObject({ fixErrors: true, fixAlerts: true, fixManual: true });
-  expect(screen.getByText(/Step 1 of 3/)).toBeTruthy(); // the application starts over
+  expect(screen.getByText(/Step 1 of 2/)).toBeTruthy(); // the application starts over
   endRun();
 });
 
@@ -248,11 +249,40 @@ it("legacy aid: works with a mouse, submits to an on-page confirmation", async (
 it("apply: Tab is scrambled between step 1 fields only, until fixed", () => {
   renderAt("/admissions/apply", ApplyPage);
   const tab = (id: string, shiftKey = false) => { document.getElementById(id)!.focus(); fireEvent.keyDown(document.getElementById(id)!, { key: "Tab", shiftKey }); return document.activeElement?.id; };
-  expect(tab("last")).toBe("zip");
-  expect(tab("zip", true)).toBe("last");
-  expect(tab("phone")).toBe("citizenship"); // then on through the rest of the form
-  expect(tab("last", true)).toBe("last"); // leaving backwards is the browser's normal order
+  expect(tab("first")).toBe("city");
+  expect(tab("city", true)).toBe("first");
+  expect(tab("dob-d")).toBe("citizenship"); // then on through the rest of the form
+  expect(tab("first", true)).toBe("first"); // backwards from the first field leaves the form (the browser's move; jsdom doesn't)
   expect(document.querySelector('.apply-form [tabindex]:not([tabindex="-1"])')).toBeNull(); // no positive tabindex
   act(() => a11yStore.set({ fixManual: true }));
   expect(tab("last")).toBe("last"); // natural order: the browser moves focus (jsdom doesn't)
+});
+it("request info CTF (booth screen reader): Tab jumps around, wrong answers get a note, the right ones reveal the flag", async () => {
+  localStorage.clear();
+  renderAt("/admissions/request-info", RequestInfoPage);
+  act(() => { startRun("reqinfo-sr", "tester"); });
+  await waitFor(() => expect(document.querySelector(".ctf-blind")).not.toBeNull()); // fades out after scrolling into view
+  const tab = (id: string, shiftKey = false) => { document.getElementById(id)!.focus(); fireEvent.keyDown(document.getElementById(id)!, { key: "Tab", shiftKey }); return document.activeElement?.id; };
+  expect(tab("ri-first")).toBe("ri-email");
+  expect(tab("ri-email")).toBe("ri-last");
+  expect(tab("ri-phone")).toBe("ri-term"); // past the I am a buttons
+  expect(tab("ri-first", true)).toBe("ri-first"); // backwards from the first field leaves the form (browser's move)
+  const send = () => fireEvent.click(screen.getByRole("button", { name: "Send me information" }));
+  type("ri-first", "Ada"); type("ri-last", "Quill"); type("ri-email", "ada@example.com");
+  send();
+  expect(screen.getByRole("alert").textContent).toBe("Challenge not complete yet: check I am a, start term, area of interest.");
+  expect(screen.getAllByRole("radio").some((r) => (r as HTMLInputElement).checked)).toBe(false); // every question starts unselected
+  expect((document.getElementById("ri-term") as HTMLSelectElement).value).toBe("");
+  fireEvent.click(screen.getByRole("radio", { name: "Graduate student" })); // any answer will do
+  fireEvent.change(document.getElementById("ri-term")!, { target: { value: "Fall 2028" } });
+  send();
+  expect(screen.getByRole("alert").textContent).toBe("Challenge not complete yet: check area of interest.");
+  fireEvent.change(document.getElementById("ri-interest")!, { target: { value: "Business" } });
+  send();
+  await waitFor(() => expect(document.querySelector(".ctf-complete .ctf-flag")!.textContent).toMatch(/^RSU\{reqinfo-sr-[0-9a-f]{8}\}$/));
+  expect(screen.getByRole("link", { name: "Try the harder version: Application for Admission" })).toBeTruthy();
+  expect(ctfStore.get().run).toBeNull();
+  act(() => a11yStore.set({ fixManual: true }));
+  expect(tab("ri-first")).toBe("ri-first"); // fixed: the browser's own order (jsdom doesn't move focus)
+  endRun();
 });

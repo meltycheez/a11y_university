@@ -83,7 +83,7 @@ describe("registration SPA", () => {
     expect(container.querySelector("table.rg-grid")).toBeTruthy();
     // Up/down buttons replace drag-only priority.
     const first = container.querySelector(".rg-cart-item strong")!.textContent;
-    fireEvent.click(screen.getByText(/^Move CS 222-\d+ up$/).closest("button")!);
+    fireEvent.click(screen.getAllByRole("button", { name: "Up", description: /^CS 222-\d+$/ }).find((b) => b.getAttribute("aria-disabled") !== "true")!);
     expect(container.querySelector(".rg-cart-item strong")!.textContent).not.toBe(first);
     // Removing moves focus to the cart heading.
     fireEvent.click(container.querySelector<HTMLButtonElement>(".rg-cart-actions .pt-linkbtn")!);
@@ -100,7 +100,8 @@ describe("registration SPA", () => {
     await act(() => router.navigate("/portal"));
     await act(() => router.navigate("/portal/registration"));
     await waitFor(() => expect(container.querySelector("#rg-results-heading")).toBeTruthy());
-    expect(screen.getByText(/Current Schedule \(1\)/)).toBeTruthy();
+    fireEvent.click(screen.getByRole("tab", { name: "Current Schedule" }));
+    expect(screen.getByRole("heading", { name: "Current Schedule (1)" })).toBeTruthy();
   });
 
   it("gives a vague CRN error until fixed", async () => {
@@ -117,7 +118,7 @@ describe("registration SPA", () => {
 });
 
 describe("voice control CTF", () => {
-  it("needs exactly the three classes in priority order, then shows the flag", async () => {
+  it("needs exactly the two classes in priority order, then shows the flag", async () => {
     localStorage.clear();
     const { container } = await open("/portal/registration");
     act(() => { startRun("registration-voice", "tester"); });
@@ -132,7 +133,7 @@ describe("voice control CTF", () => {
     quickAdd("43772"); // HIST 111-80: not part of the task (and full, so it's waitlisted)
     await register();
     await waitFor(() => expect(screen.getByText(/Challenge not complete yet/)).toBeTruthy(), { timeout: 2000 });
-    for (const crn of ["44458", "45934", "43099"]) quickAdd(crn);
+    for (const crn of ["44458", "43099"]) quickAdd(crn);
     await register();
     await waitFor(() => expect(container.querySelector(".ctf-complete .ctf-flag")?.textContent).toMatch(/^RSU\{registration-voice-[0-9a-f]{8}\}$/), { timeout: 2000 });
     endRun();

@@ -35,7 +35,7 @@ export const registrationScenarios: ScenarioDef[] = [
     rule: "button-empty",
     title: "\"Add to cart\" buttons are unnamed plus icons",
     description: "Each section's add button is a plus icon with no text, so every button is announced only as \"button\".",
-    fixDescription: "Each button is named, e.g. \"Add CS 313-01 to cart\".",
+    fixDescription: "Each button shows and is named \"Add\", so voice users can say what they see; the section (e.g. CS 313-01) is its description.",
     component: "SectionGrid", mechanism: "markup", severity: "critical",
   }),
   r({
@@ -101,7 +101,7 @@ export const registrationScenarios: ScenarioDef[] = [
     rule: "link-javascript",
     title: "Cart \"Remove\" is a href=\"#\" link",
     description: "Each cart item's Remove action is a link to \"#\" driven by a click handler, and every one reads just \"Remove\".",
-    fixDescription: "Uses a button named with the class, e.g. \"Remove CS 313-01\".",
+    fixDescription: "Uses a button named \"Remove\", described by its class (e.g. CS 313-01).",
     component: "Cart", mechanism: "markup", severity: "moderate",
   }),
   r({
@@ -192,7 +192,7 @@ export const registrationScenarios: ScenarioDef[] = [
     rule: "kbd-drag-no-alternative",
     title: "Cart priority can only be changed by drag and drop",
     description: "Cart items are reordered by dragging; there is no keyboard or single-pointer alternative.",
-    fixDescription: "Adds named Move up / Move down buttons to each item (dragging still works).",
+    fixDescription: "Adds Up and Down buttons to each item, named just \"Up\" and \"Down\" and described by the class (dragging still works).",
     component: "Cart", mechanism: "behavior", severity: "serious",
   }),
   r({

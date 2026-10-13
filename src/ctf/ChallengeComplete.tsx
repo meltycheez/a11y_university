@@ -1,8 +1,10 @@
 // Plan 11: shown on a challenge page where the task finished, once the run has scored (store.revealFlag).
 // Infrastructure: fully accessible, registers no scenarios. CSS: .ctf-complete in styles/components.css.
 import { useEffect, useRef } from "react";
+import { HarderLink } from "./ChallengeBanner";
+import { LeaderboardButton } from "./ChallengesPanel";
 import { ctfStore, retryWithFixes } from "./store";
-import type { ChallengeId } from "./challenges";
+import { challengeById, type ChallengeId } from "./challenges";
 
 /** `onRetry` resets the page's task; this then turns every fix on and moves focus to the challenge bar. */
 export function ChallengeComplete({ id, onRetry }: { id: ChallengeId; onRetry: () => void }) {
@@ -22,12 +24,23 @@ export function ChallengeComplete({ id, onRetry }: { id: ChallengeId; onRetry: (
     retryWithFixes(id);
     setTimeout(() => document.querySelector<HTMLElement>(".ctf-banner-title")?.focus());
   };
+  if (result.compare) return (
+    <section className="ctf-complete" aria-labelledby={`${id}-complete`}>
+      <h3 id={`${id}-complete`} ref={heading} tabIndex={-1}>Comparison run complete</h3>
+      <p>That was the same task with every accessibility issue fixed. It wasn't scored.</p>
+      <div className="ctf-actions"><LeaderboardButton challenge={id} /></div>
+    </section>
+  );
   return (
     <section className="ctf-complete" aria-labelledby={`${id}-complete`}>
       <h3 id={`${id}-complete`} ref={heading} tabIndex={-1}>Congratulations! You completed the challenge!</h3>
       <p>Your flag <code className="ctf-flag">{result.flag}</code> was entered for you. You scored {result.score} points, saved to the leaderboard as {result.handle}.</p>
       <p>Now try the challenge again with every accessibility issue fixed to compare the experience.</p>
-      <button type="button" className="ctf-btn" onClick={retry}>Try again with all issues fixed</button>
+      <HarderLink challenge={challengeById.get(id)!} />
+      <div className="ctf-actions">
+        <button type="button" className="ctf-btn" onClick={retry}>Try again with all issues fixed</button>
+        <LeaderboardButton challenge={id} />
+      </div>
     </section>
   );
 }

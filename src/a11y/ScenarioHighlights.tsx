@@ -14,7 +14,9 @@ export function CategoryIcon({ category }: { category: Category }) {
   return <svg className="a11y-hl-icon" viewBox="0 0 16 16" width="11" height="11" aria-hidden="true" focusable="false">{shape}</svg>;
 }
 
-interface Box { key: string; category: Category; label: string; top: number; left: number; width: number; height: number; inside: boolean; stack: number }
+interface Tag { category: Category; label: string }
+/** `tags`: this outline's label plus those of outlines starting at the same corner, drawn as one column so long labels can wrap. */
+interface Box { key: string; category: Category; label: string; top: number; left: number; width: number; height: number; inside: boolean; tags: Tag[] }
 
 const ORDER: Category[] = ["error", "alert", "manual"];
 const MIN = 14;
@@ -40,16 +42,18 @@ function measure(categories: Category[]): Box[] {
       if (!list) continue;
       const width = Math.min(Math.max(r.width, MIN), pageWidth - left) - inset * 2;
       boxes.push({
-        key: `${i}-${category}`, category, inside: top < 18, stack: 0,
+        key: `${i}-${category}`, category, inside: top < 18, tags: [],
         label: list.length > 1 ? `${list[0]} (+${list.length - 1} more)` : list[0],
         top: top + inset, left: left + inset, width: Math.max(width, MIN), height: Math.max(r.height, MIN) - inset * 2,
       });
       inset += 4; // an element with defects in several categories gets nested outlines
     }
   });
-  // Labels of outlines that start at (nearly) the same corner would sit on top of each other: stack them.
+  // Labels of outlines that start at (nearly) the same corner would sit on top of each other: the first one
+  // carries them all.
   boxes.forEach((b, i) => {
-    b.stack = boxes.slice(0, i).filter((o) => o.inside === b.inside && Math.abs(o.top - b.top) < 12 && Math.abs(o.left - b.left) < 120).length;
+    const lead = boxes.slice(0, i).find((o) => o.tags.length && o.inside === b.inside && Math.abs(o.top - b.top) < 12 && Math.abs(o.left - b.left) < 120);
+    (lead ?? b).tags.push({ category: b.category, label: b.label });
   });
   return boxes;
 }
@@ -96,16 +100,22 @@ export function ScenarioHighlights({ show }: { show: Record<Category, boolean> }
           className={`a11y-hl a11y-hl--${b.category}${b.inside ? " a11y-hl--inside" : ""}`}
           style={{ top: b.top, left: b.left, width: b.width, height: b.height }}
         >
-          <span
-            className="a11y-hl-tag"
-            style={{
-              maxWidth: Math.min(320, Math.max(80, document.documentElement.clientWidth - b.left - 8)),
-              ...(b.stack ? { [b.inside ? "top" : "bottom"]: `calc(${b.inside ? "0px" : "100%"} + ${b.stack * 16}px)` } : {}),
-            }}
-          >
-            <CategoryIcon category={b.category} />
-            <span>{b.label}</span>
-          </span>
+          {b.tags.length > 0 && (
+            <span
+              className="a11y-hl-tags"
+              // Near the right edge, the labels hang from the outline's right side instead, so they have room to read.
+              style={document.documentElement.clientWidth - b.left < 200
+                ? { maxWidth: Math.min(320, b.left + b.width - 8), left: "auto", right: -2, alignItems: "flex-end" }
+                : { maxWidth: Math.min(320, document.documentElement.clientWidth - b.left - 8) }}
+            >
+              {b.tags.map((t) => (
+                <span key={t.category + t.label} className={`a11y-hl-tag a11y-hl--${t.category}`}>
+                  <CategoryIcon category={t.category} />
+                  <span>{t.label}</span>
+                </span>
+              ))}
+            </span>
+          )}
         </div>
       ))}
     </div>,

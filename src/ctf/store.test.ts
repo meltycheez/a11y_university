@@ -54,6 +54,8 @@ describe("CTF run", () => {
     expect(board.rankChallenge(board.load(), "apply-sr")).toEqual([expect.objectContaining({ handle: "ada", score: 550 })]);
     expect(timeBonus(0)).toBe(100);
     expect(timeBonus(30 * 60_000)).toBe(0);
+    expect(timeBonus(2.5 * 60_000, 5)).toBe(50); // booth challenges: 0 at 5 minutes
+    expect(timeBonus(5 * 60_000, 5)).toBe(0);
   });
 
   it("retrying with fixes clears the result, turns every fix on and is free", () => {
@@ -66,6 +68,20 @@ describe("CTF run", () => {
     startRun("apply-sr", "ada");
     expect(ctfStore.get().compare).toBeNull();
     expect(a11yStore.get()).toMatchObject({ fixErrors: false, fixAlerts: false, fixManual: false }); // a real run turns them off again
+  });
+
+  it("a comparison run keeps every fix on, uses no attempt and saves nothing", () => {
+    startRun("apply-sr", "ada");
+    revealFlag("apply-sr", ["a"]);
+    retryWithFixes("apply-sr");
+    expect(startRun("apply-sr", "ada", { compare: true })).toBeNull();
+    expect(a11yStore.get()).toMatchObject({ fixErrors: true, fixAlerts: true, fixManual: true });
+    expect(run().compare).toBe(true);
+    expect(noteHighlight("error")).toBe(false);
+    expect(board.attemptsUsed("ada", "apply-sr")).toBe(1);
+    revealFlag("apply-sr", ["b"]);
+    expect(ctfStore.get().result).toMatchObject({ compare: true, score: 0 });
+    expect(board.load()[0].best!.flag).toBe(makeFlag("apply-sr", ["a"])); // the scored run, not the comparison
   });
 
   it("showing a faded page costs REVEAL_PENALTY once", () => {
@@ -85,14 +101,16 @@ describe("leaderboard", () => {
 
   it("keeps the best score per handle and sums the overall board", () => {
     const best = (score: number) => ({ score, flag: "f", finishedAt: "t", noMouse: false });
-    board.recordFinish("ada", "apply-sr", best(300));
-    board.recordFinish("Ada", "apply-sr", best(200));
+    board.recordFinish("ada", "reqinfo-sr", best(300));
+    board.recordFinish("Ada", "reqinfo-sr", best(200));
     board.recordFinish("ada", "map-eyes", best(400));
-    board.recordFinish("bob", "apply-sr", best(500));
+    board.recordFinish("bob", "reqinfo-sr", best(500));
+    board.recordFinish("bob", "apply-sr", best(900)); // the harder version: its own board, not in the total
     const entries = board.load();
-    expect(board.rankChallenge(entries, "apply-sr").map((r) => [r.handle, r.score])).toEqual([["bob", 500], ["ada", 300]]);
+    expect(board.rankChallenge(entries, "reqinfo-sr").map((r) => [r.handle, r.score])).toEqual([["bob", 500], ["ada", 300]]);
+    expect(board.rankChallenge(entries, "apply-sr").map((r) => [r.handle, r.score])).toEqual([["bob", 900]]);
     expect(board.rankOverall(entries).map((r) => [r.handle, r.score])).toEqual([["ada", 700], ["bob", 500]]);
-    expect(board.toCsv(entries).split("\n")).toHaveLength(4);
+    expect(board.toCsv(entries).split("\n")).toHaveLength(5);
   });
 
   it("is empty, never a crash, when localStorage throws", () => {
@@ -105,9 +123,9 @@ describe("leaderboard", () => {
 
 describe("leaderboard", () => {
   it("keeps the best run per name per challenge, ignoring case", () => {
-    const row = (handle: string, challengeId: "apply-sr" | "map-eyes", score: number) => ({ handle, challengeId, attempts: 0, best: { score, flag: "", finishedAt: "", noMouse: false } });
-    const best = board.bestOf([row("Ada", "apply-sr", 300), row("ada ", "apply-sr", 450), row("Ada", "map-eyes", 200), row("Bo", "apply-sr", 100)]);
-    expect(board.rankChallenge(best, "apply-sr").map((r) => [r.handle, r.score])).toEqual([["Ada", 450], ["Bo", 100]]);
+    const row = (handle: string, challengeId: "reqinfo-sr" | "map-eyes", score: number) => ({ handle, challengeId, attempts: 0, best: { score, flag: "", finishedAt: "", noMouse: false } });
+    const best = board.bestOf([row("Ada", "reqinfo-sr", 300), row("ada ", "reqinfo-sr", 450), row("Ada", "map-eyes", 200), row("Bo", "reqinfo-sr", 100)]);
+    expect(board.rankChallenge(best, "reqinfo-sr").map((r) => [r.handle, r.score])).toEqual([["Ada", 450], ["Bo", 100]]);
     expect(board.rankOverall(best).map((r) => [r.handle, r.score])).toEqual([["Ada", 650], ["Bo", 100]]);
   });
 });

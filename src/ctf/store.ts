@@ -10,12 +10,15 @@ export const HIGHLIGHT_PENALTY = 25;
 export const HINT_COSTS = [50, 75, 100];
 export const REVEAL_PENALTY = 50;
 const TIME_BONUS = 100;
-const TIME_LIMIT = 20 * 60_000;
 
 export interface Run { id: ChallengeId; handle: string; startedAt: number; fixes: Category[]; highlights: Category[]; hints: number; mouse: number;
   /** The player paid to see a page that fades out during the run (`Challenge.reveal`). */
-  revealed?: boolean }
-export interface Result { id: ChallengeId; handle: string; flag: string; score: number; breakdown: [string, number][]; mouse: number; trackMouse: boolean; attemptsLeft: number }
+  revealed?: boolean;
+  /** Unscored replay with every fix on (after "Try again with all issues fixed"): no attempt, no penalties, no fade. */
+  compare?: boolean }
+export interface Result { id: ChallengeId; handle: string; flag: string; score: number; breakdown: [string, number][]; mouse: number; trackMouse: boolean; attemptsLeft: number;
+  /** A comparison run: nothing was scored or saved. */
+  compare?: boolean }
 
 interface CtfState {
   run: Run | null;
@@ -36,7 +39,8 @@ const patchRun = (p: Partial<Run>) => ctfStore.set((s) => (s.run ? { ...s, run: 
 export const hintCost = (used: number) => HINT_COSTS.slice(0, used).reduce((a, b) => a + b, 0);
 export const penalties = (r: Run) => r.fixes.length * FIX_PENALTY + r.highlights.length * HIGHLIGHT_PENALTY + hintCost(r.hints) + (r.revealed ? REVEAL_PENALTY : 0);
 export const liveScore = (r: Run) => Math.max(0, challengeById.get(r.id)!.basePoints - penalties(r));
-export const timeBonus = (ms: number) => Math.max(0, Math.round(TIME_BONUS * (1 - ms / TIME_LIMIT)));
+/** Falls from TIME_BONUS to 0 over the challenge's `timeLimitMin` (5 minutes at the booth, 20 for the harder one). */
+export const timeBonus = (ms: number, limitMin = 20) => Math.max(0, Math.round(TIME_BONUS * (1 - ms / (limitMin * 60_000))));
 
 /** `RSU{<id>-<8 hex>}`, from the challenge and the values the player had to find. Never a literal in the bundle. */
 export const makeFlag = (id: ChallengeId, parts: string[]) =>
@@ -45,7 +49,7 @@ export const makeFlag = (id: ChallengeId, parts: string[]) =>
 // Fixes turned on mid-run cost points once per category. Reset All during a run is free.
 a11yStore.subscribe(() => {
   const run = ctfStore.get().run;
-  if (!run) return;
+  if (!run || run.compare) return;
   const state = a11yStore.get();
   const added = (Object.keys(toggleFor) as Category[]).filter((c) => state[toggleFor[c]] && !run.fixes.includes(c));
   if (added.length) patchRun({ fixes: [...run.fixes, ...added] });
@@ -66,12 +70,13 @@ export function checkStart(id: ChallengeId, handle: string): StartError | null {
   return board.attemptsUsed(name, id) >= board.MAX_ATTEMPTS ? "attempts" : null;
 }
 
-export function startRun(id: ChallengeId, handle: string): StartError | null {
+export function startRun(id: ChallengeId, handle: string, { compare = false } = {}): StartError | null {
   const name = handle.trim().slice(0, 24);
   if (!name) return "handle";
-  if (!board.startAttempt(name, id)) return "attempts";
-  a11yStore.resetAll(); // every run starts with every defect on (before the run exists, so it's free)
-  patch({ run: { id, handle: name, startedAt: Date.now(), fixes: [], highlights: [], hints: 0, mouse: 0 }, result: null, handle: name, compare: null });
+  if (compare) a11yStore.fixAll(); // the comparison run: every issue fixed, no attempt used
+  else if (!board.startAttempt(name, id)) return "attempts";
+  else a11yStore.resetAll(); // every scored run starts with every defect on (before the run exists, so it's free)
+  patch({ run: { id, handle: name, startedAt: Date.now(), fixes: [], highlights: [], hints: 0, mouse: 0, ...(compare ? { compare } : {}) }, result: null, handle: name, compare: null });
   if (challengeById.get(id)!.trackMouse) document.addEventListener("pointerdown", onPointer, true);
   return null;
 }
@@ -79,7 +84,7 @@ export function startRun(id: ChallengeId, handle: string): StartError | null {
 /** True when this highlight costs points (the first time per category in a run). */
 export function noteHighlight(c: Category): boolean {
   const run = ctfStore.get().run;
-  if (!run || run.highlights.includes(c)) return false;
+  if (!run || run.compare || run.highlights.includes(c)) return false;
   patchRun({ highlights: [...run.highlights, c] });
   return true;
 }
@@ -110,7 +115,12 @@ export function revealFlag(id: ChallengeId, parts: string[], now = Date.now()): 
   if (!run || run.id !== id) return null;
   const flag = makeFlag(id, parts);
   const c = challengeById.get(id)!;
-  const bonus = timeBonus(now - run.startedAt);
+  if (run.compare) {
+    endRun();
+    patch({ result: { id, handle: run.handle, flag, score: 0, breakdown: [], mouse: run.mouse, trackMouse: c.trackMouse, attemptsLeft: Math.max(0, board.MAX_ATTEMPTS - board.attemptsUsed(run.handle, id)), compare: true } });
+    return flag;
+  }
+  const bonus = timeBonus(now - run.startedAt, c.timeLimitMin);
   const breakdown: [string, number][] = [
     ["Base points", c.basePoints],
     ...(run.fixes.length ? [[`Fix switches used (${run.fixes.length})`, -run.fixes.length * FIX_PENALTY] as [string, number]] : []),
@@ -130,7 +140,8 @@ export function revealFlag(id: ChallengeId, parts: string[], now = Date.now()): 
   return flag;
 }
 
-/** "Try again with every issue fixed": clears the result and turns every fix on. The page resets its own task. */
+/** "Try again with every issue fixed": clears the result and turns every fix on. The page resets its own task; the
+ * challenge bar then offers an unscored comparison run (`startRun(id, handle, { compare: true })`). */
 export function retryWithFixes(id: ChallengeId) {
   a11yStore.fixAll();
   patch({ result: null, compare: id });

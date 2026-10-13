@@ -6,7 +6,7 @@ type Sev = NonNullable<ScenarioDef["severity"]>;
 const d = (id: string, rule: RuleKey, component: string, mechanism: Mech, severity: Sev, title: string, description: string, fixDescription: string): ScenarioDef =>
   ({ id: `apply-${id}-001`, rule, pages: ["/admissions/apply"], component, mechanism, severity, title, description, fixDescription });
 
-// /admissions/apply: three-step Application for Admission (plan 06 #8). Tier H.
+// /admissions/apply: two-step Application for Admission (plan 06 #8; two steps since plan 12). Tier H.
 // Also the screen reader CTF (plan 11 §5): the "CTF" entries below exist to make the form miserable, but still
 // possible, to complete with a screen reader.
 export const applyScenarios: ScenarioDef[] = [
@@ -29,7 +29,7 @@ export const applyScenarios: ScenarioDef[] = [
 
   // ---------- Alerts ----------
   d("dob-split", "placeholder-as-label", "ApplyDateParts", "markup", "serious",
-    "Dates are three boxes named by placeholders", "Date of birth and graduation date are each three inputs after one line of text, named only by MM, DD and YYYY placeholders that vanish as you type.", "Each date is a fieldset with a legend and Month, Day and Year labels."),
+    "Date of birth is three boxes named by placeholders", "Date of birth is three inputs after one line of text, named only by MM, DD and YYYY placeholders that vanish as you type.", "The date is a fieldset with a legend and Month, Day and Year labels."),
   d("citizenship-radios", "fieldset-missing", "ApplyPersonal", "markup", "serious",
     "Citizenship radio buttons are named by codes", "Each citizenship option is a radio button with aria-label codes like \"CIT_US\", followed by plain text, with no <label> and no group.", "A fieldset with the legend \"Citizenship status\" and a <label> for each option."),
   d("term-fieldset", "fieldset-missing", "ApplyProgram", "markup", "moderate",
@@ -42,9 +42,9 @@ export const applyScenarios: ScenarioDef[] = [
   d("crest-alt", "alt-long", "ApplyForm", "markup", "minor",
     "Decorative crest has a 400-character alt", "A decorative university crest above the form has a very long alt text describing its history, read before every visit to the form.", "The crest is decorative: alt=\"\"."),
   d("fake-heading", "heading-possible", "ApplyForm", "markup", "moderate",
-    "Step titles are bold text, not headings", "\"Step 1 of 3: Personal information\" and the other step titles are bold <div>s, so heading navigation can't find them.", "Each step title is an <h2>."),
+    "Step titles are bold text, not headings", "\"Step 1 of 2: About you\" and the other step title are bold <div>s, so heading navigation can't find them.", "Each step title is an <h2>."),
   d("review-heading-skip", "heading-skipped", "ApplyReview", "markup", "moderate",
-    "Review sections jump from h2 to h4", "On the review step, the section summaries are <h4> under the step's <h2>.", "Uses <h3>."),
+    "Review section jumps from h2 to h4", "On step 2, the summary of your answers is an <h4> under the step's <h2>.", "Uses <h3>."),
 
   // ---------- Manual ----------
   d("stepper-state", "sr-visual-only-state", "ApplyProgress", "markup", "serious",
@@ -52,7 +52,7 @@ export const applyScenarios: ScenarioDef[] = [
   d("step-focus", "focus-lost-on-update", "ApplyForm", "behavior", "serious",
     "Next and Back leave focus behind", "Changing steps replaces the form, so focus is lost and screen readers aren't told a new step loaded.", "Focus moves to the new step's heading."),
   d("no-structure", "form-no-structure", "ApplyPersonal", "markup", "moderate",
-    "Personal information is one long ungrouped list", "Step 1 has 14 fields in a single column with no headings or fieldsets.", "Groups the fields under Legal name, Contact, Mailing address and Citizenship fieldsets."),
+    "About you is one long ungrouped list", "Step 1 has 8 inputs and 4 radio buttons in a single column with no headings or fieldsets.", "Groups the fields under Name and date of birth, Contact information and Citizenship fieldsets."),
   d("required-color", "color-only-required", "ApplyForm", "markup", "serious",
     "Required fields shown only in red", "Required labels are red; the only explanation is \"Required fields are in red\".", "Adds \"(required)\" to labels and the required attribute."),
   d("errors-not-announced", "sr-errors-not-announced", "ApplyForm", "behavior", "serious",
@@ -62,12 +62,12 @@ export const applyScenarios: ScenarioDef[] = [
   d("major-dropdown", "kbd-dropdown-inoperable", "Dropdown", "behavior", "critical",
     "First-choice major menu needs a mouse", "The major picker is a styled <div> list: it can't be reached or operated with the keyboard.", "Uses a labeled native <select>."),
   d("essay-instructions", "form-instructions-disappear", "ApplyEssays", "markup", "serious",
-    "Essay prompts are placeholders", "Each essay's prompt and word limit are placeholder text, which vanishes as soon as you start typing.", "Shows the prompt above the box and links it with aria-describedby."),
+    "Short answer prompt is a placeholder", "The short answer's prompt and word limit are placeholder text, which vanishes as soon as you start typing.", "Shows the prompt above the box and links it with aria-describedby."),
   // CTF
   d("tab-order", "focus-order-mismatch", "ApplyPersonal", "behavior", "serious",
-    "Tab order jumps around the form", "On step 1 a script reorders Tab between the fields: Legal last name → ZIP code → Legal first name → Email → Year of birth → City → Month of birth → Street address, and so on. Focus enters and leaves the form normally.", "Tab follows the visual order of the fields."),
+    "Tab order jumps around the form", "On step 1 a script reorders Tab between the fields: Legal first name → City → Legal last name → Email → Year of birth → Month of birth → Day of birth. Focus enters and leaves the form normally.", "Tab follows the visual order of the fields."),
   d("aria-label-junk", "label-in-name-mismatch", "ApplyForm", "markup", "serious",
-    "Fields announce database names instead of their labels", "Email, Mobile phone, Street address and High school name have aria-label values like \"email_addr\" and \"hs_name\" that override their visible labels.", "Removes the aria-label overrides, so the visible labels are used."),
+    "Email announces a database name instead of its label", "The Email field has aria-label=\"email_addr\", which overrides its visible label.", "Removes the aria-label override, so the visible label is used."),
   d("live-spam", "sr-live-region-noisy", "ApplyForm", "behavior", "serious",
     "Autosave interrupts every minute", "An assertive live region announces \"Draft saved at …\" every minute, interrupting whatever the screen reader was reading.", "The autosave note is plain text and is not announced."),
   d("submit-status", "sr-status-not-announced", "ApplyReview", "behavior", "moderate",

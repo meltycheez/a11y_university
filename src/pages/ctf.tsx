@@ -4,25 +4,26 @@
 import { useEffect, useState } from "react";
 import { Link, type MetaFunction } from "react-router";
 import { scenarios } from "~/a11y/registry";
-import { challenges, type ChallengeId } from "~/ctf/challenges";
+import { challengeById, challenges, type ChallengeId } from "~/ctf/challenges";
 import { arrow, AT_ICONS } from "~/ctf/icons";
 import * as board from "~/ctf/leaderboard";
 
 export const meta: MetaFunction = () => [{ title: "Take the Challenge · Pope Tech" }];
 
 const BASE = import.meta.env.BASE_URL;
-const PITCH: Record<ChallengeId, { hook: string; line: string; face: string[] }> = {
-  "apply-sr": {
-    hook: "Apply to college with your monitor off.", line: "Fill out a real application by ear. Five seconds in, the form disappears.",
-    face: ["Fields that announce the wrong name", "A tab order that jumps all over the form", "A code that only appears in an image"],
+// The booth challenges' pitches (the harder ones are linked from theirs).
+const PITCH: Partial<Record<ChallengeId, { hook: string; line: string; face: string[] }>> = {
+  "reqinfo-sr": {
+    hook: "Ask a college for information with your monitor off.", line: "Fill out a short form by ear. Five seconds in, the form disappears.",
+    face: ["Fields with no labels", "A tab order that jumps all over the form", "Questions that aren't connected to their answers"],
   },
   "registration-voice": {
     hook: "Register for classes without lifting a finger.", line: "Search, drag and click with your voice alone. Hands stay off the keyboard.",
     face: ["Buttons that don't answer to what they say", "A cart you can only reorder by dragging", "A warning with a nameless button"],
   },
   "map-eyes": {
-    hook: "Find your way across campus with your eyes.", line: "Pan the map and check in at the observatory with eye tracking only.",
-    face: ["A map that only moves when you drag it", "A tooltip that vanishes if your gaze drifts", "A tiny button racing a timeout"],
+    hook: "Find your way across campus with a nod.", line: "Point with your head to find the observatory and check in, with Head Pointer only.",
+    face: ["A map that only moves when you drag it", "A tooltip that vanishes if your pointer drifts", "Typing with an on-screen keyboard"],
   },
 };
 const count = (path: string, category: "error" | "alert") =>
@@ -65,16 +66,17 @@ export default function CtfPage() {
                 <div className="cp-card-title"><h3>{c.title}</h3><p>{c.at}</p></div>
               </div>
               <div className="cp-card-body">
-                <p><strong>{PITCH[c.id].hook}</strong> {PITCH[c.id].line}</p>
+                <p><strong>{PITCH[c.id]!.hook}</strong> {PITCH[c.id]!.line}</p>
                 <div className="cp-face">
                   <h4 id={`cp-face-${c.id}`}>What you'll face</h4>
-                  <ul aria-labelledby={`cp-face-${c.id}`}>{PITCH[c.id].face.map((f) => <li key={f}>{f}</li>)}</ul>
+                  <ul aria-labelledby={`cp-face-${c.id}`}>{PITCH[c.id]!.face.map((f) => <li key={f}>{f}</li>)}</ul>
                   <ul className="cp-card-count" aria-label="Accessibility issues on the page">
                     <li><WaveError /><span><b>{count(c.path, "error")}</b> Errors</span></li>
                     <li><WaveAlert /><span><b>{count(c.path, "alert")}</b> Alerts</span></li>
                   </ul>
                 </div>
                 <Link className="start-cta" to={c.path}>Accept the challenge<span className="visually-hidden">: {c.title}</span> {arrow}</Link>
+                {c.harder && <p className="cp-harder">More time? <Link to={challengeById.get(c.harder)!.path}>Try the harder version: {challengeById.get(c.harder)!.title}</Link></p>}
               </div>
             </li>
           ))}
@@ -84,7 +86,7 @@ export default function CtfPage() {
       <section className="cp-how" aria-labelledby="cp-how-title">
         <h2 id="cp-how-title" className="cp-h2">How it works</h2>
         <ol>
-          <li><b>Pick your tech</b><span>Screen reader, voice control or eye tracking. That's all you get.</span></li>
+          <li><b>Pick your tech</b><span>Screen reader, voice control or Head Pointer for Mac. That's all you get.</span></li>
           <li><b>Beat the page</b><span>Finish the task with every issue on. Fixes and hints cost points; speed earns them.</span></li>
           <li><b>Feel the difference</b><span>Then replay it with every issue fixed and see what accessible really means.</span></li>
         </ol>

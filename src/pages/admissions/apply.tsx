@@ -1,15 +1,16 @@
-// /admissions/apply: three-step Application for Admission (plan 06 #8; tier H).
+// /admissions/apply: two-step Application for Admission (plan 06 #8; tier H; cut from three steps in plan 12 so the
+// screen reader CTF, now the harder one, takes about 20 minutes).
 // Data lives in a module store: it survives client-side navigation and resets on reload. Nothing is sent.
 // Scenarios: src/a11y/registry/apply.ts. CSS: styles/features/apply.css.
 // Also the screen reader CTF (plan 11 §5): during a run the referral code is required and success shows the flag.
 import { Fragment, useEffect, useRef, useState } from "react";
 import { applyScenarios } from "~/a11y/registry/apply";
-import { AnyLink } from "~/components/blocks";
 import { Hero } from "~/components/Hero";
 import { Dropdown } from "~/components/widgets";
 import { ChallengeBanner } from "~/ctf/ChallengeBanner";
 import { ChallengeComplete } from "~/ctf/ChallengeComplete";
 import { ctfStore, revealFlag } from "~/ctf/store";
+import { useBlindRun } from "~/ctf/useBlindRun";
 import { programs } from "~/data/catalog";
 import { pageContent } from "~/data/content/pages";
 import { confirmationCode, createStore, latency } from "~/lib/interactive";
@@ -18,7 +19,7 @@ import { useFixes } from "~/a11y/useFixes";
 export { inventoryMeta as meta } from "~/routes/meta";
 
 const intro = pageContent["/admissions/apply"];
-const STEPS = ["Personal information", "Academics and program", "Essays and submit"];
+const STEPS = ["About you", "Program and submit"];
 const LAST = STEPS.length - 1;
 const MAJORS = [
   ...programs.filter((p) => p.level === "undergraduate").map((p) => ({ value: p.slug, label: `${p.name}, ${p.degree}` })),
@@ -29,20 +30,20 @@ const CITIZENSHIP = ["U.S. citizen", "U.S. permanent resident", "International (
 // apply-citizenship-radios-001: the defective radios' only names, close enough to tell them apart.
 const CITIZENSHIP_CODES = ["CIT_US", "CIT_PR", "CIT_INTL_F1_J1", "CIT_OTHER"];
 const ESSAYS = [
-  { id: "essay1", label: "Personal essay", limit: 350, prompt: "Describe a challenge you have faced and what you learned from it." },
-  { id: "essay2", label: "Program essay", limit: 250, prompt: "Why are you interested in your first-choice major, and how will Redwood State help you reach your goals?" },
+  { id: "essay1", label: "Short answer", limit: 50, prompt: "In a sentence or two, why do you want to attend Redwood State?" },
 ] as const;
 
 type Data = Record<string, string>;
 interface App { step: number; data: Data; status: "editing" | "submitting" | "submitted"; code: string }
-const INITIAL: App = { step: 0, data: { citizenship: "", term: "", major: "", major2: "", type: "First-year", state: "CA", certify: "" }, status: "editing", code: "" };
+const INITIAL: App = { step: 0, data: { citizenship: "", term: "", major: "", state: "CA", certify: "" }, status: "editing", code: "" };
 
 // CTF: the code printed in /ctf/referral-code.svg. Compared without spaces, dashes or case.
 const REFERRAL = "RSU7Q4K";
 const squash = (s = "") => s.replace(/[^a-z0-9]/gi, "").toUpperCase();
 // apply-tab-order-001: on step 1, Tab and Shift+Tab follow this scrambled order between the fields (a script
 // overrides the browser's order). Focus still enters and leaves the form normally; reading order is unchanged.
-const TAB_ORDER = ["last", "zip", "first", "email", "dob-y", "city", "dob-m", "street", "middle", "dob-d", "preferred", "phone"];
+// Starts with the form's first field, so Shift+Tab from there leaves the form instead of looping.
+const TAB_ORDER = ["first", "city", "last", "email", "dob-y", "dob-m", "dob-d"];
 /** The field Tab (or Shift+Tab) should move to from `id`, or null to let the browser decide. */
 export function scrambledTab(id: string, back: boolean): string | null {
   const i = TAB_ORDER.indexOf(id);
@@ -51,13 +52,9 @@ export function scrambledTab(id: string, back: boolean): string | null {
   return TAB_ORDER[i + 1] ?? "citizenship"; // after the last scrambled field, carry on to the rest of the step
 }
 // apply-aria-label-junk-001: database-style aria-labels that override the visible labels (still guessable).
-const JUNK_NAMES: Record<string, string> = { email: "email_addr", phone: "phone_mobile", street: "addr_line1", school: "hs_name" };
+const JUNK_NAMES: Record<string, string> = { email: "email_addr" };
 const CREST_ALT = "The official crest of Redwood State University, first adopted by the Board of Trustees in 1891 and redrawn in 1964 and again in 2009, showing a stylized coast redwood tree in pale mist gray rising from a ring of gold on a deep redwood red field, symbolizing the university's founding among the old-growth forests of the Arcadia Falls region and its enduring commitment to growth, knowledge and service to California.";
 const store = createStore<App>(INITIAL);
-/** The CTF fade-out (keep in step with .apply-card--blind in apply.css). */
-const FADE_MS = 5000;
-/** Time for the smooth scroll to the form before it starts fading. */
-const SCROLL_MS = 700;
 /** How long the "this step has problems" line keeps focus before focus jumps to the first problem field. */
 export const INVALID_PAUSE_MS = 2500;
 
@@ -87,20 +84,13 @@ export function validateStep(step: number, d: Data, { referral = false } = {}): 
     const dob = dateError(d, "dob", "date of birth", 1940, 2012);
     if (dob) e.push(dob);
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email ?? "")) e.push({ field: "email", message: "Enter an email address like name@example.com." });
-    need("street", "Enter your street address.");
     need("city", "Enter your city.");
-    if (!/^\d{5}$/.test(d.zip ?? "")) e.push({ field: "zip", message: "Enter a 5-digit ZIP code." });
     need("citizenship", "Choose your citizenship status.");
   } else if (step === 1) {
-    need("school", "Enter the name of your high school.");
-    need("school-city", "Enter the city and state of your high school.");
-    const grad = dateError(d, "grad", "graduation date", 1980, 2028);
-    if (grad) e.push(grad);
-    if (!/^\d(\.\d{1,2})?$/.test(d.gpa ?? "") || +d.gpa > 5) e.push({ field: "gpa", message: "Enter your GPA as a number from 0.00 to 5.00, for example 3.45." });
     need("term", "Choose the term you want to start.");
     need("major", "Choose a first-choice major, or Undeclared.");
+    if (!/^\d(\.\d{1,2})?$/.test(d.gpa ?? "") || +d.gpa > 5) e.push({ field: "gpa", message: "Enter your GPA as a number from 0.00 to 5.00, for example 3.45." });
     if (referral && squash(d.referral) !== REFERRAL) e.push({ field: "referral", message: "Enter the application referral code shown on this step, for example RSU-1A2B." });
-  } else if (step === 2) {
     for (const es of ESSAYS) {
       const n = words(d[es.id]);
       if (!n) e.push({ field: es.id, message: `Write your ${es.label.toLowerCase()}.` });
@@ -123,35 +113,8 @@ export default function ApplyPage() {
   const moveFocus = useRef<"heading" | "summary" | "invalid" | null>(null);
   const [errors, setErrors] = useState<Err[]>([]);
 
-  // CTF: when a run starts, scroll the form into view, then count down while it fades out (.apply-card--blind),
-  // then put focus on the
-  // form's first field. A run resumed by navigating back later skips straight past this.
-  const runStart = ctfRun ? run.startedAt : 0;
-  const lastRun = useRef(runStart); // a run already going when the page mounts doesn't count down again
-  const card = useRef<HTMLDivElement>(null);
-  const [scrolling, setScrolling] = useState(false); // the form stays visible until it has scrolled into view
-  const [countdown, setCountdown] = useState(0);
-  useEffect(() => {
-    const fresh = runStart !== 0 && runStart !== lastRun.current;
-    lastRun.current = runStart;
-    if (!fresh) { setScrolling(false); setCountdown(0); return; }
-    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    card.current?.scrollIntoView?.({ behavior: reduce ? "auto" : "smooth", block: "start" });
-    setScrolling(true);
-    let left = FADE_MS / 1000;
-    let t: ReturnType<typeof setInterval> | undefined;
-    const fade = setTimeout(() => {
-      setScrolling(false);
-      setCountdown(left);
-      t = setInterval(() => {
-        setCountdown(--left);
-        if (left > 0) return;
-        clearInterval(t);
-        document.querySelector<HTMLElement>(".apply-form :is(input, select, textarea)")?.focus();
-      }, 1000);
-    }, reduce ? 0 : SCROLL_MS);
-    return () => { clearTimeout(fade); clearInterval(t); };
-  }, [runStart]);
+  // CTF: the form fades out during a scored run (ctf/useBlindRun.ts).
+  const { card, countdown, cardClass } = useBlindRun<HTMLDivElement>("apply-sr", ".apply-form :is(input, select, textarea)");
 
   useEffect(() => {
     if (moveFocus.current === "heading") heading.current?.focus();
@@ -200,9 +163,7 @@ export default function ApplyPage() {
     go(step + 1);
   };
   const submit = async () => {
-    const found = validateStep(LAST, data);
-    // A CTF run can't skip the referral step by editing earlier steps from the review.
-    if (ctfRun && validateStep(1, data, { referral: true }).length) found.push({ field: "certify", message: "Go back to Academics and program and enter your application referral code." });
+    const found = validateStep(LAST, data, { referral: ctfRun });
     setErrors(found);
     if (found.length) { moveFocus.current = announce ? "summary" : "invalid"; return; }
     store.set((a) => ({ ...a, status: "submitting" }));
@@ -296,48 +257,20 @@ export default function ApplyPage() {
 
   const personal = (
     <div className={fix("no-structure") ? "apply-grouped" : "apply-flat"}>
-      {group("Legal name", <>
+      {group("Name and date of birth", <>
         {text("first", "Legal first name", { autoComplete: "given-name" })}
-        {text("middle", "Middle name", { required: false, autoComplete: "additional-name" })}
         {text("last", "Legal last name", { autoComplete: "family-name" })}
-        {text("preferred", "Preferred first name", { required: false, autoComplete: "nickname" })}
         {dateParts("dob", "Date of birth", ["bday-month", "bday-day", "bday-year"])}
       </>)}
       {group("Contact information", <>
         {text("email", "Email", { type: "email", autoComplete: "email" })}
-        {text("phone", "Mobile phone", { required: false, type: "tel", autoComplete: "tel" })}
-      </>)}
-      {group("Mailing address", <>
-        {text("street", "Street address", { autoComplete: "street-address" })}
         {text("city", "City", { autoComplete: "address-level2", labelFor: fix("name-mismatch") ? undefined : "state" })}
         <div className="field">
           <label htmlFor={fix("name-mismatch") ? "state" : "city"}>State</label>
           <select {...bind("state", false)}>{["CA", "AZ", "NV", "OR", "WA", "Other U.S.", "Outside the U.S."].map((s) => <option key={s}>{s}</option>)}</select>
         </div>
-        {text("zip", "ZIP code", { inputMode: "numeric", autoComplete: "postal-code" })}
       </>)}
-      {group("Citizenship and residency", <>
-        {citizenship}
-        <label className="apply-check">
-          <input type="checkbox" checked={data.firstgen === "yes"} onChange={(e) => setData({ firstgen: e.target.checked ? "yes" : "" })} />
-          {" "}Neither of my parents or guardians completed a four-year college degree
-        </label>
-      </>)}
-    </div>
-  );
-
-  const academic = (
-    <div className="apply-grouped">
-      {text("school", "High school name")}
-      {text("school-city", "High school city and state")}
-      {dateParts("grad", "Graduation date (or expected)")}
-      <div className="field">
-        <label htmlFor={fix("gpa-for") ? "gpa" : "gpa-input"} className={labelClass()}>{labelText("Cumulative GPA")}</label>
-        <input {...bind("gpa")} inputMode="decimal" className="apply-short" aria-label={fix("gpa-for") ? undefined : "gpa_cum"} />
-        <p className="apply-hint">Unweighted, on a 4.0 scale. Weighted GPAs up to 5.0 are accepted.</p>
-        {errorMsg("gpa")}
-      </div>
-      {text("college", "College courses taken in high school (dual enrollment)", { required: false })}
+      {group("Citizenship", citizenship)}
     </div>
   );
 
@@ -355,24 +288,17 @@ export default function ApplyPage() {
           : <div className="apply-radios"><p className={`apply-label ${labelClass() ?? ""}`}><strong>Entry term</strong></p>{termRadios}</div>}
         {errorMsg("term")}
       </div>
-      <fieldset className="apply-radios">
-        <legend>I am applying as a</legend>
-        {["First-year", "Transfer"].map((t) => (
-          <label key={t} className="apply-radio"><input type="radio" name="type" value={t} checked={data.type === t} onChange={() => setData({ type: t })} /> {t} student</label>
-        ))}
-      </fieldset>
       <div className={labelClass() ? "apply-dropdown apply-dropdown--req" : "apply-dropdown"} id="major">
         <Dropdown label={reqFixed ? "First-choice major (required)" : "First-choice major"} options={[{ value: "", label: "Choose a major" }, ...MAJORS]}
           value={data.major ?? ""} onChange={(v) => setData({ major: v })} scenario="apply-major-dropdown-001" defect="mouse-only" />
         {errorMsg("major")}
       </div>
       <div className="field">
-        <label htmlFor="major2">Second-choice major (optional)</label>
-        <select {...bind("major2", false)}><option value="">None</option>{MAJORS.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}</select>
+        <label htmlFor={fix("gpa-for") ? "gpa" : "gpa-input"} className={labelClass()}>{labelText("Cumulative high school GPA")}</label>
+        <input {...bind("gpa")} inputMode="decimal" className="apply-short" aria-label={fix("gpa-for") ? undefined : "gpa_cum"} />
+        <p className="apply-hint">Unweighted, on a 4.0 scale. Weighted GPAs up to 5.0 are accepted.</p>
+        {errorMsg("gpa")}
       </div>
-      <label className="apply-check">
-        <input type="checkbox" checked={data.housing === "yes"} onChange={(e) => setData({ housing: e.target.checked ? "yes" : "" })} /> I'm interested in living on campus
-      </label>
       <div className="apply-referral">
         <img src={`${import.meta.env.BASE_URL}ctf/referral-code.svg`} width="360" height="120"
           alt={fix("code-image-alt") ? "Your application referral code: RSU-7Q4K" : "image123.png"} />
@@ -396,7 +322,7 @@ export default function ApplyPage() {
           <div key={es.id} className="field apply-essay">
             <label htmlFor={es.id} className={labelClass()}>{labelText(es.label)}</label>
             {keep && <p id={`${es.id}-prompt`} className="apply-prompt">{es.prompt} Up to {es.limit} words.</p>}
-            <textarea {...bind(es.id)} rows={8} placeholder={keep ? undefined : `${es.prompt} (${es.limit} words max)`}
+            <textarea {...bind(es.id)} rows={3} placeholder={keep ? undefined : `${es.prompt} (${es.limit} words max)`}
               aria-describedby={described || undefined} />
             <p className={`apply-count${n > es.limit ? " is-over" : ""}`}>{n} / {es.limit} words</p>
             {errorMsg(es.id)}
@@ -409,13 +335,11 @@ export default function ApplyPage() {
   const Sub = fix("review-heading-skip") ? "h3" : "h4";
   const pick = (list: { value: string; label: string }[], v: string) => list.find((x) => x.value === v)?.label ?? "—";
   const reviewRows: [string, [string, string][]][] = [
-    ["Personal information", [
-      ["Name", [data.first, data.middle, data.last].filter(Boolean).join(" ")],
-      ["Date of birth", `${data["dob-m"]}/${data["dob-d"]}/${data["dob-y"]}`],
-      ["Email", data.email], ["Address", `${data.street}, ${data.city}, ${data.state} ${data.zip}`], ["Citizenship", data.citizenship],
+    ["About you", [
+      ["Name", [data.first, data.last].filter(Boolean).join(" ")],
+      ["Date of birth", `${data["dob-m"] ?? ""}/${data["dob-d"] ?? ""}/${data["dob-y"] ?? ""}`],
+      ["Email", data.email], ["City and state", `${data.city ?? ""}, ${data.state}`], ["Citizenship", data.citizenship],
     ]],
-    ["Academics and program", [["High school", `${data.school}, ${data["school-city"]}`], ["Graduation", `${data["grad-m"]}/${data["grad-d"]}/${data["grad-y"]}`], ["GPA", data.gpa],
-      ["Entry term", data.term], ["Applying as", `${data.type} student`], ["First choice", pick(MAJORS, data.major)], ["Second choice", data.major2 ? pick(MAJORS, data.major2) : "None"]]],
   ];
   const review = (
     <div className="apply-grouped">
@@ -423,7 +347,7 @@ export default function ApplyPage() {
         <section key={title} className="apply-review-section">
           <div className="apply-review-head">
             <Sub>{title}</Sub>
-            <button type="button" className="apply-edit" onClick={() => go(i)}>Edit {title.toLowerCase()}</button>
+            <button type="button" className="apply-edit" onClick={() => go(i)}>Edit {title}</button>
           </div>
           <dl>{rows.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v || "—"}</dd></div>)}</dl>
         </section>
@@ -439,7 +363,7 @@ export default function ApplyPage() {
     </div>
   );
 
-  const bodies = [personal, <>{academic}{program}</>, <>{essays}{review}</>];
+  const bodies = [personal, <>{program}{essays}{review}</>];
   const done = app.status === "submitted";
 
   return (
@@ -448,13 +372,12 @@ export default function ApplyPage() {
       <div className="page-content">
         <div className="apply-intro">
           {intro.sections[0].paragraphs!.map((p) => <p key={p}>{p}</p>)}
-          <p><AnyLink href={intro.sections[0].links![0].href}>Read the Admissions FAQ</AnyLink></p>
         </div>
 
         <ChallengeBanner id="apply-sr" />
         {/* Visual only: the challenge bar's warning already says the form fades out, and focus then moves to the form. */}
-        {countdown > 0 && <div className="apply-countdown" aria-hidden="true">Form hides in <b>{countdown}</b></div>}
-        <div ref={card} className={`apply-card${ctfRun && !run.revealed && !scrolling ? " apply-card--blind" : ""}`} {...mark("name-mismatch", "next-name", "citizenship-radios", "certify-hidden", "code-image-alt", "crest-alt", "fake-heading", "tab-order", "aria-label-junk", "live-spam", "step-focus", "no-structure", "required-color", "errors-not-announced", "errors-vague", "dob-split", "major-dropdown", "essay-instructions", "review-heading-skip", "back-link", "submit-status", "gpa-for", "term-fieldset")}>
+        {countdown > 0 && <div className="ctf-countdown" aria-hidden="true">Form hides in <b>{countdown}</b></div>}
+        <div ref={card} className={`apply-card ${cardClass}`} {...mark("name-mismatch", "next-name", "citizenship-radios", "certify-hidden", "code-image-alt", "crest-alt", "fake-heading", "tab-order", "aria-label-junk", "live-spam", "step-focus", "no-structure", "required-color", "errors-not-announced", "errors-vague", "dob-split", "major-dropdown", "essay-instructions", "review-heading-skip", "back-link", "submit-status", "gpa-for", "term-fieldset")}>
           <img className="apply-crest" src={`${import.meta.env.BASE_URL}favicon.svg`} width="56" height="56" alt={fix("crest-alt") ? "" : CREST_ALT} />
           <ol className="apply-steps" {...mark("progress-label", "stepper-state")}
             {...(fix("progress-label") ? { "aria-label": "Application progress" } : { "aria-labelledby": "apply-progress-title" })}>
