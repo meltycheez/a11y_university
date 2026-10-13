@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { scenarios } from "~/a11y/registry";
 import { registrationScenarios } from "~/a11y/registry/registration";
 import { a11yStore } from "~/a11y/state";
-import { endRun, startRun } from "~/ctf/store";
+import { ctfStore, endRun, startRun } from "~/ctf/store";
 import * as dashboard from "./index";
 import * as schedule from "./schedule";
 import * as grades from "./grades";
@@ -130,13 +130,39 @@ describe("voice control CTF", () => {
       await waitFor(() => expect(container.querySelector("#rg-results-heading")).toBeTruthy(), { timeout: 2000 });
     };
     expect(screen.getByRole("button", { name: "Enroll" }).textContent).toBe("Add");
-    quickAdd("43772"); // HIST 111-80: not part of the task (and full, so it's waitlisted)
+    const cartCodes = () => [...container.querySelectorAll(".rg-cart-item strong")].map((s) => s.textContent);
+    const removeFirst = () => fireEvent.click(container.querySelector<HTMLAnchorElement>(".rg-cart-actions a")!);
+    // Added in the final order straight away: doesn't count, and nothing is registered (the cart stays to fix).
+    quickAdd("44458"); quickAdd("43099");
     await register();
-    await waitFor(() => expect(screen.getByText(/Challenge not complete yet/)).toBeTruthy(), { timeout: 2000 });
-    for (const crn of ["44458", "43099"]) quickAdd(crn);
+    await waitFor(() => expect(screen.getByText(/Nothing was registered\. Add ENGL 111-01 to your cart first/)).toBeTruthy(), { timeout: 2000 });
+    expect(cartCodes()).toEqual(["MATH 101-02", "ENGL 111-01"]);
+    // Emptying the cart starts the add order over: ENGL first, then MATH, but not reordered yet.
+    removeFirst(); removeFirst();
+    quickAdd("43099"); quickAdd("44458");
+    await register();
+    await waitFor(() => expect(screen.getByText(/Nothing was registered\. Your cart needs exactly the two classes/)).toBeTruthy(), { timeout: 2000 });
+    expect(cartCodes()).toEqual(["ENGL 111-01", "MATH 101-02"]);
+    // Reorder by voice-friendly remove and re-add: ENGL drops below MATH.
+    removeFirst(); quickAdd("43099");
+    expect(cartCodes()).toEqual(["MATH 101-02", "ENGL 111-01"]);
     await register();
     await waitFor(() => expect(container.querySelector(".ctf-complete .ctf-flag")?.textContent).toMatch(/^RSU\{registration-voice-[0-9a-f]{8}\}$/), { timeout: 2000 });
     endRun();
+  });
+
+  it("abandoning the challenge clears the cart and anything registered during the run", async () => {
+    localStorage.clear();
+    const { container } = await open("/portal/registration");
+    act(() => { startRun("registration-voice", "tester"); });
+    const input = container.querySelector<HTMLInputElement>("#rg-crn")!;
+    for (const crn of ["44458", "43099"]) { fireEvent.change(input, { target: { value: crn } }); fireEvent.submit(input.form!); }
+    expect(container.querySelectorAll(".rg-cart-item")).toHaveLength(2);
+    fireEvent.click(screen.getByRole("button", { name: "Abandon" }));
+    fireEvent.click(screen.getByRole("button", { name: "Abandon challenge" }));
+    expect(ctfStore.get().run).toBeNull();
+    expect(container.querySelectorAll(".rg-cart-item")).toHaveLength(0);
+    expect(screen.getByText(/Your cart is empty/)).toBeTruthy();
   });
 });
 

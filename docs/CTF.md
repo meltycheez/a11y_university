@@ -5,7 +5,7 @@ The **Pope Tech Accessibility Lab** widget is the "Accessibility Lab" button wit
 | Challenge | Page | Assistive technology | Task |
 |---|---|---|---|
 | Request Information | `/admissions/request-info` | Screen reader | Fill in the form and answer its three questions (any answer, but none left unselected), then send it. Tab jumps around, the fields have no real labels, and the form fades out once the run starts. About 3–5 minutes. |
-| Class Registration | `/portal/registration` | Voice control | Register for MATH 101-02 (CRN 44458) and ENGL 111-01 (CRN 43099), in that priority order. |
+| Class Registration | `/portal/registration` | Voice control | Add ENGL 111-01 (CRN 43099) to the cart first, then MATH 101-02 (CRN 44458), then reorder the cart so MATH is first, and register. Adding them in the final order from the start doesn't count, so the cart always needs reordering. |
 | Campus Map | `/campus-map` | Head pointer for Mac | Find Hawthorne Observatory (search for OBS, or pan to it), read its after-hours code from its details or tooltip, and check in with it. The "Are you still there?" reset is off during a run. |
 | *Harder:* Application for Admission | `/admissions/apply` | Screen reader | Submit the two-step application (about 20 minutes with a screen reader), including the referral code hidden on the Program and submit step. Linked from Request Information. Its own leaderboard tab; not in the overall total. |
 

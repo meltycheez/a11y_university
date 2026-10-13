@@ -19,7 +19,8 @@ const steps = (c: Challenge, compare?: boolean) => (compare ? c.instructions.fil
 
 const pts = (n: number) =>`${n > 0 ? "+" : n < 0 ? "−" : ""}${Math.abs(n)}`;
 
-export function ChallengeBanner({ id }: { id: ChallengeId }) {
+/** `onAbandon` lets the page reset its task when the player abandons (or ends a comparison run). */
+export function ChallengeBanner({ id, onAbandon }: { id: ChallengeId; onAbandon?: () => void }) {
   const { run, result, handle: lastHandle, compare } = ctfStore.use();
   const c = challengeById.get(id)!;
   const titleId = useId();
@@ -45,7 +46,7 @@ export function ChallengeBanner({ id }: { id: ChallengeId }) {
   };
 
   let body: React.ReactNode;
-  if (run?.id === id) body = <Running challenge={c} focusKey={started} />;
+  if (run?.id === id) body = <Running challenge={c} focusKey={started} onAbandon={onAbandon} />;
   else if (run) body = <p>Another challenge is running: <Link to={challengeById.get(run.id)!.path}>{challengeById.get(run.id)!.title}</Link>. Finish or abandon it there first.</p>;
   else if (result?.id === id) body = <Finished challenge={c} />;
   else body = (
@@ -208,7 +209,7 @@ function NameForm({ challenge: c, handle, error, onChange, onError, onDone }: {
   );
 }
 
-function Running({ challenge: c, focusKey }: { challenge: Challenge; focusKey: number }) {
+function Running({ challenge: c, focusKey, onAbandon }: { challenge: Challenge; focusKey: number; onAbandon?: () => void }) {
   const { run } = ctfStore.use();
   const { ask, dialog } = useConfirm();
   const heading = useRef<HTMLHeadingElement>(null);
@@ -226,7 +227,7 @@ function Running({ challenge: c, focusKey }: { challenge: Challenge; focusKey: n
     confirmLabel: `${c.reveal} (−${REVEAL_PENALTY})`, onConfirm: revealPage,
   });
   const abandon = () => ask({
-    title: "Abandon this challenge?", message: "Your run ends now and the attempt stays used.", confirmLabel: "Abandon challenge", danger: true, onConfirm: endRun,
+    title: "Abandon this challenge?", message: "Your run ends now and the attempt stays used.", confirmLabel: "Abandon challenge", danger: true, onConfirm: () => { endRun(); onAbandon?.(); },
   });
 
   return (

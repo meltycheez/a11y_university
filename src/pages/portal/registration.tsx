@@ -44,14 +44,19 @@ type Status = "registered" | "waitlisted" | "error";
 interface Result { crn: string; status: Status; message: string }
 
 // Cart (CRNs in priority order), what this session registered, and the last results. Never persisted.
-const regStore = createStore({
+const EMPTY = {
   cart: [] as string[],
+  /** CRNs in the order they were first added since the cart was last empty (the CTF checks ENGL came first). */
+  added: [] as string[],
   registered: [] as { crn: string; status: "registered" | "waitlisted" }[],
   results: null as { term: Term; items: Result[]; flag?: string; ctfNote?: string } | null,
-});
+};
+const regStore = createStore(EMPTY);
 
-// CTF target: MATH 101-02 then ENGL 111-01 (Spring 2027), registered in exactly this priority order.
+// CTF target: MATH 101-02 then ENGL 111-01 (Spring 2027), registered in exactly this priority order. Players must add
+// them in the other order (ENGL first, CTF_ADD_ORDER), so the cart always needs reordering.
 const CTF_ORDER = ["44458", "43099"];
+const CTF_ADD_ORDER = ["43099", "44458"];
 
 const TERMS: Term[] = ["Spring 2027", "Fall 2026"];
 const when = (s: Sec) => (s.days ? `${s.days} ${time12(s.start)}–${time12(s.end)}` : "Online, asynchronous");
@@ -111,7 +116,10 @@ export default function RegistrationPage() {
     if (focusFixed) cartHeading.current?.focus();
   };
   const add = (s: Sec) => {
-    regStore.set((st) => ({ ...st, cart: st.cart.includes(s.crn) ? st.cart : [...st.cart, s.crn] }));
+    regStore.set((st) => ({
+      ...st, cart: st.cart.includes(s.crn) ? st.cart : [...st.cart, s.crn],
+      added: st.cart.length === 0 ? [s.crn] : st.added.includes(s.crn) ? st.added : [...st.added, s.crn],
+    }));
     cartChanged(`${s.code}-${s.section} added to your ${s.term} cart.`);
   };
   const remove = (s: Sec) => {
@@ -127,15 +135,32 @@ export default function RegistrationPage() {
   const register = async () => {
     setProcessing(true);
     await latency(`reg-submit-${cart.map((s) => s.crn).join("-")}`);
+    // During the CTF, a cart that can't complete the task isn't registered at all: it stays as it is so the player
+    // can fix it (registering would move the classes out of the cart for good).
+    if (isRunning("registration-voice")) {
+      const addedFirst = CTF_ADD_ORDER.map((crn) => store.added.indexOf(crn));
+      const addOrderOk = addedFirst.every((i) => i >= 0) && addedFirst[0] < addedFirst[1];
+      const hold = !addOrderOk
+        ? "Nothing was registered. Add ENGL 111-01 to your cart first, then MATH 101-02, then put them in priority order. To start over, remove both classes from your cart."
+        : cart.map((s) => s.crn).join() !== CTF_ORDER.join()
+          ? "Nothing was registered. Your cart needs exactly the two classes in the instructions, in priority order: MATH 101-02 first, then ENGL 111-01."
+          : null;
+      if (hold) {
+        regStore.set((st) => ({ ...st, results: { term, items: [], ctfNote: hold } }));
+        setProcessing(false);
+        setFinished((n) => n + 1);
+        return;
+      }
+    }
     const items = runRegistration(cart, enrolled, d.maxCredits);
     const kept = items.filter((r) => r.status !== "error");
     let flag: string | undefined, ctfNote: string | undefined;
     if (isRunning("registration-voice")) {
-      const done = cart.map((s) => s.crn).join() === CTF_ORDER.join() && items.every((r) => r.status === "registered");
-      if (done) flag = revealFlag("registration-voice", CTF_ORDER) ?? undefined;
-      else ctfNote = "Challenge not complete yet: register exactly the two classes in the instructions, in that priority order, and nothing else.";
+      if (items.every((r) => r.status === "registered")) flag = revealFlag("registration-voice", CTF_ORDER) ?? undefined;
+      else ctfNote = "Challenge not complete yet: both classes need to register without a conflict or waitlist.";
     }
     regStore.set((st) => ({
+      ...st,
       cart: st.cart.filter((c) => !kept.some((r) => r.crn === c)),
       registered: [...st.registered, ...kept.map((r) => ({ crn: r.crn, status: r.status as "registered" | "waitlisted" }))],
       results: { term, items, flag, ctfNote },
@@ -154,7 +179,8 @@ export default function RegistrationPage() {
 
   return (
     <PortalPage title="Registration" subtitle={`${term} · Class search and shopping cart`}>
-      <ChallengeBanner id="registration-voice" />
+      {/* Abandoning clears the cart and anything registered during the run, so the next attempt starts fresh. */}
+      <ChallengeBanner id="registration-voice" onAbandon={() => regStore.set(EMPTY)} />
       <section className="pt-card rg-intro">
         <p>
           Spring 2027 time ticket: <strong>{erpDate(ticketDate)} {time12(ticketTime)}</strong> · Maximum <strong>{d.maxCredits}</strong> credits ·{" "}
@@ -567,7 +593,7 @@ function Results({ results, byCrn, headingRef }: { results: { term: Term; items:
       {results && (
         <section className="pt-card" aria-labelledby="rg-results-heading">
           <h2 id="rg-results-heading" ref={headingRef} tabIndex={-1}>Registration Results: {results.term}</h2>
-          <div className="table-wrap">
+          {results.items.length > 0 && <div className="table-wrap">
             <table className="pt-grid">
               <caption className="visually-hidden">Registration results</caption>
               <thead><tr><th scope="col">Status</th><th scope="col">Class</th><th scope="col">Message</th></tr></thead>
@@ -585,9 +611,10 @@ function Results({ results, byCrn, headingRef }: { results: { term: Term; items:
                 })}
               </tbody>
             </table>
-          </div>
-          {results.flag && <ChallengeComplete id="registration-voice" onRetry={() => regStore.set({ cart: [], registered: [], results: null })} />}
-          {results.ctfNote && <p className="rg-error">{results.ctfNote}</p>}
+          </div>}
+          {results.flag && <ChallengeComplete id="registration-voice" onRetry={() => regStore.set(EMPTY)} />}
+          {/* Challenge feedback, not part of the site: always announced. */}
+          {results.ctfNote && <p className="rg-error" role="alert">{results.ctfNote}</p>}
           <p>Registered and waitlisted classes appear under Current Schedule and on your <Link to="/portal/schedule">class schedule</Link> after the nightly update.</p>
         </section>
       )}

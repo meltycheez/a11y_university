@@ -109,8 +109,8 @@ export const challenges: Challenge[] = [
     timeLimitMin: 5,
     brief: "Register for two classes in a set priority order to reveal the flag. Keep your hands off the keyboard and mouse: speak every action.",
     instructions: [
-      "Add two classes to your cart: MATH 101 section 02 (CRN 44458) and ENGL 111 section 01 (CRN 43099). Each course has several sections; you need exactly these. Search for them, or add them by CRN.",
-      "Order the cart by priority: MATH 101-02 first, then ENGL 111-01.",
+      "Add two classes to your cart in this order: first ENGL 111 section 01 (CRN 43099), then MATH 101 section 02 (CRN 44458). Each course has several sections; you need exactly these. Search for them, or add them by CRN.",
+      "Then put the cart in priority order: MATH 101-02 first, then ENGL 111-01.",
       "Register. If the classes and their order are right, the challenge completes and your flag is entered for you.",
       "Reloading the page ends the run and uses up the attempt.",
     ],
@@ -127,7 +127,7 @@ export const challenges: Challenge[] = [
     ],
     hints: [
       "Saying the word you see on a button doesn't always work: the buttons' spoken names differ from their visible text. Try \"Show numbers\" (or \"Show names\") to see what each control is really called.",
-      "There is no button to reorder the cart. You have to drag: use \"Show grid\" / MouseGrid to place the pointer on a row's handle, then \"Drag that\" (Dragon) or \"Drag from … to …\" (Voice Control). Or remove the classes and add them back in priority order.",
+      "There is no button to reorder the cart. You have to drag: use \"Show grid\" / MouseGrid to place the pointer on a row's handle, then \"Drag that\" (Dragon) or \"Drag from … to …\" (Voice Control). Or remove ENGL 111-01 and add it back, so it drops below MATH 101-02.",
       "When a time conflict warning appears, its confirm button has no name at all. Use numbers or the grid to click it.",
     ],
     setup: [
