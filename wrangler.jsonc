@@ -1,5 +1,5 @@
 {
-  "name": "a11y-university",
+  "name": "lab",
   "compatibility_date": "2026-10-01",
   // Static prerendered site (react-router ssr: false); no Worker script, just assets.
   "assets": {
