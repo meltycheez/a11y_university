@@ -144,6 +144,6 @@ it("head pointer CTF: the observatory's code is in its tooltip and its details, 
 
   fireEvent.change(c.querySelector("#cmap-checkin-code")!, { target: { value: "7731" } });
   fireEvent.submit(c.querySelector(".cmap-checkin")!);
-  expect(c.querySelector(".ctf-complete .ctf-flag")!.textContent).toMatch(/^RSU\{map-eyes-[0-9a-f]{8}\}$/);
+  expect(c.querySelector(".ctf-results .ctf-flag")!.textContent).toMatch(/^RSU\{map-eyes-[0-9a-f]{8}\}$/);
   endRun();
 });

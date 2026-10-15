@@ -6,6 +6,10 @@ const widget = (page: Page) => page.getByRole("button", { name: "Pope Tech Acces
 const panel = (page: Page) => page.locator("#a11y-control-panel");
 const bar = (page: Page) => page.locator(".ctf-banner");
 
+// These tests finish real runs. A build made with .env's VITE_LEADERBOARD_URL would post them to the live event
+// sheet, so block the sheet: finishes stay in this browser's localStorage.
+test.beforeEach(async ({ context }) => { await context.route(/script\.google(usercontent)?\.com/, (route) => route.abort()); });
+
 /** Starts a run from the challenge bar on the page: Start Challenge, type a name, press Enter, Start the Challenge. */
 async function start(page: Page, handle: string) {
   const open = bar(page).getByRole("button", { name: "Start Challenge", exact: true });
@@ -31,7 +35,7 @@ test("apply CTF: completed with the keyboard and screen-reader-style activation,
   const next = async () => { await page.locator('.apply-nav button[type="submit"]').focus(); await page.keyboard.press("Enter"); };
   const step = (n: number) => expect(page.locator(".apply-step-title")).toContainText(`Step ${n} of 2`);
   // The instructions stay pinned to the side of the screen during the run.
-  await expect(page.getByRole("region", { name: "Application for Admission: instructions" })).toBeVisible();
+  await expect(page.getByRole("region", { name: "Application for Admission Instructions" })).toBeVisible();
   expect(await widgetViolations(page, ".ctf-dock"), "instructions dock").toEqual([]);
   for (const [id, v] of [["first", "Casey"], ["last", "Rivera"], ["dob-m", "6"], ["dob-d", "15"], ["dob-y", "2008"], ["email", "casey@example.com"],
     ["city", "Arcadia Falls"]]) await page.locator(`#${id}`).fill(v);
@@ -54,8 +58,8 @@ test("apply CTF: completed with the keyboard and screen-reader-style activation,
   await next();
 
   // Finishing completes the run: the page congratulates (and takes focus), the bar shows the score.
-  await expect(page.getByRole("heading", { name: "Congratulations! You completed the challenge!" })).toBeFocused();
-  const flag = page.locator(".ctf-complete .ctf-flag");
+  await expect(page.getByRole("heading", { name: "Challenge complete" })).toBeFocused();
+  const flag = page.locator(".ctf-results .ctf-flag");
   await expect(flag).toHaveText(/^RSU\{apply-sr-[0-9a-f]{8}\}$/);
   await expect(bar(page).getByRole("heading", { name: "Challenge complete" })).toBeVisible();
   await expect(bar(page).locator(".ctf-flag")).toHaveText((await flag.textContent())!);
@@ -87,11 +91,18 @@ test("a Fix switch mid-run costs points; the leaderboard survives a reload while
 
   await page.locator("#cmap-checkin-code").fill("7731");
   await page.getByRole("button", { name: "Check in" }).click();
-  await expect(page.locator(".ctf-complete .ctf-flag")).toContainText("RSU{map-eyes-");
-  await expect(bar(page).getByRole("heading", { name: "Challenge complete" })).toBeVisible();
-  // The leaderboard opens in place from the congratulations, no page change.
-  await page.locator(".ctf-complete").getByRole("button", { name: "View leaderboard" }).click();
-  await expect(page.getByRole("dialog", { name: "CTF Leaderboard" })).toBeVisible();
+  await expect(page.locator(".ctf-results .ctf-flag")).toContainText("RSU{map-eyes-");
+  await expect(bar(page).getByRole("heading", { name: "Challenge complete" })).toBeFocused();
+  expect(await widgetViolations(page, ".ctf-banner"), "results").toEqual([]);
+  // The challenge source opens from the results (it's hidden before and during a run).
+  await bar(page).getByRole("button", { name: "View challenge source" }).click();
+  const source = page.getByRole("dialog", { name: "Challenge source: Campus Map" });
+  await expect(source.locator("pre").first()).toContainText("campus-map");
+  expect(await widgetViolations(page, "dialog[open]"), "source modal").toEqual([]);
+  await page.keyboard.press("Escape");
+  // The leaderboard opens in place from the results, no page change.
+  await page.locator(".ctf-results").getByRole("button", { name: "View leaderboard" }).click();
+  await expect(page.getByRole("dialog", { name: "Pope Tech Challenges leaderboard" })).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page).toHaveURL(/\/campus-map$/);
 
@@ -101,7 +112,7 @@ test("a Fix switch mid-run costs points; the leaderboard survives a reload while
     await expect(panel(page).getByRole("switch", { name })).toHaveAttribute("aria-checked", "false");
   await panel(page).getByRole("tab", { name: "Challenges" }).click();
   await panel(page).getByRole("button", { name: "View leaderboard" }).click();
-  const dialog = page.getByRole("dialog", { name: "CTF Leaderboard" });
+  const dialog = page.getByRole("dialog", { name: "Pope Tech Challenges leaderboard" });
   await expect(dialog.getByRole("rowheader", { name: "e2e-eyes" })).toBeVisible();
 });
 
@@ -129,11 +140,6 @@ test("the widget, the challenge bar and their modals have no axe violations", as
   await bar(page).getByLabel("Your name").fill("e2e-axe");
   await bar(page).getByRole("button", { name: "Continue" }).click();
   expect(await widgetViolations(page, ".ctf-banner"), "ready to start").toEqual([]);
-  await bar(page).getByRole("button", { name: "View challenge source" }).click();
-  const source = page.getByRole("dialog", { name: "Challenge source: Application for Admission" });
-  await expect(source.locator("pre").first()).toContainText("ApplyPage");
-  expect(await widgetViolations(page, "dialog[open]"), "source modal").toEqual([]);
-  await page.keyboard.press("Escape");
 
   await start(page, "e2e-axe");
   await bar(page).getByText("More about what's allowed and what isn't").click();

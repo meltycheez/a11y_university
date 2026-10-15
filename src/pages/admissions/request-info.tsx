@@ -7,7 +7,6 @@ import { Hero } from "~/components/Hero";
 import { Callout } from "~/components/Callout";
 import { ContactCard } from "~/components/blocks";
 import { ChallengeBanner } from "~/ctf/ChallengeBanner";
-import { ChallengeComplete } from "~/ctf/ChallengeComplete";
 import { isRunning, revealFlag } from "~/ctf/store";
 import { useBlindRun } from "~/ctf/useBlindRun";
 import { LinkList, content } from "./_content";
@@ -39,7 +38,6 @@ export default function RequestInfo() {
   const tabFixed = useScenario("adm-reqinfo-tab-order-001");
   const { card, countdown, cardClass } = useBlindRun<HTMLFormElement>("reqinfo-sr", ".adm-form :is(input, select, textarea)");
   const [ctfNote, setCtfNote] = useState("");
-  const [flagged, setFlagged] = useState(false);
   const form = useRef<HTMLFormElement>(null);
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,11 +50,11 @@ export default function RequestInfo() {
       ].filter(Boolean);
       if (wrong.length) { setCtfNote(`Challenge not complete yet: check ${wrong.join(", ")}.`); return; }
       setCtfNote("");
-      setFlagged(!!revealFlag("reqinfo-sr", [d.first, d.last, d.email]));
+      revealFlag("reqinfo-sr", [d.first, d.last, d.email]); // the challenge bar shows the results
     }
     setSent(true);
   };
-  const retry = () => { form.current?.reset(); setSent(false); setFlagged(false); setCtfNote(""); };
+  const reset = () => { form.current?.reset(); setSent(false); setCtfNote(""); };
   const req = (label: string) => (reqFixed ? `${label} (required)` : label);
   const reqProps = { className: "is-required", required: reqFixed, "data-a11y-scenario": "adm-reqinfo-required-color-001" };
 
@@ -72,7 +70,8 @@ export default function RequestInfo() {
       <div className="page-content adm-audience-body">
         <div className="stack adm-audience-main">
           <p>{intro.paragraphs![0]}</p>
-          <ChallengeBanner id="reqinfo-sr" />
+          {/* Every run starts with an empty form. */}
+          <ChallengeBanner id="reqinfo-sr" onReset={reset} />
           {/* Visual only: the challenge bar's warning already says the form fades out, and focus then moves to the form. */}
           {countdown > 0 && <div className="ctf-countdown" aria-hidden="true">Form hides in <b>{countdown}</b></div>}
           <form
@@ -123,7 +122,6 @@ export default function RequestInfo() {
             {/* Challenge feedback, not part of the site: always announced. */}
             <p className="ctf-error" role="alert">{ctfNote}</p>
           </form>
-          {flagged && <ChallengeComplete id="reqinfo-sr" onRetry={retry} />}
           <Callout title="Your privacy">
             <p>We use your information only to send you admissions materials. You can unsubscribe at any time.</p>
             <LinkList links={intro.links!} />

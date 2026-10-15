@@ -13,7 +13,6 @@ import courses from "~/data/generated/courses.json";
 import portal from "~/data/generated/portal.json";
 import type { Course, CourseSection, PortalStudent, Term } from "~/data/types";
 import { ChallengeBanner } from "~/ctf/ChallengeBanner";
-import { ChallengeComplete } from "~/ctf/ChallengeComplete";
 import { isRunning, revealFlag } from "~/ctf/store";
 import { createStore, latency } from "~/lib/interactive";
 import { PortalPage, erpDate, time12 } from "./_PortalPage";
@@ -49,7 +48,7 @@ const EMPTY = {
   /** CRNs in the order they were first added since the cart was last empty (the CTF checks ENGL came first). */
   added: [] as string[],
   registered: [] as { crn: string; status: "registered" | "waitlisted" }[],
-  results: null as { term: Term; items: Result[]; flag?: string; ctfNote?: string } | null,
+  results: null as { term: Term; items: Result[]; ctfNote?: string } | null,
 };
 const regStore = createStore(EMPTY);
 
@@ -154,16 +153,16 @@ export default function RegistrationPage() {
     }
     const items = runRegistration(cart, enrolled, d.maxCredits);
     const kept = items.filter((r) => r.status !== "error");
-    let flag: string | undefined, ctfNote: string | undefined;
+    let ctfNote: string | undefined;
     if (isRunning("registration-voice")) {
-      if (items.every((r) => r.status === "registered")) flag = revealFlag("registration-voice", CTF_ORDER) ?? undefined;
+      if (items.every((r) => r.status === "registered")) revealFlag("registration-voice", CTF_ORDER); // the challenge bar shows the results
       else ctfNote = "Challenge not complete yet: both classes need to register without a conflict or waitlist.";
     }
     regStore.set((st) => ({
       ...st,
       cart: st.cart.filter((c) => !kept.some((r) => r.crn === c)),
       registered: [...st.registered, ...kept.map((r) => ({ crn: r.crn, status: r.status as "registered" | "waitlisted" }))],
-      results: { term, items, flag, ctfNote },
+      results: { term, items, ctfNote },
     }));
     setProcessing(false);
     setFinished((n) => n + 1);
@@ -179,8 +178,8 @@ export default function RegistrationPage() {
 
   return (
     <PortalPage title="Registration" subtitle={`${term} · Class search and shopping cart`}>
-      {/* Abandoning clears the cart and anything registered during the run, so the next attempt starts fresh. */}
-      <ChallengeBanner id="registration-voice" onAbandon={() => regStore.set(EMPTY)} />
+      {/* Every run starts (and an abandoned one ends) with an empty cart and nothing registered. */}
+      <ChallengeBanner id="registration-voice" onReset={() => regStore.set(EMPTY)} />
       <section className="pt-card rg-intro">
         <p>
           Spring 2027 time ticket: <strong>{erpDate(ticketDate)} {time12(ticketTime)}</strong> · Maximum <strong>{d.maxCredits}</strong> credits ·{" "}
@@ -586,7 +585,7 @@ function CurrentSchedule({ term, enrolled, waitlisted }: { term: Term; enrolled:
   );
 }
 
-function Results({ results, byCrn, headingRef }: { results: { term: Term; items: Result[]; flag?: string; ctfNote?: string } | null; byCrn: Map<string, Sec>; headingRef: React.RefObject<HTMLHeadingElement | null> }) {
+function Results({ results, byCrn, headingRef }: { results: { term: Term; items: Result[]; ctfNote?: string } | null; byCrn: Map<string, Sec>; headingRef: React.RefObject<HTMLHeadingElement | null> }) {
   const altFixed = useScenario("portal-reg-result-icon-alt-001");
   return (
     <div className="rg-results" data-a11y-scenario="portal-reg-result-icon-alt-001">
@@ -612,10 +611,9 @@ function Results({ results, byCrn, headingRef }: { results: { term: Term; items:
               </tbody>
             </table>
           </div>}
-          {results.flag && <ChallengeComplete id="registration-voice" onRetry={() => regStore.set(EMPTY)} />}
           {/* Challenge feedback, not part of the site: always announced. */}
           {results.ctfNote && <p className="rg-error" role="alert">{results.ctfNote}</p>}
-          <p>Registered and waitlisted classes appear under Current Schedule and on your <Link to="/portal/schedule">class schedule</Link> after the nightly update.</p>
+          {results.items.length > 0 && <p>Registered and waitlisted classes appear under Current Schedule and on your <Link to="/portal/schedule">class schedule</Link> after the nightly update.</p>}
         </section>
       )}
     </div>

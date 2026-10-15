@@ -3,6 +3,8 @@ import { createMemoryRouter, RouterProvider } from "react-router";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Img } from "~/components/Img";
 import { ChallengeBanner } from "~/ctf/ChallengeBanner";
+import { LeaderboardButton } from "~/ctf/ChallengesPanel";
+import * as board from "~/ctf/leaderboard";
 import { ctfStore } from "~/ctf/store";
 import { PopeTechWidget } from "./PopeTechWidget";
 import { scenarios } from "./registry";
@@ -126,6 +128,19 @@ describe("PopeTechWidget challenges", () => {
   const at = (path: string, ui: React.ReactNode = <PopeTechWidget />) =>
     render(<RouterProvider router={createMemoryRouter([{ path, element: ui }], { initialEntries: [path] })} />);
 
+  it("the leaderboard dialog explains itself, labels the challenge tabs, and shows saved scores at once", async () => {
+    localStorage.clear();
+    board.recordFinish("ada", "reqinfo-sr", { score: 420, flag: "f", finishedAt: new Date().toISOString(), noMouse: false });
+    at("/", <LeaderboardButton />);
+    fireEvent.click(screen.getByRole("button", { name: "View leaderboard" }));
+    const d = screen.getByRole("dialog", { name: "Pope Tech Challenges leaderboard" });
+    expect(d.textContent).toContain("Overall adds up each player's best score");
+    expect(within(d).getByRole("tablist", { name: "Leaderboard: overall, or by challenge" }).textContent).toContain("By challenge:");
+    expect(within(d).getByRole("rowheader", { name: "ada" })).toBeTruthy(); // before the load finishes
+    await waitFor(() => expect(within(d).getByRole("status").textContent).toBe("")); // "Updating scores…" clears
+    expect(within(d).getByRole("tab", { name: "Application for Admission (advanced)" })).toBeTruthy();
+  });
+
   it("is one button named Pope Tech Accessibility Lab, and its Challenges tab is the same list on every page", () => {
     for (const path of ["/", "/admissions/apply"]) {
       at(path);
@@ -155,7 +170,7 @@ describe("PopeTechWidget challenges", () => {
     fireEvent.change(bar.getByLabelText("Your name"), { target: { value: "ada" } });
     fireEvent.click(bar.getByRole("button", { name: "Continue" }));
     expect(document.activeElement!.textContent).toBe("Pope Tech Challenge: Application for Admission");
-    expect(bar.getByText("Player: ada")).toBeTruthy();
+    expect(bar.getByText(/Playing as ada./)).toBeTruthy();
     const go = bar.getByRole("button", { name: "Start the Challenge" });
     expect(go.getAttribute("aria-describedby")!.split(" ").map((d) => document.getElementById(d)!.textContent).join(" ")).toContain("fades out over 5 seconds");
     fireEvent.click(go);

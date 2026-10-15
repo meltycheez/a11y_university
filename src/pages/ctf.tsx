@@ -11,7 +11,7 @@ import * as board from "~/ctf/leaderboard";
 export const meta: MetaFunction = () => [{ title: "Take the Challenge · Pope Tech" }];
 
 const BASE = import.meta.env.BASE_URL;
-// The booth challenges' pitches (the harder ones are linked from theirs).
+// The booth challenges' pitches (the advanced ones are linked from theirs).
 const PITCH: Partial<Record<ChallengeId, { hook: string; line: string; face: string[] }>> = {
   "reqinfo-sr": {
     hook: "Ask a college for information with your monitor off.", line: "Fill out a short form by ear. Five seconds in, the form disappears.",
@@ -76,7 +76,7 @@ export default function CtfPage() {
                   </ul>
                 </div>
                 <Link className="start-cta" to={c.path}>Accept the challenge<span className="visually-hidden">: {c.title}</span> {arrow}</Link>
-                {c.harder && <p className="cp-harder">More time? <Link to={challengeById.get(c.harder)!.path}>Try the harder version: {challengeById.get(c.harder)!.title}</Link></p>}
+                {c.harder && <p className="cp-harder">More time? <Link to={challengeById.get(c.harder)!.path}>Try the advanced version: {challengeById.get(c.harder)!.title}</Link></p>}
               </div>
             </li>
           ))}

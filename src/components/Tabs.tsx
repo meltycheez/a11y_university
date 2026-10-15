@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from "react";
+import { Fragment, useId, useRef, useState } from "react";
 import { useScenario } from "~/a11y/useScenario";
 
 export interface TabItem { label: string; content: React.ReactNode }
@@ -12,7 +12,8 @@ export interface TabItem { label: string; content: React.ReactNode }
 export type TabsDefect = "broken-keys" | "no-roles" | "bad-children";
 
 /** Accessible tabs (WAI-ARIA APG, automatic activation) with optional defect variants. */
-export function Tabs({ tabs, label, scenario, defect, initial = 0 }: { tabs: TabItem[]; label: string; scenario?: string; defect?: TabsDefect; initial?: number }) {
+/** `group` shows a visible label before tab `group.before` (e.g. "By challenge:"); the tablist's `label` carries the same meaning for screen readers. */
+export function Tabs({ tabs, label, scenario, defect, initial = 0, group }: { tabs: TabItem[]; label: string; scenario?: string; defect?: TabsDefect; initial?: number; group?: { before: number; text: string } }) {
   const id = useId();
   const [active, setActive] = useState(initial);
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -46,8 +47,9 @@ export function Tabs({ tabs, label, scenario, defect, initial = 0 }: { tabs: Tab
         onKeyDown={broken ? undefined : onKeyDown}
       >
         {tabs.map((tab, i) => (
+          <Fragment key={i}>
+          {group?.before === i && <span className="tab-group-label" aria-hidden="true">{group.text}</span>}
           <button
-            key={i}
             ref={(el) => { refs.current[i] = el; }}
             type="button"
             role={aria ? "tab" : undefined}
@@ -60,6 +62,7 @@ export function Tabs({ tabs, label, scenario, defect, initial = 0 }: { tabs: Tab
           >
             {tab.label}
           </button>
+          </Fragment>
         ))}
       </div>
       {tabs.map((tab, i) => (

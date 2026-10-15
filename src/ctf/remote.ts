@@ -4,7 +4,9 @@
 import { allChallenges, type ChallengeId } from "./challenges";
 import type { Best, Entry } from "./leaderboard";
 
-const URL_: string | undefined = import.meta.env.VITE_LEADERBOARD_URL;
+// Never under the unit tests (Vitest runs in "test" mode): they record fake finishes, which must not reach the
+// real event sheet even when .env names it.
+const URL_: string | undefined = import.meta.env.MODE === "test" ? undefined : import.meta.env.VITE_LEADERBOARD_URL;
 export const enabled = Boolean(URL_);
 
 const ids = new Set<string>(allChallenges.map((c) => c.id));

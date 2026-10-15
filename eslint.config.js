@@ -27,8 +27,9 @@ export default tseslint.config(
   {
     // The fake-latency helper and the donate-flow countdown need real timing; neither affects prerendered
     // markup or a scenario's defective/fixed output, so they don't threaten determinism.
-    // The CTF run clock (plan 11) only times a run; it never reaches prerendered markup.
-    files: ["src/lib/interactive.ts", "src/pages/giving/donate.tsx", "src/ctf/store.ts"],
+    // The CTF run clock (plan 11) only times a run, and the leaderboard cache (plan 13) only ages a loaded board;
+    // neither reaches prerendered markup.
+    files: ["src/lib/interactive.ts", "src/pages/giving/donate.tsx", "src/ctf/store.ts", "src/ctf/leaderboard.ts"],
     rules: {
       "no-restricted-properties": ["error", { object: "document", property: "cookie", message: "No persistence anywhere in this app: state resets on reload (plan 02)." }],
     },

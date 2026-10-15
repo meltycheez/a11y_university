@@ -9,7 +9,6 @@ import { useScenario } from "~/a11y/useScenario";
 import { Hero } from "~/components/Hero";
 import { Img } from "~/components/Img";
 import { ChallengeBanner } from "~/ctf/ChallengeBanner";
-import { ChallengeComplete } from "~/ctf/ChallengeComplete";
 import { ctfStore, revealFlag } from "~/ctf/store";
 import { pageContent } from "~/data/content/pages";
 import {
@@ -68,7 +67,7 @@ export default function CampusMapPage() {
   const [layers, setLayers] = useState({ parking: true, entrances: true });
   const [view, setView] = useState<View>(DEFAULT_VIEW);
   const [checkin, setCheckin] = useState("");
-  const [round, setRound] = useState(0); // bumped by "Try again with all issues fixed" to reset the check-in
+  const [round, setRound] = useState(0); // bumped when a run starts or is abandoned, to reset the check-in
 
   // campus-map-timeout-001: every 60 s, "Are you still there?"; 15 s without Continue resets the map.
   const [stillThere, setStillThere] = useState(false);
@@ -128,7 +127,8 @@ export default function CampusMapPage() {
     <>
       <Hero variant="banner" title="Campus Map" kicker="About Redwood State" lede={content.summary} />
       <div className="page-content cmap-page" data-a11y-scenario={ROOT_SCENARIOS.join(" ")}>
-        <ChallengeBanner id="map-eyes" />
+        {/* Every run starts with the map where it opens and an empty check-in box. */}
+        <ChallengeBanner id="map-eyes" onReset={() => { setView(DEFAULT_VIEW); setSelected(null); setCheckin(""); setRound((n) => n + 1); }} />
         <section className="stack cmap-intro">
           {intro.paragraphs?.map((p) => <p key={p}>{p}</p>)}
           <ul className="link-list">
@@ -151,8 +151,7 @@ export default function CampusMapPage() {
                 <button type="button" className="cmap-timeout-btn" onClick={() => setStillThere(false)}>Continue</button>
               </div>
             )}
-            <CheckIn key={round} value={checkin} setValue={setCheckin}
-              onRetry={() => { setView(DEFAULT_VIEW); setSelected(null); setCheckin(""); setRound((n) => n + 1); }} />
+            <CheckIn key={round} value={checkin} setValue={setCheckin} />
           </div>
           <BuildingDetail building={building} onClose={close} headingRef={headingRef} />
           {!orderFixed && tools}
@@ -180,7 +179,7 @@ export default function CampusMapPage() {
 }
 
 /** Observatory after-hours check-in: the head pointer CTF's finish line. Not a scenario: plain and accessible. */
-function CheckIn({ value, setValue, onRetry }: { value: string; setValue: (v: string) => void; onRetry: () => void }) {
+function CheckIn({ value, setValue }: { value: string; setValue: (v: string) => void }) {
   const [message, setMessage] = useState("");
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -197,7 +196,6 @@ function CheckIn({ value, setValue, onRetry }: { value: string; setValue: (v: st
         <button type="submit" className="btn btn--primary">Check in</button>
       </div>
       <p role="status" className="cmap-checkin-msg">{message}</p>
-      <ChallengeComplete id="map-eyes" onRetry={onRetry} />
     </form>
   );
 }

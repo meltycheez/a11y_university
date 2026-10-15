@@ -8,18 +8,22 @@ export interface Challenge {
   title: string;
   /** The assistive technology the challenge must be completed with. */
   at: string;
-  atExamples: string[];
   basePoints: number;
   /** The time bonus falls from 100 to 0 over this many minutes: 5 for booth challenges, longer for harder ones. */
   timeLimitMin: number;
-  /** A harder version of this challenge, linked from its bar and its congratulations. */
+  /** An advanced version of this challenge, linked from its bar and its results. */
   harder?: ChallengeId;
-  /** A harder challenge: its own leaderboard, left out of the overall total. */
+  /** An advanced challenge: its own leaderboard, left out of the overall total. */
   advanced?: boolean;
+  /** One plain sentence: what to do, with what, when it's done and how long it takes. Shown before the run starts. */
   brief: string;
-  /** What happens to the page when the run starts, shown in a warning box just above "Start the Challenge". */
-  warning?: string;
-  /** Label of the paid button that undoes `warning`'s effect, e.g. showing a faded-out form again. */
+  /** The task in one line, for the pinned side panel during a run. */
+  task: string;
+  /** Extra lines for the side panel, after the task (e.g. the form is hidden). The reload line is added for every challenge. */
+  panelNotes: string[];
+  /** First "Before you start" bullet: what happens to the page when the run starts, if anything. */
+  beforeStart?: string;
+  /** Label of the paid button that shows a faded-out page again. */
   reveal?: string;
   /** The task, step by step. What may and may not be used is in `allowed` / `notAllowed`. */
   instructions: string[];
@@ -27,7 +31,9 @@ export interface Challenge {
   allowed: Rule[];
   notAllowed: Rule[];
   hints: string[];
-  /** "Set up your assistive technology": suggested settings and commands, for anyone playing outside a staffed event. */
+  /** Heading of the setup section, e.g. "Set up your screen reader". */
+  setupTitle: string;
+  /** Suggested settings, commands and help, for anyone playing outside a staffed event. */
   setup: SetupSection[];
   /** Count mouse clicks inside <main> (informational "no mouse" badge). Off for head pointer, which is a pointer. */
   trackMouse: boolean;
@@ -36,8 +42,12 @@ export interface Challenge {
 }
 
 export interface Rule { label: string; detail: string }
-/** One setup group: a list (`items`), or a two-column table (`columns` and `rows`). */
-export interface SetupSection { heading: string; items?: string[]; columns?: [string, string]; rows?: [string, string][]; link?: { label: string; href: string } }
+/** One setup group: a paragraph (`text`), a list (`items`), a two-column table (`columns` and `rows`) and/or links. */
+export interface SetupSection {
+  heading?: string; text?: string; items?: string[]; columns?: [string, string]; rows?: [string, string][];
+  /** Open in a new tab; `note` follows the link, e.g. "(YouTube)". */
+  links?: { label: string; href: string; note?: string }[];
+}
 
 // Same for every challenge.
 const noDevTools: Rule = { label: "Source code", detail: "No browser developer tools, View Source or page inspection during a run. The challenge source viewer is hidden while a run is going; read it before you start or after you finish." };
@@ -56,13 +66,14 @@ const srNotAllowed: Rule[] = [
       noHelp,
 ];
 const srSetup: SetupSection[] = [
-      { heading: "Screen readers", items: [
-        "NVDA (free, Windows) with Firefox or Chrome: use browse mode, H for headings, F for form fields, and Tab.",
-        "JAWS with Chrome.",
-        "VoiceOver on a Mac (Cmd+F5) with Safari: use the rotor (VO+U).",
-        "Turn the screen off, look away, or turn on the screen curtain (NVDA+Ctrl+Escape; VoiceOver: VO+Fn+Shift+Minus).",
-      ] },
+  { text: "Turn on your screen reader before you start. These screen reader and browser pairs work well: NVDA with Firefox or Chrome, JAWS with Chrome, VoiceOver with Safari, or TalkBack with Chrome." },
+  { text: "New to screen readers? Watch one of our videos first:", links: [
+    { label: "Getting started with NVDA screen reader for Windows", href: "https://www.youtube.com/watch?v=h09RaEsRn6Q", note: "(YouTube)" },
+    { label: "Getting started with Mac's VoiceOver screen reader", href: "https://www.youtube.com/watch?v=_eLUi_-jDQc", note: "(YouTube)" },
+  ] },
 ];
+const srBeforeStart = "The form fades out over 5 seconds. Your screen reader can still read it and fill it in.";
+const srHidden = "The form is hidden, but your screen reader can still read it and fill it in. Focus starts on the first field.";
 
 /** The three booth challenges, a few minutes each: these make up the overall leaderboard. */
 export const challenges: Challenge[] = [
@@ -71,13 +82,14 @@ export const challenges: Challenge[] = [
     path: "/admissions/request-info",
     title: "Request Information",
     at: "Screen reader",
-    atExamples: ["NVDA with Firefox or Chrome", "JAWS with Chrome", "VoiceOver with Safari", "TalkBack with Chrome"],
     basePoints: 500,
     timeLimitMin: 5,
     harder: "apply-sr",
-    brief: "Fill in and send the Request Information form to reveal the flag. Turn your monitor off, or look away, and use only your screen reader. It takes a few minutes.",
+    brief: "Use only your screen reader to fill out and send the Request Information form. The challenge is complete when the form sends successfully. It takes about 5 minutes.",
+    task: "Fill in your name and email, answer the three questions (any answer), then select Send me information.",
+    panelNotes: [srHidden],
+    beforeStart: srBeforeStart,
     reveal: "Show the form",
-    warning: "Once you start, the form below fades out over 5 seconds and can't be seen, but your screen reader can still read and fill it in.",
     instructions: [
       "The form fades out over 5 seconds once you start, then focus moves to its first field: complete it with your screen reader.",
       "Fill in your first name, last name and email.",
@@ -92,6 +104,7 @@ export const challenges: Challenge[] = [
       "The name fields have no labels, only placeholder text, and Email's label isn't connected to its field. Listen to the text just before each field in browse mode to know which one you're in.",
       "The I am a choices and the start term list have no labels of their own: the question is the line of text just before them. Arrow down past I am a to reach its choices, and find the list just after When do you plan to start. Each list starts on Select one: pick something else.",
     ],
+    setupTitle: "Set up your screen reader",
     setup: srSetup,
     trackMouse: true,
     sources: [
@@ -104,10 +117,11 @@ export const challenges: Challenge[] = [
     path: "/portal/registration",
     title: "Class Registration",
     at: "Voice control",
-    atExamples: ["Voice Control (macOS or iOS)", "Dragon Professional", "Windows Voice Access", "Android Voice Access"],
     basePoints: 500,
     timeLimitMin: 5,
-    brief: "Register for two classes in a set priority order to reveal the flag. Keep your hands off the keyboard and mouse: speak every action.",
+    brief: "Use only your voice to add two classes to your cart, put them in priority order and register. The challenge is complete when both classes register. It takes about 5 minutes.",
+    task: "Add ENGL 111-01 (CRN 43099), then MATH 101-02 (CRN 44458). Put MATH first, then register.",
+    panelNotes: ["Hands off the keyboard and mouse: say every action. \"Show numbers\" and \"Show grid\" help when a name doesn't work."],
     instructions: [
       "Add two classes to your cart in this order: first ENGL 111 section 01 (CRN 43099), then MATH 101 section 02 (CRN 44458). Each course has several sections; you need exactly these. Search for them, or add them by CRN.",
       "Then put the cart in priority order: MATH 101-02 first, then ENGL 111-01.",
@@ -130,6 +144,7 @@ export const challenges: Challenge[] = [
       "There is no button to reorder the cart. You have to drag: use \"Show grid\" / MouseGrid to place the pointer on a row's handle, then \"Drag that\" (Dragon) or \"Drag from … to …\" (Voice Control). Or remove ENGL 111-01 and add it back, so it drops below MATH 101-02.",
       "When a time conflict warning appears, its confirm button has no name at all. Use numbers or the grid to click it.",
     ],
+    setupTitle: "Set up voice control",
     setup: [
       { heading: "Getting started", columns: ["Task", "Voice Control (Mac) / Voice Access (Windows)"], rows: [
         ["Turn it on", "Mac: System Settings → Accessibility → Voice Control. Windows 11: Settings → Accessibility → Speech → Voice Access."],
@@ -164,10 +179,11 @@ export const challenges: Challenge[] = [
     path: "/campus-map",
     title: "Campus Map",
     at: "Head pointer for Mac",
-    atExamples: ["Head Pointer for Mac", "Windows Eye Control", "Tobii Dynavox / Tobii Experience", "iOS or iPadOS Eye Tracking"],
     basePoints: 500,
     timeLimitMin: 5,
-    brief: "Find Hawthorne Observatory on the campus map and check in with its after-hours code to reveal the flag. Point and click with Head Pointer for Mac (or an eye tracker) only.",
+    brief: "Use only Head Pointer to find Hawthorne Observatory on the campus map and check in with its after-hours code. The challenge is complete when you check in. It takes about 5 minutes.",
+    task: "Find Hawthorne Observatory (search for OBS), then type its after-hours code into the check-in box below the map.",
+    panelNotes: ["Raise your eyebrows to click, stick out your tongue to drag and drop (also to scroll: grab the scroll bar), and smile to recalibrate."],
     instructions: [
       "Head Pointer gestures: raise your eyebrows to click, stick out your tongue to drag and drop (to scroll, point at the scroll bar, stick out your tongue, move your head, then stick it out again), and smile to recalibrate.",
       "Find Hawthorne Observatory. It isn't where the map first opens: search for it by name or by its code (OBS, listed in the building directory below the map), or pan the map to it.",
@@ -192,6 +208,7 @@ export const challenges: Challenge[] = [
       "Once the observatory is selected, its details open in the panel next to the map, with the after-hours code under Hours. Pointing at it on the map shows the code in a tooltip too, but that closes if the pointer drifts.",
       "The check-in box is below the map. To scroll, point at the scroll bar, use your drag-and-drop expression, move your head down, and use it again to let go.",
     ],
+    setupTitle: "Set up Head Pointer",
     setup: [
       { heading: "Turn on Head Pointer (Mac)", items: [
         "System Settings → Accessibility → Pointer Control → turn on Head pointer.",
@@ -207,7 +224,7 @@ export const challenges: Challenge[] = [
       ] },
       { heading: "More help", items: [
         "Windows Eye Control or Tobii: use the launchpad's click, drag and scroll tools.",
-      ], link: { label: "Apple: Change Pointer Control settings for accessibility on Mac", href: "https://support.apple.com/guide/mac-help/change-pointer-control-settings-accessibility-unac899/mac" } },
+      ], links: [{ label: "Apple: Change Pointer Control settings for accessibility on Mac", href: "https://support.apple.com/guide/mac-help/change-pointer-control-settings-accessibility-unac899/mac" }] },
     ],
     trackMouse: false,
     sources: [
@@ -217,20 +234,21 @@ export const challenges: Challenge[] = [
   },
 ];
 
-/** Longer versions for players' own time, linked from their booth challenge (`harder`). Own leaderboard, not in the overall total. */
+/** Advanced versions for players' own time, linked from their booth challenge (`harder`). Own leaderboard, not in the overall total. */
 export const harderChallenges: Challenge[] = [
   {
     id: "apply-sr",
     path: "/admissions/apply",
     title: "Application for Admission",
     at: "Screen reader",
-    atExamples: ["NVDA with Firefox or Chrome", "JAWS with Chrome", "VoiceOver with Safari", "TalkBack with Chrome"],
     basePoints: 500,
     timeLimitMin: 20,
     advanced: true,
-    brief: "The harder screen reader challenge, for when you have more time: submit a complete two-step application for admission to reveal the flag. Turn your monitor off, or look away, and use only your screen reader.",
+    brief: "Use only your screen reader to fill out and submit the two-step Application for Admission, including a referral code hidden on step 2. The challenge is complete when the application submits. It takes about 20 minutes.",
+    task: "Complete both steps, including the referral code on the Program and submit step, then submit the application.",
+    panelNotes: [srHidden],
+    beforeStart: srBeforeStart,
     reveal: "Show the form",
-    warning: "Once you start, the application form below fades out over 5 seconds and can't be seen, but your screen reader can still read and fill it in.",
     instructions: [
       "The form fades out over 5 seconds once you start, then focus moves to its first field: complete it with your screen reader.",
       "Fill in every required field on both steps and submit the application. It takes about 20 minutes with a screen reader.",
@@ -245,6 +263,7 @@ export const harderChallenges: Challenge[] = [
       "The referral code image's alternative text is a file name. Listen to the full name of the Application referral code field: it tells you what to type.",
       "The Next button has no name; it is the last button on each step. The first-choice major list opens when you activate its current value (\"Choose a major\") in browse mode, and the certify checkbox on step 2 is hidden from your screen reader but still reachable with Tab.",
     ],
+    setupTitle: "Set up your screen reader",
     setup: srSetup,
     trackMouse: true,
     sources: [

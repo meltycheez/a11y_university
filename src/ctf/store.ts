@@ -14,7 +14,7 @@ const TIME_BONUS = 100;
 export interface Run { id: ChallengeId; handle: string; startedAt: number; fixes: Category[]; highlights: Category[]; hints: number; mouse: number;
   /** The player paid to see a page that fades out during the run (`Challenge.reveal`). */
   revealed?: boolean;
-  /** Unscored replay with every fix on (after "Try again with all issues fixed"): no attempt, no penalties, no fade. */
+  /** Unscored replay with every fix on (after "Try again with all issues fixed"): no attempt, no penalties. The form still fades. */
   compare?: boolean }
 export interface Result { id: ChallengeId; handle: string; flag: string; score: number; breakdown: [string, number][]; mouse: number; trackMouse: boolean; attemptsLeft: number;
   /** A comparison run: nothing was scored or saved. */
@@ -125,7 +125,7 @@ export function revealFlag(id: ChallengeId, parts: string[], now = Date.now()): 
     ["Base points", c.basePoints],
     ...(run.fixes.length ? [[`Fix switches used (${run.fixes.length})`, -run.fixes.length * FIX_PENALTY] as [string, number]] : []),
     ...(run.highlights.length ? [[`Highlights used (${run.highlights.length})`, -run.highlights.length * HIGHLIGHT_PENALTY] as [string, number]] : []),
-    ...(run.hints ? [[`Hints used (${run.hints})`, -hintCost(run.hints)] as [string, number]] : []),
+    ...HINT_COSTS.slice(0, run.hints).map((cost, i) => [`Hint ${i + 1}`, -cost] as [string, number]), // one row per hint
     ...(run.revealed ? [["Faded page shown again", -REVEAL_PENALTY] as [string, number]] : []),
     ["Time bonus", bonus],
   ];

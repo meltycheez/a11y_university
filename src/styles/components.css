@@ -63,6 +63,7 @@
 
 /* Tabs */
 .tab-list { display: flex; flex-wrap: wrap; border-bottom: 2px solid var(--color-border); gap: var(--space-1); }
+.tab-group-label { align-self: center; padding: 0 var(--space-1) 0 var(--space-3); font-size: 0.85rem; font-weight: 700; color: var(--color-text-muted); }
 .tab { background: none; border: 0; border-bottom: 3px solid transparent; margin-bottom: -2px; padding: var(--space-3) var(--space-4); font: inherit; font-weight: 600; cursor: pointer; color: var(--color-text-muted); }
 .tab[aria-selected="true"], .tab.is-active { color: var(--brand-redwood); border-bottom-color: var(--brand-redwood); }
 .tab-panel { padding-block: var(--space-5); }
@@ -143,10 +144,12 @@
 .ctf-start input[aria-invalid="true"] { border-color: #b00020; }
 .ctf-error { color: #b00020; font-weight: 700; font-size: 0.85rem; }
 .ctf-btn { min-height: 2.5rem; padding: 0.45rem 0.9rem; font: 700 0.9rem/1.2 system-ui, -apple-system, "Segoe UI", sans-serif; color: #fff; background: #123342; border: 2px solid #123342; border-radius: 6px; cursor: pointer; }
-.ctf-btn:hover { background: #284e61; }
+/* Hover is obvious in every browser (plan 13 §3: Safari testers saw no change): underline plus a darker fill. */
+.ctf-btn:hover { background: #0a1f29; border-color: #0a1f29; text-decoration: underline; text-underline-offset: 0.2em; }
 .ctf-btn--quiet { color: #123342; background: #fff; }
 a.ctf-btn { display: inline-flex; align-items: center; text-decoration: none; }
-.ctf-btn--quiet:hover { background: #eef3f5; }
+.ctf-btn--quiet:hover { background: #dce6eb; border-color: #0a1f29; color: #0a1f29; }
+.ctf-board-intro { margin: 0 0 0.5rem; font-size: 0.9rem; }
 .ctf-btn--danger { color: #fff; background: #a3001b; border-color: #a3001b; }
 .ctf-btn--danger:hover { background: #7d0015; }
 .ctf-btn:focus-visible, .ctf-panel a:focus-visible, .ctf-scoring summary:focus-visible, .ctf-source pre:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
@@ -335,14 +338,29 @@ dialog.modal[open]:not(:modal) { position: fixed; inset: 0; margin: auto; height
 .ctf-fixes { max-width: 24rem; }
 .ctf-banner .ctf-banner-title:focus { outline: none; }
 .ctf-banner .ctf-banner-title:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
-/* ChallengeComplete: the congratulations on a challenge page when its task finishes. */
-.ctf-complete { margin: 1.25rem 0; padding: 1.25rem 1.5rem; border: 2px solid #1b6e3a; border-radius: 14px; background: #eef8f1; color: #1a1a18; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
-.ctf-complete h3 { margin: 0 0 0.5rem; font: 800 1.35rem/1.25 system-ui, -apple-system, "Segoe UI", sans-serif; color: #14532d; }
-.ctf-complete p { margin: 0 0 0.75rem; }
-.ctf-complete h3:focus-visible, .ctf-complete .ctf-btn:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
+/* Challenge bar views (plan 13 §4): start context, instructions, "Before you start", and the results. */
+.ctf-banner .ctf-context { max-width: 42rem; font-size: 1rem; line-height: 1.5; }
+.ctf-banner .ctf-brief { font-size: 1.1rem; line-height: 1.5; }
+.ctf-banner .ctf-rules, .ctf-banner .ctf-setup { margin-bottom: 0.75rem; }
+.ctf-before { margin: 0.75rem 0; padding: 0.75rem 1rem; border: 1px solid #8a5a1a; border-radius: 8px; background: #fbf1e4; }
+.ctf-before .ctf-h4 { margin-top: 0; }
+.ctf-before ul { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.25rem; font-size: 0.95rem; }
+.ctf-start-go { align-items: center; }
+.ctf-start-go .ctf-meta { margin: 0; }
+.ctf-results { display: grid; gap: 0.9rem; }
+.ctf-results p { margin: 0; }
+.ctf-results-card { display: grid; gap: 0.9rem; padding: 1.25rem 1.4rem; border: 1px solid #c9d2da; border-radius: 8px; background: #fff; }
+.ctf-results-top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 0.5rem 1.5rem; }
+.ctf-banner .ctf-results-title { font-size: 1.35rem; color: #1b5e33; }
+.ctf-results-title:focus { outline: none; }
+.ctf-results-title:focus-visible, .ctf-results .ctf-h:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
+.ctf-bigscore { display: flex; align-items: baseline; gap: 0.5rem; font-weight: 700; font-size: 1.2rem; color: #123342; }
+.ctf-bigscore span { font-size: 3rem; font-weight: 800; line-height: 1; }
+.ctf-rank { max-width: 22rem; font-size: 1.05rem; }
+.ctf-results .ctf-table caption { text-align: left; font-weight: 700; padding-bottom: 0.3rem; }
+.ctf-keep-going { padding-top: 0.75rem; border-top: 1px solid #c9d2da; }
+.ctf-keep-going .ctf-h4 { margin-top: 0; }
 .ctf-banner .ctf-flag-note { padding: 0.5rem 0.6rem; border-left: 4px solid #123342; background: #fff; font-size: 0.9rem; }
 .ctf-btn--icon { display: inline-flex; align-items: center; gap: 0.5rem; }
-.ctf-start-go { margin-top: 0.75rem; }
-.ctf-start-go .ptw-warning { font-size: 0.95rem; }
 .ctf-link-btn { padding: 0; margin-left: 0.4rem; border: 0; background: none; font: inherit; color: #0b4f9c; text-decoration: underline; cursor: pointer; }
 .ctf-link-btn:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }

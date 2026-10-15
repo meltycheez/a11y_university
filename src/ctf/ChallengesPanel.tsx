@@ -18,7 +18,7 @@ export function ChallengesPanel() {
       <ul className="ctf-list">
         {allChallenges.map((c) => (
           <li key={c.id} className={c.advanced ? "ctf-list-hard" : undefined}>
-            <Link to={c.path}>{c.title}</Link>{c.advanced && <> <span className="ctf-badge">Harder</span></>}
+            <Link to={c.path}>{c.title}</Link>{c.advanced && <> <span className="ctf-badge">Advanced</span></>}
             <span className="ctf-meta">
               {c.at} · about {c.timeLimitMin} min · {c.basePoints} points{c.advanced && " · own leaderboard"}
               {best[c.id] !== undefined && ` · your best this session: ${best[c.id]}`}
@@ -40,29 +40,32 @@ export function Scoring() {
       <summary>How scoring works</summary>
       <ul>
         <li>Each challenge starts at 500 points.</li>
-        <li>Once you start, you will get options to turn on fixes for errors, alerts and manual testing issues, highlight those issues on the page, show the form again (Application for Admission only) or get a hint. Each one costs points:</li>
+        <li>Once you start, you will get options to turn on fixes for errors, alerts and manual testing issues, highlight those issues on the page, show the form again (screen reader challenges) or get a hint. Each one costs points:</li>
         <li>The Fix switches remove the page's accessibility issues, one category at a time (errors, alerts or manual testing issues). They're in the challenge bar once you start, and in this widget's Fixes tab. Turning one on during a run costs {FIX_PENALTY} points the first time; Fix All turns on all three, so it costs {FIX_PENALTY * 3}.</li>
         <li>Each Fix switch has a Highlight checkbox that outlines that category's issues on the page. Turning one on during a run costs {HIGHLIGHT_PENALTY} points the first time.</li>
         <li>After you finish, you can replay the challenge with every issue fixed. That comparison run is free and isn't scored.</li>
         <li>Hints cost {HINT_COSTS.join(", then ")} points.</li>
-        <li>Show the form (Application for Admission only: the form fades out during a run) costs {REVEAL_PENALTY} points, once.</li>
-        <li>Finishing quickly adds up to 100 points, falling to 0 at 5 minutes (20 minutes for the harder version).</li>
+        <li>Show the form (screen reader challenges, where the form fades out during a run) costs {REVEAL_PENALTY} points, once.</li>
+        <li>Finishing quickly adds up to 100 points, falling to 0 at 5 minutes (20 minutes for the advanced version).</li>
         <li>Each name gets {board.MAX_ATTEMPTS} attempts per challenge (the first try plus {board.MAX_ATTEMPTS - 1} retries); the leaderboard keeps the best score. Starting a run uses an attempt, even if you reload or abandon it.</li>
       </ul>
     </details>
   );
 }
 
-/** "View leaderboard" plus the modal it opens. Opened from a harder challenge, it starts on that challenge's own tab
- * (its scores aren't in Overall); otherwise on Overall. */
+/** "View leaderboard" plus the modal it opens. Opened from an advanced challenge, it starts on that challenge's own tab
+ * (its scores aren't in Overall); otherwise on Overall. It shows the last loaded scores at once, then updates (plan 13 §2). */
 export function LeaderboardButton({ challenge }: { challenge?: ChallengeId }) {
   const start = challenge && challengeById.get(challenge)?.advanced ? 1 + allChallenges.findIndex((c) => c.id === challenge) : 0;
   const [open, setOpen] = useState(false);
   const [entries, setEntries] = useState<board.Entry[]>([]);
+  const [updating, setUpdating] = useState(false);
   useEffect(() => {
     if (!open) return;
     let live = true;
-    void board.loadBoard().then((b) => { if (live) setEntries(b.entries); });
+    setEntries(board.peekBoard().entries);
+    setUpdating(true);
+    void board.loadBoard().then((b) => { if (live) { setEntries(b.entries); setUpdating(false); } });
     return () => { live = false; };
   }, [open]);
 
@@ -86,13 +89,16 @@ export function LeaderboardButton({ challenge }: { challenge?: ChallengeId }) {
   return (
     <>
       <button type="button" className="ctf-btn ctf-btn--quiet" onClick={() => setOpen(true)}>View leaderboard</button>
-      <Modal open={open} title="CTF Leaderboard" onClose={() => setOpen(false)}>
+      <Modal open={open} title="Pope Tech Challenges leaderboard" onClose={() => setOpen(false)}>
+        <p className="ctf-board-intro">Scores from the Pope Tech Challenges, where you complete a task on this site using assistive technology. Overall adds up each player's best score on the {challenges.length} main challenges. Each other tab is one challenge.</p>
+        <p className="ctf-meta" role="status">{updating ? "Updating scores…" : ""}</p>
         <Tabs
-          label="Leaderboard"
+          label="Leaderboard: overall, or by challenge"
           initial={start}
+          group={{ before: 1, text: "By challenge:" }}
           tabs={[
-            { label: "Overall", content: table("Overall: sum of each name's best score in the three booth challenges", board.rankOverall(entries)) },
-            ...allChallenges.map((c) => ({ label: c.advanced ? `${c.title} (harder)` : c.title, content: table(`${c.title} (${c.at}${c.advanced ? ", harder version, not in the overall total" : ""})`, board.rankChallenge(entries, c.id)) })),
+            { label: "Overall", content: table(`Overall: each player's best scores on ${challenges.map((c) => c.title).join(", ")}, added up`, board.rankOverall(entries)) },
+            ...allChallenges.map((c) => ({ label: c.advanced ? `${c.title} (advanced)` : c.title, content: table(`${c.title}: ${c.at.toLowerCase()} challenge${c.advanced ? ", advanced version, not in the overall total" : ""}`, board.rankChallenge(entries, c.id)) })),
           ]}
         />
         <div className="ctf-actions">

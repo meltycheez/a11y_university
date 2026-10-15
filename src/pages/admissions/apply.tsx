@@ -8,7 +8,6 @@ import { applyScenarios } from "~/a11y/registry/apply";
 import { Hero } from "~/components/Hero";
 import { Dropdown } from "~/components/widgets";
 import { ChallengeBanner } from "~/ctf/ChallengeBanner";
-import { ChallengeComplete } from "~/ctf/ChallengeComplete";
 import { ctfStore, revealFlag } from "~/ctf/store";
 import { useBlindRun } from "~/ctf/useBlindRun";
 import { programs } from "~/data/catalog";
@@ -374,7 +373,8 @@ export default function ApplyPage() {
           {intro.sections[0].paragraphs!.map((p) => <p key={p}>{p}</p>)}
         </div>
 
-        <ChallengeBanner id="apply-sr" />
+        {/* Every run starts with a blank application on step 1. */}
+        <ChallengeBanner id="apply-sr" onReset={() => store.set(INITIAL)} />
         {/* Visual only: the challenge bar's warning already says the form fades out, and focus then moves to the form. */}
         {countdown > 0 && <div className="ctf-countdown" aria-hidden="true">Form hides in <b>{countdown}</b></div>}
         <div ref={card} className={`apply-card ${cardClass}`} {...mark("name-mismatch", "next-name", "citizenship-radios", "certify-hidden", "code-image-alt", "crest-alt", "fake-heading", "tab-order", "aria-label-junk", "live-spam", "step-focus", "no-structure", "required-color", "errors-not-announced", "errors-vague", "dob-split", "major-dropdown", "essay-instructions", "review-heading-skip", "back-link", "submit-status", "gpa-for", "term-fieldset")}>
@@ -403,7 +403,6 @@ export default function ApplyPage() {
                 <h2 ref={heading as React.RefObject<HTMLHeadingElement>} tabIndex={-1}>Application submitted</h2>
                 <p>Thank you, {data.first}. Your application for {data.term} ({pick(MAJORS, data.major)}) has been received.</p>
                 <p>Confirmation number: <strong className="apply-code">{app.code}</strong></p>
-                <ChallengeComplete id="apply-sr" onRetry={() => store.set(INITIAL)} />
                 <p>Watch your email for your OwlLink portal login within three business days. This is a demonstration site, so nothing was sent.</p>
                 <button type="button" className="btn btn--secondary" onClick={() => store.set(INITIAL)}>Start a new application</button>
               </section>

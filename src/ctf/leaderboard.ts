@@ -48,6 +48,8 @@ export function recordFinish(handle: string, id: ChallengeId, best: Best) {
   if (!entries.includes(entry)) entries.push(entry);
   if (!entry.best || best.score > entry.best.score) entry.best = best;
   save(entries);
+  cached = null; // the next look at the board includes this finish,
+  gen++; // and so does any load already on its way
   remote.push(handle.trim(), id, best);
 }
 
@@ -63,15 +65,45 @@ export function bestOf(rows: Entry[]): Entry[] {
 }
 
 export type Source = "local" | "shared" | "offline";
+export interface Board { entries: Entry[]; source: Source }
+
+// The shared sheet takes 2-4 s to answer, so a loaded board is reused for a short while, callers share one fetch,
+// and peekBoard() gives something to show at once (plan 13 §2).
+const FRESH_MS = 30_000;
+/** This browser's finishes from the last few minutes are added in, since the sheet can lag behind a finish. */
+const RECENT_MS = 10 * 60_000;
+let cached: { at: number; board: Board } | null = null;
+let inflight: { gen: number; board: Promise<Board> } | null = null;
+/** Bumped by every finish: a fetch started before it is stale and must not be cached (or returned). */
+let gen = 0;
+
+/** The last board loaded, or this browser's own scores before any has loaded. */
+export const peekBoard = (): Board => cached?.board ?? { entries: load(), source: "local" };
 
 /**
- * The board to show, fetched fresh every call. With the shared sheet configured it is the only source, so rows
- * deleted there disappear here; if it can't be reached, this browser's scores are shown instead.
+ * The board to show. With the shared sheet configured it is the source of truth, so rows deleted there disappear
+ * here (apart from this browser's last few minutes of finishes); if it can't be reached, this browser's scores are
+ * shown instead. Reuses a board loaded in the last 30 s unless `fresh`.
  */
-export async function loadBoard(): Promise<{ entries: Entry[]; source: Source }> {
+export function loadBoard({ fresh = false } = {}): Promise<Board> {
+  if (!fresh && cached && Date.now() - cached.at < FRESH_MS) return Promise.resolve(cached.board);
+  if (inflight?.gen === gen) return inflight.board;
+  const started = gen;
+  const board: Promise<Board> = fetchBoard().then((b) => {
+    if (inflight?.board === board) inflight = null;
+    if (started !== gen) return loadBoard(); // a run finished while this was loading: load again so it's included
+    cached = { at: Date.now(), board: b };
+    return b;
+  });
+  inflight = { gen: started, board };
+  return board;
+}
+
+async function fetchBoard(): Promise<Board> {
   if (!remote.enabled) return { entries: load(), source: "local" };
   try {
-    return { entries: bestOf(await remote.pull()), source: "shared" };
+    const recent = load().filter((e) => e.best && Date.now() - Date.parse(e.best.finishedAt) < RECENT_MS);
+    return { entries: bestOf([...(await remote.pull()), ...recent]), source: "shared" };
   } catch {
     return { entries: load(), source: "offline" };
   }

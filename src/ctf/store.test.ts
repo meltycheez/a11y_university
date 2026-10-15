@@ -129,3 +129,26 @@ describe("leaderboard", () => {
     expect(board.rankOverall(best).map((r) => [r.handle, r.score])).toEqual([["Ada", 650], ["Bo", 100]]);
   });
 });
+
+describe("leaderboard loading (plan 13)", () => {
+  it("reuses a recently loaded board, and a new finish shows up at once", async () => {
+    const first = await board.loadBoard({ fresh: true });
+    expect(first.entries).toEqual([]);
+    board.recordFinish("ada", "reqinfo-sr", { score: 420, flag: "f", finishedAt: new Date().toISOString(), noMouse: false });
+    expect(board.peekBoard().entries).toEqual([expect.objectContaining({ handle: "ada" })]); // the finish clears the cache
+    const again = await board.loadBoard();
+    expect(board.rankChallenge(again.entries, "reqinfo-sr").map((r) => r.score)).toEqual([420]);
+    expect(await board.loadBoard()).toBe(again); // within 30 s: the same board, no new fetch
+  });
+});
+
+describe("leaderboard loading race (plan 13 review)", () => {
+  it("a run that finishes while the board is loading is still in the loaded board", async () => {
+    await board.loadBoard({ fresh: true });
+    const pending = board.loadBoard({ fresh: true }); // reads storage before the finish below
+    board.recordFinish("bo", "map-eyes", { score: 333, flag: "f", finishedAt: new Date().toISOString(), noMouse: false });
+    const loaded = await pending;
+    expect(board.rankChallenge(loaded.entries, "map-eyes").map((r) => r.handle)).toContain("bo");
+    expect(board.rankChallenge((await board.loadBoard()).entries, "map-eyes").map((r) => r.handle)).toContain("bo"); // and in the cache
+  });
+});

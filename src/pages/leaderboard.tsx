@@ -20,9 +20,10 @@ export default function LeaderboardPage() {
   const [source, setSource] = useState<board.Source>("local");
   useEffect(() => {
     let live = true;
-    const refresh = () => void board.loadBoard().then((b) => { if (live) { setEntries(b.entries); setSource(b.source); } });
+    const show = (b: board.Board) => { if (live) { setEntries(b.entries); setSource(b.source); } };
+    const refresh = () => void board.loadBoard({ fresh: true }).then(show);
     const onVisible = () => { if (document.visibilityState === "visible") refresh(); };
-    refresh();
+    void board.loadBoard().then(show); // a board loaded in the last 30 s shows at once
     const t = setInterval(refresh, REFRESH_MS);
     document.addEventListener("visibilitychange", onVisible);
     return () => { live = false; clearInterval(t); document.removeEventListener("visibilitychange", onVisible); };
@@ -37,7 +38,7 @@ export default function LeaderboardPage() {
       <header className="start-head">
         <div className="start-kicker"><img src={`${BASE}brand/pope-tech-mark.svg`} alt="" width="28" height="28" />Pope Tech Challenges</div>
         <h1>Leaderboard</h1>
-        <p className="start-lede">The best scores from the assistive technology challenges. Each name's total is the sum of its best run on each of the three booth challenges. The harder version has its own board.</p>
+        <p className="start-lede">The best scores from the assistive technology challenges. Each name's total is the sum of its best run on each of the three main challenges. The advanced version has its own board.</p>
         <p className="lb-source">
           <span className={`lb-dot lb-dot--${source}`} aria-hidden="true" />
           {source === "shared" ? "Shared scores from every device" : source === "offline" ? "Couldn't reach the shared scores. Showing this device only." : "Scores from this device"}
@@ -105,7 +106,7 @@ export default function LeaderboardPage() {
                 <li key={c.id} className={`lb-ch lb-ch--${c.id}`}>
                   <div className="lb-ch-head">
                     <span className={`lb-icon lb-icon--${c.id}`}>{AT_ICONS[c.id]}</span>
-                    <div><h2>{c.title}</h2><p>{c.at}{c.advanced && " · harder version, not in the total"}</p></div>
+                    <div><h2>{c.title}</h2><p>{c.at}{c.advanced && " · advanced version, not in the total"}</p></div>
                   </div>
                   {rows.length ? (
                     <ol className="lb-ch-list">

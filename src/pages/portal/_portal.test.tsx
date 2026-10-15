@@ -147,7 +147,7 @@ describe("voice control CTF", () => {
     removeFirst(); quickAdd("43099");
     expect(cartCodes()).toEqual(["MATH 101-02", "ENGL 111-01"]);
     await register();
-    await waitFor(() => expect(container.querySelector(".ctf-complete .ctf-flag")?.textContent).toMatch(/^RSU\{registration-voice-[0-9a-f]{8}\}$/), { timeout: 2000 });
+    await waitFor(() => expect(container.querySelector(".ctf-results .ctf-flag")?.textContent).toMatch(/^RSU\{registration-voice-[0-9a-f]{8}\}$/), { timeout: 2000 });
     endRun();
   });
 

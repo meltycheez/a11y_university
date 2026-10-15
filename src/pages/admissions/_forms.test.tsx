@@ -1,6 +1,6 @@
 // Plan 06 form pages: /giving/donate, /admissions/apply, /financial-aid/legacy-application.
 // Every registered scenario renders its marker on load, toggles change the DOM, and each form works end to end.
-import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router";
 import { afterEach, expect, it, vi } from "vitest";
 import { applyScenarios } from "~/a11y/registry/apply";
@@ -213,8 +213,8 @@ it("apply CTF: a run needs the referral code and ends with the flag", async () =
   type("referral", "rsu 7q4k");
   next();
   await waitFor(() => expect(screen.getByText("Application submitted")).toBeTruthy(), { timeout: 2000 });
-  expect(screen.getByRole("heading", { name: "Congratulations! You completed the challenge!" })).toBeTruthy();
-  expect(document.querySelector(".ctf-complete .ctf-flag")!.textContent).toMatch(/^RSU\{apply-sr-[0-9a-f]{8}\}$/);
+  expect(screen.getByRole("heading", { name: "Challenge complete" })).toBeTruthy();
+  expect(document.querySelector(".ctf-results .ctf-flag")!.textContent).toMatch(/^RSU\{apply-sr-[0-9a-f]{8}\}$/);
   expect(ctfStore.get().run).toBeNull(); // completed automatically, no flag to type
   fireEvent.click(screen.getByText("Try again with all issues fixed"));
   expect(ctfStore.get().result).toBeNull();
@@ -279,10 +279,48 @@ it("request info CTF (booth screen reader): Tab jumps around, wrong answers get 
   expect(screen.getByRole("alert").textContent).toBe("Challenge not complete yet: check area of interest.");
   fireEvent.change(document.getElementById("ri-interest")!, { target: { value: "Business" } });
   send();
-  await waitFor(() => expect(document.querySelector(".ctf-complete .ctf-flag")!.textContent).toMatch(/^RSU\{reqinfo-sr-[0-9a-f]{8}\}$/));
-  expect(screen.getByRole("link", { name: "Try the harder version: Application for Admission" })).toBeTruthy();
+  await waitFor(() => expect(document.querySelector(".ctf-results .ctf-flag")!.textContent).toMatch(/^RSU\{reqinfo-sr-[0-9a-f]{8}\}$/));
+  expect(screen.getByRole("link", { name: "Try the advanced screen reader challenge" })).toBeTruthy();
   expect(ctfStore.get().run).toBeNull();
   act(() => a11yStore.set({ fixManual: true }));
   expect(tab("ri-first")).toBe("ri-first"); // fixed: the browser's own order (jsdom doesn't move focus)
   endRun();
+});
+it("request info CTF: every new run starts with an empty form (Abandon, Play again), and results show in the bar", async () => {
+  localStorage.clear();
+  renderAt("/admissions/request-info", RequestInfoPage);
+  const bar = within(screen.getByRole("region", { name: "Pope Tech Challenge: Request Information" }));
+  const fill = () => {
+    type("ri-first", "Ada"); type("ri-last", "Quill"); type("ri-email", "ada@example.com");
+    fireEvent.click(screen.getByRole("radio", { name: "Graduate student" }));
+    fireEvent.change(document.getElementById("ri-term")!, { target: { value: "Fall 2028" } });
+    fireEvent.change(document.getElementById("ri-interest")!, { target: { value: "Business" } });
+  };
+  const value = (id: string) => (document.getElementById(id) as HTMLInputElement).value;
+  act(() => { startRun("reqinfo-sr", "tester"); });
+  fill();
+  // Abandon: the form is emptied, so the next attempt can't just press Send.
+  fireEvent.click(bar.getByRole("button", { name: "Abandon" }));
+  fireEvent.click(screen.getByRole("button", { name: "Abandon challenge" }));
+  expect(value("ri-first")).toBe("");
+  expect(screen.getAllByRole("radio").some((r) => (r as HTMLInputElement).checked)).toBe(false);
+  // Finish a run: results appear in the bar, with focus on "Challenge complete" and no old congratulations box.
+  act(() => { startRun("reqinfo-sr", "tester"); });
+  fill();
+  fireEvent.click(screen.getByRole("button", { name: "Send me information" }));
+  await waitFor(() => expect(document.activeElement?.textContent).toBe("Challenge complete"));
+  expect(bar.getByRole("table", { name: "Score breakdown" })).toBeTruthy();
+  expect(bar.getByRole("link", { name: "Explore more challenges" })).toBeTruthy();
+  expect(screen.queryByText(/Congratulations/)).toBeNull();
+  // Play again for a better score: back to the instructions, with an empty form.
+  fireEvent.click(bar.getByRole("button", { name: "Play again for a better score" }));
+  expect(value("ri-email")).toBe("");
+  expect(bar.getByRole("button", { name: "Start the Challenge" })).toBeTruthy();
+  // The comparison run's end dialog says nothing about attempts.
+  act(() => { startRun("reqinfo-sr", "tester", { compare: true }); });
+  fireEvent.click(bar.getByRole("button", { name: "End comparison run" }));
+  const dialog = screen.getByRole("dialog", { name: "End the comparison run?" });
+  expect(dialog.textContent).toContain("no attempt is used");
+  fireEvent.click(within(dialog).getByRole("button", { name: "End comparison run" }));
+  expect(ctfStore.get().run).toBeNull();
 });

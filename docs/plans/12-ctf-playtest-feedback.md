@@ -93,7 +93,7 @@ The personal essay becomes a 50-word short answer.
 
 ## 3. Voice control: Class Registration (`/portal/registration`)
 
-- **Fewer courses (D1)**: the target becomes MATH 101-02, then ENGL 111-01. Update `CTF_ORDER` (`registration.tsx:53`), `challenges.ts` instructions and brief, the `/ctf` pitch, CTF.md, and `e2e/ctf.spec.ts`. Then the order is wrong at most once, and a remove-and-re-add costs one course, not three.
+- **Fewer courses (D1)**: the target becomes MATH 101-02, then ENGL 111-01. (Later: players must add ENGL first and MATH second, so the cart always needs reordering; a wrong attempt registers nothing; abandoning clears the cart. See plan 13 §5 for the reset on every new run.) Update `CTF_ORDER` (`registration.tsx:53`), `challenges.ts` instructions and brief, the `/ctf` pitch, CTF.md, and `e2e/ctf.spec.ts`. Then the order is wrong at most once, and a remove-and-re-add costs one course, not three.
 - **Sections are confusing**: in the instructions, say it the way someone outside higher ed would: "MATH 101, section 02 (CRN 43…)". Give the CRN for each one so players can use **Add by CRN** instead of searching the grid. Fewer sections per course in the data would change other pages, so leave the data alone.
 - **Names are hard to say, even with fixes on**. Change the fixed-mode controls so the visible text is what you say, and the accessible name starts with that text (2.5.3):
   - Move buttons: visible "Up" and "Down", accessible names "Up, MATH 101-02" and "Down, MATH 101-02". Voice Control's "Click Up" then shows numbers to pick one.
