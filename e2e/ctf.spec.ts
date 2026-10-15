@@ -57,17 +57,14 @@ test("apply CTF: completed with the keyboard and screen-reader-style activation,
   await page.locator("#referral").fill("RSU-7Q4K");
   await next();
 
-  // Finishing completes the run: the page congratulates (and takes focus), the bar shows the score.
-  await expect(page.getByRole("heading", { name: "Challenge complete" })).toBeFocused();
-  const flag = page.locator(".ctf-results .ctf-flag");
-  await expect(flag).toHaveText(/^RSU\{apply-sr-[0-9a-f]{8}\}$/);
-  await expect(bar(page).getByRole("heading", { name: "Challenge complete" })).toBeVisible();
-  await expect(bar(page).locator(".ctf-flag")).toHaveText((await flag.textContent())!);
+  // Finishing completes the run: the bar shows the results and takes focus.
+  await expect(bar(page).getByRole("heading", { name: "Challenge complete" })).toBeFocused();
+  await expect(bar(page).locator(".ctf-bigscore")).toContainText("points");
 
   // The comparison run: every fix on, the application starts over, focus goes to the challenge bar.
   await page.getByRole("button", { name: "Try again with all issues fixed" }).click();
   await expect(bar(page).locator(".ctf-banner-title")).toBeFocused();
-  await expect(bar(page).getByText("Comparison run:")).toBeVisible();
+  await expect(bar(page).getByRole("heading", { name: "Comparison run" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Step 1 of 2: About you" })).toBeVisible(); // fixed: a real h2
   // Starting it keeps every fix on and is free, and the form hides again like the first run.
   await bar(page).getByRole("button", { name: "Start comparison run" }).click(); // the bar is still at its ready stage
@@ -78,6 +75,7 @@ test("apply CTF: completed with the keyboard and screen-reader-style activation,
   await bar(page).getByRole("button", { name: "Show the form", exact: true }).click(); // free: no price, no confirmation
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(page.locator(".ctf-blind")).toHaveCount(0);
+  await bar(page).getByText("Fix switches (all on)").click(); // collapsed in a comparison run
   await expect(bar(page).getByRole("switch", { name: "Fix Errors" })).toHaveAttribute("aria-checked", "true");
 });
 
@@ -91,7 +89,6 @@ test("a Fix switch mid-run costs points; the leaderboard survives a reload while
 
   await page.locator("#cmap-checkin-code").fill("7731");
   await page.getByRole("button", { name: "Check in" }).click();
-  await expect(page.locator(".ctf-results .ctf-flag")).toContainText("RSU{map-eyes-");
   await expect(bar(page).getByRole("heading", { name: "Challenge complete" })).toBeFocused();
   expect(await widgetViolations(page, ".ctf-banner"), "results").toEqual([]);
   // The challenge source opens from the results (it's hidden before and during a run).
@@ -141,9 +138,10 @@ test("the widget, the challenge bar and their modals have no axe violations", as
   await bar(page).getByRole("button", { name: "Continue" }).click();
   expect(await widgetViolations(page, ".ctf-banner"), "ready to start").toEqual([]);
 
-  await start(page, "e2e-axe");
   await bar(page).getByText("More about what's allowed and what isn't").click();
-  expect(await widgetViolations(page, ".ctf-banner"), "running, rules expanded").toEqual([]);
+  expect(await widgetViolations(page, ".ctf-banner"), "ready, rules expanded").toEqual([]);
+  await start(page, "e2e-axe");
+  expect(await widgetViolations(page, ".ctf-banner"), "running").toEqual([]);
 
   // Confirmations are site modals, never the browser's own dialogs.
   page.on("dialog", (d) => { throw new Error(`unexpected browser dialog: ${d.message()}`); });

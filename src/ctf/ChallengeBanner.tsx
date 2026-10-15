@@ -16,10 +16,8 @@ import {
   retryWithFixes, revealPage, startRun, takeHint, type StartError,
 } from "./store";
 
-// ponytail: matched on the instruction copy (the attempt line); flag such lines in challenges.ts if more appear.
-const SCORED_ONLY = /uses up the attempt/;
-/** The run's steps. A comparison run uses no attempt, so that line is dropped. */
-const steps = (c: Challenge, compare?: boolean) => (compare ? c.instructions.filter((i) => !SCORED_ONLY.test(i)) : c.instructions);
+/** "Screen reader" → "screen reader", for "your screen reader" in running text. */
+const lower = (t: string) => t[0].toLowerCase() + t.slice(1);
 const RELOAD = "Reloading the page ends the run and uses up the attempt.";
 
 const pts = (n: number) => `${n > 0 ? "+" : n < 0 ? "−" : ""}${Math.abs(n)}`;
@@ -61,25 +59,23 @@ export function ChallengeBanner({ id, onReset }: { id: ChallengeId; onReset?: ()
   const playAgain = () => { onReset?.(); dismissResult(); setStage("ready"); focusTitle(); };
   const tryFixed = () => { onReset?.(); retryWithFixes(c.id); setStage("ready"); focusTitle(); };
 
+  const advanced = c.advanced && (
+    <p className="ctf-meta ctf-advanced"><span className="ctf-badge">Advanced</span> Takes about {c.timeLimitMin} minutes. Scores go on this challenge's own leaderboard and don't count toward your overall total.</p>
+  );
   let content: React.ReactNode;
   if (run && run.id !== id) {
     content = <p>Another challenge is running: <Link to={challengeById.get(run.id)!.path}>{challengeById.get(run.id)!.title}</Link>. Finish or abandon it there first.</p>;
   } else if (run) {
-    content = <>
-      <Rules challenge={c} />
-      <Setup challenge={c} />
-      <div className="ctf-banner-body"><Running challenge={c} focusKey={started} onReset={onReset} /></div>
-      <div className="ctf-actions ctf-banner-tools"><LeaderboardButton challenge={c.id} /></div>
-      <Scoring />
-    </>;
+    content = <div className="ctf-banner-body"><Running challenge={c} focusKey={started} onReset={onReset} /></div>;
   } else if (result?.id === id) {
-    content = <Finished challenge={c} onPlayAgain={playAgain} onTryFixed={tryFixed} onSource={() => setSourceOpen(true)} />;
+    content = <>{!result.compare && advanced}<Finished challenge={c} onPlayAgain={playAgain} onTryFixed={tryFixed} onSource={() => setSourceOpen(true)} /></>;
   } else if (stage === "closed") {
     content = <>
       <p className="ctf-context">
         Pope Tech created these challenges so anyone can experience a website using different assistive technologies.{" "}
         <Link to="/ctf">Learn more about Pope Tech Challenges</Link>.
       </p>
+      {advanced}
       <div className="ctf-actions">
         <button type="button" className="ctf-btn ctf-btn--icon" onClick={() => setStage("name")}>
           Start Challenge
@@ -89,16 +85,34 @@ export function ChallengeBanner({ id, onReset }: { id: ChallengeId; onReset?: ()
       </div>
     </>;
   } else if (stage === "name") {
-    content = <NameForm
+    content = <>{advanced}<NameForm
       challenge={c} handle={handle} error={error}
       onChange={(h) => { setHandle(h); setError(null); }}
       onError={setError}
       onDone={() => setStage("ready")}
-    />;
+    /></>;
+  } else if (comparing) {
+    // After "Try again with all issues fixed": just what's different about the comparison run, then Start.
+    content = <>
+      <h3 className="ctf-h">Comparison run</h3>
+      <p className="ctf-brief">Try the challenge again with your {lower(c.at)}. Now, every issue is fixed. Notice what's different from your first try.</p>
+      <div className="ctf-before" id={`${titleId}-before`}>
+        <h4 className="ctf-h4">Before you start</h4>
+        <ul>
+          {c.beforeStart && <li>Like your first run, {lower(c.beforeStart)}</li>}
+          <li>This run isn't scored and doesn't use an attempt. Hints{c.reveal ? ` and ${c.reveal}` : ""} don't cost points.</li>
+        </ul>
+      </div>
+      <div className="ctf-actions ctf-start-go">
+        <button type="button" className="ctf-btn" onClick={begin} aria-describedby={`${titleId}-before`}>Start comparison run</button>
+        <LeaderboardButton challenge={c.id} />
+        <Link className="ctf-btn ctf-btn--quiet" to="/ctf">Explore more challenges</Link>
+      </div>
+    </>;
   } else {
     // The instructions: task, rules, setup, scoring, what happens when you start, then Start.
     content = <>
-      {comparing && <p className="ptw-warning"><strong>Comparison run:</strong> every accessibility issue is fixed, so you can compare the experience. It isn't scored, uses no attempt, and hints are free. The form hides again, like your first run.</p>}
+      {advanced}
       <p className="ctf-brief">{c.brief}</p>
       <AdvancedLink challenge={c} />
       <Rules challenge={c} />
@@ -108,14 +122,12 @@ export function ChallengeBanner({ id, onReset }: { id: ChallengeId; onReset?: ()
         <h3 className="ctf-h4">Before you start</h3>
         <ul>
           {c.beforeStart && <li>{c.beforeStart}</li>}
-          {comparing
-            ? <li>Every Fix switch stays on. Not scored, and no attempt is used.{c.reveal ? ` ${c.reveal} is free in this run.` : ""}</li>
-            : <li>Starting uses 1 of your {board.MAX_ATTEMPTS} attempts and turns off any Fix switches.</li>}
-          <li>During the challenge, the bar on this page lets you get hints, fixes or highlights{comparing ? "" : " for points"}. The instructions stay pinned to the side of the screen.</li>
+          <li>Starting uses 1 of your {board.MAX_ATTEMPTS} attempts and turns off any Fix switches.</li>
+          <li>During the challenge, the bar on this page lets you get hints, fixes or highlights for points. The instructions stay pinned to the side of the screen.</li>
         </ul>
       </div>
       <div className="ctf-actions ctf-start-go">
-        <button type="button" className="ctf-btn" onClick={begin} aria-describedby={`${titleId}-before`}>{comparing ? "Start comparison run" : "Start the Challenge"}</button>
+        <button type="button" className="ctf-btn" onClick={begin} aria-describedby={`${titleId}-before`}>Start the Challenge</button>
         <LeaderboardButton challenge={c.id} />
         <p className="ctf-meta">Playing as {handle.trim()}. <button type="button" className="ctf-link-btn" onClick={() => setStage("name")}>Change name</button></p>
       </div>
@@ -130,7 +142,6 @@ export function ChallengeBanner({ id, onReset }: { id: ChallengeId; onReset?: ()
         <h2 ref={title} id={titleId} className="ctf-banner-title" tabIndex={-1}>Pope Tech Challenge: {c.title}</h2>
         <p className="ctf-banner-at"><strong>Assistive technology: {c.at}</strong></p>
       </div>
-      {c.advanced && <p className="ctf-meta"><span className="ctf-badge">Advanced</span> About {c.timeLimitMin} minutes, with its own leaderboard (not counted in the overall total).</p>}
       {content}
       <SourceModal challenge={c} open={sourceOpen} onClose={() => setSourceOpen(false)} />
     </section>
@@ -274,14 +285,12 @@ function Running({ challenge: c, focusKey, onReset }: { challenge: Challenge; fo
 
   return (
     <>
-      <h3 className="ctf-h" ref={heading} tabIndex={-1}>{free ? "Comparison run" : "Challenge running"}</h3>
-      <p className="ctf-meta">Player: {run.handle}</p>
-      {free
-        ? <p className="ctf-meta">Every issue is fixed. Not scored.</p>
-        : <p role="status" className="ctf-score">Score: {liveScore(run)} points</p>}
-      <h4 className="ctf-h4">Instructions</h4>
-      <ol className="ctf-instructions">{steps(c, run.compare).map((i) => <li key={i}>{i}</li>)}</ol>
-      <p className="ctf-flag-note">{free ? "Finishing the task completes the comparison run." : "Finishing the task completes the challenge and saves your score automatically."}</p>
+      <div className="ctf-run-head">
+        <h3 className="ctf-h" ref={heading} tabIndex={-1}>{free ? "Comparison run" : "Challenge running"}</h3>
+        {!free && <p role="status" className="ctf-score">Score: {liveScore(run)} points</p>}
+      </div>
+      <p className="ctf-brief">{free && "Every issue is fixed. "}{c.task} The full instructions stay pinned to the side of the screen.</p>
+      {free && <p className="ctf-meta">This run isn't scored, so hints{c.reveal ? ` and ${c.reveal}` : ""} don't cost points.</p>}
       {run.hints > 0 && (
         <>
           <h4 className="ctf-h4">Hints</h4>
@@ -291,11 +300,13 @@ function Running({ challenge: c, focusKey, onReset }: { challenge: Challenge; fo
       <div className="ctf-actions">
         {left > 0 && <button type="button" className="ctf-btn" onClick={hint}>{free ? "Get a hint" : `Get a hint (−${HINT_COSTS[run.hints]})`}</button>}
         {c.reveal && !run.revealed && <button type="button" className="ctf-btn" onClick={reveal}>{free ? c.reveal : `${c.reveal} (−${REVEAL_PENALTY})`}</button>}
-        <button type="button" className="ctf-btn ctf-btn--quiet" onClick={abandon}>{free ? "End comparison run" : "Abandon"}</button>
+        <button type="button" className="ctf-btn ctf-btn--quiet" onClick={abandon}>{free ? "End comparison run" : "Abandon challenge"}</button>
       </div>
       {run.hints > 0 && !free && <p className="ctf-meta">Hints so far cost {hintCost(run.hints)} points.</p>}
-      <h4 className="ctf-h4">Fix switches</h4>
-      <div className="ctf-fixes"><FixControls /></div>
+      <details className="ctf-rules-more" open={!free}>
+        <summary>{free ? "Fix switches (all on)" : "Fix switches and highlights (cost points)"}</summary>
+        <div className="ctf-fixes"><FixControls /></div>
+      </details>
       {dialog}
       <Dock challenge={c} />
     </>
@@ -332,7 +343,6 @@ function Dock({ challenge: c }: { challenge: Challenge }) {
       </div>
       <div id={`${id}-body`} hidden={!open}>
         {!run.compare && <p className="ctf-meta">Score: {liveScore(run)} points</p>}
-        <p><strong>Your task:</strong> {c.task}</p>
         <ul className="ctf-instructions">
           {c.panelNotes.map((n) => <li key={n}>{n}</li>)}
           {!run.compare && <li>{RELOAD}</li>}
@@ -390,10 +400,16 @@ function Finished({ challenge: c, onPlayAgain, onTryFixed, onSource }: {
 
   if (result.compare) return (
     <div className="ctf-results">
-      <h3 ref={heading} tabIndex={-1} className="ctf-h">Comparison run complete</h3>
-      <p>That was the same task with every accessibility issue fixed. It wasn't scored, and your leaderboard score is unchanged. You have {result.attemptsLeft} {result.attemptsLeft === 1 ? "attempt" : "attempts"} left on this challenge.</p>
-      <div className="ctf-actions">{again}<LeaderboardButton challenge={c.id} /></div>
-      {keepGoing}
+      <div className="ctf-results-card">
+        <h3 ref={heading} tabIndex={-1} className="ctf-h ctf-results-title">Comparison run complete</h3>
+        <p className="ctf-brief">What felt easier this time? Each difference came from fixing an accessibility issue.</p>
+        <p className="ctf-meta">This run wasn't scored, so your leaderboard score is unchanged. You have {result.attemptsLeft} {result.attemptsLeft === 1 ? "attempt" : "attempts"} left on this challenge.</p>
+      </div>
+      <div className="ctf-actions">
+        <Link className="ctf-btn" to="/ctf">Explore more challenges</Link>
+        {again}
+        <LeaderboardButton challenge={c.id} />
+      </div>
     </div>
   );
   return (
@@ -414,11 +430,7 @@ function Finished({ challenge: c, onPlayAgain, onTryFixed, onSource }: {
           </tbody>
         </table>
         <Scoring />
-        {result.trackMouse && <p className="ctf-meta">{result.mouse === 0 ? "Completed without a mouse." : `Mouse clicks on the page: ${result.mouse} (not scored).`}</p>}
-        <p className="ctf-meta">
-          Saved to the leaderboard as {result.handle}. You have {result.attemptsLeft} {result.attemptsLeft === 1 ? "attempt" : "attempts"} left on this challenge.
-          Your flag: <code className="ctf-flag">{result.flag}</code>
-        </p>
+        <p className="ctf-meta">Saved to the leaderboard as {result.handle}. You have {result.attemptsLeft} {result.attemptsLeft === 1 ? "attempt" : "attempts"} left on this challenge.</p>
         <p className="ctf-meta"><button type="button" className="ctf-link-btn" onClick={onSource}>View challenge source</button></p>
       </div>
       <p><strong>Compare the experience.</strong> Try the challenge again with every accessibility issue fixed. This run is free and isn't scored.</p>

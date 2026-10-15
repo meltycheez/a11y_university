@@ -147,7 +147,7 @@ describe("voice control CTF", () => {
     removeFirst(); quickAdd("43099");
     expect(cartCodes()).toEqual(["MATH 101-02", "ENGL 111-01"]);
     await register();
-    await waitFor(() => expect(container.querySelector(".ctf-results .ctf-flag")?.textContent).toMatch(/^RSU\{registration-voice-[0-9a-f]{8}\}$/), { timeout: 2000 });
+    await waitFor(() => expect(ctfStore.get().result?.flag).toMatch(/^RSU\{registration-voice-[0-9a-f]{8}\}$/), { timeout: 2000 });
     endRun();
   });
 
@@ -158,8 +158,8 @@ describe("voice control CTF", () => {
     const input = container.querySelector<HTMLInputElement>("#rg-crn")!;
     for (const crn of ["44458", "43099"]) { fireEvent.change(input, { target: { value: crn } }); fireEvent.submit(input.form!); }
     expect(container.querySelectorAll(".rg-cart-item")).toHaveLength(2);
-    fireEvent.click(screen.getByRole("button", { name: "Abandon" }));
     fireEvent.click(screen.getByRole("button", { name: "Abandon challenge" }));
+    fireEvent.click(screen.getAllByRole("button", { name: "Abandon challenge" }).at(-1)!); // the confirmation
     expect(ctfStore.get().run).toBeNull();
     expect(container.querySelectorAll(".rg-cart-item")).toHaveLength(0);
     expect(screen.getByText(/Your cart is empty/)).toBeTruthy();

@@ -1,6 +1,6 @@
 # Pope Tech Accessibility Lab widget: Assistive Technology CTFs
 
-The **Pope Tech Accessibility Lab** widget is the "Accessibility Lab" button with the Pope Tech logo in the bottom corner of every page (`Alt+Shift+A` jumps to it). Its **Fixes** tab has the Fix switches described in [ACCESSIBILITY_TESTING.md](ACCESSIBILITY_TESTING.md). Its **Challenges** tab lists three booth-length capture-the-flag (CTF) challenges (a few minutes each), an advanced screen reader challenge for players' own time, and the leaderboard; each challenge itself is run from the **challenge bar** near the top of its page. Each one is a real task on a real page of the site, done with one kind of assistive technology while every accessibility issue on the page is switched on. Plans: [plans/11-ctf-pope-tech-widget.md](plans/11-ctf-pope-tech-widget.md), playtest changes in [plans/12-ctf-playtest-feedback.md](plans/12-ctf-playtest-feedback.md) and [plans/13-ctf-booth-polish.md](plans/13-ctf-booth-polish.md).
+The **Pope Tech Accessibility Lab** widget is the "Accessibility Lab" button with the Pope Tech logo in the bottom corner of every page (`Alt+Shift+A` jumps to it). Its **Fixes** tab has the Fix switches described in [ACCESSIBILITY_TESTING.md](ACCESSIBILITY_TESTING.md). Its **Challenges** tab lists three booth-length capture-the-flag (CTF) challenges (a few minutes each), an advanced screen reader challenge for players' own time, and the leaderboard; each challenge itself is run from the **challenge bar** near the top of its page. Each one is a real task on a real page of the site, done with one kind of assistive technology while every accessibility issue on the page is switched on. Plans: [plans/11-ctf-pope-tech-widget.md](plans/11-ctf-pope-tech-widget.md), playtest changes in [plans/12-ctf-playtest-feedback.md](plans/12-ctf-playtest-feedback.md), [plans/13-ctf-booth-polish.md](plans/13-ctf-booth-polish.md) and [plans/14-ctf-advanced-and-landing.md](plans/14-ctf-advanced-and-landing.md). The landing page is `/ctf`: one card per challenge, the advanced one full width.
 
 | Challenge | Page | Assistive technology | Task |
 |---|---|---|---|
@@ -13,8 +13,8 @@ The **Pope Tech Accessibility Lab** widget is the "Accessibility Lab" button wit
 
 1. Go to a challenge page (the widget's Challenges tab links to all three, and closes when you get there) and find the **Pope Tech Challenge** bar near the top.
 2. Enter your name and select **Start the Challenge**. Starting turns every Fix switch off and uses one attempt.
-3. Follow the instructions in the bar. During a run they are also pinned to the side of the screen (collapsible), so they stay in view while you work down the page. Its **Allowed**, **Discouraged** and **Costs points** chips show the rules at a glance; expand "More about what's allowed and what isn't" for the details. Hints, Abandon and the Fix switches are in the bar too.
-4. When you finish the task, the challenge completes on its own and the bar shows your results, with focus on its "Challenge complete" heading: your score, your rank on that challenge, the score breakdown, your flag (`RSU{…}`) and **View challenge source**. The score (time bonus included) is saved to the leaderboard.
+3. Read the instructions in the bar: the **Allowed**, **Discouraged** and **Costs points** chips show the rules at a glance (expand "More about what's allowed and what isn't" for the details). Once you start, the bar shrinks to the score, one line of task, Hints, Abandon challenge and the Fix switches, and the full task is pinned to the side of the screen (collapsible), so it stays in view while you work down the page.
+4. When you finish the task, the challenge completes on its own and the bar shows your results, with focus on its "Challenge complete" heading: your score, your rank on that challenge, the score breakdown and **View challenge source**. The flag (`RSU{…}`) is still made and saved with the score (it's in the CSV export), but not shown. The score (time bonus included) is saved to the leaderboard.
 5. From the results: **Try again with all issues fixed** turns every Fix switch on and resets the page, and **Start comparison run** replays the task that way (every fix on, free hints and Show the form, no attempt used, not scored; the form still fades). **Play again for a better score** starts over with a clean page. **View leaderboard** opens the board in a dialog without leaving the page. **Keep going** links to the advanced challenge (where there is one) and to all the challenges.
 
 Every run, scored or comparison, starts with the page reset (an empty form, cart or check-in box), and so does abandoning one.
@@ -34,7 +34,7 @@ Every run, scored or comparison, starts with the page reset (an empty form, cart
 
 Penalties can't take the score below 0 before the time bonus. Each name gets **4 attempts per challenge** (the first try plus 3 retries), and the leaderboard keeps each name's best score. Starting a run uses an attempt, even if you then reload or abandon it. The overall board adds up each name's best score in each of the three booth challenges; the advanced challenge has its own board only.
 
-The screen reader and voice runs also count real mouse clicks on the page. That count shows on the result ("completed without a mouse") but doesn't change the score.
+The screen reader and voice runs also count real mouse clicks on the page. A run with none gets a "No mouse" badge on the leaderboard; it doesn't change the score.
 
 ## Setting up assistive technology
 

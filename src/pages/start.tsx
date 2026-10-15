@@ -116,7 +116,7 @@ export default function StartPage() {
             <p className="start-eyebrow">Web accessibility</p>
             <h2>Pope Tech Platform Demo</h2>
             <p>Scan every page of your websites, see issues in context and track progress across your whole organization.</p>
-            <a className="start-cta" href="https://app.pope.tech/">Open the Platform demo {arrow}</a>
+            <a className="start-cta" href="https://app.pope.tech/organization/a11ycheck/dashboard?group_filter=ff8b647c-7acf-4925-9abd-647589814e8d">Open the Platform demo {arrow}</a>
           </div>
         </li>
 
@@ -126,7 +126,7 @@ export default function StartPage() {
             <p className="start-eyebrow">Course content</p>
             <h2>Pope Tech Canvas Demo</h2>
             <p>Find and fix accessibility issues in Canvas courses, right where instructors build them.</p>
-            <a className="start-cta" href="https://popetech.instructure.com/">Open the Canvas demo {arrow}</a>
+            <a className="start-cta" href="https://popetech.instructure.com/accounts/547/external_tools/156">Open the Canvas demo {arrow}</a>
           </div>
         </li>
       </ul>

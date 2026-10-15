@@ -185,7 +185,7 @@ export default function DonatePage() {
         {...mark("errors-not-announced", "errors-color-only", "errors-vague")}>
         {errors.length > 0 && (
           <>
-            <p className="donate-errors-title">{summaryFixed ? `Please fix ${errors.length} ${errors.length === 1 ? "problem" : "problems"} before continuing:` : "Please correct the following errors:"}</p>
+            <p className="donate-errors-title">{summaryFixed ? `Form errors (${errors.length}): Select a link to go to the field with the error.` : "Please correct the following errors:"}</p>
             <ul>
               {errors.map((e) => (
                 <li key={e.field}>{summaryFixed ? <a href={`#${e.field}`}>{errMsg(e)}</a> : errMsg(e)}</li>

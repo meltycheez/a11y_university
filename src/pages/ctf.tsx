@@ -4,15 +4,14 @@
 import { useEffect, useState } from "react";
 import { Link, type MetaFunction } from "react-router";
 import { scenarios } from "~/a11y/registry";
-import { challengeById, challenges, type ChallengeId } from "~/ctf/challenges";
+import { allChallenges, challenges, type ChallengeId } from "~/ctf/challenges";
 import { arrow, AT_ICONS } from "~/ctf/icons";
 import * as board from "~/ctf/leaderboard";
 
 export const meta: MetaFunction = () => [{ title: "Take the Challenge · Pope Tech" }];
 
 const BASE = import.meta.env.BASE_URL;
-// The booth challenges' pitches (the advanced ones are linked from theirs).
-const PITCH: Partial<Record<ChallengeId, { hook: string; line: string; face: string[] }>> = {
+const PITCH: Record<ChallengeId, { hook: string; line: string; face: string[] }> = {
   "reqinfo-sr": {
     hook: "Ask a college for information with your monitor off.", line: "Fill out a short form by ear. Five seconds in, the form disappears.",
     face: ["Fields with no labels", "A tab order that jumps all over the form", "Questions that aren't connected to their answers"],
@@ -24,6 +23,10 @@ const PITCH: Partial<Record<ChallengeId, { hook: string; line: string; face: str
   "map-eyes": {
     hook: "Find your way across campus with a nod.", line: "Point with your head to find the observatory and check in, with Head Pointer only.",
     face: ["A map that only moves when you drag it", "A tooltip that vanishes if your pointer drifts", "Typing with an on-screen keyboard"],
+  },
+  "apply-sr": {
+    hook: "Apply to college without seeing the form.", line: "A two-step application by ear, with a referral code hidden in it. Take it on in your own time.",
+    face: ["A referral code your screen reader can barely find", "A major menu that ignores the keyboard", "Errors that never get announced"],
   },
 };
 const count = (path: string, category: "error" | "alert") =>
@@ -49,8 +52,8 @@ export default function CtfPage() {
     <main id="main-content" className="start cp">
       <section className="start-head cp-hero" aria-labelledby="cp-title">
         <div className="start-kicker"><img src={`${BASE}brand/pope-tech-mark.svg`} alt="" width="28" height="28" />Pope Tech Challenges</div>
-        <h1 id="cp-title">No mouse. No screen. <span>No problem?</span></h1>
-        <p className="start-lede">Three real tasks. Every accessibility issue switched on. One assistive technology each. Capture the flag and claim your spot on the leaderboard.</p>
+        <h1 id="cp-title">Same web. Different tools. <span>Still no problem?</span></h1>
+        <p className="start-lede">Complete three real tasks using only a screen reader, voice control, or a head pointer. Every page is full of accessibility issues. Can you finish anyway?</p>
         <div className="cp-hero-art" aria-hidden="true">
           {challenges.map((c) => <span key={c.id} className={`lb-icon lb-icon--${c.id}`}>{AT_ICONS[c.id]}</span>)}
         </div>
@@ -59,24 +62,24 @@ export default function CtfPage() {
       <section id="cp-challenges" className="cp-challenges" aria-labelledby="cp-challenges-title">
         <h2 id="cp-challenges-title" className="cp-h2">Choose your challenge</h2>
         <ul className="cp-cards">
-          {challenges.map((c) => (
-            <li key={c.id} className={`cp-card cp-card--${c.id}`}>
+          {allChallenges.map((c) => (
+            <li key={c.id} className={`cp-card cp-card--${c.id}${c.advanced ? " cp-card--advanced" : ""}`}>
               <div className="lb-ch-head">
                 <span className={`lb-icon lb-icon--${c.id}`}>{AT_ICONS[c.id]}</span>
                 <div className="cp-card-title"><h3>{c.title}</h3><p>{c.at}</p></div>
+                {c.advanced && <p className="cp-badge">Advanced · about {c.timeLimitMin} minutes</p>}
               </div>
               <div className="cp-card-body">
-                <p><strong>{PITCH[c.id]!.hook}</strong> {PITCH[c.id]!.line}</p>
+                <p><strong>{PITCH[c.id].hook}</strong> {PITCH[c.id].line}</p>
                 <div className="cp-face">
                   <h4 id={`cp-face-${c.id}`}>What you'll face</h4>
-                  <ul aria-labelledby={`cp-face-${c.id}`}>{PITCH[c.id]!.face.map((f) => <li key={f}>{f}</li>)}</ul>
+                  <ul aria-labelledby={`cp-face-${c.id}`}>{PITCH[c.id].face.map((f) => <li key={f}>{f}</li>)}</ul>
                   <ul className="cp-card-count" aria-label="Accessibility issues on the page">
                     <li><WaveError /><span><b>{count(c.path, "error")}</b> Errors</span></li>
                     <li><WaveAlert /><span><b>{count(c.path, "alert")}</b> Alerts</span></li>
                   </ul>
                 </div>
                 <Link className="start-cta" to={c.path}>Accept the challenge<span className="visually-hidden">: {c.title}</span> {arrow}</Link>
-                {c.harder && <p className="cp-harder">More time? <Link to={challengeById.get(c.harder)!.path}>Try the advanced version: {challengeById.get(c.harder)!.title}</Link></p>}
               </div>
             </li>
           ))}

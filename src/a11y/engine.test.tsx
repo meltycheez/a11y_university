@@ -177,7 +177,8 @@ describe("PopeTechWidget challenges", () => {
     expect(a11yStore.get().fixErrors).toBe(false); // a run starts with every defect on
     expect(document.activeElement!.textContent).toBe("Challenge running");
     expect(bar.getByText("Score: 500 points")).toBeTruthy();
-    expect(bar.getByText(/Fill in every required field/)).toBeTruthy();
+    expect(bar.getByText(/Fill out and submit both steps of the application/)).toBeTruthy();
+    expect(bar.queryByText("More about what's allowed and what isn't")).toBeNull(); // the bar is trimmed to the run (plan 14)
 
     fireEvent.click(bar.getByRole("switch", { name: "Fix Alerts" })); // the bar has its own Fix switches during a run
     expect(screen.getAllByRole("status").some((s) => s.textContent!.includes("Challenge penalty: minus 150 points."))).toBe(true);
@@ -193,8 +194,8 @@ describe("PopeTechWidget challenges", () => {
     fireEvent.click(screen.getByRole("button", { name: "Reveal hint (−50)" }));
     expect(bar.getByText("Score: 300 points")).toBeTruthy();
     expect(bar.queryByRole("button", { name: "View challenge source" })).toBeNull(); // hidden during a run
-    fireEvent.click(bar.getByRole("button", { name: "Abandon" }));
-    fireEvent.click(screen.getByRole("button", { name: "Abandon challenge" }));
+    fireEvent.click(bar.getByRole("button", { name: "Abandon challenge" }));
+    fireEvent.click(screen.getAllByRole("button", { name: "Abandon challenge" }).at(-1)!); // the confirmation
     expect(ctfStore.get().run).toBeNull();
     expect(bar.getByRole("button", { name: "Start the Challenge" })).toBeTruthy();
     expect(confirmSpy).not.toHaveBeenCalled();

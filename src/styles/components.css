@@ -137,6 +137,8 @@
 .ctf-instructions, .ctf-hints, .ctf-scoring ul { margin: 0 0 0.6rem; padding-left: 1.25rem; font-size: 0.85rem; display: grid; gap: 0.25rem; }
 .ctf-hints { background: #f2f6f8; padding: 0.5rem 0.5rem 0.5rem 1.75rem; border-radius: 6px; }
 .ctf-score { font-weight: 700; font-size: 1rem; }
+.ctf-run-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1rem; }
+.ctf-run-head .ctf-score { margin: 0; font-size: 1.1rem; }
 .ctf-start { display: grid; gap: 0.3rem; margin-bottom: 0.6rem; }
 .ctf-start label { font-weight: 700; }
 .ctf-start input { font: inherit; padding: 0.45rem 0.6rem; border: 2px solid #595959; border-radius: 6px; }
@@ -156,7 +158,6 @@ a.ctf-btn { display: inline-flex; align-items: center; text-decoration: none; }
 .ctf-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.6rem 0; }
 .ctf-footer { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #ccc; display: grid; gap: 0.5rem; justify-items: start; }
 .ctf-scoring summary { cursor: pointer; font-weight: 700; font-size: 0.85rem; }
-.ctf-flag { display: inline-block; padding: 0.15rem 0.4rem; background: #123342; color: #fff; border-radius: 4px; font: 700 0.95rem/1.4 ui-monospace, Consolas, monospace; word-break: break-all; }
 .ctf-table { width: 100%; border-collapse: collapse; margin: 0 0 0.6rem; font-size: 0.85rem; }
 .ctf-table th, .ctf-table td { padding: 0.25rem 0.4rem; border-bottom: 1px solid #ddd; text-align: left; }
 .ctf-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
@@ -171,10 +172,9 @@ a.ctf-btn { display: inline-flex; align-items: center; text-decoration: none; }
 .ctf-banner .ctf-banner-title { margin: 0; font: 700 1.15rem/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; color: #123342; }
 .ctf-banner .ctf-banner-at { margin: 0 0 0 auto; padding: 0.15rem 0.6rem; background: #123342; color: #fff; border-radius: 999px; font-size: 0.85rem; }
 .ctf-banner-body { padding-bottom: 0.5rem; }
-.ctf-banner-tools { padding-top: 0.75rem; border-top: 1px solid #b9c7cf; }
 .ctf-start-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .ctf-start-row input { flex: 1 1 12rem; max-width: 20rem; }
-.ctf-banner a { color: #0b4f9c; }
+.ctf-banner a:not(.ctf-btn) { color: #0b4f9c; }
 .ctf-banner a:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
 .ctf-setup { margin-bottom: 0.75rem; }
 .ctf-setup-table th, .ctf-setup-table td { vertical-align: top; }
@@ -360,7 +360,6 @@ dialog.modal[open]:not(:modal) { position: fixed; inset: 0; margin: auto; height
 .ctf-results .ctf-table caption { text-align: left; font-weight: 700; padding-bottom: 0.3rem; }
 .ctf-keep-going { padding-top: 0.75rem; border-top: 1px solid #c9d2da; }
 .ctf-keep-going .ctf-h4 { margin-top: 0; }
-.ctf-banner .ctf-flag-note { padding: 0.5rem 0.6rem; border-left: 4px solid #123342; background: #fff; font-size: 0.9rem; }
 .ctf-btn--icon { display: inline-flex; align-items: center; gap: 0.5rem; }
 .ctf-link-btn { padding: 0; margin-left: 0.4rem; border: 0; background: none; font: inherit; color: #0b4f9c; text-decoration: underline; cursor: pointer; }
 .ctf-link-btn:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }

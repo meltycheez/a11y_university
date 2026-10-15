@@ -155,6 +155,19 @@ it("apply: an invalid step focuses the problem count, then the first problem fie
   expect(document.activeElement?.id).toBe("last"); // first is filled, so last name is the first problem
 });
 
+it("apply, fixed: the error summary says what its links do, and the referral field reads its code (plan 14)", () => {
+  act(() => a11yStore.fixAll());
+  renderAt("/admissions/apply", ApplyPage);
+  type("last", "");
+  fireEvent.click(document.querySelector('.apply-nav button[type="submit"]')!);
+  expect(document.querySelector(".apply-summary-title")!.textContent).toMatch(/^Form errors \(\d+\): Select a link to go to the field with the error\.$/);
+  fillStep1();
+  fireEvent.click(document.querySelector('.apply-nav button[type="submit"]')!);
+  const desc = document.getElementById("referral")!.getAttribute("aria-describedby")!.split(" ");
+  expect((document.getElementById(desc[0]) as HTMLImageElement).alt).toBe("Your application referral code: RSU-7Q4K");
+  fireEvent.click(screen.getByText("Back")); // the store keeps the step for the next test
+});
+
 it("apply: on step 2 an invalid major moves focus to the (mouse-only) major menu", () => {
   vi.useFakeTimers();
   renderAt("/admissions/apply", ApplyPage);
@@ -214,7 +227,7 @@ it("apply CTF: a run needs the referral code and ends with the flag", async () =
   next();
   await waitFor(() => expect(screen.getByText("Application submitted")).toBeTruthy(), { timeout: 2000 });
   expect(screen.getByRole("heading", { name: "Challenge complete" })).toBeTruthy();
-  expect(document.querySelector(".ctf-results .ctf-flag")!.textContent).toMatch(/^RSU\{apply-sr-[0-9a-f]{8}\}$/);
+  expect(ctfStore.get().result?.flag).toMatch(/^RSU\{apply-sr-[0-9a-f]{8}\}$/);
   expect(ctfStore.get().run).toBeNull(); // completed automatically, no flag to type
   fireEvent.click(screen.getByText("Try again with all issues fixed"));
   expect(ctfStore.get().result).toBeNull();
@@ -279,7 +292,7 @@ it("request info CTF (booth screen reader): Tab jumps around, wrong answers get 
   expect(screen.getByRole("alert").textContent).toBe("Challenge not complete yet: check area of interest.");
   fireEvent.change(document.getElementById("ri-interest")!, { target: { value: "Business" } });
   send();
-  await waitFor(() => expect(document.querySelector(".ctf-results .ctf-flag")!.textContent).toMatch(/^RSU\{reqinfo-sr-[0-9a-f]{8}\}$/));
+  await waitFor(() => expect(ctfStore.get().result?.flag).toMatch(/^RSU\{reqinfo-sr-[0-9a-f]{8}\}$/));
   expect(screen.getByRole("link", { name: "Try the advanced screen reader challenge" })).toBeTruthy();
   expect(ctfStore.get().run).toBeNull();
   act(() => a11yStore.set({ fixManual: true }));
@@ -300,8 +313,8 @@ it("request info CTF: every new run starts with an empty form (Abandon, Play aga
   act(() => { startRun("reqinfo-sr", "tester"); });
   fill();
   // Abandon: the form is emptied, so the next attempt can't just press Send.
-  fireEvent.click(bar.getByRole("button", { name: "Abandon" }));
-  fireEvent.click(screen.getByRole("button", { name: "Abandon challenge" }));
+  fireEvent.click(bar.getByRole("button", { name: "Abandon challenge" }));
+  fireEvent.click(screen.getAllByRole("button", { name: "Abandon challenge" }).at(-1)!); // the confirmation
   expect(value("ri-first")).toBe("");
   expect(screen.getAllByRole("radio").some((r) => (r as HTMLInputElement).checked)).toBe(false);
   // Finish a run: results appear in the bar, with focus on "Challenge complete" and no old congratulations box.

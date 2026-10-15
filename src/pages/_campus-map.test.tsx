@@ -5,7 +5,7 @@ import { createMemoryRouter, RouterProvider } from "react-router";
 import { afterEach, expect, it, vi } from "vitest";
 import { campusMapScenarios } from "~/a11y/registry/campus-map";
 import { a11yStore } from "~/a11y/state";
-import { endRun, startRun } from "~/ctf/store";
+import { ctfStore, endRun, startRun } from "~/ctf/store";
 import CampusMapPage from "./campus-map";
 
 afterEach(() => { cleanup(); act(() => a11yStore.resetAll()); });
@@ -144,6 +144,6 @@ it("head pointer CTF: the observatory's code is in its tooltip and its details, 
 
   fireEvent.change(c.querySelector("#cmap-checkin-code")!, { target: { value: "7731" } });
   fireEvent.submit(c.querySelector(".cmap-checkin")!);
-  expect(c.querySelector(".ctf-results .ctf-flag")!.textContent).toMatch(/^RSU\{map-eyes-[0-9a-f]{8}\}$/);
+  expect(ctfStore.get().result?.flag).toMatch(/^RSU\{map-eyes-[0-9a-f]{8}\}$/);
   endRun();
 });

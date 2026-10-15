@@ -17,16 +17,14 @@ export interface Challenge {
   advanced?: boolean;
   /** One plain sentence: what to do, with what, when it's done and how long it takes. Shown before the run starts. */
   brief: string;
-  /** The task in one line, for the pinned side panel during a run. */
+  /** The task in one line, shown in the bar during a run. */
   task: string;
-  /** Extra lines for the side panel, after the task (e.g. the form is hidden). The reload line is added for every challenge. */
+  /** The pinned side panel's list during a run: the task in detail and anything to know. The reload line is added for every challenge. */
   panelNotes: string[];
   /** First "Before you start" bullet: what happens to the page when the run starts, if anything. */
   beforeStart?: string;
   /** Label of the paid button that shows a faded-out page again. */
   reveal?: string;
-  /** The task, step by step. What may and may not be used is in `allowed` / `notAllowed`. */
-  instructions: string[];
   /** Shown as chips; `detail` appears when the player expands the rules. */
   allowed: Rule[];
   notAllowed: Rule[];
@@ -87,16 +85,9 @@ export const challenges: Challenge[] = [
     harder: "apply-sr",
     brief: "Use only your screen reader to fill out and send the Request Information form. The challenge is complete when the form sends successfully. It takes about 5 minutes.",
     task: "Fill in your name and email, answer the three questions (any answer), then select Send me information.",
-    panelNotes: [srHidden],
+    panelNotes: [srHidden, "Fill in your first name, last name and email. Answer the three questions: any answer is fine, but none can be left unselected. Then select Send me information."],
     beforeStart: srBeforeStart,
     reveal: "Show the form",
-    instructions: [
-      "The form fades out over 5 seconds once you start, then focus moves to its first field: complete it with your screen reader.",
-      "Fill in your first name, last name and email.",
-      "Answer I am a, When do you plan to start and Area of interest. Any answer is fine, but each one starts unselected and can't be left that way.",
-      "Select Send me information. If everything is filled in, the challenge completes and your flag is entered for you.",
-      "Reloading the page ends the run and uses up the attempt.",
-    ],
     allowed: srAllowed,
     notAllowed: srNotAllowed,
     hints: [
@@ -121,13 +112,7 @@ export const challenges: Challenge[] = [
     timeLimitMin: 5,
     brief: "Use only your voice to add two classes to your cart, put them in priority order and register. The challenge is complete when both classes register. It takes about 5 minutes.",
     task: "Add ENGL 111-01 (CRN 43099), then MATH 101-02 (CRN 44458). Put MATH first, then register.",
-    panelNotes: ["Hands off the keyboard and mouse: say every action. \"Show numbers\" and \"Show grid\" help when a name doesn't work."],
-    instructions: [
-      "Add two classes to your cart in this order: first ENGL 111 section 01 (CRN 43099), then MATH 101 section 02 (CRN 44458). Each course has several sections; you need exactly these. Search for them, or add them by CRN.",
-      "Then put the cart in priority order: MATH 101-02 first, then ENGL 111-01.",
-      "Register. If the classes and their order are right, the challenge completes and your flag is entered for you.",
-      "Reloading the page ends the run and uses up the attempt.",
-    ],
+    panelNotes: ["Add ENGL 111-01 (CRN 43099) first, then MATH 101-02 (CRN 44458). Then reorder the cart so MATH is first, and register.", "Hands off the keyboard and mouse: say every action. \"Show numbers\" and \"Show grid\" help when a name doesn't work."],
     allowed: [
       { label: "Voice commands", detail: "Voice Control, Dragon, Windows Voice Access or Android Voice Access, with any of their commands." },
       { label: "Numbers and grids", detail: "\"Show numbers\", \"Show names\", \"Show grid\" and MouseGrid are all fine, including grid-based clicks and drags." },
@@ -183,14 +168,7 @@ export const challenges: Challenge[] = [
     timeLimitMin: 5,
     brief: "Use only Head Pointer to find Hawthorne Observatory on the campus map and check in with its after-hours code. The challenge is complete when you check in. It takes about 5 minutes.",
     task: "Find Hawthorne Observatory (search for OBS), then type its after-hours code into the check-in box below the map.",
-    panelNotes: ["Raise your eyebrows to click, stick out your tongue to drag and drop (also to scroll: grab the scroll bar), and smile to recalibrate."],
-    instructions: [
-      "Head Pointer gestures: raise your eyebrows to click, stick out your tongue to drag and drop (to scroll, point at the scroll bar, stick out your tongue, move your head, then stick it out again), and smile to recalibrate.",
-      "Find Hawthorne Observatory. It isn't where the map first opens: search for it by name or by its code (OBS, listed in the building directory below the map), or pan the map to it.",
-      "Select the observatory to see its details, including its after-hours access code.",
-      "Type the code into the Observatory check-in box below the map and submit it. That completes the challenge and enters your flag for you.",
-      "Reloading the page ends the run and uses up the attempt.",
-    ],
+    panelNotes: ["Find Hawthorne Observatory (search for OBS, or pan the map to it). Select it to see its after-hours code, then type the code into the check-in box below the map.", "Raise your eyebrows to click, stick out your tongue to drag and drop (also to scroll: grab the scroll bar), and smile to recalibrate."],
     allowed: [
       { label: "Head or gaze pointing", detail: "Point with Head Pointer (or an eye tracker) and click with a facial expression, dwell or your tracker's switch." },
       { label: "Pointer tools", detail: "Your pointer software's click, drag and scroll actions, such as Alternate pointer actions on a Mac or the Windows Eye Control launchpad." },
@@ -244,18 +222,11 @@ export const harderChallenges: Challenge[] = [
     basePoints: 500,
     timeLimitMin: 20,
     advanced: true,
-    brief: "Use only your screen reader to fill out and submit the two-step Application for Admission, including a referral code hidden on step 2. The challenge is complete when the application submits. It takes about 20 minutes.",
-    task: "Complete both steps, including the referral code on the Program and submit step, then submit the application.",
-    panelNotes: [srHidden],
+    brief: "Use only your screen reader to fill out and submit the two-step Application for Admission. The challenge is complete when your application is submitted.",
+    task: "Fill out and submit both steps of the application with your screen reader.",
+    panelNotes: [srHidden, "The application has two steps. On the Program and submit step, you also need your Application referral code. It is somewhere on that step."],
     beforeStart: srBeforeStart,
     reveal: "Show the form",
-    instructions: [
-      "The form fades out over 5 seconds once you start, then focus moves to its first field: complete it with your screen reader.",
-      "Fill in every required field on both steps and submit the application. It takes about 20 minutes with a screen reader.",
-      "On the Program and submit step you also need your Application referral code. It is somewhere on that step.",
-      "Submitting the application completes the challenge. Your flag is entered for you.",
-      "Reloading the page ends the run and uses up the attempt.",
-    ],
     allowed: srAllowed,
     notAllowed: srNotAllowed,
     hints: [

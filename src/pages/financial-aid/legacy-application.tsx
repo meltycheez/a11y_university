@@ -193,7 +193,7 @@ export default function LegacyAidPage() {
       <div ref={errorBox} className="legacy-errors" tabIndex={fix("errors-not-announced") ? -1 : undefined} role={fix("errors-not-announced") ? "alert" : undefined}
         {...mark("errors-vague", "errors-not-announced")}>
         {errors.length > 0 && (fix("errors-vague")
-          ? <><b>Please correct {errors.length} {errors.length === 1 ? "item" : "items"}:</b><ul>{errors.map((x) => <li key={x.field}><a href={`#${x.field}`}>{x.message}</a></li>)}</ul></>
+          ? <><b>Form errors ({errors.length}): Select a link to go to the field with the error.</b><ul>{errors.map((x) => <li key={x.field}><a href={`#${x.field}`}>{x.message}</a></li>)}</ul></>
           : <b>ERROR: Invalid input. Please check the form and try again.</b>)}
       </div>
       <p style={small}>{reqFixed ? "Fields marked (required) must be completed." : <>Items in <span style={{ color: "#cc0000" }}>red</span> are required.</>}</p>

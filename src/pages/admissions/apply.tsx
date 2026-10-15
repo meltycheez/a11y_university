@@ -279,6 +279,10 @@ export default function ApplyPage() {
         aria-invalid={errFor("term") && announce ? true : undefined} id={t === TERMS[0] ? "term" : undefined} /> {t}
     </label>
   ));
+  const refBind = bind("referral", ctfRun);
+  const bindReferral = fix("code-image-alt")
+    ? { ...refBind, "aria-describedby": ["referral-code", refBind["aria-describedby"]].filter(Boolean).join(" ") }
+    : refBind;
   const program = (
     <div className="apply-grouped">
       <div>
@@ -299,12 +303,13 @@ export default function ApplyPage() {
         {errorMsg("gpa")}
       </div>
       <div className="apply-referral">
-        <img src={`${import.meta.env.BASE_URL}ctf/referral-code.svg`} width="360" height="120"
+        <img id="referral-code" src={`${import.meta.env.BASE_URL}ctf/referral-code.svg`} width="360" height="120"
           alt={fix("code-image-alt") ? "Your application referral code: RSU-7Q4K" : "image123.png"} />
         <div className="field">
           <label htmlFor="referral" className={labelClass(ctfRun)}>{labelText("Application referral code", ctfRun)}</label>
           {/* apply-code-image-alt-001: with the image's alt a file name, the code lives only in this aria-label (it overrides the visible label). */}
-          <input {...bind("referral", ctfRun)} autoComplete="off" aria-label={fix("code-image-alt") ? undefined : "ref_code: type R S U 7 Q 4 K"} />
+          {/* Fixed: the field is described by the image, so the code is read with the field (plan 14 §2). */}
+          <input {...bindReferral} autoComplete="off" aria-label={fix("code-image-alt") ? undefined : "ref_code: type R S U 7 Q 4 K"} />
           {errorMsg("referral")}
         </div>
       </div>
@@ -426,7 +431,7 @@ export default function ApplyPage() {
               <div ref={summary} tabIndex={announce ? -1 : undefined} role={announce ? "alert" : undefined} className="apply-summary">
                 {announce && errors.length > 0 && (
                   <>
-                    <p className="apply-summary-title">Please fix {errors.length} {errors.length === 1 ? "problem" : "problems"} on this step:</p>
+                    <p className="apply-summary-title">Form errors ({errors.length}): Select a link to go to the field with the error.</p>
                     <ul>{errors.map((e) => <li key={e.field}><a href={`#${e.field}`}>{errText(e)}</a></li>)}</ul>
                   </>
                 )}
