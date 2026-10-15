@@ -1,6 +1,6 @@
 # Plan 14: Advanced challenge views, error summaries, /ctf landing page
 
-Status: Done (plus Jay's new Platform and Canvas demo links on /start)
+Status: Parts 1 to 4 done and deployed (9d9783f, plus Jay's new Platform and Canvas demo links on /start). Part 5 (round 4) proposed.
 
 Source: Whitney's playtest feedback (Oct 15, 2026) and her design canvas "Pope Tech Advanced Challenge Views" (9 boards).
 
@@ -72,3 +72,82 @@ Plan 13 already did the two orange notes (the separate completion box is gone, a
 - Walkthrough scripts (sr, validate-p13, extra): update the changed strings.
 - typecheck, lint, all unit tests, e2e and check-scenarios. Screenshot each view next to its board.
 - Docs: `docs/CTF.md` (results no longer show the flag; the landing page).
+
+## 5. Round 4 (Whitney, Oct 15, after the deploy)
+
+Her first four notes (/ctf icons, intro text, heading, advanced card) are part 4 above and are live. What I checked on the live site before planning the rest, with a scripted browser:
+- Campus Map: the side panel shows during a run, and checking in with 7731 completes the challenge.
+- End comparison run: the dialog says "Nothing is scored, and no attempt is used."
+
+### 5a. Doing the task without starting the challenge fails silently
+
+This is the most likely cause of three of her notes: "added the access code but didn't get a challenge complete", "no sticky instructions on this one", and "it won't go through but I'm not getting an error".
+
+- **How it happens:** Start Challenge, then the name, opens the instructions. The **Start the Challenge** button is at the bottom of a long block (rules, open setup, scoring, Before you start). Someone who skips it and does the task gets the page's normal result ("Checked in at Hawthorne Observatory.") and nothing else: no side panel, no score.
+- **Fix, on all four pages:** when the task finishes and that challenge isn't running, the page's own message adds: "This didn't count for the Pope Tech Challenge because it hasn't started. Select **Start the Challenge** in the challenge bar at the top of the page to play." It's one check in each page's existing finish handler, using `ctfStore`'s current run.
+- **Also:** put the Start the Challenge button above the long instructions too? **Default: no**, the design puts it at the bottom on purpose (after Before you start). The message above covers it.
+- **Ask Whitney:** which challenge she did with a mouse to get to the comparison run, so I can confirm this was the cause. Every page does show a message when a submit fails during a run (checked: Request Information "Challenge not complete yet: check …", the application's field errors, Campus Map "That code doesn't match…").
+
+### 5b. End comparison run said it would use an attempt
+
+The current code (and the live site) says "End the comparison run? Nothing is scored, and no attempt is used." Older versions (before plan 13) did say the attempt stays used, so she probably had an older page cached. **No change.** Ask her to retry after a hard refresh, with a screenshot if it still happens.
+
+### 5c. Is the Accessibility Lab button needed?
+
+It's the site-wide demo of the Fix switches (and its Challenges tab lists the challenges). The demo uses it outside the challenges. During a run, the challenge bar has the same Fix switches.
+
+**Decision (Jay): remove the Accessibility Lab button on the four challenge pages only, and keep it on the rest of the site.** The four pages are `/admissions/request-info`, `/admissions/apply`, `/portal/registration` and `/campus-map`.
+
+- **How:** the widget doesn't render on a page that has a challenge bar. The check uses the challenge paths in `challenges.ts`, so a new challenge page is covered automatically. Its `Alt+Shift+A` shortcut goes too on those pages.
+- **Trade-off:** on those four pages the Fix switches and highlights are only available once a run starts, in the challenge bar. Anyone using these pages as an ordinary demo (outside a challenge) loses them there. They stay on every other page.
+- **Tests to update:**
+  - e2e "a Fix switch mid-run costs points" uses the widget on `/campus-map`, so it moves to the bar's switches.
+  - The "Fix All, no unnamed buttons" check loops over the challenge pages, so it uses the bar there.
+  - The widget's Challenges tab test still runs from `/`.
+  - Add a check that the button is absent on the four pages and present on `/`.
+
+### 5d. A "practice" (unscored) run
+
+Whitney says not now. **Deferred.** Logged in the feedback sheet as an idea to think through: is it the same task unscored, or a different one?
+
+### 5e. Block certain words as leaderboard names
+
+- A short built-in list of offensive words in `src/ctf/leaderboard.ts`, checked when the name is entered (`checkStart`). The check lowercases, undoes simple swaps (0→o, 1→i, 3→e, 4→a, 5→s, @→a, $→s) and drops spaces and symbols.
+- Short words match only as a whole word, so names like "Cassidy" or "Scunthorpe" still work. Longer words match anywhere.
+- Message: "Please choose a different name." No dependency is added.
+- **Not covered:** names posted straight to the sheet, and names already there. Delete those rows by hand.
+
+### 5f. Head pointer views (canvas "Pope Tech Head Pointer Challenge Views")
+
+**Instructions (ready stage)**
+- **Setup:** "Set up Head Pointer on Mac", open by default, with 4 numbered steps:
+  1. Turn on Head pointer.
+  2. Set the options (when facing screen edges, speed 70, distance 15).
+  3. Turn on the Accessibility Keyboard.
+  4. Turn on Alternate pointer actions, pointing to the table below.
+- **Below the steps:** "**Using Windows?** Use Eye Control or Tobii…" with a link to "Microsoft: Eye control basics in Windows", then the Apple link (same URL as now).
+- **New collapsed section "Head pointer actions for this challenge":** one intro line saying these are suggestions, then a table (Action | Facial expression):
+  - Left click: raise your eyebrows
+  - Drag and drop: stick out your tongue to grab, then move your head
+  - Scroll: point at the scroll bar, tongue, move, tongue
+  - Recalibrate: smile
+- **Before you start, bullet 2:** "…Your task and the head pointer actions stay pinned to the side of the screen."
+
+**Side panel (during a run)**
+- Title, Hide button, score.
+- "Your task" heading with 2 numbered steps: "Find Hawthorne Observatory on the campus map." and "Enter the after-hours code in the Check in text field."
+- "Head pointer actions" (open): a one-line note that these need Alternate pointer actions turned on, then the same 4 actions as a list.
+- "Setup reminders" (collapsed): "Change your actions" and "Type with the on-screen keyboard", each with its settings path.
+- "**Need help?** Hints and Fix switches are in the challenge bar…"
+- "**Don't reload the page.** It ends the run and uses up the attempt."
+
+**Targets:** the Hide button and the section toggles in the side panel are at least 44px tall (head pointer users click by dwelling or a facial expression).
+
+**How it's built:** `Challenge` gets optional `panelSteps` (shown under "Your task") and `panelSections` (titled, collapsible term/definition lists). The head pointer actions are defined once and used by both the setup table and the side panel. The other three challenges keep their panels as they are. The "Don't reload" line moves to its own bold paragraph on every panel, to match.
+
+### 5g. Tests
+
+- Unit tests for the name filter (blocked words, leetspeak, "Cassidy" allowed) and the "hasn't started" message on Campus Map.
+- e2e: the map side panel's structure, 44px toggles and an axe check.
+- Re-run the round 3 checks (shot14 / probe15), plus a screenshot of each new view next to its board.
+- Feedback sheet: add these rows.
