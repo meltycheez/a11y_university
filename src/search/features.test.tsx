@@ -190,7 +190,7 @@ describe("visit scheduling", () => {
     fireEvent.change(c.querySelector("#visit-email")!, { target: { value: "sam@example.com" } });
     fireEvent.submit(c.querySelector(".visit-form")!);
     await waitFor(() => expect(c.querySelector(".toast")!.textContent).toMatch(/Wednesday, October 7, 2026 at 10:00 a\.m\..*RSU-/), { timeout: 2000 });
-    expect(c.querySelector<HTMLDialogElement>("dialog.modal")!.open).toBe(false);
+    await waitFor(() => expect(c.querySelector<HTMLDialogElement>("dialog.modal")!.open).toBe(false)); // closes in an effect, a beat after the toast
 
     act(() => a11yStore.fixAll());
     expect(c.querySelector<HTMLInputElement>('input[type="date"]')!.value).toBe("2026-10-07");

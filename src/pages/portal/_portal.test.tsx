@@ -174,7 +174,8 @@ describe("portal interactions", () => {
     const { container, router } = await open("/portal");
     expect(screen.getByText("Announcements (2)")).toBeTruthy();
     fireEvent.click(screen.getAllByRole("button", { name: /^Acknowledge/ })[0]);
-    expect(screen.getByText("Announcements (1)")).toBeTruthy();
+    // Under load (CI) the re-render can land a moment after the click: wait for it rather than check at once.
+    await waitFor(() => expect(screen.getByText("Announcements (1)")).toBeTruthy());
 
     await act(() => router.navigate("/portal/messages"));
     await waitFor(() => expect(container.querySelector(".pt-inbox")).toBeTruthy());
