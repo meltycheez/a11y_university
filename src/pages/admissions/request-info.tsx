@@ -7,7 +7,7 @@ import { Hero } from "~/components/Hero";
 import { Callout } from "~/components/Callout";
 import { ContactCard } from "~/components/blocks";
 import { ChallengeBanner } from "~/ctf/ChallengeBanner";
-import { isRunning, revealFlag } from "~/ctf/store";
+import { isRunning, notRunningNote, revealFlag } from "~/ctf/store";
 import { useBlindRun } from "~/ctf/useBlindRun";
 import { LinkList, content } from "./_content";
 
@@ -51,7 +51,7 @@ export default function RequestInfo() {
       if (wrong.length) { setCtfNote(`Challenge not complete yet: check ${wrong.join(", ")}.`); return; }
       setCtfNote("");
       revealFlag("reqinfo-sr", [d.first, d.last, d.email]); // the challenge bar shows the results
-    }
+    } else setCtfNote(notRunningNote("reqinfo-sr"));
     setSent(true);
   };
   const reset = () => { form.current?.reset(); setSent(false); setCtfNote(""); };

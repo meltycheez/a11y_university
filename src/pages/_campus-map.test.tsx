@@ -116,6 +116,14 @@ it("finds a building by name or code", () => {
   expect(c.querySelector(".cmap-search-msg")!.textContent).toContain("No building matches");
 });
 
+it("checking in without starting the challenge says it didn't count (plan 14 §5a)", () => {
+  const c = renderMap();
+  fireEvent.change(c.querySelector("#cmap-checkin-code")!, { target: { value: "7731" } });
+  fireEvent.submit(c.querySelector(".cmap-checkin")!);
+  expect(c.querySelector(".cmap-checkin-msg")!.textContent).toMatch(/^Checked in at Hawthorne Observatory\. This didn't count for the Pope Tech Challenge because the challenge isn't running\./);
+  expect(ctfStore.get().result).toBeNull();
+});
+
 it("head pointer CTF: the observatory's code is in its tooltip and its details, no timeout, and check-in ends the run", async () => {
   localStorage.clear();
   vi.useFakeTimers();

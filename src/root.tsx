@@ -3,6 +3,7 @@ import type { Route } from "./+types/root";
 import { PopeTechWidget } from "./a11y/PopeTechWidget";
 import { HtmlLang } from "./a11y/DocumentScenarios";
 import { useHighlight } from "./a11y/useHighlight";
+import { allChallenges } from "./ctf/challenges";
 import { usePathname } from "./routes/usePathname";
 
 import "@fontsource-variable/source-sans-3";
@@ -15,6 +16,8 @@ export const links: Route.LinksFunction = () => [
 
 /** Pope Tech demo pages outside the university layout (routes.ts): no widget. */
 const STANDALONE = ["/start", "/leaderboard", "/ctf"];
+/** Challenge pages: their challenge bar has the Fix switches during a run, so no widget (plan 14 §5c, Jay). */
+const CHALLENGE_PAGES = allChallenges.map((c) => c.path);
 
 export function Layout({ children }: { children: React.ReactNode }) {
   // University pages ship without `lang` (scenario global-html-lang-001, handled by HtmlLang).
@@ -35,7 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         {!lab && <HtmlLang />}
         {children}
-        {!standalone && <PopeTechWidget />}
+        {!standalone && !CHALLENGE_PAGES.includes(path) && <PopeTechWidget />}
         <ScrollRestoration />
         <Scripts />
       </body>

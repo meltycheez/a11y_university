@@ -3,6 +3,7 @@
 import { a11yStore, toggleFor, type Category } from "~/a11y/state";
 import { createStore, hash } from "~/lib/interactive";
 import { challengeById, type ChallengeId } from "./challenges";
+import { isBlockedName } from "./names";
 import * as board from "./leaderboard";
 
 export const FIX_PENALTY = 150;
@@ -61,18 +62,20 @@ const onPointer = (e: PointerEvent) => {
   if (run && e.pointerType === "mouse" && (e.target as Element | null)?.closest?.("main")) patchRun({ mouse: run.mouse + 1 });
 };
 
-export type StartError = "handle" | "attempts";
+export type StartError = "handle" | "name" | "attempts";
 
 /** Whether `handle` may start `id`, without using an attempt (the name step of the challenge bar). */
 export function checkStart(id: ChallengeId, handle: string): StartError | null {
   const name = handle.trim();
   if (!name) return "handle";
+  if (isBlockedName(name)) return "name";
   return board.attemptsUsed(name, id) >= board.MAX_ATTEMPTS ? "attempts" : null;
 }
 
 export function startRun(id: ChallengeId, handle: string, { compare = false } = {}): StartError | null {
   const name = handle.trim().slice(0, 24);
   if (!name) return "handle";
+  if (isBlockedName(name)) return "name";
   if (compare) a11yStore.fixAll(); // the comparison run: every issue fixed, no attempt used
   else if (!board.startAttempt(name, id)) return "attempts";
   else a11yStore.resetAll(); // every scored run starts with every defect on (before the run exists, so it's free)
@@ -148,5 +151,12 @@ export function retryWithFixes(id: ChallengeId) {
 }
 
 export const isRunning = (id: ChallengeId) => ctfStore.get().run?.id === id;
+
+/**
+ * Plan 14 §5a: a challenge page's task done without a run (the player skipped Start the Challenge) says so, rather
+ * than finishing silently. Empty while the challenge is running.
+ */
+export const notRunningNote = (id: ChallengeId) =>
+  isRunning(id) ? "" : "This didn't count for the Pope Tech Challenge because the challenge isn't running. To play, start it from the challenge bar at the top of the page.";
 
 export const dismissResult = () => patch({ result: null });

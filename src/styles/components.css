@@ -188,7 +188,10 @@ a.ctf-btn { display: inline-flex; align-items: center; text-decoration: none; }
 .ctf-dock p { margin: 0 0 0.5rem; }
 .ctf-dock-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
 .ctf-dock-title { margin: 0; font: 700 0.9rem/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; color: #123342; }
-.ctf-dock .ctf-btn { min-height: 2rem; padding: 0.25rem 0.6rem; font-size: 0.8rem; }
+/* 44px targets: head pointer players click by dwelling or a facial expression (plan 14 §5f). */
+.ctf-dock .ctf-btn { min-height: 2.75rem; padding: 0.25rem 0.75rem; font-size: 0.85rem; }
+.ctf-dock summary { box-sizing: border-box; min-height: 2.75rem; padding-block: 0.7rem; }
+.ctf-dock-section { margin: 0.5rem 0; padding: 0 0.75rem 0.25rem; background: #fff; border: 1px solid #c9d2da; border-radius: 8px; }
 .ctf-dock-head + div { margin-top: 0.5rem; }
 .ctf-dock--closed { width: auto; }
 @media (min-width: 48.01rem) { body.ctf-docked { padding-right: 20rem; } }

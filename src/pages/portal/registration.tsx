@@ -13,7 +13,7 @@ import courses from "~/data/generated/courses.json";
 import portal from "~/data/generated/portal.json";
 import type { Course, CourseSection, PortalStudent, Term } from "~/data/types";
 import { ChallengeBanner } from "~/ctf/ChallengeBanner";
-import { isRunning, revealFlag } from "~/ctf/store";
+import { isRunning, notRunningNote, revealFlag } from "~/ctf/store";
 import { createStore, latency } from "~/lib/interactive";
 import { PortalPage, erpDate, time12 } from "./_PortalPage";
 
@@ -48,7 +48,9 @@ const EMPTY = {
   /** CRNs in the order they were first added since the cart was last empty (the CTF checks ENGL came first). */
   added: [] as string[],
   registered: [] as { crn: string; status: "registered" | "waitlisted" }[],
-  results: null as { term: Term; items: Result[]; ctfNote?: string } | null,
+  results: null as { term: Term; items: Result[] } | null,
+  /** Challenge feedback after Register, shown under the cart where the player is (plan 14 §5a-2). */
+  ctfNote: "",
 };
 const regStore = createStore(EMPTY);
 
@@ -98,6 +100,7 @@ export default function RegistrationPage() {
   const dismissToast = useCallback(() => setToast(null), []);
   const cartHeading = useRef<HTMLHeadingElement>(null);
   const resultsHeading = useRef<HTMLHeadingElement>(null);
+  const ctfNoteRef = useRef<HTMLParagraphElement>(null);
   const focusFixed = useScenario("portal-reg-cart-focus-001");
   const restoreFixed = useScenario("portal-reg-processing-restore-001");
   useScenario("portal-reg-layout-reflow-001");
@@ -116,20 +119,20 @@ export default function RegistrationPage() {
   };
   const add = (s: Sec) => {
     regStore.set((st) => ({
-      ...st, cart: st.cart.includes(s.crn) ? st.cart : [...st.cart, s.crn],
+      ...st, ctfNote: "", cart: st.cart.includes(s.crn) ? st.cart : [...st.cart, s.crn],
       added: st.cart.length === 0 ? [s.crn] : st.added.includes(s.crn) ? st.added : [...st.added, s.crn],
     }));
     cartChanged(`${s.code}-${s.section} added to your ${s.term} cart.`);
   };
   const remove = (s: Sec) => {
-    regStore.set((st) => ({ ...st, cart: st.cart.filter((c) => c !== s.crn) }));
+    regStore.set((st) => ({ ...st, ctfNote: "", cart: st.cart.filter((c) => c !== s.crn) }));
     cartChanged(`${s.code}-${s.section} removed from your cart.`);
   };
   const reorder = (from: number, to: number) => {
     if (from === to || to < 0 || to >= cart.length) return;
     const order = cart.map((s) => s.crn);
     order.splice(to, 0, ...order.splice(from, 1));
-    regStore.set((st) => ({ ...st, cart: [...st.cart.filter((c) => !order.includes(c)), ...order] }));
+    regStore.set((st) => ({ ...st, ctfNote: "", cart: [...st.cart.filter((c) => !order.includes(c)), ...order] }));
   };
   const register = async () => {
     setProcessing(true);
@@ -145,16 +148,17 @@ export default function RegistrationPage() {
           ? "Nothing was registered. Your cart needs exactly the two classes in the instructions, in priority order: MATH 101-02 first, then ENGL 111-01."
           : null;
       if (hold) {
-        regStore.set((st) => ({ ...st, results: { term, items: [], ctfNote: hold } }));
+        // Nothing was processed, so this is challenge feedback, not the site's results: focus it where it shows.
+        regStore.set((st) => ({ ...st, ctfNote: hold }));
         setProcessing(false);
-        setFinished((n) => n + 1);
+        setTimeout(() => ctfNoteRef.current?.focus());
         return;
       }
     }
     const items = runRegistration(cart, enrolled, d.maxCredits);
     const kept = items.filter((r) => r.status !== "error");
-    let ctfNote: string | undefined;
-    if (isRunning("registration-voice")) {
+    let ctfNote = notRunningNote("registration-voice");
+    if (!ctfNote) {
       if (items.every((r) => r.status === "registered")) revealFlag("registration-voice", CTF_ORDER); // the challenge bar shows the results
       else ctfNote = "Challenge not complete yet: both classes need to register without a conflict or waitlist.";
     }
@@ -162,7 +166,8 @@ export default function RegistrationPage() {
       ...st,
       cart: st.cart.filter((c) => !kept.some((r) => r.crn === c)),
       registered: [...st.registered, ...kept.map((r) => ({ crn: r.crn, status: r.status as "registered" | "waitlisted" }))],
-      results: { term, items, ctfNote },
+      results: { term, items },
+      ctfNote,
     }));
     setProcessing(false);
     setFinished((n) => n + 1);
@@ -200,6 +205,7 @@ export default function RegistrationPage() {
         <Cart
           term={term} cart={cart} enrolled={enrolled} max={d.maxCredits} sections={d.sections} headingRef={cartHeading}
           processing={processing} onAdd={add} onRemove={remove} onReorder={reorder} onRegister={register}
+          ctfNote={store.ctfNote} ctfNoteRef={ctfNoteRef}
         />
         <div className="rg-main">
           <Tabs
@@ -228,9 +234,10 @@ interface CartProps {
   term: Term; cart: Sec[]; enrolled: Sec[]; max: number; sections: Sec[]; processing: boolean;
   headingRef: React.RefObject<HTMLHeadingElement | null>;
   onAdd: (s: Sec) => void; onRemove: (s: Sec) => void; onReorder: (from: number, to: number) => void; onRegister: () => void;
+  ctfNote: string; ctfNoteRef: React.RefObject<HTMLParagraphElement | null>;
 }
 
-function Cart({ term, cart, enrolled, max, sections, processing, headingRef, onAdd, onRemove, onReorder, onRegister }: CartProps) {
+function Cart({ term, cart, enrolled, max, sections, processing, headingRef, onAdd, onRemove, onReorder, onRegister, ctfNote, ctfNoteRef }: CartProps) {
   const headingFixed = useScenario("portal-reg-cart-heading-skip-001");
   const dragFixed = useScenario("portal-reg-drag-001");
   const colorFixed = useScenario("portal-reg-conflict-color-001");
@@ -334,6 +341,8 @@ function Cart({ term, cart, enrolled, max, sections, processing, headingRef, onA
           )}
         </div>
       )}
+      {/* Challenge feedback, not part of the site: always present so role="alert" announces it. */}
+      <p ref={ctfNoteRef} className="rg-error rg-ctf-note" role="alert" tabIndex={-1}>{ctfNote}</p>
       <QuickAdd term={term} sections={sections} onAdd={onAdd} />
       <p className="rg-cart-note">Credit totals include classes you are already enrolled in. Registering for more than {max} credits requires approval from your college dean.</p>
     </section>
@@ -585,7 +594,7 @@ function CurrentSchedule({ term, enrolled, waitlisted }: { term: Term; enrolled:
   );
 }
 
-function Results({ results, byCrn, headingRef }: { results: { term: Term; items: Result[]; ctfNote?: string } | null; byCrn: Map<string, Sec>; headingRef: React.RefObject<HTMLHeadingElement | null> }) {
+function Results({ results, byCrn, headingRef }: { results: { term: Term; items: Result[] } | null; byCrn: Map<string, Sec>; headingRef: React.RefObject<HTMLHeadingElement | null> }) {
   const altFixed = useScenario("portal-reg-result-icon-alt-001");
   return (
     <div className="rg-results" data-a11y-scenario="portal-reg-result-icon-alt-001">
@@ -611,8 +620,6 @@ function Results({ results, byCrn, headingRef }: { results: { term: Term; items:
               </tbody>
             </table>
           </div>}
-          {/* Challenge feedback, not part of the site: always announced. */}
-          {results.ctfNote && <p className="rg-error" role="alert">{results.ctfNote}</p>}
           {results.items.length > 0 && <p>Registered and waitlisted classes appear under Current Schedule and on your <Link to="/portal/schedule">class schedule</Link> after the nightly update.</p>}
         </section>
       )}

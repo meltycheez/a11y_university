@@ -22,6 +22,20 @@ async function start(page: Page, handle: string) {
   await expect(bar(page).getByRole("heading", { name: "Challenge running" })).toBeFocused();
 }
 
+/**
+ * Challenge pages have no Accessibility Lab button (plan 14 §5c), so turn Fix All on from the home page and follow
+ * the widget's own link there: fix state lasts across in-app navigation, not reloads.
+ */
+async function fixAllThenGo(page: Page, path: string) {
+  await page.goto("/");
+  await widget(page).click();
+  await panel(page).getByRole("button", { name: "Fix All" }).click();
+  if (path === "/") { await widget(page).click(); return; }
+  await panel(page).getByRole("tab", { name: "Challenges" }).click();
+  await panel(page).locator(`a[href$="${path}"]`).click();
+  await expect(page).toHaveURL(new RegExp(`${path}$`));
+}
+
 /** Axe on the widget (or a dialog it opened) only: the pages around it are defective on purpose. */
 async function widgetViolations(page: Page, selector = ".a11y-control") {
   const results = await new AxeBuilder({ page }).include(selector).analyze();
@@ -83,8 +97,8 @@ test("a Fix switch mid-run costs points; the leaderboard survives a reload while
   await page.goto("/campus-map");
   await start(page, "e2e-eyes");
   await expect(bar(page).getByText("Score: 500 points")).toBeVisible();
-  await widget(page).click();
-  await panel(page).getByRole("switch", { name: "Fix Errors" }).click();
+  await expect(widget(page)).toHaveCount(0); // challenge pages have no Accessibility Lab button (plan 14 §5c)
+  await bar(page).getByRole("switch", { name: "Fix Errors" }).click();
   await expect(bar(page).getByText("Score: 350 points")).toBeVisible();
 
   await page.locator("#cmap-checkin-code").fill("7731");
@@ -103,7 +117,7 @@ test("a Fix switch mid-run costs points; the leaderboard survives a reload while
   await page.keyboard.press("Escape");
   await expect(page).toHaveURL(/\/campus-map$/);
 
-  await page.reload();
+  await page.goto("/"); // a fresh load: every fix resets, the leaderboard stays
   await widget(page).click();
   for (const name of ["Fix Errors", "Fix Alerts", "Fix Manual Testing Issues"])
     await expect(panel(page).getByRole("switch", { name })).toHaveAttribute("aria-checked", "false");
@@ -157,14 +171,53 @@ test("the widget, the challenge bar and their modals have no axe violations", as
 // widget, the challenge bar and their modals must not leave a single unnamed button anywhere in the DOM.
 test("with Fix All on, no button anywhere in the DOM is unnamed (what WAVE checks)", async ({ page }) => {
   for (const path of ["/", "/admissions/request-info", "/admissions/apply", "/portal/registration", "/campus-map"]) {
-    await page.goto(path);
-    await widget(page).click();
-    await panel(page).getByRole("button", { name: "Fix All" }).click();
-    await widget(page).click();
+    await fixAllThenGo(page, path);
     const unnamed = await page.evaluate(() => [...document.querySelectorAll("button, [role=button], input[type=button], input[type=submit]")]
       .filter((el) => !(el.textContent ?? "").trim() && !el.getAttribute("aria-label") && !el.getAttribute("aria-labelledby") && !el.getAttribute("title")
         && ![...el.querySelectorAll("img[alt]")].some((i) => (i as HTMLImageElement).alt.trim()))
       .map((el) => el.outerHTML.slice(0, 120)));
     expect(unnamed, path).toEqual([]);
   }
+});
+
+test("the Accessibility Lab button is on the rest of the site but not on challenge pages (plan 14 §5c)", async ({ page }) => {
+  await page.goto("/");
+  await expect(widget(page)).toBeVisible();
+  for (const path of ["/admissions/request-info", "/admissions/apply", "/portal/registration", "/campus-map"]) {
+    await page.goto(path);
+    await expect(bar(page)).toBeVisible();
+    await expect(widget(page)).toHaveCount(0);
+  }
+});
+
+test("Class Registration: a cart that doesn't count says so right under the cart, in view (plan 14 §5a-2)", async ({ page }) => {
+  await page.goto("/portal/registration");
+  await start(page, "e2e-reg");
+  for (const crn of ["44458", "43099"]) { await page.locator("#rg-crn").fill(crn); await page.locator("#rg-crn").press("Enter"); }
+  await page.getByRole("button", { name: "Submit enrollment request" }).click();
+  await page.locator(".rg-confirm-icon").first().click(); // the unnamed check mark
+  const note = page.locator(".rg-ctf-note");
+  await expect(note).toHaveText(/^Nothing was registered\. Add ENGL 111-01 to your cart first/);
+  await expect(note).toBeFocused();
+  await expect(note).toBeInViewport();
+});
+
+test("Campus Map: the side panel follows the head pointer design, with 44px targets (plan 14 §5f)", async ({ page }) => {
+  await page.goto("/campus-map");
+  await bar(page).getByRole("button", { name: "Start Challenge", exact: true }).click();
+  await bar(page).getByLabel("Your name").fill("e2e-hp");
+  await bar(page).getByLabel("Your name").press("Enter");
+  await expect(bar(page).getByRole("table")).toHaveCount(0); // the actions table is collapsed
+  await bar(page).locator("summary", { hasText: "Head pointer actions for this challenge" }).click();
+  await expect(bar(page).getByRole("rowheader", { name: "Recalibrate" })).toBeVisible();
+  await start(page, "e2e-hp");
+  const dock = page.getByRole("region", { name: "Campus Map Instructions" });
+  await expect(dock.getByRole("heading", { name: "Your task" })).toBeVisible();
+  await expect(dock.locator("ol li")).toHaveText(["Find Hawthorne Observatory on the campus map.", "Enter the after-hours code in the Check in text field."]);
+  await expect(dock.getByText("Raise your eyebrows.")).toBeVisible(); // Head pointer actions starts open
+  await expect(dock.getByText("Type with the on-screen keyboard")).toBeHidden(); // Setup reminders starts closed
+  await expect(dock.getByText("Don't reload the page.")).toBeVisible();
+  for (const el of [dock.getByRole("button", { name: /Hide/ }), dock.locator("summary").first(), dock.locator("summary").last()])
+    expect((await el.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+  expect(await widgetViolations(page, ".ctf-dock"), "map side panel").toEqual([]);
 });

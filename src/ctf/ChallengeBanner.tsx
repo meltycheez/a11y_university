@@ -7,7 +7,7 @@ import { createPortal } from "react-dom";
 import { Link } from "react-router";
 import { FixControls } from "~/a11y/PopeTechWidget";
 import { Modal } from "~/components/Modal";
-import { challengeById, type Challenge, type ChallengeId } from "./challenges";
+import { challengeById, type Challenge, type ChallengeId, type SetupSection } from "./challenges";
 import { LeaderboardButton, Scoring } from "./ChallengesPanel";
 import { useConfirm } from "./ConfirmDialog";
 import * as board from "./leaderboard";
@@ -18,7 +18,6 @@ import {
 
 /** "Screen reader" → "screen reader", for "your screen reader" in running text. */
 const lower = (t: string) => t[0].toLowerCase() + t.slice(1);
-const RELOAD = "Reloading the page ends the run and uses up the attempt.";
 
 const pts = (n: number) => `${n > 0 ? "+" : n < 0 ? "−" : ""}${Math.abs(n)}`;
 
@@ -116,14 +115,15 @@ export function ChallengeBanner({ id, onReset }: { id: ChallengeId; onReset?: ()
       <p className="ctf-brief">{c.brief}</p>
       <AdvancedLink challenge={c} />
       <Rules challenge={c} />
-      <Setup challenge={c} open />
+      <Setup title={c.setupTitle} sections={c.setup} open />
+      {c.moreSetup && <Setup title={c.moreSetup.title} sections={c.moreSetup.sections} />}
       <Scoring />
       <div className="ctf-before" id={`${titleId}-before`}>
         <h3 className="ctf-h4">Before you start</h3>
         <ul>
           {c.beforeStart && <li>{c.beforeStart}</li>}
           <li>Starting uses 1 of your {board.MAX_ATTEMPTS} attempts and turns off any Fix switches.</li>
-          <li>During the challenge, the bar on this page lets you get hints, fixes or highlights for points. The instructions stay pinned to the side of the screen.</li>
+          <li>During the challenge, the bar on this page lets you get hints, fixes or highlights for points. {c.panelLabel ?? "The instructions"} stay pinned to the side of the screen.</li>
         </ul>
       </div>
       <div className="ctf-actions ctf-start-go">
@@ -151,7 +151,7 @@ export function ChallengeBanner({ id, onReset }: { id: ChallengeId; onReset?: ()
 /** Allowed / not allowed / costs points, as chips, with the full explanations one click away. */
 function Rules({ challenge: c }: { challenge: Challenge }) {
   const costs = [
-    { label: `Fix switches −${FIX_PENALTY}`, detail: `The Fix switches (in this bar once you start, and in the Accessibility Lab widget) remove this page's accessibility issues, one category at a time: errors, alerts or manual testing issues. Turning one on during a run costs ${FIX_PENALTY} points the first time. Fix All turns on all three, so it costs ${FIX_PENALTY * 3}. Turning a fix off again is free.` },
+    { label: `Fix switches −${FIX_PENALTY}`, detail: `The Fix switches (in this bar once you start) remove this page's accessibility issues, one category at a time: errors, alerts or manual testing issues. Turning one on during a run costs ${FIX_PENALTY} points the first time. Fix All turns on all three, so it costs ${FIX_PENALTY * 3}. Turning a fix off again is free.` },
     { label: `Highlights −${HIGHLIGHT_PENALTY}`, detail: `Each Fix switch has a Highlight checkbox that outlines that category's issues on the page, so you can see where they are. Turning one on during a run costs ${HIGHLIGHT_PENALTY} points the first time. A fixed category has nothing left to highlight.` },
     { label: `Hints −${HINT_COSTS.join(", −")}`, detail: `There are ${c.hints.length} hints. They cost ${HINT_COSTS.join(", then ")} points.` },
     ...(c.reveal ? [{ label: `${c.reveal} −${REVEAL_PENALTY}`, detail: `The ${c.reveal} button in this bar brings the faded-out page back for the rest of the run. It costs ${REVEAL_PENALTY} points, once.` }] : []),
@@ -187,15 +187,17 @@ function Rules({ challenge: c }: { challenge: Challenge }) {
 }
 
 /** Setting up the challenge's assistive technology, with links to help. Open before a run, collapsed during one. */
-function Setup({ challenge: c, open }: { challenge: Challenge; open?: boolean }) {
+function Setup({ title, sections, open }: { title: string; sections: SetupSection[]; open?: boolean }) {
   return (
     <details className="ctf-rules-more ctf-setup" open={open}>
-      <summary>{c.setupTitle}</summary>
-      {c.setup.map((s, i) => (
+      <summary>{title}</summary>
+      {sections.map((s, i) => (
         <div key={s.heading ?? i}>
           {s.heading && <h4 className="ctf-h4">{s.heading}</h4>}
           {s.text && <p>{s.text}</p>}
-          {s.items && <ul className="ctf-instructions">{s.items.map((t) => <li key={t}>{t}</li>)}</ul>}
+          {s.items && (s.ordered
+            ? <ol className="ctf-instructions">{s.items.map((t) => <li key={t}>{t}</li>)}</ol>
+            : <ul className="ctf-instructions">{s.items.map((t) => <li key={t}>{t}</li>)}</ul>)}
           {s.rows && (
             <table className="ctf-table ctf-setup-table">
               <thead><tr>{s.columns!.map((h) => <th key={h} scope="col">{h}</th>)}</tr></thead>
@@ -226,6 +228,7 @@ function AdvancedLink({ challenge: c }: { challenge: Challenge }) {
 
 const startErrors: Record<StartError, (h: string) => string> = {
   handle: () => "Enter your name to start.",
+  name: () => "Please choose a different name.",
   attempts: (h) => `No attempts left for ${h.trim()} on this challenge.`,
 };
 
@@ -343,12 +346,21 @@ function Dock({ challenge: c }: { challenge: Challenge }) {
       </div>
       <div id={`${id}-body`} hidden={!open}>
         {!run.compare && <p className="ctf-meta">Score: {liveScore(run)} points</p>}
-        <ul className="ctf-instructions">
-          {c.panelNotes.map((n) => <li key={n}>{n}</li>)}
-          {!run.compare && <li>{RELOAD}</li>}
-        </ul>
+        {c.panelSteps && <>
+          <h3 className="ctf-h4">Your task</h3>
+          <ol className="ctf-instructions">{c.panelSteps.map((n) => <li key={n}>{n}</li>)}</ol>
+        </>}
+        {c.panelNotes.length > 0 && <ul className="ctf-instructions">{c.panelNotes.map((n) => <li key={n}>{n}</li>)}</ul>}
+        {c.panelSections?.map((g) => (
+          <details key={g.title} className="ctf-rules-more ctf-dock-section" open={g.open}>
+            <summary>{g.title}</summary>
+            {g.note && <p className="ctf-meta">{g.note}</p>}
+            <dl className="ctf-rule-list">{g.rows.map(([t, d]) => <div key={t}><dt>{t}</dt><dd>{d}</dd></div>)}</dl>
+          </details>
+        ))}
         {run.hints > 0 && <ol className="ctf-hints" aria-label="Hints">{c.hints.slice(0, run.hints).map((h) => <li key={h}>{h}</li>)}</ol>}
         <p><strong>Need help?</strong> {help} {run.compare ? "They're free in this run." : "Each one costs points."}</p>
+        {!run.compare && <p><strong>Don't reload the page.</strong> It ends the run and uses up the attempt.</p>}
       </div>
     </section>,
     document.body,

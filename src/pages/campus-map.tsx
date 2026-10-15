@@ -9,7 +9,7 @@ import { useScenario } from "~/a11y/useScenario";
 import { Hero } from "~/components/Hero";
 import { Img } from "~/components/Img";
 import { ChallengeBanner } from "~/ctf/ChallengeBanner";
-import { ctfStore, revealFlag } from "~/ctf/store";
+import { ctfStore, notRunningNote, revealFlag } from "~/ctf/store";
 import { pageContent } from "~/data/content/pages";
 import {
   ADDRESS, MAP_H, MAP_W, buildings, categories, doorPoint, entrances, lots, permits, rectPath,
@@ -184,8 +184,9 @@ function CheckIn({ value, setValue }: { value: string; setValue: (v: string) => 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (value.replace(/\D/g, "") !== OBSERVATORY_CODE) { setMessage("That code doesn't match. The after-hours code is in Hawthorne Observatory's details: select it on the map or search for OBS."); return; }
-    const flag = revealFlag("map-eyes", [OBSERVATORY_CODE]);
-    setMessage(flag ? "Checked in at Hawthorne Observatory." : "Checked in at Hawthorne Observatory. Clear skies!");
+    const note = notRunningNote("map-eyes");
+    revealFlag("map-eyes", [OBSERVATORY_CODE]);
+    setMessage(`Checked in at Hawthorne Observatory.${note ? ` ${note}` : ""}`);
   };
   return (
     <form className="cmap-checkin" onSubmit={submit} noValidate>

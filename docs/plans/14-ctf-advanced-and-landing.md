@@ -1,6 +1,6 @@
 # Plan 14: Advanced challenge views, error summaries, /ctf landing page
 
-Status: Parts 1 to 4 done and deployed (9d9783f, plus Jay's new Platform and Canvas demo links on /start). Part 5 (round 4) proposed.
+Status: Parts 1 to 4 done and deployed (9d9783f, plus Jay's new Platform and Canvas demo links on /start). Part 5 (round 4) done: 5a, 5a-2, 5c, 5e and 5f built; 5b no change; 5d deferred.
 
 Source: Whitney's playtest feedback (Oct 15, 2026) and her design canvas "Pope Tech Advanced Challenge Views" (9 boards).
 
@@ -87,6 +87,21 @@ This is the most likely cause of three of her notes: "added the access code but 
 - **Fix, on all four pages:** when the task finishes and that challenge isn't running, the page's own message adds: "This didn't count for the Pope Tech Challenge because it hasn't started. Select **Start the Challenge** in the challenge bar at the top of the page to play." It's one check in each page's existing finish handler, using `ctfStore`'s current run.
 - **Also:** put the Start the Challenge button above the long instructions too? **Default: no**, the design puts it at the bottom on purpose (after Before you start). The message above covers it.
 - **Ask Whitney:** which challenge she did with a mouse to get to the comparison run, so I can confirm this was the cause. Every page does show a message when a submit fails during a run (checked: Request Information "Challenge not complete yet: check …", the application's field errors, Campus Map "That code doesn't match…").
+
+**Whitney confirmed:** on Campus Map she never selected Start the Challenge.
+
+### 5a-2. Class Registration: "it won't go through" (confirmed)
+
+Whitney did the Class Registration run with a mouse. Her classes were in the right final order, and she selected Register, then the checkmark. Nothing happened that she could see.
+
+I reproduced it on the live site:
+- **The cause:** adding MATH first and then ENGL gives the final order straight away, but the challenge requires ENGL to be added first (the "must reorder" rule). The page holds the registration and writes "Nothing was registered. Add ENGL 111-01 to your cart first…".
+- **Why she didn't see it:** that message renders in Registration Results, about 4,000px below the cart, while the page stays scrolled at the cart. Focus also drops to the top of the page (the page's defective focus handling), so screen readers don't land on it either.
+
+Fix:
+- **Show the challenge message where the player is:** a `role="alert"` note directly under the cart's Submit enrollment request button, for both "Nothing was registered" messages and "Challenge not complete yet". It's challenge feedback, not part of the site, so it shows in scored and comparison runs alike. The copy in Registration Results is removed so there's only one.
+- **Make the rule clearer up front:** the brief and side panel already say "ENGL first, then MATH, then reorder". Add "Adding them in the final order won't count." to the side panel bullet.
+- **Test:** an e2e test (MATH first, then Register and the checkmark) checks that the note is in the viewport.
 
 ### 5b. End comparison run said it would use an attempt
 

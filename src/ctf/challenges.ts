@@ -19,8 +19,14 @@ export interface Challenge {
   brief: string;
   /** The task in one line, shown in the bar during a run. */
   task: string;
-  /** The pinned side panel's list during a run: the task in detail and anything to know. The reload line is added for every challenge. */
+  /** The pinned side panel's list during a run: the task in detail and anything to know. */
   panelNotes: string[];
+  /** The side panel's numbered "Your task" steps, for a challenge that lists them (plan 14 §5f). */
+  panelSteps?: string[];
+  /** Collapsible term / description groups in the side panel, after the task; `open` ones start expanded. */
+  panelSections?: { title: string; open?: boolean; note?: string; rows: [string, string][] }[];
+  /** What the side panel holds, for "Before you start": e.g. "Your task and the head pointer actions". */
+  panelLabel?: string;
   /** First "Before you start" bullet: what happens to the page when the run starts, if anything. */
   beforeStart?: string;
   /** Label of the paid button that shows a faded-out page again. */
@@ -33,6 +39,8 @@ export interface Challenge {
   setupTitle: string;
   /** Suggested settings, commands and help, for anyone playing outside a staffed event. */
   setup: SetupSection[];
+  /** A second, collapsed reference section after setup, e.g. the head pointer actions table. */
+  moreSetup?: { title: string; sections: SetupSection[] };
   /** Count mouse clicks inside <main> (informational "no mouse" badge). Off for head pointer, which is a pointer. */
   trackMouse: boolean;
   /** Lazy ?raw imports for the source viewer: [label, loader]. */
@@ -43,9 +51,19 @@ export interface Rule { label: string; detail: string }
 /** One setup group: a paragraph (`text`), a list (`items`), a two-column table (`columns` and `rows`) and/or links. */
 export interface SetupSection {
   heading?: string; text?: string; items?: string[]; columns?: [string, string]; rows?: [string, string][];
+  /** Show `items` as numbered steps. */
+  ordered?: boolean;
   /** Open in a new tab; `note` follows the link, e.g. "(YouTube)". */
   links?: { label: string; href: string; note?: string }[];
 }
+
+// Suggested facial expressions for Head Pointer's Alternate pointer actions: the setup table and the side panel.
+const headActions: [string, string][] = [
+  ["Left click", "Raise your eyebrows."],
+  ["Drag and drop", "Stick out your tongue to grab, then move your head to move what you're selecting in that direction."],
+  ["Scroll", "Point at the scroll bar, stick out your tongue, move your head, then stick out your tongue again."],
+  ["Recalibrate", "Smile."],
+];
 
 // Same for every challenge.
 const noDevTools: Rule = { label: "Source code", detail: "No browser developer tools, View Source or page inspection during a run. The challenge source viewer is hidden while a run is going; read it before you start or after you finish." };
@@ -112,7 +130,7 @@ export const challenges: Challenge[] = [
     timeLimitMin: 5,
     brief: "Use only your voice to add two classes to your cart, put them in priority order and register. The challenge is complete when both classes register. It takes about 5 minutes.",
     task: "Add ENGL 111-01 (CRN 43099), then MATH 101-02 (CRN 44458). Put MATH first, then register.",
-    panelNotes: ["Add ENGL 111-01 (CRN 43099) first, then MATH 101-02 (CRN 44458). Then reorder the cart so MATH is first, and register.", "Hands off the keyboard and mouse: say every action. \"Show numbers\" and \"Show grid\" help when a name doesn't work."],
+    panelNotes: ["Add ENGL 111-01 (CRN 43099) first, then MATH 101-02 (CRN 44458). Then reorder the cart so MATH is first, and register. Adding them in the final order won't count.", "Hands off the keyboard and mouse: say every action. \"Show numbers\" and \"Show grid\" help when a name doesn't work."],
     allowed: [
       { label: "Voice commands", detail: "Voice Control, Dragon, Windows Voice Access or Android Voice Access, with any of their commands." },
       { label: "Numbers and grids", detail: "\"Show numbers\", \"Show names\", \"Show grid\" and MouseGrid are all fine, including grid-based clicks and drags." },
@@ -168,7 +186,17 @@ export const challenges: Challenge[] = [
     timeLimitMin: 5,
     brief: "Use only Head Pointer to find Hawthorne Observatory on the campus map and check in with its after-hours code. The challenge is complete when you check in. It takes about 5 minutes.",
     task: "Find Hawthorne Observatory (search for OBS), then type its after-hours code into the check-in box below the map.",
-    panelNotes: ["Find Hawthorne Observatory (search for OBS, or pan the map to it). Select it to see its after-hours code, then type the code into the check-in box below the map.", "Raise your eyebrows to click, stick out your tongue to drag and drop (also to scroll: grab the scroll bar), and smile to recalibrate."],
+    panelNotes: [],
+    panelSteps: ["Find Hawthorne Observatory on the campus map.", "Enter the after-hours code in the Check in text field."],
+    panelSections: [
+      { title: "Head pointer actions", open: true, rows: headActions,
+        note: "These only work after you turn on Alternate pointer actions and assign each one in Pointer Control (see Setup reminders below). These are suggestions, so you can pick other expressions." },
+      { title: "Setup reminders", rows: [
+        ["Change your actions", "System Settings → Accessibility → Pointer Control → Alternate pointer actions."],
+        ["Type with the on-screen keyboard", "System Settings → Accessibility → Keyboard → turn on Accessibility Keyboard."],
+      ] },
+    ],
+    panelLabel: "Your task and the head pointer actions",
     allowed: [
       { label: "Head or gaze pointing", detail: "Point with Head Pointer (or an eye tracker) and click with a facial expression, dwell or your tracker's switch." },
       { label: "Pointer tools", detail: "Your pointer software's click, drag and scroll actions, such as Alternate pointer actions on a Mac or the Windows Eye Control launchpad." },
@@ -186,24 +214,22 @@ export const challenges: Challenge[] = [
       "Once the observatory is selected, its details open in the panel next to the map, with the after-hours code under Hours. Pointing at it on the map shows the code in a tooltip too, but that closes if the pointer drifts.",
       "The check-in box is below the map. To scroll, point at the scroll bar, use your drag-and-drop expression, move your head down, and use it again to let go.",
     ],
-    setupTitle: "Set up Head Pointer",
+    setupTitle: "Set up Head Pointer on Mac",
     setup: [
-      { heading: "Turn on Head Pointer (Mac)", items: [
-        "System Settings → Accessibility → Pointer Control → turn on Head pointer.",
-        "Head pointer options: Pointer moves \"When facing screen edges\", Pointer speed 70, Distance to edge 15.",
-        "Accessibility → Keyboard → turn on Accessibility Keyboard, for typing.",
+      { ordered: true, items: [
+        "Go to System Settings → Accessibility → Pointer Control and turn on Head pointer.",
+        "In Head pointer options, set Pointer moves to \"When facing screen edges\", Pointer speed to 70 and Distance to edge to 15.",
+        "Go to Accessibility → Keyboard and turn on Accessibility Keyboard, so you can type.",
+        "In Pointer Control, turn on Alternate pointer actions and assign a facial expression to each action. Suggested expressions are in \"Head pointer actions for this challenge\" below.",
       ] },
-      { heading: "Alternate pointer actions (Mac)", items: [
-        "Pointer Control → turn on Alternate pointer actions and assign a facial expression to each action.",
-        "Left click: raise eyebrows.",
-        "Drag and drop: stick out tongue (once to grab, again to drop).",
-        "Recalibrate: smile.",
-        "To scroll: point at the scroll bar, stick out your tongue, move your head, then stick it out again.",
+      { text: "Using Windows? Use Eye Control or Tobii, with the launchpad's click, drag and scroll tools.", links: [
+        { label: "Microsoft: Eye control basics in Windows", href: "https://support.microsoft.com/en-US/accessibility/windows/eye-control/eye-control-basics-in-windows" },
+        { label: "Apple: Change Pointer Control settings for accessibility on Mac", href: "https://support.apple.com/guide/mac-help/change-pointer-control-settings-accessibility-unac899/mac" },
       ] },
-      { heading: "More help", items: [
-        "Windows Eye Control or Tobii: use the launchpad's click, drag and scroll tools.",
-      ], links: [{ label: "Apple: Change Pointer Control settings for accessibility on Mac", href: "https://support.apple.com/guide/mac-help/change-pointer-control-settings-accessibility-unac899/mac" }] },
     ],
+    moreSetup: { title: "Head pointer actions for this challenge", sections: [
+      { text: "These are suggested facial expressions for Alternate pointer actions on Mac. You can assign different ones in Pointer Control.", columns: ["Action", "Facial expression"], rows: headActions },
+    ] },
     trackMouse: false,
     sources: [
       ["Page: src/pages/campus-map.tsx", () => import("~/pages/campus-map.tsx?raw")],

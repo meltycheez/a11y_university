@@ -41,7 +41,7 @@ export function Scoring() {
       <ul>
         <li>Each challenge starts at 500 points.</li>
         <li>Once you start, you will get options to turn on fixes for errors, alerts and manual testing issues, highlight those issues on the page, show the form again (screen reader challenges) or get a hint. Each one costs points:</li>
-        <li>The Fix switches remove the page's accessibility issues, one category at a time (errors, alerts or manual testing issues). They're in the challenge bar once you start, and in this widget's Fixes tab. Turning one on during a run costs {FIX_PENALTY} points the first time; Fix All turns on all three, so it costs {FIX_PENALTY * 3}.</li>
+        <li>The Fix switches remove the page's accessibility issues, one category at a time (errors, alerts or manual testing issues). They're in the challenge bar once you start. Turning one on during a run costs {FIX_PENALTY} points the first time; Fix All turns on all three, so it costs {FIX_PENALTY * 3}.</li>
         <li>Each Fix switch has a Highlight checkbox that outlines that category's issues on the page. Turning one on during a run costs {HIGHLIGHT_PENALTY} points the first time.</li>
         <li>After you finish, you can replay the challenge with every issue fixed. That comparison run is free and isn't scored.</li>
         <li>Hints cost {HINT_COSTS.join(", then ")} points.</li>

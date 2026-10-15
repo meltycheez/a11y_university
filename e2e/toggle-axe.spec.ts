@@ -70,6 +70,22 @@ const flipFixErrors = async (page: Page, checked: "true" | "false") => {
   await openControl(page);
 };
 
+// Challenge pages have no Accessibility Lab button (plan 14 §5c). Fix state lasts across in-app navigation, so flip
+// it on the home page and come back with the widget's own link (on) or the browser's back and forward (off).
+const CHALLENGE_PAGES = ["/admissions/request-info", "/admissions/apply", "/portal/registration", "/campus-map"];
+const flipViaHome = async (page: Page, path: string, checked: "true" | "false") => {
+  if (checked === "true") await page.goto("/");
+  else await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  await flipFixErrors(page, checked);
+  if (checked === "true") {
+    await openControl(page);
+    await page.getByRole("tab", { name: "Challenges" }).click();
+    await page.locator(`#a11y-control-panel a[href$="${path}"]`).click();
+  } else await page.goForward();
+  await expect(page).toHaveURL(new RegExp(`${path}$`));
+};
+
 for (const { path, nav } of PAGES) {
   test(`toggle diff with axe: ${path}`, async ({ page }) => {
     const expected = expectedAxeRules(path).filter((id) => !(EXCEPTIONS[path] ?? []).includes(id));
@@ -84,11 +100,12 @@ for (const { path, nav } of PAGES) {
     const off = await flaggedIds(page);
     for (const id of expected) expect(off.has(id), `${path}: expected axe finding "${id}" while defective`).toBe(true);
 
-    await flipFixErrors(page, "true");
+    const challenge = CHALLENGE_PAGES.includes(path);
+    if (challenge) await flipViaHome(page, path, "true"); else await flipFixErrors(page, "true");
     const on = await flaggedIds(page);
     for (const id of expected) expect(on.has(id), `${path}: axe finding "${id}" should be fixed`).toBe(false);
 
-    await flipFixErrors(page, "false");
+    if (challenge) await flipViaHome(page, path, "false"); else await flipFixErrors(page, "false");
     const offAgain = await flaggedIds(page);
     for (const id of expected) expect(offAgain.has(id), `${path}: axe finding "${id}" should return`).toBe(true);
 
@@ -96,6 +113,7 @@ for (const { path, nav } of PAGES) {
     await settle();
     const afterReload = await flaggedIds(page);
     for (const id of expected) expect(afterReload.has(id), `${path}: axe finding "${id}" should be back after reload`).toBe(true);
+    if (challenge) return; // no widget here; the axe findings coming back already show the reset
     await openControl(page);
     for (const name of ["Fix Errors", "Fix Alerts", "Fix Manual Testing Issues"]) {
       await expect(page.getByRole("switch", { name }), `${path}: "${name}" should reset to unchecked on reload`).toHaveAttribute("aria-checked", "false");

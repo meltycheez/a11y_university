@@ -127,25 +127,28 @@ describe("voice control CTF", () => {
     const register = async () => {
       fireEvent.click(screen.getByRole("button", { name: "Submit enrollment request" })); // visible text: "Register"
       fireEvent.click(container.querySelector(".rg-confirm-icon")!); // the unnamed check-mark
-      await waitFor(() => expect(container.querySelector("#rg-results-heading")).toBeTruthy(), { timeout: 2000 });
     };
+    // Challenge feedback shows under the cart, where the player is, not in the results far below (plan 14 §5a-2).
+    const cartNote = () => container.querySelector(".rg-ctf-note")!;
     expect(screen.getByRole("button", { name: "Enroll" }).textContent).toBe("Add");
     const cartCodes = () => [...container.querySelectorAll(".rg-cart-item strong")].map((s) => s.textContent);
     const removeFirst = () => fireEvent.click(container.querySelector<HTMLAnchorElement>(".rg-cart-actions a")!);
     // Added in the final order straight away: doesn't count, and nothing is registered (the cart stays to fix).
     quickAdd("44458"); quickAdd("43099");
     await register();
-    await waitFor(() => expect(screen.getByText(/Nothing was registered\. Add ENGL 111-01 to your cart first/)).toBeTruthy(), { timeout: 2000 });
+    await waitFor(() => expect(cartNote().textContent).toMatch(/^Nothing was registered\. Add ENGL 111-01 to your cart first/), { timeout: 2000 });
+    await waitFor(() => expect(document.activeElement).toBe(cartNote()));
     expect(cartCodes()).toEqual(["MATH 101-02", "ENGL 111-01"]);
     // Emptying the cart starts the add order over: ENGL first, then MATH, but not reordered yet.
     removeFirst(); removeFirst();
     quickAdd("43099"); quickAdd("44458");
     await register();
-    await waitFor(() => expect(screen.getByText(/Nothing was registered\. Your cart needs exactly the two classes/)).toBeTruthy(), { timeout: 2000 });
+    await waitFor(() => expect(cartNote().textContent).toMatch(/^Nothing was registered\. Your cart needs exactly the two classes/), { timeout: 2000 });
     expect(cartCodes()).toEqual(["ENGL 111-01", "MATH 101-02"]);
     // Reorder by voice-friendly remove and re-add: ENGL drops below MATH.
     removeFirst(); quickAdd("43099");
     expect(cartCodes()).toEqual(["MATH 101-02", "ENGL 111-01"]);
+    expect(cartNote().textContent).toBe(""); // changing the cart clears the old note
     await register();
     await waitFor(() => expect(ctfStore.get().result?.flag).toMatch(/^RSU\{registration-voice-[0-9a-f]{8}\}$/), { timeout: 2000 });
     endRun();

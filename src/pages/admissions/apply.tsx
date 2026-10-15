@@ -8,7 +8,7 @@ import { applyScenarios } from "~/a11y/registry/apply";
 import { Hero } from "~/components/Hero";
 import { Dropdown } from "~/components/widgets";
 import { ChallengeBanner } from "~/ctf/ChallengeBanner";
-import { ctfStore, revealFlag } from "~/ctf/store";
+import { ctfStore, notRunningNote, revealFlag } from "~/ctf/store";
 import { useBlindRun } from "~/ctf/useBlindRun";
 import { programs } from "~/data/catalog";
 import { pageContent } from "~/data/content/pages";
@@ -139,6 +139,7 @@ export default function ApplyPage() {
 
   // apply-live-spam-001: a fake autosave every 60 s. Defective: announced assertively every time.
   const [saved, setSaved] = useState("");
+  const [ctfNote, setCtfNote] = useState("");
   useEffect(() => {
     if (app.status !== "editing") return;
     const t = setInterval(() => setSaved(new Date().toLocaleTimeString("en-US")), 60000);
@@ -168,6 +169,7 @@ export default function ApplyPage() {
     store.set((a) => ({ ...a, status: "submitting" }));
     await latency("apply-submit");
     if (fix("submit-status")) moveFocus.current = "heading";
+    setCtfNote(notRunningNote("apply-sr"));
     revealFlag("apply-sr", [data.first, data.last, squash(data.referral)]); // during a run: completes it
     store.set((a) => ({ ...a, status: "submitted", code: confirmationCode(`${a.data.email}|${a.data.major}|${a.data.term}`) }));
   };
@@ -407,6 +409,8 @@ export default function ApplyPage() {
               <section className="apply-done">
                 <h2 ref={heading as React.RefObject<HTMLHeadingElement>} tabIndex={-1}>Application submitted</h2>
                 <p>Thank you, {data.first}. Your application for {data.term} ({pick(MAJORS, data.major)}) has been received.</p>
+                {/* Challenge feedback, not part of the site (plan 14 §5a). */}
+                {ctfNote && <p className="ctf-error" role="alert">{ctfNote}</p>}
                 <p>Confirmation number: <strong className="apply-code">{app.code}</strong></p>
                 <p>Watch your email for your OwlLink portal login within three business days. This is a demonstration site, so nothing was sent.</p>
                 <button type="button" className="btn btn--secondary" onClick={() => store.set(INITIAL)}>Start a new application</button>
