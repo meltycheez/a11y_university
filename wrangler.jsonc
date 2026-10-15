@@ -1,0 +1,9 @@
+{
+  "name": "a11y-university",
+  "compatibility_date": "2026-10-01",
+  // Static prerendered site (react-router ssr: false); no Worker script, just assets.
+  "assets": {
+    "directory": "./build/client",
+    "not_found_handling": "404-page"
+  }
+}
