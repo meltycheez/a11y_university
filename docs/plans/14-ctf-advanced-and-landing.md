@@ -166,3 +166,21 @@ Whitney says not now. **Deferred.** Logged in the feedback sheet as an idea to t
 - e2e: the map side panel's structure, 44px toggles and an axe check.
 - Re-run the round 3 checks (shot14 / probe15), plus a screenshot of each new view next to its board.
 - Feedback sheet: add these rows.
+
+## 6. Error summaries on every form (Chris, Oct 15)
+
+With fixes on, a failed submit shows a summary at the top of the form: "Form errors (N): Select a link to go to the field with the error.", then one "Field name: reason" item per bad field. It takes focus (and is `role="alert"`), each link moves focus into its field (click or Enter), and the bad fields get `aria-invalid`.
+
+- **Shared:** `src/components/ErrorSummary.tsx`. `useErrorSummary()` reads the browser's own checks (`required`, `type="email"`) with `noValidate`, so a form needs only a couple of lines. `focusField` is the link handler, and it finds the control inside a wrapper.
+- **New summaries, each on its existing fix:**
+  - Request Information (`adm-reqinfo-required-color-001`)
+  - Contact (`about-contact-required-color-001`)
+  - Portal profile (`portal-profile-required-color-001`)
+  - Visit dialog (`visit-name-placeholder-001`, which gives the summary real field names)
+  - Event registration (`events-reg-errors-001`, using its own messages)
+- **Existing summaries:** Application, Donate and Financial aid keep their wording, which already names the field. Their links now focus the field instead of only scrolling. Financial aid's fields get `aria-invalid` too.
+- **Left alone:** search forms (nothing to validate) and Library study rooms (one booking message, not field errors).
+- **Checks:**
+  - Unit test (`ErrorSummary.test.tsx`).
+  - e2e (`error-summary.spec.ts`): Request Information and Contact, including axe.
+  - A browser walkthrough of all 8 forms, with focus, every link and axe on each form: 48/48.

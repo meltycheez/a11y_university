@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { Field } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
+import { useErrorSummary } from "~/components/ErrorSummary";
 import { Hero } from "~/components/Hero";
 import { Callout } from "~/components/Callout";
 import { ContactCard } from "~/components/blocks";
@@ -40,8 +41,12 @@ export default function RequestInfo() {
   const [ctfNote, setCtfNote] = useState("");
   const form = useRef<HTMLFormElement>(null);
 
+  const { check, summary, clear } = useErrorSummary();
+
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Fixed: our error summary at the top of the form, instead of the browser's one-at-a-time bubbles (plan 14 §6).
+    if (reqFixed && !check(e.currentTarget)) { setCtfNote(""); return; }
     if (isRunning("reqinfo-sr")) {
       const d = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
       const wrong = [
@@ -54,13 +59,18 @@ export default function RequestInfo() {
     } else setCtfNote(notRunningNote("reqinfo-sr"));
     setSent(true);
   };
-  const reset = () => { form.current?.reset(); setSent(false); setCtfNote(""); };
+  const reset = () => {
+    form.current?.reset();
+    form.current?.querySelectorAll("[aria-invalid]").forEach((el) => el.removeAttribute("aria-invalid"));
+    setSent(false); setCtfNote(""); clear();
+  };
   const req = (label: string) => (reqFixed ? `${label} (required)` : label);
   const reqProps = { className: "is-required", required: reqFixed, "data-a11y-scenario": "adm-reqinfo-required-color-001" };
 
   // Every question starts unanswered: no radio checked, each list on an empty "Select one".
-  const radios = TYPES.map((t) => (
-    <label key={t} className="adm-radio"><input type="radio" name="student-type" value={t} required={reqFixed} /> {t}</label>
+  // The first button has an id so the error summary can link to the group.
+  const radios = TYPES.map((t, i) => (
+    <label key={t} className="adm-radio"><input type="radio" id={i ? undefined : "ri-type"} name="student-type" value={t} required={reqFixed} /> {t}</label>
   ));
   const pick = <option value="">Select one</option>;
 
@@ -76,7 +86,7 @@ export default function RequestInfo() {
           {countdown > 0 && <div className="ctf-countdown" aria-hidden="true">Form hides in <b>{countdown}</b></div>}
           <form
             ref={(el) => { form.current = el; card.current = el; }}
-            className={`adm-form stack ${cardClass}`} onSubmit={submit} noValidate={!reqFixed} data-a11y-scenario="adm-reqinfo-tab-order-001"
+            className={`adm-form stack ${cardClass}`} onSubmit={submit} noValidate data-a11y-scenario="adm-reqinfo-tab-order-001"
             onKeyDown={(e) => {
               if (e.key !== "Tab" || tabFixed) return;
               const to = scrambledTab((e.target as HTMLElement).id, e.shiftKey);
@@ -84,6 +94,7 @@ export default function RequestInfo() {
               if (el) { e.preventDefault(); el.focus(); }
             }}
           >
+            {reqFixed && summary}
             {!reqFixed && <p className="adm-form-note">Fields in red are required.</p>}
             <div className="adm-form-row">
               <Field scenario="adm-reqinfo-name-placeholder-001" defect="placeholder" id="ri-first" name="first" label={req("First name")} autoComplete="given-name" {...reqProps} />

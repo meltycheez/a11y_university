@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useLoaderData } from "react-router";
 import { Field, SmartLink } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
+import { useErrorSummary } from "~/components/ErrorSummary";
 import portal from "~/data/generated/portal.json";
 import type { PortalStudent } from "~/data/types";
 import { PortalPage } from "./_PortalPage";
@@ -23,8 +24,12 @@ export default function ProfilePage() {
   const stored = portalStore.use().profile;
   const v: ProfilePrefs = stored ?? { chosen: s.preferredName, pronouns: "", phone: "", email: s.email, emergency: "Elena Alvarez", emergencyPhone: "(707) 555-0143", alerts: "Yes" };
   // Saved values live in ./_store: they survive navigation between portal pages and reset on reload.
+  // Fixed required fields come with our error summary instead of the browser's bubbles (plan 14 §6).
+  const reqFixed = useScenario("portal-profile-required-color-001");
+  const { check, summary } = useErrorSummary();
   const save = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (reqFixed && !check(e.currentTarget)) return;
     const data = Object.fromEntries(new FormData(e.currentTarget)) as unknown as ProfilePrefs;
     updatePortal({ profile: { ...v, ...data } });
     setSaved(true);
@@ -60,7 +65,8 @@ export default function ProfilePage() {
       <section className="pt-card" aria-labelledby="pf-prefs">
         <h2 id="pf-prefs">Preferences</h2>
         <p>Your chosen name will appear on class rosters and in RedwoodConnect.</p>
-        <form className="pt-form" onSubmit={save} onChange={() => setSaved(false)}>
+        <form className="pt-form" onSubmit={save} onChange={() => setSaved(false)} noValidate={reqFixed}>
+          {reqFixed && summary}
           <Field scenario="portal-profile-for-mismatch-001" id="pf-chosen" label="Chosen first name" defect="for-mismatch" name="chosen" defaultValue={v.chosen} autoComplete="given-name" />
           <Pronouns value={v.pronouns} />
           <Field scenario="portal-profile-phone-placeholder-001" id="pf-phone" label="Mobile phone" defect="placeholder" type="tel" name="phone" defaultValue={v.phone} autoComplete="tel" />

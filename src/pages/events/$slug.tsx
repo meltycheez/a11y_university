@@ -1,5 +1,6 @@
 // EventPage (/events/:slug): vendor calendar event detail, with the registration form (plan 06 #6) on events
 // whose registration is still open.
+import { ErrorSummary } from "~/components/ErrorSummary";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { Heading, SmartLink } from "~/a11y/helpers";
@@ -131,6 +132,7 @@ function RegistrationForm({ event, options }: { event: EventDetail; options: Reg
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
+  const [attempt, setAttempt] = useState(0);
   const [busy, setBusy] = useState(false);
   const [code, setCode] = useState<string | null>(null);
   const confirmRef = useRef<HTMLDivElement>(null);
@@ -147,7 +149,7 @@ function RegistrationForm({ event, options }: { event: EventDetail; options: Reg
     if (!EMAIL.test(email.trim())) next.email = errorsFixed ? "Enter an email address in the format name@example.com." : "Invalid input";
     setErrors(next);
     if (next.name || next.email) {
-      if (errorsFixed) document.getElementById(`${id}-${next.name ? "name" : "email"}`)?.focus();
+      if (errorsFixed) setAttempt((n) => n + 1); // the error summary takes focus (plan 14 §6)
       return;
     }
     setBusy(true);
@@ -186,6 +188,8 @@ function RegistrationForm({ event, options }: { event: EventDetail; options: Reg
       </div>
       {!code && (
         <form className="evd-form" noValidate onSubmit={submit} data-a11y-scenario="events-reg-required-001 events-reg-errors-001">
+          {errorsFixed && <ErrorSummary attempt={attempt} errors={(["name", "email"] as const).filter((f) => errors[f])
+            .map((f) => ({ id: `${id}-${f}`, label: f === "name" ? "Full name" : "Email", message: errors[f]! }))} />}
           <fieldset className="evd-choice">
             <legend>Registration option</legend>
             {options.map((o) => (

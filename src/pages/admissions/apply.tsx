@@ -3,6 +3,7 @@
 // Data lives in a module store: it survives client-side navigation and resets on reload. Nothing is sent.
 // Scenarios: src/a11y/registry/apply.ts. CSS: styles/features/apply.css.
 // Also the screen reader CTF (plan 11 §5): during a run the referral code is required and success shows the flag.
+import { focusField } from "~/components/ErrorSummary";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { applyScenarios } from "~/a11y/registry/apply";
 import { Hero } from "~/components/Hero";
@@ -436,7 +437,7 @@ export default function ApplyPage() {
                 {announce && errors.length > 0 && (
                   <>
                     <p className="apply-summary-title">Form errors ({errors.length}): Select a link to go to the field with the error.</p>
-                    <ul>{errors.map((e) => <li key={e.field}><a href={`#${e.field}`}>{errText(e)}</a></li>)}</ul>
+                    <ul>{errors.map((e) => <li key={e.field}><a href={`#${e.field}`} onClick={focusField}>{errText(e)}</a></li>)}</ul>
                   </>
                 )}
                 {!announce && errors.length > 0 && (

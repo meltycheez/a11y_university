@@ -4,6 +4,7 @@ import { useScenario } from "~/a11y/useScenario";
 import { Button } from "~/components/Button";
 import { Callout } from "~/components/Callout";
 import { DataTable } from "~/components/DataTable";
+import { useErrorSummary } from "~/components/ErrorSummary";
 import { Hero } from "~/components/Hero";
 import { AnyLink, ContactCard } from "~/components/blocks";
 import { copyFor } from "./about/_Copy";
@@ -67,6 +68,7 @@ function ContactForm() {
   const statusFixed = useScenario("about-contact-sent-status-001");
   const messageLabelFixed = useScenario("about-contact-message-label-001");
   const req = (label: string) => (requiredFixed ? `${label} (required)` : label);
+  const { check, summary } = useErrorSummary();
 
   const radios = ["Email", "Phone"].map((r) => (
     <label key={r} className="radio">
@@ -82,8 +84,11 @@ function ContactForm() {
       </p>
       <form
         className={`contact-form${requiredFixed ? "" : " contact-form--color-required"}`}
-        onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+        // Fixed: our own error summary instead of the browser's one-at-a-time bubbles (plan 14 §6).
+        noValidate={requiredFixed}
+        onSubmit={(e) => { e.preventDefault(); if (!requiredFixed || check(e.currentTarget)) setSent(true); }}
       >
+        {requiredFixed && summary}
         <Field scenario="about-contact-name-placeholder-001" id="contact-name" label={req("Your name")} defect="placeholder" name="name" autoComplete="name" required className="field--required" />
         <Field scenario="about-contact-email-label-001" id="contact-email" label={req("Email address")} defect="missing" name="email" type="email" autoComplete="email" required className="field--required" />
 

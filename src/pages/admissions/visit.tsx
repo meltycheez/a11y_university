@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useErrorSummary } from "~/components/ErrorSummary";
 import { useSearchParams } from "react-router";
 import { Field, Heading } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
@@ -100,6 +101,9 @@ export default function Visit() {
 function VisitScheduler() {
   const timeFixed = useScenario("visit-time-state-001");
   const guestsFixed = useScenario("visit-guests-select-001");
+  // Our error summary needs real field names, so it comes with the name field's label fix (plan 14 §6).
+  const summaryFixed = useScenario("visit-name-placeholder-001");
+  const { check, summary } = useErrorSummary();
   const [params] = useSearchParams();
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -128,6 +132,7 @@ function VisitScheduler() {
 
   async function confirm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (summaryFixed && !check(e.currentTarget)) return;
     const party = Number(guests);
     setBusy(true);
     await latency(`visit-${date}-${time}`);
@@ -168,7 +173,8 @@ function VisitScheduler() {
       </div>
 
       <Modal open={open} title="Reserve your campus tour" onClose={() => setOpen(false)} scenario="visit-modal-restore-001" defect="no-restore">
-        <form className="visit-form" onSubmit={confirm}>
+        <form className="visit-form" onSubmit={confirm} noValidate={summaryFixed}>
+          {summaryFixed && summary}
           <p className="visit-when"><strong>{when || "Choose a date and time first."}</strong><br />Welcome Center, Founders Hall 110</p>
           <Field scenario="visit-name-placeholder-001" id="visit-name" label="Visitor name" defect="placeholder" required autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} />
           <div className="field">

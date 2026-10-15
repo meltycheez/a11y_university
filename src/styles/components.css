@@ -366,3 +366,16 @@ dialog.modal[open]:not(:modal) { position: fixed; inset: 0; margin: auto; height
 .ctf-btn--icon { display: inline-flex; align-items: center; gap: 0.5rem; }
 .ctf-link-btn { padding: 0; margin-left: 0.4rem; border: 0; background: none; font: inherit; color: #0b4f9c; text-decoration: underline; cursor: pointer; }
 .ctf-link-btn:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
+
+/* ---------- Error summary (components/ErrorSummary.tsx, plan 14 §6) ---------- */
+.error-summary { margin: 0 0 var(--space-3, 1rem); padding: 1rem 1.25rem; border: 3px solid #b42318; border-radius: 6px; background: #fff; color: #1a1a1a; }
+.error-summary:focus { outline: 3px solid #1a5fb4; outline-offset: 3px; }
+.error-summary-title { margin: 0 0 0.5rem; font-size: 1.1rem; line-height: 1.35; color: #b42318; }
+.error-summary ul { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.3rem; }
+.error-summary a { color: #b42318; font-weight: 700; text-decoration: underline; }
+.error-summary a:focus-visible { outline: 3px solid #1a5fb4; outline-offset: 2px; }
+/* A field the summary sent focus to always shows it, even after a mouse click (radios and checkboxes get no
+   :focus-visible from a script after a click, so focus seemed to go nowhere). */
+[aria-invalid="true"]:focus { outline: 3px solid #1a5fb4; outline-offset: 2px; }
+/* A radio is small: outline its whole question too while focus is in it. */
+fieldset:has(> label > [aria-invalid="true"]:focus, [aria-invalid="true"]:focus) { outline: 3px solid #1a5fb4; outline-offset: 6px; border-radius: 4px; }

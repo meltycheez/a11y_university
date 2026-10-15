@@ -3,6 +3,7 @@
 // no alternative, href="#" links (ADR-031), a silent 5-minute session. It still works with a mouse and ends in an
 // on-page confirmation; nothing is sent. Scenarios: src/a11y/registry/legacy-aid.ts. CSS: styles/features/legacy-aid.css.
 // The page title comes from ScenarioTitle (legacy-aid-page-title-001), not meta() (ADR-008).
+import { focusField } from "~/components/ErrorSummary";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { ScenarioTitle } from "~/a11y/DocumentScenarios";
 import { SmartLink } from "~/a11y/helpers";
@@ -146,7 +147,8 @@ export default function LegacyAidPage() {
     </>
   );
   const input = (id: string, tab: number, props: React.InputHTMLAttributes<HTMLInputElement> = {}) => (
-    <input id={id} name={id} value={d[id] ?? ""} onChange={(e) => set(id, e.target.value)} className="legacy-input" {...ti(tab)} {...props} />
+    <input id={id} name={id} value={d[id] ?? ""} onChange={(e) => set(id, e.target.value)} className="legacy-input" {...ti(tab)}
+      aria-invalid={fix("errors-vague") && errors.some((x) => x.field === id) ? true : undefined} {...props} />
   );
   const section = (title: string) => (
     <LR><LC colSpan={2} className="legacy-section">{fix("section-headings") ? <h2>{title}</h2> : <b>{title.toUpperCase()}</b>}</LC></LR>
@@ -193,7 +195,7 @@ export default function LegacyAidPage() {
       <div ref={errorBox} className="legacy-errors" tabIndex={fix("errors-not-announced") ? -1 : undefined} role={fix("errors-not-announced") ? "alert" : undefined}
         {...mark("errors-vague", "errors-not-announced")}>
         {errors.length > 0 && (fix("errors-vague")
-          ? <><b>Form errors ({errors.length}): Select a link to go to the field with the error.</b><ul>{errors.map((x) => <li key={x.field}><a href={`#${x.field}`}>{x.message}</a></li>)}</ul></>
+          ? <><b>Form errors ({errors.length}): Select a link to go to the field with the error.</b><ul>{errors.map((x) => <li key={x.field}><a href={`#${x.field}`} onClick={focusField}>{x.message}</a></li>)}</ul></>
           : <b>ERROR: Invalid input. Please check the form and try again.</b>)}
       </div>
       <p style={small}>{reqFixed ? "Fields marked (required) must be completed." : <>Items in <span style={{ color: "#cc0000" }}>red</span> are required.</>}</p>

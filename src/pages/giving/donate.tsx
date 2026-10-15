@@ -1,6 +1,7 @@
 // /giving/donate: Donation Form, one of the six terrible pages (plan 06 #7, plan 07; tier T).
 // Everything stays on this page: the card fields are checked for format only, never against real card rules,
 // and nothing is transmitted. Scenarios: src/a11y/registry/donate.ts. CSS: styles/features/donate.css.
+import { focusField } from "~/components/ErrorSummary";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import { Field, IconButton, SmartLink } from "~/a11y/helpers";
@@ -188,7 +189,7 @@ export default function DonatePage() {
             <p className="donate-errors-title">{summaryFixed ? `Form errors (${errors.length}): Select a link to go to the field with the error.` : "Please correct the following errors:"}</p>
             <ul>
               {errors.map((e) => (
-                <li key={e.field}>{summaryFixed ? <a href={`#${e.field}`}>{errMsg(e)}</a> : errMsg(e)}</li>
+                <li key={e.field}>{summaryFixed ? <a href={`#${e.field}`} onClick={focusField}>{errMsg(e)}</a> : errMsg(e)}</li>
               ))}
             </ul>
           </>
