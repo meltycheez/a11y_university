@@ -37,3 +37,18 @@ for (const [path, form, send, first] of [
     expect(axe.violations.map((v) => v.id)).toEqual([]);
   });
 }
+
+// With no fixes on, the same forms still validate, only inaccessibly (color only): an empty submit never "succeeds".
+for (const [path, form, send, success, prep] of [
+  ["/admissions/request-info", "form.adm-form", "Send me information", ".adm-form-thanks", null],
+  ["/portal/profile", "form.pt-form", "Save preferences", ".pt-saved", ["#pf-email", "#pf-emergency"]],
+] as const) {
+  test(`defective ${path}: an empty submit shows the red fields, not success`, async ({ page }) => {
+    await page.goto(path);
+    for (const id of prep ?? []) await page.locator(id).fill("");
+    await page.locator(form).getByRole("button", { name: send }).click();
+    await expect(page.locator(`${form} :is(.adm-form-error, .pt-form-error)`)).toHaveText("Please fill in the fields in red.");
+    expect(await page.locator(`${form} [data-error]`).count()).toBeGreaterThan(0);
+    await expect(page.locator(success).filter({ hasText: /\S/ })).toHaveCount(0); // no success message
+  });
+}

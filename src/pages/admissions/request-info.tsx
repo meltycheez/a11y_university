@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { Field } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
-import { showFresh, useErrorSummary } from "~/components/ErrorSummary";
+import { colorOnlyErrors, showFresh, useErrorSummary } from "~/components/ErrorSummary";
 import { Hero } from "~/components/Hero";
 import { Callout } from "~/components/Callout";
 import { ContactCard } from "~/components/blocks";
@@ -39,38 +39,44 @@ export default function RequestInfo() {
   const tabFixed = useScenario("adm-reqinfo-tab-order-001");
   const { card, countdown, cardClass } = useBlindRun<HTMLFormElement>("reqinfo-sr", ".adm-form :is(input, select, textarea)");
   const [ctfNote, setCtfNote] = useState("");
+  const [colorError, setColorError] = useState("");
   const form = useRef<HTMLFormElement>(null);
 
   const { check, summary, clear } = useErrorSummary();
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Fixed: our error summary at the top of the form, instead of the browser's one-at-a-time bubbles (plan 14 §6).
+    const d = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    const wrong = [
+      !d.first?.trim() && "first name", !d.last?.trim() && "last name", !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email ?? "") && "email",
+      !d["student-type"] && "I am a", !d.term && "start term", !d.interest && "area of interest", // any answer, just not left unselected
+    ].filter(Boolean);
+    const running = isRunning("reqinfo-sr");
+    // Fixed: our error summary at the top of the form (plan 14 §6). Defective (adm-reqinfo-required-color-001): the
+    // same check, but the bad fields only turn red and a red line says so, with nothing announced.
     if (reqFixed && !check(e.currentTarget)) { setCtfNote(""); return; }
-    if (isRunning("reqinfo-sr")) {
-      const d = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
-      const wrong = [
-        !d.first?.trim() && "first name", !d.last?.trim() && "last name", !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email ?? "") && "email",
-        !d["student-type"] && "I am a", !d.term && "start term", !d.interest && "area of interest", // any answer, just not left unselected
-      ].filter(Boolean);
-      if (wrong.length) { showFresh(setCtfNote, "", `Challenge not complete yet: check ${wrong.join(", ")}.`); return; }
-      setCtfNote("");
-      revealFlag("reqinfo-sr", [d.first, d.last, d.email]); // the challenge bar shows the results
-    } else showFresh(setCtfNote, "", notRunningNote("reqinfo-sr"));
+    if (!reqFixed && colorOnlyErrors(e.currentTarget)) showFresh(setColorError, "", "Please fill in the fields in red.");
+    else setColorError("");
+    // During a run, the challenge's own note names what's missing (the page's errors are color only).
+    if (running && wrong.length) { showFresh(setCtfNote, "", reqFixed ? "" : `Challenge not complete yet: check ${wrong.join(", ")}.`); return; }
+    if (wrong.length) return;
+    if (running) { setCtfNote(""); revealFlag("reqinfo-sr", [d.first, d.last, d.email]); } // the challenge bar shows the results
+    else showFresh(setCtfNote, "", notRunningNote("reqinfo-sr"));
     setSent(true);
   };
   const reset = () => {
     form.current?.reset();
-    form.current?.querySelectorAll("[aria-invalid]").forEach((el) => el.removeAttribute("aria-invalid"));
-    setSent(false); setCtfNote(""); clear();
+    form.current?.querySelectorAll("[aria-invalid], [data-error]").forEach((el) => { el.removeAttribute("aria-invalid"); el.removeAttribute("data-error"); });
+    setSent(false); setCtfNote(""); setColorError(""); clear();
   };
   const req = (label: string) => (reqFixed ? `${label} (required)` : label);
-  const reqProps = { className: "is-required", required: reqFixed, "data-a11y-scenario": "adm-reqinfo-required-color-001" };
+  // data-required: checked (by color only) while defective, when the real `required` isn't there yet.
+  const reqProps = { className: "is-required", required: reqFixed, "data-required": true, "data-a11y-scenario": "adm-reqinfo-required-color-001" };
 
   // Every question starts unanswered: no radio checked, each list on an empty "Select one".
   // The first button has an id so the error summary can link to the group.
   const radios = TYPES.map((t, i) => (
-    <label key={t} className="adm-radio"><input type="radio" id={i ? undefined : "ri-type"} name="student-type" value={t} required={reqFixed} /> {t}</label>
+    <label key={t} className="adm-radio"><input type="radio" id={i ? undefined : "ri-type"} name="student-type" value={t} required={reqFixed} data-required /> {t}</label>
   ));
   const pick = <option value="">Select one</option>;
 
@@ -96,6 +102,7 @@ export default function RequestInfo() {
           >
             {reqFixed && summary}
             {!reqFixed && <p className="adm-form-note">Fields in red are required.</p>}
+            {!reqFixed && colorError && <p className="adm-form-error">{colorError}</p>}
             <div className="adm-form-row">
               <Field scenario="adm-reqinfo-name-placeholder-001" defect="placeholder" id="ri-first" name="first" label={req("First name")} autoComplete="given-name" {...reqProps} />
               <Field scenario="adm-reqinfo-name-placeholder-001" defect="placeholder" id="ri-last" name="last" label={req("Last name")} autoComplete="family-name" {...reqProps} />
@@ -120,11 +127,11 @@ export default function RequestInfo() {
 
             <div className="field is-required" data-a11y-scenario="adm-reqinfo-term-select-001">
               {termFixed ? <label htmlFor="ri-term">{req("When do you plan to start?")}</label> : <span className="field-label">When do you plan to start?</span>}
-              <select id="ri-term" name="term" required={reqFixed}>{pick}{TERMS.map((t) => <option key={t}>{t}</option>)}</select>
+              <select id="ri-term" name="term" required={reqFixed} data-required>{pick}{TERMS.map((t) => <option key={t}>{t}</option>)}</select>
             </div>
             <div className="field is-required">
               <label htmlFor="ri-interest">{req("Area of interest")}</label>
-              <select id="ri-interest" name="interest" required={reqFixed}>{pick}{INTERESTS.map((t) => <option key={t}>{t}</option>)}</select>
+              <select id="ri-interest" name="interest" required={reqFixed} data-required>{pick}{INTERESTS.map((t) => <option key={t}>{t}</option>)}</select>
             </div>
             <button type="submit" className="btn btn--primary">Send me information</button>
             <div role={statusFixed ? "status" : undefined} data-a11y-scenario="adm-reqinfo-status-001">

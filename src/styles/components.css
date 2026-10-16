@@ -380,3 +380,7 @@ dialog.modal[open]:not(:modal) { position: fixed; inset: 0; margin: auto; height
 [aria-invalid="true"]:focus { outline: 3px solid #1a5fb4; outline-offset: 2px; }
 /* A radio is small: outline its whole question too while focus is in it. */
 fieldset:has(> label > [aria-invalid="true"]:focus, [aria-invalid="true"]:focus) { outline: 3px solid #1a5fb4; outline-offset: 6px; border-radius: 4px; }
+/* Defective forms' errors (colorOnlyErrors): red borders and a red line, color only on purpose. */
+.adm-form :is(input, select, textarea)[data-error]:not([type="radio"]), .pt-form :is(input, select, textarea)[data-error]:not([type="radio"]) { border-color: #b42318; border-width: 2px; background: #fdf1ef; }
+.adm-form input[type="radio"][data-error] { outline: 2px solid #b42318; outline-offset: 1px; }
+.adm-form-error, .pt-form-error { margin: 0; color: #b42318; font-weight: 600; }

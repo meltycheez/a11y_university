@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useLoaderData } from "react-router";
 import { Field, SmartLink } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
-import { useErrorSummary } from "~/components/ErrorSummary";
+import { colorOnlyErrors, showFresh, useErrorSummary } from "~/components/ErrorSummary";
 import portal from "~/data/generated/portal.json";
 import type { PortalStudent } from "~/data/types";
 import { PortalPage } from "./_PortalPage";
@@ -27,9 +27,13 @@ export default function ProfilePage() {
   // Fixed required fields come with our error summary instead of the browser's bubbles (plan 14 §6).
   const reqFixed = useScenario("portal-profile-required-color-001");
   const { check, summary } = useErrorSummary();
+  const [colorError, setColorError] = useState("");
   const save = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (reqFixed && !check(e.currentTarget)) return;
+    // Defective (portal-profile-required-color-001): the same check, shown by color only and never announced.
+    if (!reqFixed && colorOnlyErrors(e.currentTarget)) { showFresh(setColorError, "", "Please fill in the fields in red."); return; }
+    setColorError("");
     const data = Object.fromEntries(new FormData(e.currentTarget)) as unknown as ProfilePrefs;
     updatePortal({ profile: { ...v, ...data } });
     setSaved(true);
@@ -67,6 +71,7 @@ export default function ProfilePage() {
         <p>Your chosen name will appear on class rosters and in RedwoodConnect.</p>
         <form className="pt-form" onSubmit={save} onChange={() => setSaved(false)} noValidate={reqFixed}>
           {reqFixed && summary}
+          {!reqFixed && colorError && <p className="pt-form-error">{colorError}</p>}
           <Field scenario="portal-profile-for-mismatch-001" id="pf-chosen" label="Chosen first name" defect="for-mismatch" name="chosen" defaultValue={v.chosen} autoComplete="given-name" />
           <Pronouns value={v.pronouns} />
           <Field scenario="portal-profile-phone-placeholder-001" id="pf-phone" label="Mobile phone" defect="placeholder" type="tel" name="phone" defaultValue={v.phone} autoComplete="tel" />
@@ -108,7 +113,7 @@ function RequiredFields({ v }: { v: ProfilePrefs }) {
       {fields.map((f) => (
         <div className="field" key={f.id}>
           <label htmlFor={f.id} className="pt-required">{f.label}{fixed && " (required)"}</label>
-          <input id={f.id} name={f.name} type={f.type} defaultValue={f.value} autoComplete={f.auto} required={fixed} />
+          <input id={f.id} name={f.name} type={f.type} defaultValue={f.value} autoComplete={f.auto} required={fixed} data-required />
         </div>
       ))}
     </div>

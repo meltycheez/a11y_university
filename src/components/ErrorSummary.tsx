@@ -62,6 +62,27 @@ export function formErrors(form: HTMLFormElement): FieldError[] {
   return errors.filter((e) => e.id); // a field the summary can't link to would be a dead link
 }
 
+/**
+ * The defective counterpart (a form whose required fields are shown by color only): the same check, shown the same
+ * inaccessible way. Marks each empty field (`required` or `data-required`) with `data-error`, a red border and nothing
+ * for a screen reader, and returns how many need fixing. Fixed forms use `useErrorSummary` instead.
+ */
+export function colorOnlyErrors(form: HTMLFormElement): number {
+  const groups = new Set<string>();
+  let count = 0;
+  for (const el of [...form.elements] as Control[]) {
+    if (!("validity" in el) || el.disabled) continue;
+    const wanted = el.required || el.hasAttribute("data-required");
+    const empty = el.type === "radio" ? !form.querySelector(`input[name="${el.name}"]:checked`)
+      : el.type === "email" ? !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()) : !el.value.trim();
+    const bad = wanted && empty;
+    el.toggleAttribute("data-error", bad);
+    if (bad && !(el.type === "radio" && groups.has(el.name))) count++;
+    if (el.type === "radio") groups.add(el.name);
+  }
+  return count;
+}
+
 /** `attempt` goes up on each failed submit: the summary takes focus each time, even if the errors are the same. */
 export function ErrorSummary({ errors, attempt }: { errors: FieldError[]; attempt: number }) {
   const box = useRef<HTMLDivElement>(null);
