@@ -138,14 +138,15 @@ describe("event registration", () => {
     fireEvent.click(c.querySelectorAll("span.evd-step")[1]);
     expect(c.querySelector(".evd-count")!.textContent).toBe("2");
     fireEvent.submit(form);
-    expect(c.querySelectorAll(".evd-error")[0].textContent).toBe("Invalid input");
+    await waitFor(() => expect(c.querySelectorAll(".evd-error")[0].textContent).toBe("Invalid input")); // shown a beat after a clear
 
     act(() => a11yStore.fixAll());
     expect(c.querySelector('button[aria-label="Add one attendee"]')).not.toBeNull();
     expect(c.querySelector<HTMLInputElement>("#reg-fall-choral-concert-count")!.value).toBe("2");
     fireEvent.submit(form);
     const nameInput = c.querySelector("#reg-fall-choral-concert-name")!;
-    expect(nameInput.getAttribute("aria-invalid")).toBe("true");
+    await waitFor(() => expect(nameInput.getAttribute("aria-invalid")).toBe("true"));
+    expect(document.activeElement?.classList.contains("error-summary")).toBe(true); // the summary takes focus
     expect(document.getElementById(nameInput.getAttribute("aria-describedby")!)!.textContent).toMatch(/Enter the name/);
     expect(nameInput.getAttribute("aria-required")).toBe("true");
 

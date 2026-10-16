@@ -1,6 +1,6 @@
 // EventPage (/events/:slug): vendor calendar event detail, with the registration form (plan 06 #6) on events
 // whose registration is still open.
-import { ErrorSummary } from "~/components/ErrorSummary";
+import { ErrorSummary, FRESH_MS } from "~/components/ErrorSummary";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { Heading, SmartLink } from "~/a11y/helpers";
@@ -147,11 +147,13 @@ function RegistrationForm({ event, options }: { event: EventDetail; options: Reg
     const next: typeof errors = {};
     if (!name.trim()) next.name = errorsFixed ? "Enter the name of the person registering." : "Invalid input";
     if (!EMAIL.test(email.trim())) next.email = errorsFixed ? "Enter an email address in the format name@example.com." : "Invalid input";
-    setErrors(next);
     if (next.name || next.email) {
-      if (errorsFixed) setAttempt((n) => n + 1); // the error summary takes focus (plan 14 §6)
+      // Cleared first, then shown again: a repeat submit refreshes the summary, which takes focus (plan 14 §6).
+      setErrors({});
+      setTimeout(() => { setErrors(next); if (errorsFixed) setAttempt((n) => n + 1); }, FRESH_MS);
       return;
     }
+    setErrors(next);
     setBusy(true);
     await latency(`register-${event.slug}`);
     setBusy(false);

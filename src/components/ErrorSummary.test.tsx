@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, expect, it } from "vitest";
 import { useErrorSummary } from "./ErrorSummary";
 
@@ -22,12 +22,12 @@ function Form() {
   );
 }
 
-it("lists each invalid field by name with the reason, takes focus, and its links focus the fields (plan 14 §6)", () => {
+it("lists each invalid field by name with the reason, takes focus, and its links focus the fields (plan 14 §6)", async () => {
   render(<Form />);
   expect(screen.queryByRole("alert")).toBeNull(); // nothing until a submit fails
   fireEvent.click(screen.getByRole("button", { name: "Send" }));
-  const summary = screen.getByRole("alert");
-  expect(document.activeElement).toBe(summary);
+  const summary = await screen.findByRole("alert");
+  await waitFor(() => expect(document.activeElement).toBe(summary));
   expect(screen.getByRole("heading", { name: "Form errors (4): Select a link to go to the field with the error." })).toBeTruthy();
   expect([...summary.querySelectorAll("li")].map((li) => li.textContent)).toEqual([
     "First name: Enter your first name.",
@@ -48,4 +48,16 @@ it("lists each invalid field by name with the reason, takes focus, and its links
   fireEvent.click(screen.getByRole("button", { name: "Send" }));
   expect(screen.queryByRole("alert")).toBeNull();
   expect(screen.getByLabelText("First name (required)").hasAttribute("aria-invalid")).toBe(false);
+});
+
+it("a repeat submit clears the summary, then shows it again and takes focus again", async () => {
+  render(<Form />);
+  const send = screen.getByRole("button", { name: "Send" });
+  fireEvent.click(send);
+  await screen.findByRole("alert");
+  send.focus();
+  fireEvent.click(send);
+  expect(screen.queryByRole("alert")).toBeNull(); // cleared at once
+  const again = await screen.findByRole("alert"); // then back, so it's read again
+  await waitFor(() => expect(document.activeElement).toBe(again));
 });

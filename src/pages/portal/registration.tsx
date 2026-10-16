@@ -135,6 +135,7 @@ export default function RegistrationPage() {
     regStore.set((st) => ({ ...st, ctfNote: "", cart: [...st.cart.filter((c) => !order.includes(c)), ...order] }));
   };
   const register = async () => {
+    regStore.set((st) => ({ ...st, ctfNote: "" })); // cleared first, so a repeat message shows (and is read) again
     setProcessing(true);
     await latency(`reg-submit-${cart.map((s) => s.crn).join("-")}`);
     // During the CTF, a cart that can't complete the task isn't registered at all: it stays as it is so the player

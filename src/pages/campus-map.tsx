@@ -2,6 +2,7 @@
 // layer chips, a detail panel, zoom and pan. The widget looks like a vendor map dropped into the flagship template.
 // 37 scenarios live in a11y/registry/campus-map.ts; CSS defects and fixes in styles/features/campus-map.css.
 // Also the head pointer CTF (plan 11 §7, plan 12): find Hawthorne Observatory, read its code (tooltip or details panel), check in.
+import { showFresh } from "~/components/ErrorSummary";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { Field, IconButton, SmartLink } from "~/a11y/helpers";
@@ -183,10 +184,10 @@ function CheckIn({ value, setValue }: { value: string; setValue: (v: string) => 
   const [message, setMessage] = useState("");
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (value.replace(/\D/g, "") !== OBSERVATORY_CODE) { setMessage("That code doesn't match. The after-hours code is in Hawthorne Observatory's details: select it on the map or search for OBS."); return; }
+    if (value.replace(/\D/g, "") !== OBSERVATORY_CODE) { showFresh(setMessage, "", "That code doesn't match. The after-hours code is in Hawthorne Observatory's details: select it on the map or search for OBS."); return; }
     const note = notRunningNote("map-eyes");
     revealFlag("map-eyes", [OBSERVATORY_CODE]);
-    setMessage(`Checked in at Hawthorne Observatory.${note ? ` ${note}` : ""}`);
+    showFresh(setMessage, "", `Checked in at Hawthorne Observatory.${note ? ` ${note}` : ""}`);
   };
   return (
     <form className="cmap-checkin" onSubmit={submit} noValidate>

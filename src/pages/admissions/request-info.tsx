@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { Field } from "~/a11y/helpers";
 import { useScenario } from "~/a11y/useScenario";
-import { useErrorSummary } from "~/components/ErrorSummary";
+import { showFresh, useErrorSummary } from "~/components/ErrorSummary";
 import { Hero } from "~/components/Hero";
 import { Callout } from "~/components/Callout";
 import { ContactCard } from "~/components/blocks";
@@ -53,10 +53,10 @@ export default function RequestInfo() {
         !d.first?.trim() && "first name", !d.last?.trim() && "last name", !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email ?? "") && "email",
         !d["student-type"] && "I am a", !d.term && "start term", !d.interest && "area of interest", // any answer, just not left unselected
       ].filter(Boolean);
-      if (wrong.length) { setCtfNote(`Challenge not complete yet: check ${wrong.join(", ")}.`); return; }
+      if (wrong.length) { showFresh(setCtfNote, "", `Challenge not complete yet: check ${wrong.join(", ")}.`); return; }
       setCtfNote("");
       revealFlag("reqinfo-sr", [d.first, d.last, d.email]); // the challenge bar shows the results
-    } else setCtfNote(notRunningNote("reqinfo-sr"));
+    } else showFresh(setCtfNote, "", notRunningNote("reqinfo-sr"));
     setSent(true);
   };
   const reset = () => {

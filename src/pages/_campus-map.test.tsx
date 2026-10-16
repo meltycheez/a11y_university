@@ -1,6 +1,6 @@
 // /campus-map: every registered scenario renders its marker in the default (prerendered) state, the defects are
 // real in the DOM, and the Fix toggles switch to the accessible map.
-import { act, cleanup, fireEvent, render } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router";
 import { afterEach, expect, it, vi } from "vitest";
 import { campusMapScenarios } from "~/a11y/registry/campus-map";
@@ -116,11 +116,11 @@ it("finds a building by name or code", () => {
   expect(c.querySelector(".cmap-search-msg")!.textContent).toContain("No building matches");
 });
 
-it("checking in without starting the challenge says it didn't count (plan 14 §5a)", () => {
+it("checking in without starting the challenge says it didn't count (plan 14 §5a)", async () => {
   const c = renderMap();
   fireEvent.change(c.querySelector("#cmap-checkin-code")!, { target: { value: "7731" } });
   fireEvent.submit(c.querySelector(".cmap-checkin")!);
-  expect(c.querySelector(".cmap-checkin-msg")!.textContent).toMatch(/^Checked in at Hawthorne Observatory\. This didn't count for the Pope Tech Challenge because the challenge isn't running\./);
+  await waitFor(() => expect(c.querySelector(".cmap-checkin-msg")!.textContent).toMatch(/^Checked in at Hawthorne Observatory\. This didn't count for the Pope Tech Challenge because the challenge isn't running\./));
   expect(ctfStore.get().result).toBeNull();
 });
 

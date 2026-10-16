@@ -19,6 +19,16 @@ export function focusField(e: React.MouseEvent<HTMLAnchorElement>) {
 }
 const FOCUSABLE = "input:not([type=hidden]), select, textarea, button, [tabindex]:not([tabindex='-1'])";
 
+/**
+ * Clears a message, then shows the new one a moment later. A repeat submit then visibly refreshes it, and screen
+ * readers read it again: an alert or status whose text doesn't change isn't announced twice.
+ */
+export function showFresh<T>(set: (v: T) => void, empty: T, value: T) {
+  set(empty);
+  setTimeout(() => set(value), FRESH_MS);
+}
+export const FRESH_MS = 100;
+
 type Control = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 const nameOf = (el: Control) =>
   ((el.type === "radio" || el.type === "checkbox") && el.closest("fieldset")?.querySelector("legend")?.textContent
@@ -77,8 +87,9 @@ export function useErrorSummary() {
   const [attempt, setAttempt] = useState(0);
   const check = (form: HTMLFormElement) => {
     const found = formErrors(form);
-    setErrors(found);
-    if (found.length) setAttempt((n) => n + 1);
+    // Every submit clears the old summary first, then shows what's still wrong (and takes focus again).
+    setErrors([]);
+    if (found.length) setTimeout(() => { setErrors(found); setAttempt((n) => n + 1); }, FRESH_MS);
     return !found.length;
   };
   return { check, clear: () => setErrors([]), summary: <ErrorSummary errors={errors} attempt={attempt} /> };

@@ -283,13 +283,14 @@ it("request info CTF (booth screen reader): Tab jumps around, wrong answers get 
   const send = () => fireEvent.click(screen.getByRole("button", { name: "Send me information" }));
   type("ri-first", "Ada"); type("ri-last", "Quill"); type("ri-email", "ada@example.com");
   send();
-  expect(screen.getByRole("alert").textContent).toBe("Challenge not complete yet: check I am a, start term, area of interest.");
+  await waitFor(() => expect(screen.getByRole("alert").textContent).toBe("Challenge not complete yet: check I am a, start term, area of interest."));
   expect(screen.getAllByRole("radio").some((r) => (r as HTMLInputElement).checked)).toBe(false); // every question starts unselected
   expect((document.getElementById("ri-term") as HTMLSelectElement).value).toBe("");
   fireEvent.click(screen.getByRole("radio", { name: "Graduate student" })); // any answer will do
   fireEvent.change(document.getElementById("ri-term")!, { target: { value: "Fall 2028" } });
   send();
-  expect(screen.getByRole("alert").textContent).toBe("Challenge not complete yet: check area of interest.");
+  expect(screen.getByRole("alert").textContent).toBe(""); // cleared at once, so the next note is read again
+  await waitFor(() => expect(screen.getByRole("alert").textContent).toBe("Challenge not complete yet: check area of interest."));
   fireEvent.change(document.getElementById("ri-interest")!, { target: { value: "Business" } });
   send();
   await waitFor(() => expect(ctfStore.get().result?.flag).toMatch(/^RSU\{reqinfo-sr-[0-9a-f]{8}\}$/));

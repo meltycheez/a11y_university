@@ -147,7 +147,8 @@
 .ctf-error { color: #b00020; font-weight: 700; font-size: 0.85rem; }
 .ctf-btn { min-height: 2.5rem; padding: 0.45rem 0.9rem; font: 700 0.9rem/1.2 system-ui, -apple-system, "Segoe UI", sans-serif; color: #fff; background: #123342; border: 2px solid #123342; border-radius: 6px; cursor: pointer; }
 /* Hover is obvious in every browser (plan 13 §3: Safari testers saw no change): underline plus a darker fill. */
-.ctf-btn:hover { background: #0a1f29; border-color: #0a1f29; text-decoration: underline; text-underline-offset: 0.2em; }
+/* color: a link styled as a button keeps white text (the global a:hover color is maroon on this navy). */
+.ctf-btn:hover { color: #fff; background: #0a1f29; border-color: #0a1f29; text-decoration: underline; text-underline-offset: 0.2em; }
 .ctf-btn--quiet { color: #123342; background: #fff; }
 a.ctf-btn { display: inline-flex; align-items: center; text-decoration: none; }
 .ctf-btn--quiet:hover { background: #dce6eb; border-color: #0a1f29; color: #0a1f29; }
