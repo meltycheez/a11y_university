@@ -57,6 +57,7 @@ Every route is prerendered to its own static HTML file, so no host-side routing 
 | **Vercel** | `vercel.json` at the repo root sets the build command and `build/client` as the output directory. |
 | **GitHub Pages** | `.github/workflows/deploy-pages.yml` builds with `BASE_PATH=/a11y_university/` and deploys `build/client` on every push to `main` (or manually via workflow dispatch). |
 
-`public/robots.txt` and a `<meta name="robots" content="noindex">` on every page keep search engines from
-indexing the site — it should never be mistaken for a real university. The footer also carries a plain-text
+A `<meta name="robots" content="noindex">` on every page keeps search engines from indexing the site — it should
+never be mistaken for a real university. `public/robots.txt` allows all crawling, and the meta tag has no `nofollow`,
+so site scanners such as the Pope Tech crawler can reach every page. The footer also carries a plain-text
 "fictional institution / accessibility testing fixture" notice.

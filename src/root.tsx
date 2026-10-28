@@ -31,7 +31,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="robots" content="noindex, nofollow" />
+        {/* noindex: never mistaken for a real university in search results. No nofollow, so site crawlers (the
+            Pope Tech scanner) can follow links to every page. */}
+        <meta name="robots" content="noindex" />
         <Meta />
         <Links />
       </head>
