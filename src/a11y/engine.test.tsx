@@ -6,7 +6,7 @@ import { ChallengeBanner } from "~/ctf/ChallengeBanner";
 import { LeaderboardButton } from "~/ctf/ChallengesPanel";
 import * as board from "~/ctf/leaderboard";
 import { ctfStore } from "~/ctf/store";
-import { PopeTechWidget } from "./PopeTechWidget";
+import { PageHighlights, PopeTechWidget } from "./PopeTechWidget";
 import { scenarios } from "./registry";
 import { rules } from "./rules";
 import { a11yStore } from "./state";
@@ -107,6 +107,7 @@ describe("PopeTechWidget highlights", () => {
         <Img image="home-hero-quad" scenario="home-hero-img-alt-001" />
         <Img image="home-hero-quad" scenario="home-card-img-alt-suspicious-001" />
         <PopeTechWidget />
+        <PageHighlights />{/* drawn by the layout (root.tsx), not the widget */}
       </>,
     );
     fireEvent.click(screen.getByRole("button", { name: "Pope Tech Accessibility Lab" }));

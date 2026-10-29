@@ -88,9 +88,16 @@ export function PopeTechWidget() {
           ]}
         />
       </div>
-      <ScenarioHighlights show={highlight} />
     </aside>
   );
+}
+
+/**
+ * The page's highlight outlines, drawn from the layout (root.tsx) rather than the widget, so the challenge bar's
+ * Highlight checkboxes work on challenge pages, which have no widget (plan 14 §5c).
+ */
+export function PageHighlights() {
+  return <ScenarioHighlights show={highlightStore.use()} />;
 }
 
 // Viewing aid only: module memory like the fix toggles, reset on reload. Shared by the widget and the challenge bar.

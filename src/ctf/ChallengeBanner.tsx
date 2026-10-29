@@ -61,13 +61,22 @@ export function ChallengeBanner({ id, onReset }: { id: ChallengeId; onReset?: ()
   const advanced = c.advanced && (
     <p className="ctf-meta ctf-advanced"><span className="ctf-badge">Advanced</span> Takes about {c.timeLimitMin} minutes. Scores go on this challenge's own leaderboard and don't count toward your overall total.</p>
   );
+  // Outside a run: the page's Fix switches and highlights, free to try (challenge pages have no widget, plan 14 §5c).
+  // Starting a run turns every fix off again.
+  const exploreFixes = (
+    <details className="ctf-rules-more">
+      <summary>Fix switches and highlights</summary>
+      <p>Turn this page's accessibility issues off, or outline them, to explore it. Free outside a challenge run.</p>
+      <div className="ctf-fixes"><FixControls /></div>
+    </details>
+  );
   let content: React.ReactNode;
   if (run && run.id !== id) {
     content = <p>Another challenge is running: <Link to={challengeById.get(run.id)!.path}>{challengeById.get(run.id)!.title}</Link>. Finish or abandon it there first.</p>;
   } else if (run) {
     content = <div className="ctf-banner-body"><Running challenge={c} focusKey={started} onReset={onReset} /></div>;
   } else if (result?.id === id) {
-    content = <>{!result.compare && advanced}<Finished challenge={c} onPlayAgain={playAgain} onTryFixed={tryFixed} onSource={() => setSourceOpen(true)} /></>;
+    content = <>{!result.compare && advanced}<Finished challenge={c} onPlayAgain={playAgain} onTryFixed={tryFixed} onSource={() => setSourceOpen(true)} />{exploreFixes}</>;
   } else if (stage === "closed") {
     content = <>
       <p className="ctf-context">
@@ -82,6 +91,7 @@ export function ChallengeBanner({ id, onReset }: { id: ChallengeId; onReset?: ()
         </button>
         <LeaderboardButton challenge={c.id} />
       </div>
+      {exploreFixes}
     </>;
   } else if (stage === "name") {
     content = <>{advanced}<NameForm

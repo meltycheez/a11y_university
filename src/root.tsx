@@ -1,6 +1,6 @@
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import type { Route } from "./+types/root";
-import { PopeTechWidget } from "./a11y/PopeTechWidget";
+import { PageHighlights, PopeTechWidget } from "./a11y/PopeTechWidget";
 import { HtmlLang } from "./a11y/DocumentScenarios";
 import { useHighlight } from "./a11y/useHighlight";
 import { allChallenges } from "./ctf/challenges";
@@ -41,6 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {!lab && <HtmlLang />}
         {children}
         {!standalone && !CHALLENGE_PAGES.includes(path) && <PopeTechWidget />}
+        {!standalone && <PageHighlights />}
         <ScrollRestoration />
         <Scripts />
       </body>

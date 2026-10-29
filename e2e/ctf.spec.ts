@@ -221,3 +221,27 @@ test("Campus Map: the side panel follows the head pointer design, with 44px targ
     expect((await el.boundingBox())!.height).toBeGreaterThanOrEqual(44);
   expect(await widgetViolations(page, ".ctf-dock"), "map side panel").toEqual([]);
 });
+
+// The page's highlight outlines are drawn by the layout, so the bar's checkboxes work on challenge pages, which have no
+// widget. Outside a run, the bar has the same Fix switches and highlights, free.
+for (const path of ["/admissions/request-info", "/admissions/apply", "/portal/registration", "/campus-map"]) {
+  test(`highlights and Fix switches work from the challenge bar on ${path}`, async ({ page }) => {
+    await page.goto(path);
+    await expect(widget(page)).toHaveCount(0);
+    // Before a run: the bar's collapsed section.
+    await bar(page).locator("summary", { hasText: "Fix switches and highlights" }).click();
+    await bar(page).getByRole("checkbox", { name: "Highlight errors on the page" }).check();
+    await expect(page.locator(".a11y-hl--error").first()).toBeAttached();
+    const fixErrors = bar(page).getByRole("switch", { name: "Fix Errors" });
+    await fixErrors.click();
+    await expect(fixErrors).toHaveAttribute("aria-checked", "true");
+    await expect(page.locator(".a11y-hl--error")).toHaveCount(0); // fixed: nothing left to outline
+    await fixErrors.click();
+    await bar(page).getByRole("checkbox", { name: "Highlight errors on the page" }).uncheck();
+    // During a run: the same, from the running bar.
+    await start(page, `e2e-hl-${path.split("/").pop()}`);
+    await bar(page).getByRole("checkbox", { name: "Highlight errors on the page" }).check();
+    await expect(page.locator(".a11y-hl--error").first()).toBeAttached();
+    await expect(bar(page).getByText("Score: 475 points")).toBeVisible();
+  });
+}
